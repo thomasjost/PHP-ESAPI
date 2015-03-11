@@ -1,0 +1,9 @@
+{
+    "name": "owasp/esapi",
+    "description": "OWASP Enterprise Security API",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
