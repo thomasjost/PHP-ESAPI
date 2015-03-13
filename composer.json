@@ -5,5 +5,8 @@
     "minimum-stability": "stable",
     "require-dev": {
         "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "classmap": ["src", "lib"]
     }
 }
