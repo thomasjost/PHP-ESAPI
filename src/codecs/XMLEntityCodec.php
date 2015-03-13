@@ -23,13 +23,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * XMLEntityCodec extends Codec.
- */
-require_once dirname(__FILE__) . '/Codec.php';
-
-
 /**
  * Extension of the abstract class Codec for XML entity encoding.
  *

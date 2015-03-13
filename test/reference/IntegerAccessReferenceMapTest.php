@@ -16,8 +16,6 @@
  * @since 1.6
  */
  
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/reference/IntegerAccessReferenceMap.php';
  
 class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase 
 {

@@ -24,8 +24,6 @@
 /**
  * Require ESAPI and SafeRequest.
  */
-require_once dirname(__FILE__) . '/../../src/ESAPI.php';
-require_once dirname(__FILE__) . '/../../src/filters/SafeRequest.php';
 
 
 /**

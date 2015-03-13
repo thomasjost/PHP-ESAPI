@@ -25,17 +25,6 @@
  */
 
 /**
- * Require the Validator and the various ValidationRule implementations.
- */
-require_once dirname(__FILE__).'/../Validator.php';
-require_once dirname(__FILE__).'/validation/StringValidationRule.php';
-require_once dirname(__FILE__).'/validation/CreditCardValidationRule.php';
-require_once dirname(__FILE__).'/validation/HTMLValidationRule.php';
-require_once dirname(__FILE__).'/validation/NumberValidationRule.php';
-require_once dirname(__FILE__).'/validation/IntegerValidationRule.php';
-require_once dirname(__FILE__).'/validation/DateValidationRule.php';
-
-/**
  * Reference Implementation of the Validator interface.
  *
  * @category  OWASP

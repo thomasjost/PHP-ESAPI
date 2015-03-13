@@ -22,13 +22,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * StringValidationRule requires the BaseValidationRule.
- */
-require_once dirname(__FILE__) . '/BaseValidationRule.php';
-
-
 /**
  * Reference extension of the BaseValidationRule class.
  *

@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once  dirname(__FILE__).'/EnterpriseSecurityException.php';
-
 /**
  * An EncryptionException should be thrown for any problems related to
  * encryption, hashing, or digital signatures.

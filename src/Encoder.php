@@ -24,11 +24,6 @@
  */
 
 /**
- * Implementations will require Codec.
- */
-require_once dirname(__FILE__) . '/codecs/Codec.php';
-
-/**
  * Use this ESAPI security control to wrap your codecs.
  * 
  * The idea behind this interface is to make output safe so that it 

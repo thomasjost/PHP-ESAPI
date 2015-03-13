@@ -16,8 +16,6 @@
  */
 
 
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/reference/DefaultValidator.php';
 require_once dirname(__FILE__) . '/../testresources/TestHelpers.php';
 // require_once dirname(__FILE__).'/HTTPUtilitiesTest.php';
 

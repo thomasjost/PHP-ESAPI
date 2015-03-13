@@ -19,8 +19,6 @@
  * @since 1.6
  */
 
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/reference/DefaultSecurityConfiguration.php';
 
 class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 {

@@ -23,13 +23,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * SafeFile requires ValidationException and EnterpriseSecurityException.
- */
-require_once dirname(__FILE__).'/errors/ValidationException.php';
-
-
 /**
  * Use this ESAPI security control to read files from the operating 
  * system.

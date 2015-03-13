@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once  dirname(__FILE__).'/../Executor.php';
-
 /**
  * Reference Implementation of the Executor interface.
  *

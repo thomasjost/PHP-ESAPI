@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once dirname(__FILE__).'/errors/ValidationException.php';
-
 /**
  * Use this ESAPI security control to enumerate validation exceptions.
  * 

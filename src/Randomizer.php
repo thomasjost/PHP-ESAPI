@@ -22,12 +22,6 @@
  */
 
 /**
- * Implementations will require EncryptionException.
- */
-require_once dirname(__FILE__) . '/errors/EncryptionException.php';
-
-
-/**
  * Use this ESAPI security control to get random numbers and strings.
  * 
  * The idea behind this interface is to define a set of functions for

@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once  dirname(__FILE__).'/EnterpriseSecurityException.php';
-
 /**
  * A ValidationException should be thrown to indicate that the data provided by
  * the user or from some other external source does not match the validation

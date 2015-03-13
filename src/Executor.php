@@ -24,11 +24,6 @@
  */
 
 /**
- * Implementations will require ExecutorException.
- */
-require_once dirname(__FILE__) . '/errors/ExecutorException.php';
-
-/**
  * Use this ESAPI security control to call command-line operating
  * system functions.
  * 

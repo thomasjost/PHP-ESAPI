@@ -23,14 +23,6 @@
  */
 
 /**
- * CreditCardValidationRule requires the BaseValidationRule and
- * StringValidationRule.
- */
-require_once dirname(__FILE__) . '/BaseValidationRule.php';
-require_once dirname(__FILE__) . '/StringValidationRule.php';
-
-
-/**
  * Reference extension of the BaseValidationRule class.
  *
  * @category  OWASP

@@ -20,7 +20,7 @@
 
 //FIXME: Cleanup to be done, as suggested by Mike
 
-require_once dirname(__FILE__) . '/../User.php';
+
 define("MAX_ROLE_LENGTH", 250);
 
 /**

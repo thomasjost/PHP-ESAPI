@@ -15,9 +15,6 @@
  * @author  Linden Darling <linden.darling@jds.net.au> 
  * @created 2009
  */
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/errors/ExecutorException.php';
-require_once dirname(__FILE__).'/../../src/reference/DefaultExecutor.php';
 
 class ExecutorTest extends PHPUnit_Framework_TestCase 
 {

@@ -23,13 +23,6 @@
  */
 
 /**
- * BaseValidationRule requires the ValidationRule Interface and DefaultEncoder
- * for canonicalization.
- */
-require_once dirname(__FILE__) . '/../../ValidationRule.php';
-require_once dirname(__FILE__) . '/../DefaultEncoder.php';
-
-/**
  * Reference Implementation of the ValidationRule interface.
  *
  * @category  OWASP

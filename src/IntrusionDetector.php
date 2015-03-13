@@ -23,12 +23,6 @@
  */
 
 /**
- * Implementations require IntrusionException.
- */
-require_once dirname(__FILE__) . '/errors/IntrusionException.php';
-
-
-/**
  * Use this ESAPI security control to wrap intrusion detection functions
  * that are internal to your application.
  * 

@@ -20,13 +20,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * DefaultHTTPUtilities requires the HTTPUtilities interface.
- */
-require_once dirname(__FILE__) . '/../HTTPUtilities.php';
-
-
 /**
  * Reference implementation of the HTTPUtilities interface.
  *

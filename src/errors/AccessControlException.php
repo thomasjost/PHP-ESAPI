@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once dirname(__FILE__).'/EnterpriseSecurityException.php';
-
 /**
  * An AccessControlException should be thrown when a user attempts to access a
  * resource that they are not authorized for.

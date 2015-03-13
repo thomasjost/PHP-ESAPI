@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once  dirname(__FILE__).'/EnterpriseSecurityException.php';
-
 /**
  * An AuthenticationException should be thrown when anything goes wrong during
  * login or logout. They are also appropriate for any problems related to

@@ -21,12 +21,6 @@
  */
 
 /**
- * WordValidationRule requires the StringValidationRule.
- */
-require_once dirname(__FILE__) . '/StringValidationRule.php';
-
-
-/**
  * Reference extension of the StringValidationRule class.
  *
  * @category  OWASP

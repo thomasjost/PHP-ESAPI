@@ -19,10 +19,10 @@
  * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-require_once dirname(__FILE__) . '/../src/ESAPI.php';
 
 //Make sure to run this script as a "PHP Web Page"
 
+require_once __DIR__ . '/../vendor/autoload.php';
 $ESAPI = new ESAPI(dirname(__FILE__) . "/testresources/ESAPI.xml");
 ob_start();
 session_start();

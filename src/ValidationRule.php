@@ -23,12 +23,6 @@
  */
 
 /**
- * Implementations require ValidationException and IntrusionException.
- */
-require_once dirname(__FILE__) . '/errors/IntrusionException.php';
-require_once dirname(__FILE__) . '/errors/ValidationException.php';
-
-/**
  * Use this ESAPI security control to wrap your data type-specific 
  * validation rules.
  * 

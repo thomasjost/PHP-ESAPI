@@ -16,14 +16,7 @@
  * @since  1.6
  */
 
-
-/**
- *
- */
 require_once dirname(__FILE__) . '/../testresources/TestHelpers.php';
-require_once dirname(__FILE__) . '/../../src/ESAPI.php';
-require_once dirname(__FILE__) . '/../../src/errors/ValidationException.php';
-
 
 /**
  * This test case covers logging functioanlity.

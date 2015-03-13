@@ -25,14 +25,6 @@
  */
 
 /**
- *
- */
-require_once dirname(__FILE__) .
-    '/../../lib/apache-log4php/trunk/src/main/php/Logger.php';
-require_once dirname(__FILE__).'/../Auditor.php';
-
-
-/**
  * Reference Implementation of the Auditor interface.
  *
  * @category  OWASP

@@ -18,22 +18,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * DefaultSanitizer requires the Sanitizer Interface and the various
- * ValidationRule implementations.
- */
-require_once dirname ( __FILE__ ) . '/../Sanitizer.php';
-require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/IntegerValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/DateValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/EmailAddressValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/URLValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/WordValidationRule.php';
-
 /**
  * Reference Implementation of the Sanitizer Interface.
  *

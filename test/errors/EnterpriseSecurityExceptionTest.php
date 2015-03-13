@@ -15,20 +15,6 @@
  * @created 2007
  */
 
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/errors/AccessControlException.php';
-require_once dirname(__FILE__).'/../../src/errors/AuthenticationAccountsException.php';
-require_once dirname(__FILE__).'/../../src/errors/AuthenticationCredentialsException.php';
-require_once dirname(__FILE__).'/../../src/errors/AuthenticationHostException.php';
-require_once dirname(__FILE__).'/../../src/errors/AuthenticationLoginException.php';
-require_once dirname(__FILE__).'/../../src/errors/AvailabilityException.php';
-require_once dirname(__FILE__).'/../../src/errors/CertificateException.php';
-require_once dirname(__FILE__).'/../../src/errors/EncodingException.php';
-require_once dirname(__FILE__).'/../../src/errors/EncryptionException.php';
-require_once dirname(__FILE__).'/../../src/errors/ExecutorException.php';
-require_once dirname(__FILE__).'/../../src/errors/IntegrityException.php';
-require_once dirname(__FILE__).'/../../src/errors/ValidationAvailabilityException.php';
-require_once dirname(__FILE__).'/../../src/errors/ValidationUploadException.php';
 
 // TODO: Add in PHP Unit expected exception tests
 

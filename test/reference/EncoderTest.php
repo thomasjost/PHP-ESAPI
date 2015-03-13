@@ -19,12 +19,6 @@
 /**
  * 
  */
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/reference/DefaultEncoder.php';
-require_once dirname(__FILE__).'/../../src/codecs/MySQLCodec.php';
-require_once dirname(__FILE__).'/../../src/codecs/OracleCodec.php';
-require_once dirname(__FILE__).'/../../src/codecs/UnixCodec.php';
-require_once dirname(__FILE__).'/../../src/codecs/WindowsCodec.php';
 
 
 /**

@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once dirname(__FILE__) . '/../SecurityConfiguration.php';
-
 /**
  * Reference Implementation of the SecurityConfiguration interface.
  *

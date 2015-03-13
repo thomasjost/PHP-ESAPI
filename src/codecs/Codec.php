@@ -23,13 +23,6 @@
  */
 
 /**
- * DefaultSanitizer requires the Sanitizer Interface and the various
- * ValidationRule implementations.
- */
-require_once dirname(__FILE__) . '/CodecDebug.php';
-require_once dirname(__FILE__) . '/../Encoder.php';
-
-/**
  * The Codec interface defines a set of methods for encoding and decoding
  * application level encoding schemes, such as HTML entity encoding and percent
  * encoding (aka URL encoding). Codecs are used in output encoding and

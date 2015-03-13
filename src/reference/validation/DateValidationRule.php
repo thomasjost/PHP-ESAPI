@@ -22,13 +22,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * DateValidationRule requires the BaseValidationRule.
- */
-require_once dirname(__FILE__) . '/BaseValidationRule.php';
-
-
 /**
  * DateValidationRule implementation of the ValidationRule interface.
  *

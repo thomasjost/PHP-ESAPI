@@ -23,14 +23,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * 
- */
-require_once dirname(__FILE__).'/../AuditorFactory.php';
-require_once dirname(__FILE__).'/DefaultAuditor.php';
-
-
 /**
  * Reference Implementation of the DefaultAuditorFactory interface.
  *

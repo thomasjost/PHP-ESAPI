@@ -17,9 +17,6 @@
  * @package ESAPI_Reference
  */
 
-require_once dirname(__FILE__).'/../Authenticator.php';
-require_once dirname(__FILE__).'/DefaultUser.php';
-
 define('MAX_ACCOUNT_NAME_LENGTH', 250);
 /**
  * Reference Implementation of the FileBasedAuthenticator interface.

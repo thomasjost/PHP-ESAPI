@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once dirname(__FILE__).'/AuthenticationException.php';
-
 /**
  * An AuthenticationHostException should be thrown when there is a problem with
  * the host involved with authentication, particularly if the host changes 

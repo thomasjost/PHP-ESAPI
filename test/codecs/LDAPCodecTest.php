@@ -15,7 +15,6 @@
  * @created 2009
  */
 
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
 // require_once dirname(__FILE__).'/../../src/codecs/LDAPCodec.php';
 
 

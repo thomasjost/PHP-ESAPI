@@ -21,13 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * DefaultIntrusionDetector requires the IntrusionDetector interface.
- */
-require_once dirname(__FILE__) . '/../IntrusionDetector.php';
-
-
 /**
  * Reference implementation of the IntrusionDetector interface.
  *

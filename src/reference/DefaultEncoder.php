@@ -24,18 +24,6 @@
  */
 
 /**
- * DefaultEncoder requires the interface it implements and any Codecs it uses.
- */
-require_once dirname(__FILE__).'/../Encoder.php';
-require_once dirname(__FILE__).'/../codecs/Base64Codec.php';
-require_once dirname(__FILE__).'/../codecs/CSSCodec.php';
-require_once dirname(__FILE__).'/../codecs/HTMLEntityCodec.php';
-require_once dirname(__FILE__).'/../codecs/JavaScriptCodec.php';
-require_once dirname(__FILE__).'/../codecs/PercentCodec.php';
-require_once dirname(__FILE__).'/../codecs/VBScriptCodec.php';
-require_once dirname(__FILE__).'/../codecs/XMLEntityCodec.php';
-
-/**
  * Reference implementation of the Encoder interface.
  *
  * @category  OWASP

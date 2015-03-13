@@ -21,8 +21,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once  dirname(__FILE__).'/ValidationException.php';
-
 /**
  * A ValidationUploadException should be thrown when uploaded content validation
  * fails.

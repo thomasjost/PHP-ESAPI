@@ -20,15 +20,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- * SafeRequest requires the DefaultEncoder, HTMLEntityCodec and PercentCodec.
- */
-require_once dirname(__FILE__) . '/../reference/DefaultEncoder.php';
-require_once dirname(__FILE__) . '/../codecs/HTMLEntityCodec.php';
-require_once dirname(__FILE__) . '/../codecs/PercentCodec.php';
-
-
 /**
  * This request wrapper simply provides convenient and safe methods for the
  * retreival of HTTP request parameters, headers and PHP server globals defined in

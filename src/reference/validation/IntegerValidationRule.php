@@ -24,12 +24,6 @@
  */
 
 /**
- * IntegerValidationRule requires the BaseValidationRule.
- */
-require_once dirname(__FILE__) . '/BaseValidationRule.php';
-
-
-/**
  * Reference extension of the BaseValidationRule class.
  *
  * @category  OWASP

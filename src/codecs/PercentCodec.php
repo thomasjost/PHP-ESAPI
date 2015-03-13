@@ -20,8 +20,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once 'Codec.php';
-
 /**
  * Reference implementation of the CSS codec.
  *

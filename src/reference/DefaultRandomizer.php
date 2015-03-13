@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OWASP Enterprise Security API (ESAPI)
  *
@@ -17,8 +16,6 @@
  * @since 1.6
  * @package ESAPI_Reference
  */
-
-require_once dirname(__FILE__) . '/../Randomizer.php';
 
 class DefaultRandomizer implements Randomizer
 {

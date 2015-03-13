@@ -17,19 +17,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
-/**
- *
- */
-require_once dirname(__FILE__) . '/../../src/ESAPI.php';
-require_once dirname(__FILE__) . '/../../src/reference/validation/CreditCardValidationRule.php';
-require_once dirname(__FILE__) . '/../../src/reference/validation/DateValidationRule.php';
-require_once dirname(__FILE__) . '/../../src/reference/validation/HTMLValidationRule.php';
-require_once dirname(__FILE__) . '/../../src/reference/validation/IntegerValidationRule.php';
-require_once dirname(__FILE__) . '/../../src/reference/validation/NumberValidationRule.php';
-require_once dirname(__FILE__) . '/../../src/reference/validation/StringValidationRule.php';
-
-
 /**
  * UnitTestCase for ValidationRule implementations.
  *

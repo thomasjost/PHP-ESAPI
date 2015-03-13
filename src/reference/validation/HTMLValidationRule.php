@@ -23,14 +23,6 @@
  */
 
 /**
- * HTMLValidationRule requires the StringValidationRule and HTMLPurifier.
- */
-require_once dirname(__FILE__) . '/StringValidationRule.php';
-require_once dirname(__FILE__)
-    . '/../../../lib/htmlpurifier/HTMLPurifier.includes.php';
-
-
-/**
  * Reference extension of the StringValidationRule class.
  *
  * @category  OWASP
