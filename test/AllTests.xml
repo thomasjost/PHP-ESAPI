@@ -12,10 +12,10 @@
 			<directory>codecs/</directory>
 		</testsuite>
 		<testsuite name="Errors">
-			<directory>codecs/</directory>
+			<directory>errors/</directory>
 		</testsuite>
 		<testsuite name="Filters">
-			<directory>filter/</directory>
+			<directory>filters/</directory>
 		</testsuite>
 		<testsuite name="HTTP">
 			<directory>http/</directory>
