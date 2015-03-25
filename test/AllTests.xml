@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="true" backupStaticAttributes="false"
-	bootstrap="bootstrap.php" colors="false" convertErrorsToExceptions="true"
-	convertNoticesToExceptions="true" convertWarningsToExceptions="true"
-	forceCoversAnnotation="false" mapTestClassNameToCoveredClassName="false"
-	processIsolation="false" stopOnError="false" stopOnFailure="false"
-	stopOnIncomplete="false" stopOnSkipped="false" syntaxCheck="false"
-	testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader" verbose="false">
+<phpunit bootstrap="bootstrap.php">
 	<testsuites>
 		<testsuite name="Codecs">
 			<directory>codecs/</directory>
@@ -24,6 +18,3 @@
 		</testsuite>
 	</testsuites>
 </phpunit>
-
-
-
