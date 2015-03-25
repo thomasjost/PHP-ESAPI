@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="test/bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Codecs">
+            <directory>test/codecs/</directory>
+        </testsuite>
+        <testsuite name="Errors">
+            <directory>test/errors/</directory>
+        </testsuite>
+        <testsuite name="Filters">
+            <directory>test/filters/</directory>
+        </testsuite>
+        <testsuite name="HTTP">
+            <directory>test/http/</directory>
+        </testsuite>
+        <testsuite name="Reference">
+            <directory>test/reference/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
