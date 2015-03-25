@@ -16,7 +16,7 @@
  * @since  1.6
  */
 
-require_once dirname(__FILE__) . '/../testresources/TestHelpers.php';
+require_once __DIR__ . '/../testresources/TestHelpers.php';
 
 /**
  * This test case covers logging functioanlity.
@@ -57,7 +57,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
 
         if ( !isset($ESAPI)) {
             $ESAPI = new
-            ESAPI(dirname(__FILE__).'/../testresources/ESAPI.xml');
+            ESAPI(__DIR__.'/../testresources/ESAPI.xml');
         }
 
         $this->testLogger = ESAPI::getAuditor(__CLASS__);

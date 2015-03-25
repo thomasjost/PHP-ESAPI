@@ -423,7 +423,7 @@ class FileBasedAuthenticator implements Authenticator {
             return $this->users;
         }
 
-        $usersFile = dirname(__FILE__) . '/../../test/testresources/users.txt';
+        $usersFile = __DIR__ . '/../../test/testresources/users.txt';
         $rawusers = file($usersFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         $users = array();

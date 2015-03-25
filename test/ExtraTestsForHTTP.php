@@ -23,7 +23,7 @@
 //Make sure to run this script as a "PHP Web Page"
 
 require_once __DIR__ . '/../vendor/autoload.php';
-$ESAPI = new ESAPI(dirname(__FILE__) . "/testresources/ESAPI.xml");
+$ESAPI = new ESAPI(__DIR__ . "/testresources/ESAPI.xml");
 ob_start();
 session_start();
 
