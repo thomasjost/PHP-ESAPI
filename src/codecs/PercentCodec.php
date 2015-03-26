@@ -33,6 +33,7 @@
  */
 class PercentCodec extends Codec
 {
+
     /**
      * Public Constructor 
      */
@@ -190,4 +191,5 @@ class PercentCodec extends Codec
             return null;
         }
     }
+
 }

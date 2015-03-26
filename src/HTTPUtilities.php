@@ -51,7 +51,6 @@ interface HTTPUtilities
      */
     public function addCSRFToken($href);
 
-
     /**
      * Returns the CSRF token from the current session. If there is no current
      * session then null is returned. If the CSRF Token is not present in the
@@ -61,7 +60,6 @@ interface HTTPUtilities
      *                     null.
      */
     public function getCSRFToken();
-
 
     /**
      * Searches the GET and POST parameters in a request for the CSRF token stored
@@ -75,7 +73,6 @@ interface HTTPUtilities
      */
     public function verifyCSRFToken($request);
 
-
     /**
      * Sets the CSRF Token for the current session.  If the session has not been
      * started at the time this method is called then the token will not be
@@ -84,7 +81,6 @@ interface HTTPUtilities
      * @return null
      */
     public function setCSRFToken();
-
 
     /**
      * Get the first cookie with the matching name.
@@ -96,7 +92,6 @@ interface HTTPUtilities
      *                     null if the specified cookie is not present.
      */
     public function getCookie($request, $name);
-
 
     /**
      * Ensures that the supplied request was received with Transport Layer
@@ -111,7 +106,6 @@ interface HTTPUtilities
      * @throws AccessControlException if security constraints are not met.
      */
     public function assertSecureRequest($request);
-
 
     /**
      * Invalidate the old session after copying all of its contents to a newly
@@ -139,7 +133,6 @@ interface HTTPUtilities
      * 
      */
     public function getParameter($request, $name, $default = null);
-    
 
     /**
      * Kill all cookies received in the last request from the browser. Note that
@@ -151,7 +144,6 @@ interface HTTPUtilities
      * @return null.
      */
     public function killAllCookies($request);
-
 
     /**
      * Kills the specified cookie by setting a new cookie that expires
@@ -166,7 +158,6 @@ interface HTTPUtilities
      */
     public function killCookie($request, $name);
 
-
     /**
      * Stores the supplied SafeRequest object so that it may be readily accessed
      * throughout ESAPI (and elsewhere).
@@ -177,14 +168,12 @@ interface HTTPUtilities
      */
     public function setCurrentHTTP($request);
 
-
     /**
      * Retrieves the current HttpServletRequest.
      *
      * @return SafeRequest the current request.
      */
     public function getCurrentRequest();
-
 
     /**
      * Format the Source IP address, URL, URL parameters, and all form parameters
@@ -197,7 +186,6 @@ interface HTTPUtilities
      * @return null
      */
     public function logHTTPRequest($request, $auditor);
-
 
     /**
      * Format the Source IP address, URL, URL parameters, and all form parameters
@@ -216,7 +204,6 @@ interface HTTPUtilities
      * @return null
      */
     public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate);
-
 
     /*
      * Set a cookie containing the current User's remember me token for
@@ -249,7 +236,6 @@ interface HTTPUtilities
     //     $request, $response, $password, $maxAge, $domain, $path
     // );
 
-
     /*
      * Decrypts an encrypted hidden field value and returns the plain text. If
      * the field does not decrypt properly, an IntrusionException is thrown to
@@ -263,7 +249,6 @@ interface HTTPUtilities
      */
     // public function decryptHiddenField($encrypted);
 
-
     /*
      * Takes an encrypted query string and returns an asscoiative array
      * containing the original, unencrypted parameters.
@@ -276,7 +261,6 @@ interface HTTPUtilities
      */
     // public function decryptQueryString($encrypted);
 
-
     /*
      * Retrieves a map of data from a cookie encrypted with encryptStateInCookie().
      *
@@ -287,7 +271,6 @@ interface HTTPUtilities
      * @throws EncryptionException.
      */
     // public function decryptStateFromCookie($request);
-
 
     /*
      * Encrypts a hidden field value for use in HTML.
@@ -300,7 +283,6 @@ interface HTTPUtilities
      */
     // public function encryptHiddenField($value);
 
-
     /**
      * Takes an HTTP query string (everything after the question mark in the
      * URL) and returns an encrypted string containing the parameters.
@@ -312,7 +294,6 @@ interface HTTPUtilities
      * @throws EncryptionException
      */
     // public function encryptQueryString($query);
-
 
     /*
      * Stores a Map of data in an encrypted cookie. Generally the session is a
@@ -327,7 +308,6 @@ interface HTTPUtilities
      * @return null.
      */
     // public function encryptStateInCookie($response, $cleartext);
-
 
     /*
      * Extract uploaded files from a multipart HTTP requests. Implementations
@@ -345,7 +325,6 @@ interface HTTPUtilities
      * @throws ValidationException if the file fails validation.
      */
     // public function getSafeFileUploads($request, $tempDir, $finalDir);
-
 
     /*
      * This method performs a forward to any resource located inside the WEB-INF
@@ -369,7 +348,6 @@ interface HTTPUtilities
      */
     // public function safeSendForward($request, $response, $context, $location);
 
-
     /*
      * Set the content type character encoding header on every HttpServletResponse
      * in order to limit the ways in which the input data can be represented. This
@@ -391,7 +369,6 @@ interface HTTPUtilities
      * @return null.
      */
     // public function setSafeContentType($response);
-
 
     /*
      * Set headers to protect sensitive information against being cached in the
@@ -435,7 +412,6 @@ interface HTTPUtilities
      * @return null.
      */
     // public function setNoCacheHeaders($response);
-
 
     /*
      * Retrieves the current HttpServletResponse.

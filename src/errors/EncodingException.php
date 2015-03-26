@@ -36,6 +36,7 @@
  */
 class EncodingException extends EnterpriseSecurityException
 {
+
     /**
      * Instantiates a new EncodingException.
      * 
@@ -48,5 +49,5 @@ class EncodingException extends EnterpriseSecurityException
     {
         parent::__construct($userMessage, $logMessage);
     }
+
 }
-?>

@@ -37,6 +37,7 @@
  */
 class HTMLValidationRule extends StringValidationRule
 {
+
     // TODO : configuration of htmlpurifier and logging
     //
     // // replace with your encoding
@@ -62,7 +63,7 @@ class HTMLValidationRule extends StringValidationRule
      * 
      * @return does not return a value.
      */
-    public function __construct($typeName, $encoder = null, 
+    public function __construct($typeName, $encoder = null,
         $whitelistPattern = null
     ) {
         global $ESAPI;
@@ -103,7 +104,6 @@ class HTMLValidationRule extends StringValidationRule
         $a['Core.CollectErrors'] = true;
         return $a;
     }
-
 
     /**
      * Returns the canonicalized, valid input.
@@ -162,7 +162,6 @@ class HTMLValidationRule extends StringValidationRule
 
         return $clean_html;
     }
-
 
     /**
      * Simply attempt to purify the HTML and return an empty string if that

@@ -37,6 +37,7 @@
  */
 class Base64Codec extends Codec
 {
+
     /**
      * Public Constructor
      */
@@ -93,13 +94,12 @@ class Base64Codec extends Codec
     {
         $detectedCharacterEncoding = Codec::detectEncoding($input);
         $c = mb_substr(
-            $input, 0, 1, 
+            $input, 0, 1,
             $detectedCharacterEncoding
         );
         
         return $this->encode($c, false);
     }
-    
     
     /**
      * Decodes the given input string from Base64 to plain text.
@@ -124,4 +124,5 @@ class Base64Codec extends Codec
     {
         return $this->decode($input);
     }
+
 }

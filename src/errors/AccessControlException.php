@@ -36,6 +36,7 @@
  */
 class AccessControlException extends EnterpriseSecurityException
 {
+
     /**
      * Instantiates a new access control exception.
      * 
@@ -48,5 +49,5 @@ class AccessControlException extends EnterpriseSecurityException
     {
         parent::__construct($userMessage, $logMessage);
     }
+
 }
-?>

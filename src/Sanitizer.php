@@ -38,6 +38,7 @@
  */
 interface Sanitizer
 {
+
     /**
      * Returns valid, "safe" HTML.
      * 
@@ -98,4 +99,5 @@ interface Sanitizer
      * @return string valid, "safe" word.
      */
     function getSanitizedWord($context, $input);    
+
 }

@@ -42,6 +42,7 @@
  */
 class ESAPI
 {
+
     private static $_accessController = null;
     private static $_encoder = null;
     private static $_encryptor = null;
@@ -49,7 +50,7 @@ class ESAPI
     private static $_httpUtilities = null;
     private static $_intrusionDetector = null;
     private static $_defaultAuditor = null;
-    private static $_auditorFactory= null;
+    private static $_auditorFactory = null;
     private static $_randomizer = null;
     private static $_securityConfiguration = null;
     private static $_validator = null;
@@ -98,7 +99,7 @@ class ESAPI
      */
     public static function getAccessController() 
     {
-        if ( is_null(self::$_accessController) ) {
+        if (is_null(self::$_accessController)) {
             include_once __DIR__.
               '/reference/FileBasedAccessController.php';
             self::$_accessController = new FileBasedAccessController();
@@ -128,7 +129,7 @@ class ESAPI
      */
     public static function getEncoder() 
     {
-        if ( is_null(self::$_encoder) ) {
+        if (is_null(self::$_encoder)) {
             include_once __DIR__.
               '/reference/DefaultEncoder.php';
             self::$_encoder = new DefaultEncoder();
@@ -188,7 +189,7 @@ class ESAPI
      */
     public static function getExecutor() 
     {
-        if ( is_null(self::$_executor) ) {
+        if (is_null(self::$_executor)) {
             include_once __DIR__.
               '/reference/DefaultExecutor.php';
             self::$_executor = new DefaultExecutor();
@@ -218,7 +219,7 @@ class ESAPI
      */
     public static function getHttpUtilities() 
     {
-        if ( is_null(self::$_httpUtilities) ) {
+        if (is_null(self::$_httpUtilities)) {
             include_once __DIR__.
               '/reference/DefaultHTTPUtilities.php';
             self::$_httpUtilities = new DefaultHTTPUtilities();
@@ -248,7 +249,7 @@ class ESAPI
      */
     public static function getIntrusionDetector() 
     {
-        if ( is_null(self::$_intrusionDetector) ) {
+        if (is_null(self::$_intrusionDetector)) {
             include_once __DIR__.
               '/reference/DefaultIntrusionDetector.php';
             self::$_intrusionDetector = new DefaultIntrusionDetector();
@@ -269,7 +270,6 @@ class ESAPI
         self::$_intrusionDetector = $intrusionDetector;
     }
 
-    
     /**
      * Set then get the current ESAPI Logger factory object being used to create
      * the ESAPI Logger for this application.
@@ -315,7 +315,6 @@ class ESAPI
         self::$_auditorFactory = $factory;
     }
 
-
     /**
      * Get the current ESAPI Randomizer object being used to generate random numbers
      * for this application.
@@ -324,7 +323,7 @@ class ESAPI
      */
     public static function getRandomizer() 
     {
-        if ( is_null(self::$_randomizer) ) {
+        if (is_null(self::$_randomizer)) {
             include_once __DIR__.
               '/reference/DefaultRandomizer.php';
             self::$_randomizer = new DefaultRandomizer();
@@ -356,7 +355,7 @@ class ESAPI
      */
     public static function getSecurityConfiguration($path = '') 
     {
-        if ( is_null(self::$_securityConfiguration) ) {
+        if (is_null(self::$_securityConfiguration)) {
             include_once __DIR__.
               '/reference/DefaultSecurityConfiguration.php';
             self::$_securityConfiguration = new DefaultSecurityConfiguration($path);
@@ -387,7 +386,7 @@ class ESAPI
      */
     public static function getValidator() 
     {
-        if ( is_null(self::$_validator) ) {
+        if (is_null(self::$_validator)) {
             include_once __DIR__.
               '/reference/DefaultValidator.php';
             self::$_validator = new DefaultValidator();
@@ -417,7 +416,7 @@ class ESAPI
      */
     public static function getSanitizer() 
     {
-        if ( is_null(self::$_sanitizer) ) {
+        if (is_null(self::$_sanitizer)) {
             include_once __DIR__.
               '/reference/DefaultSanitizer.php';
             self::$_sanitizer = new DefaultSanitizer();
@@ -438,7 +437,5 @@ class ESAPI
     {
         self::$_sanitizer = $sanitizer;
     }
-        
- 
+
 }
-?>

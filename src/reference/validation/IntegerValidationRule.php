@@ -38,6 +38,7 @@
  */
 class IntegerValidationRule extends BaseValidationRule
 {
+
     private $_minValue;
     private $_maxValue;
 
@@ -71,7 +72,6 @@ class IntegerValidationRule extends BaseValidationRule
             $this->_maxValue = (int) $maxValue;
         }
     }
-
 
     /**
      * Returns the canonicalized, valid input.
@@ -181,7 +181,6 @@ class IntegerValidationRule extends BaseValidationRule
             );
         }
     }
-
 
     /**
      * Returns a default safe number - in this case zero.

@@ -36,6 +36,7 @@
  */
 class EncryptionException extends EnterpriseSecurityException
 {
+
     /**
      * Instantiates a new EncryptionException.
      * 
@@ -48,4 +49,5 @@ class EncryptionException extends EnterpriseSecurityException
     {
         parent::__construct($userMessage, $logMessage);
     }
+
 }

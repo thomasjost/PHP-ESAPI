@@ -20,13 +20,11 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
 /**
  * 
  * @var string Define the name of the Auditor instance for CodecDebug.
  */
 define('CD_LOG', 'CodecDebug');
-
 
 /**
  * CodecDebug is a singleton class to aid Codec debugging.  It buffers debug
@@ -50,13 +48,13 @@ define('CD_LOG', 'CodecDebug');
  */
 class CodecDebug
 {
+    
     private $_verb;
     private $_buf = null;
     private $_allowRecurse = true;
     private $_enabled = false;
 
     private static $_instance;
-    
     
     /**
      * Prevents public cloning of this singleton class.
@@ -66,7 +64,6 @@ class CodecDebug
     private function __clone()
     {
     }
-
 
     /**
      * Private constructor ensures CodecDebug can only be instantiated privately.
@@ -81,7 +78,6 @@ class CodecDebug
             = ESAPI::getSecurityConfiguration()->getSpecialDebugging();
     }
 
-
     /**
      * Retrieves the singleton instance of CodecDebug.
      * 
@@ -95,7 +91,6 @@ class CodecDebug
         return self::$_instance;
     }
 
-
     /**
      * Adds a string of one or more encoded characters to the debug output.
      * Should be called, for example, from Codec->decode().
@@ -106,7 +101,7 @@ class CodecDebug
      */
     public function addEncodedString($stringNormalizedEncoding)
     {
-        if (   $this->_enabled == false
+        if ($this->_enabled == false
             || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
@@ -115,7 +110,6 @@ class CodecDebug
         $this->_verb = "Decod";
         $this->_addString($stringNormalizedEncoding);
     }
-
 
     /**
      * Adds a string of one or more unencoded characters to the debug output.
@@ -127,7 +121,7 @@ class CodecDebug
      */
     public function addUnencodedString($stringNormalizedEncoding)
     {
-        if (   $this->_enabled == false
+        if ($this->_enabled == false
             || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
@@ -136,7 +130,6 @@ class CodecDebug
         $this->_verb = "Encod";
         $this->_addString($stringNormalizedEncoding);
     }
-
 
     /**
      * output appends the final output from a codec (either an encoded or
@@ -150,7 +143,7 @@ class CodecDebug
      */
     public function output($codecOutput)
     {
-        if (   $this->_enabled == false
+        if ($this->_enabled == false
             || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
@@ -176,7 +169,6 @@ class CodecDebug
         $this->_verb = null;
     }
 
-
     /**
      * _addString is called by addEncodedString or addUnencodedString and adds
      * Codec input to the buffer character by character.  It also adds some
@@ -188,7 +180,7 @@ class CodecDebug
      */
     private function _addString($string)
     {
-        if (   $this->_enabled == false
+        if ($this->_enabled == false
             || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
@@ -210,12 +202,11 @@ class CodecDebug
             $this->_addNormalized('');
             return;
         }
-        for ($i=0; $i<$len; $i++) {
+        for ($i = 0; $i<$len; $i++) {
             $char = mb_substr($string, $i, 1, 'UTF-32');
             $this->_addNormalized($char);
         }
     }
-
 
     /**
      * _addNormalized is called by _addString and adds a character (with
@@ -230,7 +221,7 @@ class CodecDebug
         ob_start();
         var_dump($charNormalizedEncoding);
         $dumpedVar = ob_get_clean();
-        $matches=array();
+        $matches = array();
         if (! preg_match('/\(length=([0-9]+)\)/', $dumpedVar, $matches)) {
             $matches[1] = strtok(stristr($dumpedVar, '('), '"');
         }
@@ -240,7 +231,6 @@ class CodecDebug
         substr(var_export($charNormalizedEncoding, true), 0) .
                       "]\n";
     }
-
 
     /**
      * Convenience method which returns a shortened backtrace.  it's not very
@@ -256,8 +246,8 @@ class CodecDebug
         $pos = 0;
         $trace = '';
         $objName = '';
-        for ($i=2; $i<8; $i++) {
-            if (   array_key_exists($i, $dt)
+        for ($i = 2; $i<8; $i++) {
+            if (array_key_exists($i, $dt)
                 && array_key_exists('class', $dt[$i])
                 && $dt[$i]['class'] == 'Codec'
             ) {
@@ -281,4 +271,5 @@ class CodecDebug
     
         return $trace;
     }
+
 }

@@ -37,6 +37,7 @@
  */
 class AuthenticationCredentialsException extends AuthenticationException
 {
+
     /**
      * Instantiates a new authentication exception.
      * 
@@ -49,5 +50,5 @@ class AuthenticationCredentialsException extends AuthenticationException
     {
         parent::__construct($userMessage, $logMessage);
     }
+
 }
-?>

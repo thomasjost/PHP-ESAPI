@@ -128,7 +128,6 @@ interface Auditor
      */
     const ALL   = 0;
 
-
     /**
      * Dynamically set the logging severity level. All events of this level and
      * higher will be logged from this point forward for all logs. All events
@@ -139,7 +138,6 @@ interface Auditor
      * @return does not return a value.
      */
     function setLevel($level);
-
 
     /**
      * Log a fatal level security event if 'fatal' level logging is enabled and
@@ -156,7 +154,6 @@ interface Auditor
      */
     function fatal($type, $success, $message, $throwable = null);
 
-
     /**
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
@@ -164,7 +161,6 @@ interface Auditor
      * @return bool true if fatal level messages will be output to the log.
      */
     function isFatalEnabled();
-
 
     /**
      * Log an error level security event if 'error' level logging is enabled and
@@ -181,7 +177,6 @@ interface Auditor
      */
     function error($type, $success, $message, $throwable = null);
 
-
     /**
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
@@ -189,7 +184,6 @@ interface Auditor
      * @return bool true if error level messages will be output to the log.
      */
     function isErrorEnabled();
-
 
     /**
      * Log a warning level security event if 'warning' level logging is enabled and
@@ -206,7 +200,6 @@ interface Auditor
      */
     function warning($type, $success, $message, $throwable = null);
 
-
     /**
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
@@ -214,7 +207,6 @@ interface Auditor
      * @return bool true if warning level messages will be output to the log.
      */
     function isWarningEnabled();
-
 
     /**
      * Log an info level security event if 'info' level logging is enabled and
@@ -231,7 +223,6 @@ interface Auditor
      */
     function info($type, $success, $message, $throwable = null);
 
-
     /**
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
@@ -239,7 +230,6 @@ interface Auditor
      * @return bool true if info level messages will be output to the log.
      */
     function isInfoEnabled();
-
 
     /**
      * Log a debug level security event if 'debug' level logging is enabled and
@@ -256,7 +246,6 @@ interface Auditor
      */
     function debug($type, $success, $message, $throwable = null);
 
-
     /**
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
@@ -264,7 +253,6 @@ interface Auditor
      * @return bool true if debug level messages will be output to the log.
      */
     function isDebugEnabled();
-
 
     /**
      * Log a trace level security event if 'trace' level logging is enabled and
@@ -280,7 +268,6 @@ interface Auditor
      * @return does not return a value.
      */
     function trace($type, $success, $message, $throwable = null);
-
 
     /**
      * Allows the caller to determine if messages logged at this level will be

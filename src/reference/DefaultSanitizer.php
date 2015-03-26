@@ -42,7 +42,6 @@ class DefaultSanitizer implements Sanitizer
         $this->encoder = ESAPI::getEncoder();
     }
 
-
     /**
      * Returns valid, "safe" HTML.
      *
@@ -102,6 +101,7 @@ class DefaultSanitizer implements Sanitizer
 
         return $uvr->sanitize($context, $input);
     }
+    
     /**
      * Returns valid, "safe" English language word based on the provided guess.
      * 
@@ -119,4 +119,5 @@ class DefaultSanitizer implements Sanitizer
         
         return $wvr->sanitize($context, $input);
     }
+
 }

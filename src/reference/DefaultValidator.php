@@ -72,7 +72,7 @@ class DefaultValidator implements Validator
             $context, $input, $type, $maxLength, $allowNull
             );
         }
-        catch ( Exception $e )
+        catch (Exception $e)
         {
             return false;
         }
@@ -114,7 +114,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -123,13 +122,12 @@ class DefaultValidator implements Validator
         try {
             $this->_assertValidDate($context, $input, $format, $allowNull);
         }
-        catch ( Exception $e ) {
+        catch (Exception $e) {
             return false;
         }
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -153,7 +151,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -168,7 +165,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -193,7 +189,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -208,7 +203,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -231,7 +225,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -246,7 +239,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -284,7 +276,6 @@ class DefaultValidator implements Validator
         return true;
     }
 
-
     /**
      * Implements corresponding isValidXX logic.
      *
@@ -311,7 +302,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -329,7 +319,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -357,7 +346,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -375,7 +363,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -400,7 +387,6 @@ class DefaultValidator implements Validator
         return null;
     }
 
-
     /**
      * @inheritdoc
      */
@@ -415,7 +401,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -468,7 +453,7 @@ class DefaultValidator implements Validator
         $charEnc = mb_detect_encoding($input);
         $inputLen = mb_strlen($input, $charEnc);
 
-        if ($inputLen > $esapiMaxBytes ) {
+        if ($inputLen > $esapiMaxBytes) {
             throw new ValidationException(
                 "{$context}: Invalid file content. Size must not exceed ".
                 "{$esapiMaxBytes} bytes.",
@@ -478,7 +463,7 @@ class DefaultValidator implements Validator
             );
         }
          
-        if ($maxBytes !== null && $inputLen > $maxBytes ) {
+        if ($maxBytes !== null && $inputLen > $maxBytes) {
             throw new ValidationException(
                  "{$context}: Invalid file content. Size must not exceed ".
                  "{$maxBytes} bytes.",
@@ -505,7 +490,6 @@ class DefaultValidator implements Validator
 
         return true;
     }
-
 
     /**
      * Implements corresponding isValidXX logic.
@@ -552,7 +536,7 @@ class DefaultValidator implements Validator
             );
         }
 
-        if (in_array($canonical, $list, true) != true ) {
+        if (in_array($canonical, $list, true) != true) {
             throw new ValidationException(
             $context . ': Invalid input. Input was not a valid member of '.
                 'the list.',
@@ -579,7 +563,6 @@ class DefaultValidator implements Validator
         return true;
     }
 
-
     /**
      * Implements corresponding isValidXX logic.
      *
@@ -604,7 +587,7 @@ class DefaultValidator implements Validator
      */
     public function isValidRedirectLocation($context, $input, $allowNull)
     {
-    	return $this->isValidInput($context, $input, "Redirect", 512, $allowNull);
+        return $this->isValidInput($context, $input, "Redirect", 512, $allowNull);
     }
     
 }

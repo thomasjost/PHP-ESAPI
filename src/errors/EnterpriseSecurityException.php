@@ -52,6 +52,7 @@
  */
 class EnterpriseSecurityException extends Exception
 {
+
     /** The logger. */
     protected $logger;
     protected $logMessage = null;
@@ -69,7 +70,7 @@ class EnterpriseSecurityException extends Exception
     {
         $cause = 0;
         
-        if ( empty($userMessage) ) {
+        if (empty($userMessage)) {
             $userMessage = null;
             
         }
@@ -106,4 +107,3 @@ class EnterpriseSecurityException extends Exception
     }
 
 }
-?>

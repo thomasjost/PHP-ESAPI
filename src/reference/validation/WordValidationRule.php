@@ -33,6 +33,7 @@
  */
 class WordValidationRule extends StringValidationRule
 {
+    
     private $_auditor   = null;
  
     /**
@@ -48,7 +49,7 @@ class WordValidationRule extends StringValidationRule
      * 
      * @return does not return a value.
      */
-    public function __construct($typeName, $encoder = null, 
+    public function __construct($typeName, $encoder = null,
         $whitelistPattern = null
     ) {
             global $ESAPI;
@@ -82,7 +83,6 @@ class WordValidationRule extends StringValidationRule
                 $context
            );
     }
-
 
     /**
      * Simply attempt to purify the URL and return an empty string if that

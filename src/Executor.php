@@ -76,7 +76,7 @@ interface Executor
      * @return string the output of the command being run
      * @throws ExecutorException the service exception
      */
-     function executeSystemCommandLonghand($executable, $params, $workdir, 
+     function executeSystemCommandLonghand($executable, $params, $workdir,
          $logParams
      );
 

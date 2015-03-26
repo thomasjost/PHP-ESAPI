@@ -303,6 +303,7 @@ interface SecurityConfiguration
      * @return array an array of executable names
      */
     function getAllowedExecutables();
+
 }
 
 /**
@@ -328,6 +329,7 @@ interface SecurityConfiguration
  */
 class Threshold
 {
+
     /** The name of this threshold. */
     public $name = null;
 
@@ -367,5 +369,5 @@ class Threshold
         $this->interval = $interval;
         $this->actions = $actions;
     }
+
 }
-?>

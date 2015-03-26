@@ -37,6 +37,7 @@
  */
 class AuthenticationHostException extends AuthenticationException
 {
+
     /**
      * Instantiates a new authentication exception.
      * 
@@ -51,4 +52,3 @@ class AuthenticationHostException extends AuthenticationException
     }
 
 }
-?>

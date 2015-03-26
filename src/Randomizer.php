@@ -88,7 +88,6 @@ interface Randomizer
      */
     function getRandomInteger($min, $max);
 
-
     /**
      * Gets the random long. The use of java.security.SecureRandom
      * is recommended because it provides a cryptographically strong 
@@ -103,7 +102,6 @@ interface Randomizer
      */
     function getRandomLong();
 
-
     /**
      * Returns an unguessable random filename with the specified extension.  
      * This method could call getRandomString(length, charset) from this 
@@ -115,9 +113,8 @@ interface Randomizer
      * @return string a random unguessable filename ending with the specified 
      *                extension
      */
-    function getRandomFilename( $extension = '' );
-    
-    
+    function getRandomFilename($extension = '');
+
     /**
      * Gets the random real.  The use of java.security.SecureRandom
      * is recommended because it provides a cryptographically strong pseudo-random 
@@ -143,5 +140,5 @@ interface Randomizer
      * @throws EncryptionException if hashing or encryption fails 
      */
     function getRandomGUID();
-           
+
 }

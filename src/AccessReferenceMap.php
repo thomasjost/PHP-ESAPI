@@ -115,4 +115,3 @@ interface AccessReferenceMap
     function update($directReferences);
 
 }
-?>

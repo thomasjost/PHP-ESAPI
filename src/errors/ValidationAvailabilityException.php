@@ -36,6 +36,7 @@
  */
 class ValidationAvailabilityException extends ValidationException
 {
+
     /**
      * Create a new ValidationAvailabilityException
      * 
@@ -48,5 +49,5 @@ class ValidationAvailabilityException extends ValidationException
     {
         parent::__construct($userMessage, $logMessage);
     }
+
 }
-?>

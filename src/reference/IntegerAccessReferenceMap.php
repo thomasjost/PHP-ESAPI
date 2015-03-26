@@ -27,7 +27,9 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class IntegerAccessReferenceMap implements AccessReferenceMap {
+class IntegerAccessReferenceMap implements AccessReferenceMap
+{
+
     private $dtoi = null;
     private $itod = null;
     private $count = 1;
@@ -37,7 +39,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
         $this->dtoi = new ArrayObject();
         $this->itod = new ArrayObject();
 
-        if ( !empty($directReferences) )
+        if (!empty($directReferences))
         {
             $this->update($directReferences);
         }
@@ -68,14 +70,14 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
      */
     function getIndirectReference($direct)
     {
-        if ( empty($direct) )
+        if (empty($direct))
         {
             return null;
         }
 
         $hash = $this->getHash($direct);
 
-        if ( !($this->dtoi->offsetExists($hash)) )
+        if (!($this->dtoi->offsetExists($hash)))
         {
             return null;
         }
@@ -101,7 +103,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
      */
     function getDirectReference($indirectReference)
     {
-        if (!empty($indirectReference) && $this->itod->offsetExists($indirectReference) )
+        if (!empty($indirectReference) && $this->itod->offsetExists($indirectReference))
         {
             return $this->itod->offsetGet($indirectReference);
         }
@@ -122,14 +124,14 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
      */
     function addDirectReference($direct)
     {
-        if ( empty($direct) )
+        if (empty($direct))
         {
             return null;
         }
 
         $hash = $this->getHash($direct);
 
-        if ( $this->dtoi->offsetExists($hash) )
+        if ($this->dtoi->offsetExists($hash))
         {
             return $this->dtoi->offsetGet($hash);
         }
@@ -154,7 +156,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
 
     function getHash($direct)
     {
-        if ( empty($direct) )
+        if (empty($direct))
         {
             return null;
         }
@@ -177,13 +179,13 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
      */
     function removeDirectReference($direct)
     {
-        if ( empty($direct) ) {
+        if (empty($direct)) {
             return null;
         }
 
         $hash = $this->getHash($direct);
 
-        if ( $this->dtoi->offsetExists($hash) ) {
+        if ($this->dtoi->offsetExists($hash)) {
             $indirect = $this->dtoi->offsetGet($hash);
             $this->itod->offsetUnset($indirect);
             $this->dtoi->offsetUnset($hash);
@@ -192,8 +194,6 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
 
         return null;
     }
-
-
 
     /**
      * Updates the access reference map with a new set of direct references, maintaining
@@ -219,26 +219,26 @@ class IntegerAccessReferenceMap implements AccessReferenceMap {
         $directIterator = $dir->getIterator();
 
         while ($directIterator->valid())
-		{
-			$indirect = null;
-			$direct = $directIterator->current();
-			$hash = $this->getHash($direct);
-			
-			// Try to get the old direct object reference (if it exists)
-			// otherwise, create a new entry
-			if (!empty($direct) && $dtoi_old->offsetExists($hash) )
-			{
-				$indirect = $dtoi_old->offsetGet($hash);
-			}
-			
-			if ( empty($indirect) )
-			{
-				$indirect = $this->getUniqueReference();
-			}
-			$this->itod->offsetSet($indirect, $direct);
-			$this->dtoi->offsetSet($hash, $indirect);
-			$directIterator->next();
-		}
-	}
+        {
+            $indirect = null;
+            $direct = $directIterator->current();
+            $hash = $this->getHash($direct);
+            
+            // Try to get the old direct object reference (if it exists)
+            // otherwise, create a new entry
+            if (!empty($direct) && $dtoi_old->offsetExists($hash))
+            {
+                $indirect = $dtoi_old->offsetGet($hash);
+            }
+            
+            if (empty($indirect))
+            {
+                $indirect = $this->getUniqueReference();
+            }
+            $this->itod->offsetSet($indirect, $direct);
+            $this->dtoi->offsetSet($hash, $indirect);
+            $directIterator->next();
+        }
+    }
+
 }
-?>

@@ -37,6 +37,7 @@
  */
 class AuthenticationException extends EnterpriseSecurityException
 {
+
     /**
      * Instantiates a new authentication exception.
      * 
@@ -49,5 +50,5 @@ class AuthenticationException extends EnterpriseSecurityException
     {
         parent::__construct($userMessage, $logMessage);
     }
+
 }
-?>

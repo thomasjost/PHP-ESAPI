@@ -42,6 +42,7 @@
  */
 interface Encoder
 {
+
     /*
      * Standard character sets.
      */
@@ -83,7 +84,6 @@ interface Encoder
      * Union of Encoder::CHAR_PASSWORD_LOWERS and Encoder::CHAR_PASSWORD_UPPERS.
      */
     const CHAR_PASSWORD_LETTERS = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-
 
     /**
      * Data canonicalization.
@@ -142,7 +142,6 @@ interface Encoder
      */
     function canonicalize($input, $strict = true);
 
-
     /**
      * Encode data for use in Cascading Style Sheets (CSS) content.
      *
@@ -153,7 +152,6 @@ interface Encoder
      * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#escaped-characters">CSS Syntax [w3.org]</a>
      */
     function encodeForCSS($input);
-
 
     /**
      * Encode data for use in HTML using HTML entity encoding
@@ -171,7 +169,6 @@ interface Encoder
      */
     function encodeForHTML($input);
 
-
     /**
      * Encode data for use in HTML attributes.
      *
@@ -180,7 +177,6 @@ interface Encoder
      * @return the input string encoded for use as an HTML attribute.
      */
     function encodeForHTMLAttribute($input);
-
 
     /**
      * Encode data for insertion inside a data value in JavaScript. Putting user
@@ -193,7 +189,6 @@ interface Encoder
      * @return the input string encoded for use in JavaScript.
      */
     function encodeForJavaScript($input);
-
 
     /**
      * Encode data for insertion inside a data value in a Visual Basic script.
@@ -209,7 +204,6 @@ interface Encoder
      * @return the input string encoded for use in VBScript.
      */
     function encodeForVBScript($input);
-
 
     /**
      * Encode input for use in a SQL query, according to the selected codec
@@ -228,7 +222,6 @@ interface Encoder
      */
     function encodeForSQL($codec, $input);
 
-
     /**
      * Encode for an operating system command shell according to the selected
      * codec (appropriate codecs include the WindowsCodec and UnixCodec).
@@ -241,7 +234,6 @@ interface Encoder
      * @return the input string encoded for use in a command shell.
      */
     function encodeForOS($codec, $input);
-
 
     /**
      * Encode data for use in an XPath query.
@@ -263,7 +255,6 @@ interface Encoder
      */
     function encodeForXPath($input);
 
-
     /**
      * Encode data for use in an XML element. The implementation should follow
      * the <a href="http://www.w3schools.com/xml/xml_encoding.asp">XML Encoding
@@ -279,7 +270,6 @@ interface Encoder
      * @return the input string encoded for use in an XML element.
      */
     function encodeForXML($input);
-
 
     /**
      * Encode data for use in an XML attribute. The implementation should follow
@@ -297,7 +287,6 @@ interface Encoder
      */
     function encodeForXMLAttribute($input);
 
-
     /**
      * Encode for use in a URL. This method performs <a
      * href="http://en.wikipedia.org/wiki/Percent-encoding">URL encoding</a>
@@ -308,7 +297,6 @@ interface Encoder
      * @return the input string encoded for use in a URL.
      */
     function encodeForURL($input);
-
 
     /**
      * Decode from URL. Implementations should first canonicalize and detect any
@@ -321,7 +309,6 @@ interface Encoder
      */
     function decodeFromURL($input);
 
-
     /**
      * Encode data with Base64 encoding.
      *
@@ -332,7 +319,6 @@ interface Encoder
      * @return the input string encoded for Base64.
      */
     function encodeForBase64($input, $wrap = false);
-
 
     /**
      * Decode data encoded with Base64 encoding.
