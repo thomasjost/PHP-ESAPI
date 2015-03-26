@@ -55,7 +55,7 @@ class DefaultSanitizer implements Sanitizer
      *
      * @return valid, "safe" HTML.
      */
-    function getSanitizedHTML($context, $input)
+    public function getSanitizedHTML($context, $input)
     {
         $hvr = new HTMLValidationRule('HTML_Validator', $this->encoder);
 
@@ -75,7 +75,7 @@ class DefaultSanitizer implements Sanitizer
      *
      * @return valid, "safe" email address.
      */
-    function getSanitizedEmailAddress($context, $input)
+    public function getSanitizedEmailAddress($context, $input)
     {
         $evr = new EmailAddressValidationRule('EmailAddress_Validator', $this->encoder);
 
@@ -95,7 +95,7 @@ class DefaultSanitizer implements Sanitizer
      *
      * @return valid, "safe" URL.
      */
-    function getSanitizedURL($context, $input)
+    public function getSanitizedURL($context, $input)
     {
         $uvr = new URLValidationRule('URL_Validator', $this->encoder);
 
@@ -113,7 +113,7 @@ class DefaultSanitizer implements Sanitizer
      *
      * @return valid, "safe" word.
      */
-    function getSanitizedWord($context, $input)
+    public function getSanitizedWord($context, $input)
     {
         $wvr = new WordValidationRule('Word_Validator', $this->encoder);
         

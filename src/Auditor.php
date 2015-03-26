@@ -137,7 +137,7 @@ interface Auditor
      * 
      * @return does not return a value.
      */
-    function setLevel($level);
+    public function setLevel($level);
 
     /**
      * Log a fatal level security event if 'fatal' level logging is enabled and
@@ -152,7 +152,7 @@ interface Auditor
      * 
      * @return does not return a value.
      */
-    function fatal($type, $success, $message, $throwable = null);
+    public function fatal($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level will be
@@ -160,7 +160,7 @@ interface Auditor
      *
      * @return bool true if fatal level messages will be output to the log.
      */
-    function isFatalEnabled();
+    public function isFatalEnabled();
 
     /**
      * Log an error level security event if 'error' level logging is enabled and
@@ -175,7 +175,7 @@ interface Auditor
      * 
      * @return does not return a value.
      */
-    function error($type, $success, $message, $throwable = null);
+    public function error($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level will be
@@ -183,7 +183,7 @@ interface Auditor
      *
      * @return bool true if error level messages will be output to the log.
      */
-    function isErrorEnabled();
+    public function isErrorEnabled();
 
     /**
      * Log a warning level security event if 'warning' level logging is enabled and
@@ -198,7 +198,7 @@ interface Auditor
      * 
      * @return does not return a value.
      */
-    function warning($type, $success, $message, $throwable = null);
+    public function warning($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level will be
@@ -206,7 +206,7 @@ interface Auditor
      *
      * @return bool true if warning level messages will be output to the log.
      */
-    function isWarningEnabled();
+    public function isWarningEnabled();
 
     /**
      * Log an info level security event if 'info' level logging is enabled and
@@ -221,7 +221,7 @@ interface Auditor
      * 
      * @return does not return a value
      */
-    function info($type, $success, $message, $throwable = null);
+    public function info($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level will be
@@ -229,7 +229,7 @@ interface Auditor
      *
      * @return bool true if info level messages will be output to the log.
      */
-    function isInfoEnabled();
+    public function isInfoEnabled();
 
     /**
      * Log a debug level security event if 'debug' level logging is enabled and
@@ -244,7 +244,7 @@ interface Auditor
      * 
      * @return does not return a value
      */
-    function debug($type, $success, $message, $throwable = null);
+    public function debug($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level will be
@@ -252,7 +252,7 @@ interface Auditor
      *
      * @return bool true if debug level messages will be output to the log.
      */
-    function isDebugEnabled();
+    public function isDebugEnabled();
 
     /**
      * Log a trace level security event if 'trace' level logging is enabled and
@@ -267,7 +267,7 @@ interface Auditor
      * 
      * @return does not return a value.
      */
-    function trace($type, $success, $message, $throwable = null);
+    public function trace($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level will be
@@ -275,6 +275,6 @@ interface Auditor
      *
      * @return bool true if trace level messages will be output to the log.
      */
-    function isTraceEnabled();
+    public function isTraceEnabled();
 
 }

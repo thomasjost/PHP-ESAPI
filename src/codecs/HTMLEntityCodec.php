@@ -44,7 +44,7 @@ class HTMLEntityCodec extends Codec
     /**
      * Public Constructor 
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         if (self::$_mapIsInitialized == false) {

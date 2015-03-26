@@ -62,7 +62,7 @@ class MySQLCodec extends Codec
      * 
      * @return does not return a value.
      */
-    function __construct($mode = self::MYSQL_STD)
+    public function __construct($mode = self::MYSQL_STD)
     {
         parent::__construct();
         $this->_mode = $mode;

@@ -52,7 +52,7 @@ interface Sanitizer
      *
      * @return string valid, "safe" HTML.
      */
-    function getSanitizedHTML($context, $input);
+    public function getSanitizedHTML($context, $input);
     
     /**
      * Returns valid, "safe" email address.
@@ -68,7 +68,7 @@ interface Sanitizer
      *
      * @return string valid, "safe" email address.
      */
-    function getSanitizedEmailAddress($context, $input);
+    public function getSanitizedEmailAddress($context, $input);
     
     /**
      * Returns valid, "safe" URL.
@@ -84,7 +84,7 @@ interface Sanitizer
      *
      * @return string valid, "safe" URL.
      */
-    function getSanitizedURL($context, $input);
+    public function getSanitizedURL($context, $input);
 
     /**
      * Generically attempts to sanitize English language words based on the
@@ -98,6 +98,6 @@ interface Sanitizer
      *
      * @return string valid, "safe" word.
      */
-    function getSanitizedWord($context, $input);    
+    public function getSanitizedWord($context, $input);    
 
 }

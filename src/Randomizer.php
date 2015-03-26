@@ -55,7 +55,7 @@ interface Randomizer
      * 
      * @return string the random string of the desired length and character set
      */
-    function getRandomString($length, $characterSet);
+    public function getRandomString($length, $characterSet);
 
     /**
      * Returns a random boolean.  The use of java.security.SecureRandom
@@ -69,7 +69,7 @@ interface Randomizer
      * 
      * @return bool true or false, randomly
      */
-    function getRandomBoolean();
+    public function getRandomBoolean();
 
     /**
      * Gets the random integer. The use of java.security.SecureRandom
@@ -86,7 +86,7 @@ interface Randomizer
      * 
      * @return int the random integer
      */
-    function getRandomInteger($min, $max);
+    public function getRandomInteger($min, $max);
 
     /**
      * Gets the random long. The use of java.security.SecureRandom
@@ -100,7 +100,7 @@ interface Randomizer
      * 
      * @return int the random long
      */
-    function getRandomLong();
+    public function getRandomLong();
 
     /**
      * Returns an unguessable random filename with the specified extension.  
@@ -113,7 +113,7 @@ interface Randomizer
      * @return string a random unguessable filename ending with the specified 
      *                extension
      */
-    function getRandomFilename($extension = '');
+    public function getRandomFilename($extension = '');
 
     /**
      * Gets the random real.  The use of java.security.SecureRandom
@@ -129,7 +129,7 @@ interface Randomizer
      * 
      * @return float the random real
      */
-    function getRandomReal($min, $max);
+    public function getRandomReal($min, $max);
 
     /**
      * Generates a random GUID.  This method could use a hash of random Strings, 
@@ -139,6 +139,6 @@ interface Randomizer
      * @return string the GUID
      * @throws EncryptionException if hashing or encryption fails 
      */
-    function getRandomGUID();
+    public function getRandomGUID();
 
 }

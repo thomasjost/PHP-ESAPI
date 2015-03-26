@@ -76,7 +76,7 @@ class DefaultEncoder implements Encoder
      * 
      * @throws InvalidArgumentException
      */
-    function __construct($codecs = null)
+    public function __construct($codecs = null)
     {
         $this->logger = ESAPI::getAuditor("Encoder");
 
@@ -118,7 +118,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function canonicalize($input, $strict = true)
+    public function canonicalize($input, $strict = true)
     {
         if ($input === null) {
             return null;
@@ -190,7 +190,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForCSS($input)
+    public function encodeForCSS($input)
     {
         if ($input === null) {
             return null;
@@ -201,7 +201,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForHTML($input)
+    public function encodeForHTML($input)
     {
         if ($input === null) {
             return null;
@@ -212,7 +212,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForHTMLAttribute($input)
+    public function encodeForHTMLAttribute($input)
     {
         if ($input === null) {
             return null;
@@ -223,7 +223,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForJavaScript($input)
+    public function encodeForJavaScript($input)
     {
         if ($input === null) {
             return null;
@@ -234,7 +234,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForVBScript($input)
+    public function encodeForVBScript($input)
     {
         if ($input === null) {
             return null;
@@ -245,7 +245,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForSQL($codec, $input)
+    public function encodeForSQL($codec, $input)
     {
         if ($input === null) {
             return null;
@@ -256,7 +256,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForOS($codec, $input)
+    public function encodeForOS($codec, $input)
     {
         if ($input === null) {
             return null;
@@ -276,7 +276,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForXPath($input)
+    public function encodeForXPath($input)
     {
         if ($input === null) {
             return null;
@@ -287,7 +287,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForXML($input)
+    public function encodeForXML($input)
     {
         if ($input === null) {
             return null;
@@ -298,7 +298,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForXMLAttribute($input)
+    public function encodeForXMLAttribute($input)
     {
         if ($input === null) {
             return null;
@@ -309,7 +309,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForURL($input)
+    public function encodeForURL($input)
     {
         if ($input === null) {
             return null;
@@ -351,7 +351,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function decodeFromURL($input)
+    public function decodeFromURL($input)
     {
         if ($input === null) {
             return null;
@@ -381,7 +381,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function encodeForBase64($input, $wrap = true)
+    public function encodeForBase64($input, $wrap = true)
     {
         if ($input === null) {
             return null;
@@ -392,7 +392,7 @@ class DefaultEncoder implements Encoder
     /**
      * @inheritdoc
      */
-    function decodeFromBase64($input)
+    public function decodeFromBase64($input)
     {
         if ($input === null) {
             return null;

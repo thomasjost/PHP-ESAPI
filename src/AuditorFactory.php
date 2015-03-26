@@ -50,6 +50,6 @@ interface AuditorFactory
      *
      * @return ESAPILogger The DefaultLogger associated with this module.
      */
-    function getLogger($moduleName);
+    public function getLogger($moduleName);
 
 }

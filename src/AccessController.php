@@ -55,7 +55,7 @@ interface AccessController
      * @return
      * 		true, if is authorized for URL
      */
-    function isAuthorizedForURL($url);
+    public function isAuthorizedForURL($url);
 
     /**
      * Checks if an account is authorized to access the referenced function.
@@ -69,7 +69,7 @@ interface AccessController
      * @return
      * 		true, if is authorized for function
      */
-    function isAuthorizedForFunction($functionName);
+    public function isAuthorizedForFunction($functionName);
 
     /**
      * Checks if an account is authorized to access the referenced data, represented as a String.
@@ -83,7 +83,7 @@ interface AccessController
      * @return
      * 		true, if is authorized for the data
      */
-    function isAuthorizedForDataByKey($key);
+    public function isAuthorizedForDataByKey($key);
 
     /**
      * Checks if an account is authorized to access the referenced data, represented as an Object.
@@ -100,7 +100,7 @@ interface AccessController
      * @return
      * 		true, if is authorized for the data
      */
-    function isAuthorizedForData($action, $data);
+    public function isAuthorizedForData($action, $data);
 
     /**
      * Checks if an account is authorized to access the referenced file.
@@ -114,7 +114,7 @@ interface AccessController
      * @return
      * 		true, if is authorized for the file
      */
-    function isAuthorizedForFile($filepath);
+    public function isAuthorizedForFile($filepath);
 
     /**
      * Checks if an account is authorized to access the referenced service. This can be used in applications that
@@ -129,7 +129,7 @@ interface AccessController
      * @return
      * 		true, if is authorized for the service
      */
-    function isAuthorizedForService($serviceName);
+    public function isAuthorizedForService($serviceName);
 
     /**
      * Checks if an account is authorized to access the referenced URL. The implementation should allow
@@ -157,7 +157,7 @@ interface AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForURL($url);
+    public function assertAuthorizedForURL($url);
 
     /**
      * Checks if an account is authorized to access the referenced function. The implementation should define the
@@ -185,7 +185,7 @@ interface AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForFunction($functionName);
+    public function assertAuthorizedForFunction($functionName);
 
     /**
      * Checks if the current user is authorized to access the referenced data.  This method simply returns if access is authorized.
@@ -208,7 +208,7 @@ interface AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForDataByKey($key);
+    public function assertAuthorizedForDataByKey($key);
 
     /**
      * Checks if the current user is authorized to access the referenced data.  This method simply returns if access is authorized.
@@ -235,7 +235,7 @@ interface AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForData($action, $data);
+    public function assertAuthorizedForData($action, $data);
      
     /**
      * Checks if an account is authorized to access the referenced file. The implementation should validate and canonicalize the
@@ -260,7 +260,7 @@ interface AccessController
      * 			Path to the file to be checked
      * @throws AccessControlException if access is denied
      */
-    function assertAuthorizedForFile($filepath);
+    public function assertAuthorizedForFile($filepath);
 
     /**
      * Checks if an account is authorized to access the referenced service. This can be used in applications that
@@ -287,6 +287,6 @@ interface AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */                
-    function assertAuthorizedForService($serviceName);
+    public function assertAuthorizedForService($serviceName);
 
 }

@@ -58,7 +58,7 @@ class DefaultAuditor implements Auditor
      *
      * @return does not return a value.
      */
-    function __construct($name)
+    public function __construct($name)
     {
         if (self::$_initialised == false) {
             self::_initialise();
@@ -98,7 +98,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function fatal($type, $success, $message, $throwable = null)
+    public function fatal($type, $success, $message, $throwable = null)
     {
         $this->_log(Auditor::FATAL, $type, $success, $message, $throwable);
     }
@@ -106,7 +106,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function isFatalEnabled()
+    public function isFatalEnabled()
     {
         return $this->_log4php->isEnabledFor(LoggerLevel::getLevelFatal());
     }
@@ -114,7 +114,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function error($type, $success, $message, $throwable = null)
+    public function error($type, $success, $message, $throwable = null)
     {
         $this->_log(Auditor::ERROR, $type, $success, $message, $throwable);
     }
@@ -122,7 +122,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function isErrorEnabled()
+    public function isErrorEnabled()
     {
         return $this->_log4php->isEnabledFor(LoggerLevel::getLevelError());
     }
@@ -130,7 +130,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function warning($type, $success, $message, $throwable = null)
+    public function warning($type, $success, $message, $throwable = null)
     {
         $this->_log(Auditor::WARNING, $type, $success, $message, $throwable);
     }
@@ -138,7 +138,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function isWarningEnabled()
+    public function isWarningEnabled()
     {
         return $this->_log4php->isEnabledFor(LoggerLevel::getLevelWarn());
     }
@@ -146,7 +146,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function info($type, $success, $message, $throwable = null)
+    public function info($type, $success, $message, $throwable = null)
     {
         $this->_log(Auditor::INFO, $type, $success, $message, $throwable);
     }
@@ -154,7 +154,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function isInfoEnabled()
+    public function isInfoEnabled()
     {
         return $this->_log4php->isEnabledFor(LoggerLevel::getLevelInfo());
     }
@@ -162,7 +162,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function debug($type, $success, $message, $throwable = null)
+    public function debug($type, $success, $message, $throwable = null)
     {
         $this->_log(Auditor::DEBUG, $type, $success, $message, $throwable);
     }
@@ -170,7 +170,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function isDebugEnabled()
+    public function isDebugEnabled()
     {
         return $this->_log4php->isEnabledFor(LoggerLevel::getLevelDebug());
     }
@@ -178,7 +178,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function trace($type, $success, $message, $throwable = null)
+    public function trace($type, $success, $message, $throwable = null)
     {
         $this->_log(Auditor::TRACE, $type, $success, $message, $throwable);
     }
@@ -186,7 +186,7 @@ class DefaultAuditor implements Auditor
     /**
      * @inheritdoc
      */
-    function isTraceEnabled()
+    public function isTraceEnabled()
     {
         return $this->_log4php->isEnabledFor(LoggerLevel::getLevelAll());
     }

@@ -45,7 +45,7 @@ interface SecurityConfiguration
      * 
      * @return string the name of the current application
      */
-    function getApplicationName();
+    public function getApplicationName();
 
     /**
      * Gets the master password. This password can be used to encrypt/decrypt other
@@ -53,7 +53,7 @@ interface SecurityConfiguration
      * 
      * @return string the current master password
      */
-    function getMasterKey();
+    public function getMasterKey();
 
     /**
      * Gets the master salt that is used to salt stored password hashes and any 
@@ -61,7 +61,7 @@ interface SecurityConfiguration
      * 
      * @return string the current master salt
      */
-    function getMasterSalt();
+    public function getMasterSalt();
 
     /**
      * Gets the allowed file extensions for files that are uploaded to this 
@@ -69,42 +69,42 @@ interface SecurityConfiguration
      * 
      * @return array a list of the current allowed file extensions
      */
-    function getAllowedFileExtensions();
+    public function getAllowedFileExtensions();
 
     /**
      * Gets the maximum allowed file upload size.
      * 
      * @return int the current allowed file upload size
      */
-    function getAllowedFileUploadSize();
+    public function getAllowedFileUploadSize();
 
     /**
      * Gets the name of the password parameter used during user authentication.
      * 
      * @return string the name of the password parameter
      */
-    function getPasswordParameterName();
+    public function getPasswordParameterName();
 
     /**
      * Gets the name of the username parameter used during user authentication.
      * 
      * @return string the name of the username parameter
      */
-    function getUsernameParameterName();
+    public function getUsernameParameterName();
 
     /**
      * Gets the encryption algorithm used by ESAPI to protect data.
      * 
      * @return string the current encryption algorithm
      */
-    function getEncryptionAlgorithm();
+    public function getEncryptionAlgorithm();
 
     /**
      * Gets the hashing algorithm used by ESAPI to hash data.
      * 
      * @return string the current hashing algorithm
      */
-    function getHashAlgorithm();
+    public function getHashAlgorithm();
 
     /**
      * Gets the character encoding scheme supported by this application. This is 
@@ -118,7 +118,7 @@ interface SecurityConfiguration
      * 
      * @return string the current character encoding scheme
      */
-    function getCharacterEncoding();
+    public function getCharacterEncoding();
 
     /**
      * Gets the digital signature algorithm used by ESAPI to generate and verify 
@@ -126,7 +126,7 @@ interface SecurityConfiguration
      * 
      * @return string the current digital signature algorithm
      */
-    function getDigitalSignatureAlgorithm();
+    public function getDigitalSignatureAlgorithm();
 
     /**
      * Gets the random number generation algorithm used to generate random numbers 
@@ -134,7 +134,7 @@ interface SecurityConfiguration
      * 
      * @return string the current random number generation algorithm
      */
-    function getRandomAlgorithm();
+    public function getRandomAlgorithm();
 
     /**
      * Gets the number of login attempts allowed before the user's account is 
@@ -144,7 +144,7 @@ interface SecurityConfiguration
      * @return int the number of failed login attempts that cause an account to be 
      *             locked
      */
-    function getAllowedLoginAttempts();
+    public function getAllowedLoginAttempts();
 
     /**
      * getAllowedIncludes returns an array of include files that are allowed to be 
@@ -152,7 +152,7 @@ interface SecurityConfiguration
      * 
      * @return array an array of allowed includes
      */
-    function getAllowedIncludes();
+    public function getAllowedIncludes();
     
     /**
      * getAllowedResources returns an array of resources (files) that are permitted.
@@ -161,7 +161,7 @@ interface SecurityConfiguration
      * 
      * @return array an array of allowed resources
      */
-    function getAllowedResources();
+    public function getAllowedResources();
     
     /**
      * Gets the maximum number of old password hashes that should be retained. 
@@ -170,7 +170,7 @@ interface SecurityConfiguration
      * 
      * @return int the number of old hashed passwords to retain
      */
-    function getMaxOldPasswordHashes();
+    public function getMaxOldPasswordHashes();
 
     /**
      * Gets the intrusion detection quota for the specified event.
@@ -180,21 +180,21 @@ interface SecurityConfiguration
      * @return int the Quota that has been configured for the specified type of 
      *             event
      */
-    function getQuota($eventName);
+    public function getQuota($eventName);
 
     /**
      * Allows for complete disabling of all intrusion detection mechanisms.
      * 
      * @return bool true if intrusion detection should be disabled.
      */
-    function getDisableIntrusionDetection();
+    public function getDisableIntrusionDetection();
 
     /**
      * Gets the name of the ESAPI resource directory as a String.
      * 
      * @return string The ESAPI resource directory.
      */
-    function getResourceDirectory();
+    public function getResourceDirectory();
 
     /**
      * Sets the ESAPI resource directory.
@@ -203,7 +203,7 @@ interface SecurityConfiguration
      * 
      * @return Does not return a value.
      */
-    function setResourceDirectory($dir);
+    public function setResourceDirectory($dir);
 
     /**
      * Gets the content type for responses used when setSafeContentType() is called.
@@ -213,7 +213,7 @@ interface SecurityConfiguration
      * 
      * @return string The current content-type set for responses.
      */
-    function getResponseContentType();
+    public function getResponseContentType();
 
     /**
      * Gets the length of the time to live window for remember me tokens (in 
@@ -221,7 +221,7 @@ interface SecurityConfiguration
      * 
      * @return int The time to live length for generated remember me tokens.
      */
-    function getRememberTokenDuration();
+    public function getRememberTokenDuration();
 
     /**
      * Gets the idle timeout length for sessions (in milliseconds). This is the 
@@ -231,7 +231,7 @@ interface SecurityConfiguration
      * 
      * @return int The session idle timeout length.
      */
-    function getSessionIdleTimeoutLength();
+    public function getSessionIdleTimeoutLength();
 
     /**
      * Gets the absolute timeout length for sessions (in milliseconds). This is 
@@ -242,7 +242,7 @@ interface SecurityConfiguration
      * 
      * @return int The session absolute timeout length.
      */
-    function getSessionAbsoluteTimeoutLength();
+    public function getSessionAbsoluteTimeoutLength();
 
     /**
      * Returns whether HTML entity encoding should be applied to log entries.
@@ -250,7 +250,7 @@ interface SecurityConfiguration
      * @return bool True if log entries are to be HTML Entity encoded. False 
      *              otherwise.
      */
-    function getLogEncodingRequired();
+    public function getLogEncodingRequired();
 
     /**
      * Get the log level specified in the ESAPI configuration properties file. 
@@ -259,7 +259,7 @@ interface SecurityConfiguration
      * @return int the logging level defined in the properties file. If none is 
      *             specified, the default of Logger.WARNING is returned.
      */
-    function getLogLevel();
+    public function getLogLevel();
 
     /**
      * Get the name of the log file specified in the ESAPI configuration properties 
@@ -267,7 +267,7 @@ interface SecurityConfiguration
      * 
      * @return string the log file name defined in the properties file.
      */
-    function getLogFileName();
+    public function getLogFileName();
 
     /**
      * Get the maximum size of a single log file from the ESAPI configuration 
@@ -276,7 +276,7 @@ interface SecurityConfiguration
      * 
      * @return int the maximum size of a single log file (in bytes).
      */
-    function getMaxLogFileSize();
+    public function getMaxLogFileSize();
     
     /**
      * Get the specified validation pattern from the ESAPI configuration properties 
@@ -286,7 +286,7 @@ interface SecurityConfiguration
      *
      * @return string the regular expression.
      */
-    function getValidationPattern($type);
+    public function getValidationPattern($type);
     
     /**
      * getWorkingDirectory returns the default directory where processes will be 
@@ -294,7 +294,7 @@ interface SecurityConfiguration
      * 
      * @return string working directory name
      */
-    function getWorkingDirectory();
+    public function getWorkingDirectory();
 
     /**
      * getAllowedExecutables returns an array of executables that are allowed to 
@@ -302,6 +302,6 @@ interface SecurityConfiguration
      * 
      * @return array an array of executable names
      */
-    function getAllowedExecutables();
+    public function getAllowedExecutables();
 
 }

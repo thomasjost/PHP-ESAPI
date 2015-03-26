@@ -53,7 +53,7 @@ interface Executor
      * 
      * @return does not return a value.
      */
-    function executeSystemCommand($executable, $params);
+    public function executeSystemCommand($executable, $params);
 
     /**
      * Executes a system command after checking that the executable exists and
@@ -76,7 +76,7 @@ interface Executor
      * @return string the output of the command being run
      * @throws ExecutorException the service exception
      */
-     function executeSystemCommandLonghand($executable, $params, $workdir,
+     public function executeSystemCommandLonghand($executable, $params, $workdir,
          $logParams
      );
 

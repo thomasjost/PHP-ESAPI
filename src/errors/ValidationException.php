@@ -51,7 +51,7 @@ class ValidationException extends EnterpriseSecurityException
      * 
      * @return does not return a value.
      */
-    function __construct($userMessage = '', $logMessage = '', $context = '')
+    public function __construct($userMessage = '', $logMessage = '', $context = '')
     {
         parent::__construct($userMessage, $logMessage);
         $this->setContext($context);

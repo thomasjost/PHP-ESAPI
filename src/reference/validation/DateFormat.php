@@ -53,7 +53,7 @@ class DateFormat
      * 
      * @return does not return a value.
      */
-    function __construct($format = null, $type = 'MEDIUM') 
+    public function __construct($format = null, $type = 'MEDIUM') 
     {
         $this->setformat($format, $type);
     }
@@ -66,7 +66,7 @@ class DateFormat
      * 
      * @return does not return a value.
      */
-    function setformat($format, $type = 'MEDIUM') 
+    public function setformat($format, $type = 'MEDIUM') 
     {
         switch ($type) {
             case 'SMALL': 

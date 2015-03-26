@@ -39,7 +39,7 @@ class UnixCodec extends Codec
     /**
      * Public Constructor 
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }

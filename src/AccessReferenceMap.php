@@ -49,7 +49,7 @@ interface AccessReferenceMap
      * 
      * @return iterator the iterator
      */
-    function iterator();
+    public function iterator();
 
     /**
      * Get a safe indirect reference to use in place of a potentially sensitive
@@ -61,7 +61,7 @@ interface AccessReferenceMap
      * 
      * @return string the indirect reference
      */
-    function getIndirectReference($directReference);
+    public function getIndirectReference($directReference);
 
     /**
      * Get the original direct object reference from an indirect reference.
@@ -77,7 +77,7 @@ interface AccessReferenceMap
      * @throws AccessControlException if no direct reference exists for the 
      *                                specified indirect reference
      */
-    function getDirectReference($indirectReference);
+    public function getDirectReference($indirectReference);
 
     /**
      * Adds a direct reference to the AccessReferenceMap, then generates and returns 
@@ -87,7 +87,7 @@ interface AccessReferenceMap
      * 
      * @return string the corresponding indirect reference
      */
-    function addDirectReference($direct);
+    public function addDirectReference($direct);
 
     /**
      * Removes a direct reference and its associated indirect reference from
@@ -99,7 +99,7 @@ interface AccessReferenceMap
      * 
      * @throws AccessControlException
      */
-    function removeDirectReference($direct);
+    public function removeDirectReference($direct);
 
     /**
      * Updates the access reference map with a new set of direct references, 
@@ -112,6 +112,6 @@ interface AccessReferenceMap
      * 
      * @return does not return a avalue
      */
-    function update($directReferences);
+    public function update($directReferences);
 
 }

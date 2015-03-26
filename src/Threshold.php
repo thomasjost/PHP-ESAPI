@@ -77,7 +77,7 @@ class Threshold
      * 
      * @return Does not return a value.
      */
-    function __construct($name, $count, $interval, $actions)
+    public function __construct($name, $count, $interval, $actions)
     {
         $this->name = $name;
         $this->count = $count;

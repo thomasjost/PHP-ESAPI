@@ -131,7 +131,7 @@ abstract class Codec
      *
      * @return string returns the decoded string, otherwise null
      */
-    function decode($input)
+    public function decode($input)
     {
         
         // Normalize string to UTF-32
@@ -512,7 +512,7 @@ abstract class Codec
      * @return bool True indicates that the single character string is a hex 
      *              digit
      */
-    function isHexDigit($c)
+    public function isHexDigit($c)
     {
         // Assumption/prerequisite: $c is a UTF-32 encoded single character
         $_4ByteCharacter = $c;

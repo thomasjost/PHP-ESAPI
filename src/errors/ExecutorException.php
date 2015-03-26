@@ -44,7 +44,7 @@ class ExecutorException extends EnterpriseSecurityException
      * 
      * @return does not return a value.
      */
-    function __construct($userMessage = '', $logMessage = '')
+    public function __construct($userMessage = '', $logMessage = '')
     {
         parent::__construct($userMessage, $logMessage);
     }

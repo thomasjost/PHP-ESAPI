@@ -140,7 +140,7 @@ interface Encoder
      *         
      * @see <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C specifications</a>
      */
-    function canonicalize($input, $strict = true);
+    public function canonicalize($input, $strict = true);
 
     /**
      * Encode data for use in Cascading Style Sheets (CSS) content.
@@ -151,7 +151,7 @@ interface Encoder
      * 
      * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#escaped-characters">CSS Syntax [w3.org]</a>
      */
-    function encodeForCSS($input);
+    public function encodeForCSS($input);
 
     /**
      * Encode data for use in HTML using HTML entity encoding
@@ -167,7 +167,7 @@ interface Encoder
      * @see <a href="http://www.w3.org/TR/html4/sgml/sgmldecl.html">SGML Specification [w3.org]</a>
      * @see <a href="http://www.w3.org/TR/REC-xml/#charsets">XML Specification [w3.org]</a>
      */
-    function encodeForHTML($input);
+    public function encodeForHTML($input);
 
     /**
      * Encode data for use in HTML attributes.
@@ -176,7 +176,7 @@ interface Encoder
      *
      * @return the input string encoded for use as an HTML attribute.
      */
-    function encodeForHTMLAttribute($input);
+    public function encodeForHTMLAttribute($input);
 
     /**
      * Encode data for insertion inside a data value in JavaScript. Putting user
@@ -188,7 +188,7 @@ interface Encoder
      *
      * @return the input string encoded for use in JavaScript.
      */
-    function encodeForJavaScript($input);
+    public function encodeForJavaScript($input);
 
     /**
      * Encode data for insertion inside a data value in a Visual Basic script.
@@ -203,7 +203,7 @@ interface Encoder
      *
      * @return the input string encoded for use in VBScript.
      */
-    function encodeForVBScript($input);
+    public function encodeForVBScript($input);
 
     /**
      * Encode input for use in a SQL query, according to the selected codec
@@ -220,7 +220,7 @@ interface Encoder
      *
      * @return the input string encoded for use in a SQL query.
      */
-    function encodeForSQL($codec, $input);
+    public function encodeForSQL($codec, $input);
 
     /**
      * Encode for an operating system command shell according to the selected
@@ -233,7 +233,7 @@ interface Encoder
      *
      * @return the input string encoded for use in a command shell.
      */
-    function encodeForOS($codec, $input);
+    public function encodeForOS($codec, $input);
 
     /**
      * Encode data for use in an XPath query.
@@ -253,7 +253,7 @@ interface Encoder
      *
      * @return the input string encoded for use in an XPath query.
      */
-    function encodeForXPath($input);
+    public function encodeForXPath($input);
 
     /**
      * Encode data for use in an XML element. The implementation should follow
@@ -269,7 +269,7 @@ interface Encoder
      *
      * @return the input string encoded for use in an XML element.
      */
-    function encodeForXML($input);
+    public function encodeForXML($input);
 
     /**
      * Encode data for use in an XML attribute. The implementation should follow
@@ -285,7 +285,7 @@ interface Encoder
      *
      * @return the input string encoded for use in an XML attribute.
      */
-    function encodeForXMLAttribute($input);
+    public function encodeForXMLAttribute($input);
 
     /**
      * Encode for use in a URL. This method performs <a
@@ -296,7 +296,7 @@ interface Encoder
      *
      * @return the input string encoded for use in a URL.
      */
-    function encodeForURL($input);
+    public function encodeForURL($input);
 
     /**
      * Decode from URL. Implementations should first canonicalize and detect any
@@ -307,7 +307,7 @@ interface Encoder
      *
      * @return the input string decoded from URL.
      */
-    function decodeFromURL($input);
+    public function decodeFromURL($input);
 
     /**
      * Encode data with Base64 encoding.
@@ -318,7 +318,7 @@ interface Encoder
      *
      * @return the input string encoded for Base64.
      */
-    function encodeForBase64($input, $wrap = false);
+    public function encodeForBase64($input, $wrap = false);
 
     /**
      * Decode data encoded with Base64 encoding.
@@ -327,6 +327,6 @@ interface Encoder
      *
      * @return the input string decoded from Base64.
      */
-    function decodeFromBase64($input);
+    public function decodeFromBase64($input);
 
 }

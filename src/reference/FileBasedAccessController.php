@@ -45,7 +45,7 @@ class FileBasedAccessController implements AccessController
      * @return
      * 		true, if is authorized for URL
      */
-    function isAuthorizedForURL($url)
+    public function isAuthorizedForURL($url)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -62,7 +62,7 @@ class FileBasedAccessController implements AccessController
      * @return
      * 		true, if is authorized for function
      */
-    function isAuthorizedForFunction($functionName)
+    public function isAuthorizedForFunction($functionName)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -79,7 +79,7 @@ class FileBasedAccessController implements AccessController
      * @return
      * 		true, if is authorized for the data
      */
-    function isAuthorizedForDataByKey($key)
+    public function isAuthorizedForDataByKey($key)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -99,7 +99,7 @@ class FileBasedAccessController implements AccessController
      * @return
      * 		true, if is authorized for the data
      */
-    function isAuthorizedForData($action, $data)
+    public function isAuthorizedForData($action, $data)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -116,7 +116,7 @@ class FileBasedAccessController implements AccessController
      * @return
      * 		true, if is authorized for the file
      */
-    function isAuthorizedForFile($filepath)
+    public function isAuthorizedForFile($filepath)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -134,7 +134,7 @@ class FileBasedAccessController implements AccessController
      * @return
      * 		true, if is authorized for the service
      */
-    function isAuthorizedForService($serviceName)
+    public function isAuthorizedForService($serviceName)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -165,7 +165,7 @@ class FileBasedAccessController implements AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForURL($url)
+    public function assertAuthorizedForURL($url)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -196,7 +196,7 @@ class FileBasedAccessController implements AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForFunction($functionName)
+    public function assertAuthorizedForFunction($functionName)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -222,7 +222,7 @@ class FileBasedAccessController implements AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForDataByKey($key)
+    public function assertAuthorizedForDataByKey($key)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -252,7 +252,7 @@ class FileBasedAccessController implements AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */
-    function assertAuthorizedForData($action, $data)
+    public function assertAuthorizedForData($action, $data)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -280,7 +280,7 @@ class FileBasedAccessController implements AccessController
      * 			Path to the file to be checked
      * @throws AccessControlException if access is denied
      */
-    function assertAuthorizedForFile($filepath)
+    public function assertAuthorizedForFile($filepath)
     {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
@@ -310,7 +310,7 @@ class FileBasedAccessController implements AccessController
      * @throws AccessControlException
      * 		if access is not permitted
      */                
-    function assertAuthorizedForService($serviceName)
+    public function assertAuthorizedForService($serviceName)
     {
         throw new EnterpriseSecurityException("Method Not implemented");    
     }

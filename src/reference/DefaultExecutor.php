@@ -52,7 +52,7 @@ class DefaultExecutor implements Executor
      * 
      * @return does not return a value.
      */
-    function __construct()
+    public function __construct()
     {
         $this->_auditor = ESAPI::getAuditor('Executor');
         $this->_config = ESAPI::getSecurityConfiguration();
@@ -61,7 +61,7 @@ class DefaultExecutor implements Executor
     /**
      * @inheritdoc
      */
-    function executeSystemCommand($executable, $params)
+    public function executeSystemCommand($executable, $params)
     {
         $workdir = $this->_config->getWorkingDirectory();
         $logParams = false;
@@ -73,7 +73,7 @@ class DefaultExecutor implements Executor
      /**
      * @inheritdoc
      */
-    function executeSystemCommandLonghand($executable, $params, $workdir,
+    public function executeSystemCommandLonghand($executable, $params, $workdir,
         $logParams
     ) {
         try {
