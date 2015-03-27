@@ -21,6 +21,9 @@
  */
 
 //Make sure to run this script as a "PHP Web Page"
+if (php_sapi_name() === 'cli') {
+    exit('ERROR: This script must be run from the browser.' . PHP_EOL);
+}
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $ESAPI = new ESAPI(__DIR__ . "/testresources/ESAPI.xml");
