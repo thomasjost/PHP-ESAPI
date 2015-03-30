@@ -19,7 +19,7 @@ class WindowsCodecTest extends PHPUnit_Framework_TestCase
 {
     private $windowsCodec = null;
     
-    function setUp()
+    public function setUp()
     {
         global $ESAPI;
 
@@ -31,31 +31,31 @@ class WindowsCodecTest extends PHPUnit_Framework_TestCase
         $this->windowsCodec = new WindowsCodec();
     }
 
-    function tearDown()
+    public function tearDown()
     {
 
     }
     
-    function testEncode()
+    public function testEncode()
     {
         $immune = array("");
         
         $this->assertEquals('^"^ ^&^ dir^/s^ c^:', $this->windowsCodec->encode($immune, '" & dir/s c:'));
     }
     
-    function testEncodeCharacter()
+    public function testEncodeCharacter()
     {
         $immune = array("");
         
         $this->assertEquals("^<", $this->windowsCodec->encode($immune, "<"));
     }    
     
-    function testDecode()
+    public function testDecode()
     {
         $this->assertEquals('" & dir/s c:', $this->windowsCodec->decode('^"^ ^&^ dir^/s^ c^:'));
     }
         
-    function testDecodeCharacter()
+    public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->windowsCodec->decode("^<"));
     }

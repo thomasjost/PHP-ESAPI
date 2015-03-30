@@ -19,7 +19,7 @@
 
 class EnterpriseSecurityExceptionTest extends PHPUnit_Framework_TestCase
 {
-    function setUp()
+    public function setUp()
     {
         global $ESAPI;
 
@@ -29,213 +29,213 @@ class EnterpriseSecurityExceptionTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    function tearDown()
+    public function tearDown()
     {
 
     }
 
-    function testEnterpriseSecurityDefaultException() {
+    public function testEnterpriseSecurityDefaultException() {
         $e = new EnterpriseSecurityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
 
-    function testEnterpriseSecurityException() {
+    public function testEnterpriseSecurityException() {
         $e = new EnterpriseSecurityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testAccessControlDefaultException() {
+    public function testAccessControlDefaultException() {
         $e = new AccessControlException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAccessControlException() {
+    public function testAccessControlException() {
         $e = new AccessControlException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testAuthenticationDefaultException() {
+    public function testAuthenticationDefaultException() {
         $e = new AuthenticationException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAuthenticationException() {
+    public function testAuthenticationException() {
         $e = new AuthenticationException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testAvailabilityDefaultException() {
+    public function testAvailabilityDefaultException() {
         $e = new AvailabilityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAvailabilityException() {
+    public function testAvailabilityException() {
         $e = new AvailabilityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testCertificateDefaultException() {
+    public function testCertificateDefaultException() {
         $e = new CertificateException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testCertificateException() {
+    public function testCertificateException() {
         $e = new CertificateException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testEncodingDefaultException() {
+    public function testEncodingDefaultException() {
         $e = new EncodingException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
         
-    function testEncodingException() {
+    public function testEncodingException() {
         $e = new EncodingException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testEncryptionDefaultException() {
+    public function testEncryptionDefaultException() {
         $e = new EncryptionException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testEncryptionException() {
+    public function testEncryptionException() {
         $e = new EncryptionException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testExecutorDefaultException() {
+    public function testExecutorDefaultException() {
         $e = new ExecutorException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testExecutorException() {
+    public function testExecutorException() {
         $e = new ExecutorException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testValidationDefaultException() {
+    public function testValidationDefaultException() {
         $e = new ValidationException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testValidationException() {
+    public function testValidationException() {
         $e = new ValidationException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testValidationExceptionContext() {
+    public function testValidationExceptionContext() {
         $e = new ValidationException();
         $e->setContext("test");
         $this->assertEquals("test", $e->getContext());
     }
     
-    function testIntegrityDefaultException() {
+    public function testIntegrityDefaultException() {
         $e = new IntegrityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testIntegrityException() {
+    public function testIntegrityException() {
         $e = new IntegrityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testAuthenticationHostDefaultException() {
+    public function testAuthenticationHostDefaultException() {
         $e = new AuthenticationHostException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAuthenticationHostException() {
+    public function testAuthenticationHostException() {
         $e = new AuthenticationHostException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    function testAuthenticationAccountsDefaultException() {
+    public function testAuthenticationAccountsDefaultException() {
         $e = new AuthenticationAccountsException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAuthenticationAccountsException() {
+    public function testAuthenticationAccountsException() {
         $e = new AuthenticationAccountsException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testAuthenticationCredentialsDefaultException() {
+    public function testAuthenticationCredentialsDefaultException() {
         $e = new AuthenticationCredentialsException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAuthenticationCredentialsException() {
+    public function testAuthenticationCredentialsException() {
         $e = new AuthenticationCredentialsException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    function testAuthenticationLoginDefaultException() {
+    public function testAuthenticationLoginDefaultException() {
         $e = new AuthenticationLoginException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testAuthenticationLoginException() {
+    public function testAuthenticationLoginException() {
         $e = new AuthenticationLoginException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     
-    function testValidationAvailabilityDefaultException() {
+    public function testValidationAvailabilityDefaultException() {
         $e = new ValidationAvailabilityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testValidationAvailabilityException() {
+    public function testValidationAvailabilityException() {
         $e = new ValidationAvailabilityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testValidationUploadDefaultException() {
+    public function testValidationUploadDefaultException() {
         $e = new ValidationUploadException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    function testValidationUploadException() {
+    public function testValidationUploadException() {
         $e = new ValidationUploadException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
-    function testIntrusionDefaultException() {
+    public function testIntrusionDefaultException() {
         $e = new IntrusionException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     
-    function testIntrusionException() {
+    public function testIntrusionException() {
         $e = new IntrusionException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");

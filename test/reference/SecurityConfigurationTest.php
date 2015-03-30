@@ -21,7 +21,7 @@
 
 class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 {
-    function setUp()
+    public function setUp()
     {
         global $ESAPI;
 
@@ -31,12 +31,12 @@ class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    function tearDown()
+    public function tearDown()
     {
 
     }
 
-    function testConfigExists()
+    public function testConfigExists()
     {
         $this->assertTrue(file_exists(__DIR__.'/../testresources/ESAPI.xml'));
     }

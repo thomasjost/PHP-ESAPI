@@ -19,7 +19,7 @@
  
 class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase 
 {
-    function setUp() 
+    public function setUp() 
     {
         global $ESAPI;
         
@@ -29,7 +29,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
         }
     }
     
-    function tearDown()
+    public function tearDown()
     {
         
     }
@@ -37,7 +37,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
     /**
      * Test of iterator method, of class org.owasp.esapi.AccessReferenceMap.
      */
-    function testIterator() 
+    public function testIterator() 
     {
         $users = array("andrew", "bipin", "laura", "jah", "linden", "mike", "arnaud");        
         
@@ -63,7 +63,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
      *
      * @throws org.owasp.esapi.errors.AccessControlException
      */
-    function testRemoveDirectReference() 
+    public function testRemoveDirectReference() 
     {
         
         $directReference = "234";
@@ -87,7 +87,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
      * Test of getIndirectReference method, of class
      * org.owasp.esapi.AccessReferenceMap.
      */
-    function testGetIndirectReference()
+    public function testGetIndirectReference()
     {    
         $directReference = "234";
         
@@ -110,7 +110,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
      * @throws AccessControlException
      *             the access control exception
      */
-    function testGetDirectReference()  
+    public function testGetDirectReference()  
     {
         $directReference = "234";
         
@@ -142,7 +142,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
      *
      * @throws org.owasp.esapi.errors.AccessControlException
      */
-    function testAddDirectReference() 
+    public function testAddDirectReference() 
     {
         
         $directReference = "234";
@@ -163,7 +163,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($ind, $newInd); 
     }
     
-    function testUpdatePass() 
+    public function testUpdatePass() 
     {
         $users = array('alpha', 'juliet', 'victor');
         
@@ -174,7 +174,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($indirect);
     }
     
-    function testUpdateFail() 
+    public function testUpdateFail() 
     {
         $users = array('alpha', 'juliet', 'victor');
         
@@ -185,7 +185,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
         $this->assertNull($indirect);
     }
     
-    function testUpdateRemoveItem() {    
+    public function testUpdateRemoveItem() {    
         $users = array('alpha', 'juliet', 'victor');
         
         $arm = new RandomAccessReferenceMap();
@@ -198,7 +198,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
         $this->assertNull($indirect);
     }
     
-    function testUpdateStableReference() {
+    public function testUpdateStableReference() {
         $users = array('alpha', 'juliet', 'victor');
         
         $arm = new RandomAccessReferenceMap();

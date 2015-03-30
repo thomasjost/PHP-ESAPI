@@ -19,7 +19,7 @@ class VBScriptCodecTest extends PHPUnit_Framework_TestCase
 {
     private $vbScriptCodec = null;
     
-    function setUp()
+    public function setUp()
     {
         global $ESAPI;
 
@@ -31,26 +31,26 @@ class VBScriptCodecTest extends PHPUnit_Framework_TestCase
         $this->vbScriptCodec = new VBScriptCodec();
     }
         
-    function testEncode()
+    public function testEncode()
     {
         $immune = array(" ");
 
         $this->assertEquals(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>"));
     }
     
-    function testEncodeCharacter()
+    public function testEncodeCharacter()
     {
         $immune = array(" ");
         
         $this->assertEquals("\"<", $this->vbScriptCodec->encode($immune, "<"));
     }
     
-    function testDecode()
+    public function testDecode()
     {
         $this->assertEquals(" !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\""));
     }
         
-    function testDecodeCharacter()
+    public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->vbScriptCodec->decode("\"<"));
     }

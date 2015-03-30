@@ -20,7 +20,7 @@ class MySQLCodecTest extends PHPUnit_Framework_TestCase
     private $mysqlAnsiCodec = null;
     private $mysqlStdCodec = null;
     
-    function setUp()
+    public function setUp()
     {
         global $ESAPI;
 
@@ -33,60 +33,60 @@ class MySQLCodecTest extends PHPUnit_Framework_TestCase
         $this->mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
     }
         
-    function testANSIEncode()
+    public function testANSIEncode()
     {
         $immune = array("");
         
         $this->assertEquals("'') or (''1''=''1--", $this->mysqlAnsiCodec->encode($immune, "') or ('1'='1--"));
     }
     
-    function testANSIEncodeCharacter()
+    public function testANSIEncodeCharacter()
     {
         $immune = array("");
         
         $this->assertEquals("''", $this->mysqlAnsiCodec->encode($immune, "'"));
     }    
     
-    function testANSIDecode()
+    public function testANSIDecode()
     {
         $this->assertEquals("') or ('1'='1--", $this->mysqlAnsiCodec->decode("'') or (''1''=''1--"));
     }
         
-    function testANSIDecodeCharacter()
+    public function testANSIDecodeCharacter()
     {
         $this->assertEquals("'", $this->mysqlAnsiCodec->decode("''"));
     }
     
-    function testStdDecode()
+    public function testStdDecode()
     {
         $this->assertEquals("') \or ('1'='1--\0\x25", $this->mysqlStdCodec->decode("\\'\\) \\\\or \\(\\'1\\'\\=\\'1\\-\\-\\0\\%"));
     }
 
-    function testStdEncode()
+    public function testStdEncode()
     {
         $immune = array(" ");
         
         $this->assertEquals("\\'\\) \\\\or \\(\\'1\\'\\=\\'1\\-\\-\\0\\%", $this->mysqlStdCodec->encode($immune, "') \or ('1'='1--\0\x25"));
     }
     
-    function testStdDecodeCharacter()
+    public function testStdDecodeCharacter()
     {
         $this->assertEquals("'", $this->mysqlStdCodec->decode("\\'"));
     }
     
-    function testStdEncodeCharacter()
+    public function testStdEncodeCharacter()
     {
         $immune = array(" ");
         
         $this->assertEquals("\\'", $this->mysqlStdCodec->encode($immune, "'"));
     }
     
-    function testStdDecodeExtra()
+    public function testStdDecodeExtra()
     {
         $this->assertEquals("\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25", $this->mysqlStdCodec->decode("\\b \\n \\r \\t \\Z \\_ \\\" \\' \\\\ \\0 \\%"));
     }
 
-    function testStdEncodeExtra()
+    public function testStdEncodeExtra()
     {
         $immune = array(" ");
         

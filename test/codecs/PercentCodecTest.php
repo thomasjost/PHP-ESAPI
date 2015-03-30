@@ -19,7 +19,7 @@ class PercentCodecTest extends PHPUnit_Framework_TestCase
 {
     private $percentCodec = null;
     
-    function setUp()
+    public function setUp()
     {
         global $ESAPI;
 
@@ -31,31 +31,31 @@ class PercentCodecTest extends PHPUnit_Framework_TestCase
         $this->percentCodec = new PercentCodec();
     }
 
-    function tearDown()
+    public function tearDown()
     {
 
     }
     
-    function testEncode()
+    public function testEncode()
     {
         $immune = array("/");
         
         $this->assertEquals('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # '));
     }
     
-    function testEncodeCharacter()
+    public function testEncodeCharacter()
     {
         $immune = array("");
         
         $this->assertEquals("%3C", $this->percentCodec->encode($immune, "<"));
     }    
     
-    function testDecode()
+    public function testDecode()
     {
         $this->assertEquals('"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20'));
     }
         
-    function testDecodeCharacter()
+    public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->percentCodec->decode("%3C"));
     }

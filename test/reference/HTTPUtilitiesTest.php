@@ -67,7 +67,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testAddCSRFToken()
+    public function testAddCSRFToken()
     {
         $csrf1 = $this->_httpUtils->addCSRFToken("/test1");
         $this->assertTrue(
@@ -91,7 +91,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testGetCookie()
+    public function testGetCookie()
     {
         $req = new SafeRequest(
             array(
@@ -109,7 +109,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testAssertSecureRequestInputSecure()
+    public function testAssertSecureRequestInputSecure()
     {
         $req = new SafeRequest(
             array(
@@ -128,7 +128,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testAssertSecureRequestInputInsecureNoTLS()
+    public function testAssertSecureRequestInputInsecureNoTLS()
     {
         $req = new SafeRequest(
             array(
@@ -148,7 +148,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testAssertSecureRequestInputInsecureNoTLSAlt()
+    public function testAssertSecureRequestInputInsecureNoTLSAlt()
     {
         $req = new SafeRequest(
             array(
@@ -168,7 +168,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testAssertSecureRequestInputInsecureNotPOST()
+    public function testAssertSecureRequestInputInsecureNotPOST()
     {
         $req = new SafeRequest(
             array(
@@ -188,7 +188,7 @@ class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return bool True on Pass.
      */
-    function testAssertSecureRequestInputCannotCheck()
+    public function testAssertSecureRequestInputCannotCheck()
     {
         $req = new SafeRequest(
             array(

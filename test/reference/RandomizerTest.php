@@ -21,7 +21,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
 {
     private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
     
-    function setUp() 
+    public function setUp() 
     {
         global $ESAPI;
         
@@ -31,7 +31,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         }    
     }
     
-    function tearDown()
+    public function tearDown()
     {
         
     }
@@ -40,7 +40,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
      * Test of getRandomGUID method, of class org.owasp.esapi.Randomizer.
      * @throws EncryptionException
      */
-    function testGetRandomGUID() {
+    public function testGetRandomGUID() {
         
         $instance = ESAPI::getRandomizer();
         
@@ -64,7 +64,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
     /**
      * Test of getRandomString method, of class org.owasp.esapi.Randomizer.
      */
-    function testGetRandomString() {
+    public function testGetRandomString() {
         
         $length = 20;
         $instance = ESAPI::getRandomizer();
@@ -92,7 +92,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
     /**
      * Test of getRandomInteger method, of class org.owasp.esapi.Randomizer.
      */
-    function testGetRandomInteger() {
+    public function testGetRandomInteger() {
         
         $min = -20;
         $max = 100;
@@ -119,7 +119,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
     /**
      * Test of getRandomReal method, of class org.owasp.esapi.Randomizer.
      */
-    function testGetRandomReal() {
+    public function testGetRandomReal() {
         
         $min = -20.5234;
         $max = 100.12124;
@@ -143,7 +143,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(($minResult >= $min && $maxResult <= $max));
     }
     
-    function testGetRandomBoolean() {
+    public function testGetRandomBoolean() {
         $instance = ESAPI::getRandomizer();
         
         $result = $instance->getRandomBoolean();
@@ -153,7 +153,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result !== true && $result !== false);
     }
     
-    function testGetRandomLong() {
+    public function testGetRandomLong() {
         $instance = ESAPI::getRandomizer();
         $result = $instance->getRandomLong();
         
@@ -161,7 +161,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result < mt_getrandmax());
     }
     
-    function testGetRandomFilenameCharSet() {
+    public function testGetRandomFilenameCharSet() {
 
         $instance = ESAPI::getRandomizer();
         $charset = str_split('abcdefghijklmnopqrstuvxyz0123456789'); // TODO replace with DefaultEncoder...
@@ -188,7 +188,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(true);
     }
     
-    function testGetRandomFilenameLengthNoExtension() {
+    public function testGetRandomFilenameLengthNoExtension() {
 
         $instance = ESAPI::getRandomizer();
         
@@ -196,7 +196,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(16, strlen($result));
     }
 
-    function testGetRandomFilenameLengthWithExtension() {
+    public function testGetRandomFilenameLengthWithExtension() {
 
         $instance = ESAPI::getRandomizer();
         
