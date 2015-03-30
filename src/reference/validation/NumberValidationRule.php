@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -45,17 +45,16 @@ class NumberValidationRule extends BaseValidationRule
      * Constructor sets-up the validation rule with a descriptive name for this
      * validator, an optional Encoder instance (for canonicalization) and
      * optional minimum and maximum bounds for valid numbers.
-     * 
+     *
      * @param string $typeName descriptive name for this validator.
      * @param object $encoder  providing canonicalize method.
      * @param int    $minValue or float minimum valid number.
      * @param int    $maxValue or float maximum valid number.
-     * 
+     *
      * @return does not return a value.
      */
-    public function __construct($typeName, $encoder, $minValue = null,
-        $maxValue = null
-    ) {
+    public function __construct($typeName, $encoder, $minValue = null, $maxValue = null)
+    {
         parent::__construct($typeName, $encoder);
         
         if ($minValue === null || ! is_numeric($minValue)) {
@@ -77,7 +76,7 @@ class NumberValidationRule extends BaseValidationRule
      * IntrusionException if the input is an obvious attack.
      *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        validating (e.g., LoginPage_UsernameField). This
      *                        value is used by any logging or error handling that
      *                        is done with respect to the value passed in.
      * @param string $input   The actual string user input data to validate.
@@ -150,7 +149,7 @@ class NumberValidationRule extends BaseValidationRule
             if (is_infinite($d)) {
                 throw new ValidationException(
                     'Invalid number input: context=' . $context,
-                    'Invalid double input is infinite: context=' . $context . 
+                    'Invalid double input is infinite: context=' . $context .
                     ', input=' . $input,
                     $context
                 );
@@ -159,7 +158,7 @@ class NumberValidationRule extends BaseValidationRule
             if (is_nan($d)) {
                 throw new ValidationException(
                     'Invalid number input: context=' . $context,
-                    'Invalid double input is not a number: context=' . $context . 
+                    'Invalid double input is not a number: context=' . $context .
                     ', input=' . $input,
                     $context
                 );
@@ -168,7 +167,7 @@ class NumberValidationRule extends BaseValidationRule
             if ($this->_minValue !== null && $d < $this->_minValue) {
                 throw new ValidationException(
                     'Invalid number input must not be less than ' . $this->_minValue,
-                    'Invalid number input must not be less than ' . 
+                    'Invalid number input must not be less than ' .
                     $this->_minValue . ': context=' . $context . ', input=' . $input,
                     $context
                 );
@@ -176,20 +175,19 @@ class NumberValidationRule extends BaseValidationRule
             
             if ($this->_maxValue !== null && $d > $this->_maxValue) {
                 throw new ValidationException(
-                    'Invalid number input must not be greater than ' . 
+                    'Invalid number input must not be greater than ' .
                     $this->_maxValue,
-                    'Invalid number input must not be greater than ' . 
+                    'Invalid number input must not be greater than ' .
                     $this->_maxValue . ': context=' . $context . ', input=' . $input,
                     $context
                 );
             }
             
             return $d;
-            
         } catch (NumberFormatException $e) {
             throw new ValidationException(
                 $context . ': Invalid number input',
-                'Invalid number input format: Caught NumberFormatException: ' . 
+                'Invalid number input format: Caught NumberFormatException: ' .
                 $e->getMessage() . 'context=' . $context . ', input=' . $input,
                 $context
             );
@@ -201,8 +199,8 @@ class NumberValidationRule extends BaseValidationRule
      * TODO filter non-numeric chars 0123456789+-e., ?
      *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g., LoginPage_UsernameField). This 
-     *                        value is used by any logging or error handling that 
+     *                        validating (e.g., LoginPage_UsernameField). This
+     *                        value is used by any logging or error handling that
      *                        is done with respect to the value passed in.
      * @param int    $input   The actual user input data to validate.
      *
@@ -212,5 +210,4 @@ class NumberValidationRule extends BaseValidationRule
     {
         return (double) 0;
     }
-
 }

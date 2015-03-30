@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -50,9 +50,9 @@ class CreditCardValidationRule extends BaseValidationRule
      * @param string $typeName       descriptive name for this validator.
      * @param object $encoder        Encoder providing canonicalize method.
      * @param object $validationRule instance of a ValidationRule
-     *                               implementation for validating Credit 
+     *                               implementation for validating Credit
      *                               Card Numbers.
-     *                                       
+     *
      * @return does not return a value.
      */
     public function __construct($typeName, $encoder = null, $validationRule = null)
@@ -94,8 +94,8 @@ class CreditCardValidationRule extends BaseValidationRule
      * IntrusionException if the input is an obvious attack.
      *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g., LoginPage_UsernameField). This 
-     *                        value is used by any logging or error handling that 
+     *                        validating (e.g., LoginPage_UsernameField). This
+     *                        value is used by any logging or error handling that
      *                        is done with respect to the value passed in.
      * @param string $input   The actual string user input data to validate.
      *
@@ -162,8 +162,8 @@ class CreditCardValidationRule extends BaseValidationRule
      * characters.
      *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g., LoginPage_UsernameField). This 
-     *                        value is used by any logging or error handling that 
+     *                        validating (e.g., LoginPage_UsernameField). This
+     *                        value is used by any logging or error handling that
      *                        is done with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
@@ -173,5 +173,4 @@ class CreditCardValidationRule extends BaseValidationRule
     {
         return $this->whitelist($input, Encoder::CHAR_DIGITS);
     }
-
 }

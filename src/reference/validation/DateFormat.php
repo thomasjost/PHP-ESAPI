@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -47,29 +47,29 @@ class DateFormat
     
     /**
      * Constructor.
-     * 
+     *
      * @param string $format date format
      * @param string $type   date type
-     * 
+     *
      * @return does not return a value.
      */
-    public function __construct($format = null, $type = 'MEDIUM') 
+    public function __construct($format = null, $type = 'MEDIUM')
     {
         $this->setformat($format, $type);
     }
     
     /**
      * Helper function.
-     * 
+     *
      * @param string $format date format
      * @param string $type   date type
-     * 
+     *
      * @return does not return a value.
      */
-    public function setformat($format, $type = 'MEDIUM') 
+    public function setformat($format, $type = 'MEDIUM')
     {
         switch ($type) {
-            case 'SMALL': 
+            case 'SMALL':
                 if (is_array($format) && key_exists(self::DATE_SMALL, $format)) {
                     $this->_format[self::DATE_SMALL] = $format[self::DATE_SMALL];
                 } else {
@@ -85,7 +85,7 @@ class DateFormat
                 }
                 break;
 
-            case 'FULL': 
+            case 'FULL':
                 if (is_array($format) && key_exists(self::DATE_FULL, $format)) {
                     $this->_format[self::DATE_FULL] = $format[self::DATE_FULL];
                 } else {
@@ -94,7 +94,7 @@ class DateFormat
                 break;
 
             case 'MEDIUM':
-            default: 
+            default:
                 if (is_array($format) && key_exists(self::DATE_MEDIUM, $format)) {
                     $this->_format[self::DATE_MEDIUM] = $format[self::DATE_MEDIUM];
                 } else {
@@ -103,5 +103,4 @@ class DateFormat
                 break;
         }
     }
-
 }

@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -23,8 +23,8 @@
 
 /**
  * Use this ESAPI security control to swap audit libraries in and out.
- * 
- * The idea behind this interface is to allow substitution of various 
+ *
+ * The idea behind this interface is to allow substitution of various
  * logging packages, while providing a common interface to access them.
  *
  * @category  OWASP
@@ -51,5 +51,4 @@ interface AuditorFactory
      * @return ESAPILogger The DefaultLogger associated with this module.
      */
     public function getLogger($moduleName);
-
 }

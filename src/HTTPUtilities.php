@@ -23,11 +23,11 @@
 
 /**
  * Use this ESAPI security control to assist with HTTP security.
- * 
+ *
  * The idea behind this interface is to define a set of helper
  * functions related to HTTP requests, responses, sessions, cookies,
  * headers, and logging.
- * 
+ *
  * @category  OWASP
  * @package   ESAPI
  * @author    Andrew van der Stock <vanderaj@owasp.org>
@@ -123,14 +123,14 @@ interface HTTPUtilities
      * A safer replacement for getParameter() in SafeRequest that returns the canonicalized
      * value of the named parameter after "global" validation against the general
      * type defined in ESAPI.properties. Ths should not be considered a replacement for
-     * more specific validation. 
+     * more specific validation.
      *
      * @param SafeRequest $request Request object.
-     * @param string $name 
+     * @param string $name
      * @param string $default An optional default value to return if parameter does not pass validation
-     * 
+     *
      * @return the requested parameter value or $default if the named parameter does not pass validation
-     * 
+     *
      */
     public function getParameter($request, $name, $default = null);
 
@@ -419,5 +419,4 @@ interface HTTPUtilities
      * @return SafeResponse the current response.
      */
     // public function getCurrentResponse();
-
 }

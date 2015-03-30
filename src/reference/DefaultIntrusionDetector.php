@@ -86,25 +86,16 @@ class DefaultIntrusionDetector implements IntrusionDetector
         }
 
         if ($exception instanceof EnterpriseSecurityException) {
-            $this->_auditor->warning(
-                Auditor::SECURITY, false,
-                $exception->getLogMessage(), $exception
-            );
+            $this->_auditor->warning(Auditor::SECURITY, false, $exception->getLogMessage(), $exception);
         } else {
-            $this->_auditor->warning(
-                Auditor::SECURITY, false,
-                $exception->getMessage(), $exception
-            );
+            $this->_auditor->warning(Auditor::SECURITY, false, $exception->getMessage(), $exception);
         }
 
         // add the exception, which may trigger a detector
         $eventName = get_class($exception);
-        try
-        {
+        try {
             $this->_addSecurityEvent($eventName);
-        }
-        catch (IntrusionException $intrusionException)
-        {
+        } catch (IntrusionException $intrusionException) {
             $quota = ESAPI::getSecurityConfiguration()->getQuota($eventName);
             $message = 'User exceeded quota of ' . $quota->count . ' per ' .
                 $quota->interval . ' seconds for event ' . $eventName .
@@ -119,7 +110,6 @@ class DefaultIntrusionDetector implements IntrusionDetector
                 $this->_takeSecurityAction($action, $message);
             }
         }
-
     }
 
     /**
@@ -151,12 +141,9 @@ class DefaultIntrusionDetector implements IntrusionDetector
         );
 
         // add the event, which may trigger an IntrusionException
-        try
-        {
+        try {
             $this->_addSecurityEvent($eventName);
-        }
-        catch (IntrusionException $intrusionException)
-        {
+        } catch (IntrusionException $intrusionException) {
             $quota = $secConfig->getQuota($eventName);
             $message = 'User exceeded quota of ' . $quota->count . ' per ' .
                 $quota->interval . ' seconds for event ' . $eventName .
@@ -237,7 +224,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
             // Assign a reference to the session store
             $this->_userEvents = &
                 $_SESSION['ESAPI']['IntrusionDetector']['UserEvents'];
-        } else if (! isset($this->_userEvents)) {
+        } elseif (! isset($this->_userEvents)) {
             $this->_userEvents = array();
         }
 

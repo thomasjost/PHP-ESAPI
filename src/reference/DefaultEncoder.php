@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -68,12 +68,12 @@ class DefaultEncoder implements Encoder
 
     /**
      * Encoder constructor.
-     * 
+     *
      * @param array $codecs An array of Codec instances which will be used for
      *                      canonicalization.
-     *                    
+     *
      * @return does not return a value.
-     * 
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($codecs = null)
@@ -97,7 +97,7 @@ class DefaultEncoder implements Encoder
             // leaving css and vbs codecs out - they eat / and " chars respectively
             // array_push($this->_codecs,$this->_cssCodec);
             // array_push($this->_codecs,$this->_vbscriptCodec);
-        } else if (! is_array($codecs)) {
+        } elseif (! is_array($codecs)) {
             throw new InvalidArgumentException(
                 'Expected the $codecs array parameter to be an array of instances of Codec.'
             );
@@ -112,7 +112,6 @@ class DefaultEncoder implements Encoder
             }
             $this->_codecs = array_merge($this->_codecs, $codecs);
         }
-
     }
 
     /**
@@ -148,18 +147,18 @@ class DefaultEncoder implements Encoder
         }
         if ($foundCount >= 2 && $mixedCount > 1) {
             if ($strict == true) {
-                throw new IntrusionException('Input validation failure',
-                    'Multiple (' . $foundCount . 'x) and mixed ('
-                    . $mixedCount . 'x) encoding detected in ' . $input
+                throw new IntrusionException(
+                    'Input validation failure',
+                    "Multiple ({$foundCount}x) and mixed ({$mixedCount}x) encoding detected in {$input}"
                 );
             } else {
                 $this->logger->warning(
-                    Auditor::SECURITY, false,
-                    'Multiple (' . $foundCount . 'x) and mixed ('
-                    . $mixedCount . 'x) encoding detected in '.$input
+                    Auditor::SECURITY,
+                    false,
+                    "Multiple ({$foundCount}x) and mixed ({$mixedCount}x) encoding detected in {$input}"
                 );
             }
-        } else if ($foundCount >= 2) {
+        } elseif ($foundCount >= 2) {
             if ($strict == true) {
                 throw new IntrusionException(
                     'Input validation failure',
@@ -167,11 +166,12 @@ class DefaultEncoder implements Encoder
                 );
             } else {
                 $this->logger->warning(
-                    Auditor::SECURITY, false,
+                    Auditor::SECURITY,
+                    false,
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
                 );
             }
-        } else if ($mixedCount > 1) {
+        } elseif ($mixedCount > 1) {
             if ($strict == true) {
                 throw new IntrusionException(
                     'Input validation failure',
@@ -179,7 +179,8 @@ class DefaultEncoder implements Encoder
                 );
             } else {
                 $this->logger->warning(
-                    Auditor::SECURITY, false,
+                    Auditor::SECURITY,
+                    false,
                     "Mixed encoding ({$mixedCount}x) detected in {$input}"
                 );
             }
@@ -264,7 +265,8 @@ class DefaultEncoder implements Encoder
         
         if ($codec instanceof Codec == false) {
             ESAPI::getLogger('Encoder')->error(
-                ESAPILogger::SECURITY, false,
+                ESAPILogger::SECURITY,
+                false,
                 'Invalid Argument, expected an instance of an OS Codec.'
             );
             return null;
@@ -399,5 +401,4 @@ class DefaultEncoder implements Encoder
         }
         return $this->_base64Codec->decode($input);
     }
-
 }

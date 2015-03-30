@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -48,7 +48,7 @@ abstract class Codec
      * An map where the keys are ordinal values of non-alphanumeric single-byte
      * characters and the values are hexadecimal equivalents as strings.
      */
-    private static $_hex = Array();
+    private static $_hex = array();
     
     /**
      * Populates the $hex map of non-alphanumeric single-byte characters.
@@ -56,8 +56,8 @@ abstract class Codec
     public function __construct()
     {
         for ($i = 0; $i < 256; $i++) {
-            if (($i >= 48 && $i <= 57) 
-                || ($i >= 65 && $i <= 90) 
+            if (($i >= 48 && $i <= 57)
+                || ($i >= 65 && $i <= 90)
                 || ($i >= 97 && $i <= 122)
             ) {
                 self::$_hex[$i] = null;
@@ -144,21 +144,21 @@ abstract class Codec
         $decodedString           = '';
         $targetCharacterEncoding = 'ASCII';
         
-        //logic to iterate through the string's characters, while(input has 
-        //characters remaining){} feed whole sequence into decoder, which then 
-        //determines the first decoded character from the input and "pushes back" 
+        //logic to iterate through the string's characters, while(input has
+        //characters remaining){} feed whole sequence into decoder, which then
+        //determines the first decoded character from the input and "pushes back"
         //the encodedPortion of seuquence and the resultant decodedCharacter to here
         while (mb_strlen($_4ByteString, "UTF-32") > 0) {
-            // get the first decodedCharacter, allowing decodeCharacter to eat 
+            // get the first decodedCharacter, allowing decodeCharacter to eat
             //away at the string
             
-            //decodeCharacter() returns an array containing 'decodedCharacter' and 
+            //decodeCharacter() returns an array containing 'decodedCharacter' and
             //'encodedString' so as to provide PushbackString-(from-ESAPI-JAVA)-like
             //behaviour
-            $decodeResult = $this->decodeCharacter($_4ByteString); 
+            $decodeResult = $this->decodeCharacter($_4ByteString);
             
             //note: decodedCharacter should be UTF-32 encoded already
-            $decodedCharacter = $decodeResult['decodedCharacter']; 
+            $decodedCharacter = $decodeResult['decodedCharacter'];
             
             $encodedString = $decodeResult['encodedString'];
             
@@ -198,20 +198,16 @@ abstract class Codec
                         }
                         // remove the first character from the input string.
                         $encStringLen = mb_strlen($_4ByteString, 'UTF-32');
-                        $_4ByteString = mb_substr(
-                            $_4ByteString, 1, $encStringLen, 'UTF-32'
-                        );
+                        $_4ByteString = mb_substr($_4ByteString, 1, $encStringLen, 'UTF-32');
                         continue;
                     }
                 }
                 
-                // remove the encodedString portion off the start of the input 
+                // remove the encodedString portion off the start of the input
                 // string.
                 $entityLen    = mb_strlen($encodedString, 'UTF-32');
                 $encStringLen = mb_strlen($_4ByteString, 'UTF-32');
-                $_4ByteString = mb_substr(
-                    $_4ByteString, $entityLen, $encStringLen, 'UTF-32'
-                );
+                $_4ByteString = mb_substr($_4ByteString, $entityLen, $encStringLen, 'UTF-32');
             } else {
                 // decodedCharacter is null, so add the single, unencoded
                 // character to the decodedString and remove the 1st character
@@ -228,13 +224,14 @@ abstract class Codec
                     // throw EncodingException here, but instead we'll forget
                     // about it and log a warning.
                     ESAPI::getLogger('Codec')->warn(
-                        DefaultLogger::SECURITY, false,
+                        DefaultLogger::SECURITY,
+                        false,
                         'Input contained a character with an invalid Unicode '.
                         'CodePoint. We destroyed it!'
                     );
                 }
                 
-                // eat the single, unencoded character portion off the start of the 
+                // eat the single, unencoded character portion off the start of the
                 // UTF-32 converted input string
                 $encStringLen = mb_strlen($_4ByteString, 'UTF-32');
                 $_4ByteString = mb_substr($_4ByteString, 1, $encStringLen, 'UTF-32');
@@ -259,12 +256,11 @@ abstract class Codec
      * @param string &$targetString    String target.
      * @param string &$targetCharEnc   String target character encoding name.
      *
-     * @return bool returns true if the character was successfully appended to the 
+     * @return bool returns true if the character was successfully appended to the
      *              target false otherwise.
      */
-    private function _appendCharacterToOuput(&$character_UTF32, &$targetString,
-        &$targetCharEnc
-    ) {
+    private function _appendCharacterToOuput(&$character_UTF32, &$targetString, &$targetCharEnc)
+    {
         list(, $ordinalValue) = unpack('N', $character_UTF32);
         
         if ($ordinalValue > 0x110000) {
@@ -279,7 +275,7 @@ abstract class Codec
                 'ASCII',
                 "UTF-32"
             );
-        } else if ($ordinalValue <= 0x10FFFF) {
+        } elseif ($ordinalValue <= 0x10FFFF) {
             // convert the decoded character to UTF-8
             $character_UTF8 = mb_convert_encoding(
                 $character_UTF32,
@@ -303,8 +299,8 @@ abstract class Codec
             // targetCharacterEncoding and if so, convert back to
             // it. Otherwise the target character encoding is
             // changed to 'UTF-8'
-            if ($targetCharEnc != 'UTF-8' 
-                && $targetCharEnc 
+            if ($targetCharEnc != 'UTF-8'
+                && $targetCharEnc
                 === mb_detect_encoding($targetString, $targetCharEnc, true)
             ) {
                 // we can convert back to target encoding
@@ -331,7 +327,7 @@ abstract class Codec
      * 255 then this method will return null.
      *
      * @param string $c 4 byte character character.
-     * 
+     *
      * @return string hexadecimal ordinal value of non-alphanumeric characters
      *                or null otherwise.
      */
@@ -349,6 +345,7 @@ abstract class Codec
         if ($ordinalValue <= 255) {
             return self::$_hex[$ordinalValue];
         }
+
         return self::toHex($ordinalValue);
     }
     
@@ -356,12 +353,12 @@ abstract class Codec
      * Return the hex value of a character as a string without leading zeroes.
      *
      * @param string $c character to convert
-     * 
+     *
      * @return int returns hex value
      */
     public static function toHex($c)
     {
-        // Assumption/prerequisite: $c is the ordinal value of the character 
+        // Assumption/prerequisite: $c is the ordinal value of the character
         // (i.e. an integer)
         return dechex($c);
     }
@@ -371,7 +368,7 @@ abstract class Codec
      *
      * @param string $c     character to search for
      * @param array  $array character array to search in
-     * 
+     *
      * @return string returns specific character
      */
     public static function containsCharacter($c, $array)
@@ -383,11 +380,11 @@ abstract class Codec
         list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
         
         foreach ($array as $arrayCharacter) {
-            // Convert to UTF-32 (4 byte characters, regardless of actual number 
+            // Convert to UTF-32 (4 byte characters, regardless of actual number
             // of bytes in the character).
             $_4ByteArrayCharacter = self::normalizeEncoding($arrayCharacter);
             
-            // Ensure it's a single 4 byte character (since $array is an array of 
+            // Ensure it's a single 4 byte character (since $array is an array of
             // strings) by grabbing only the 1st multi-byte character.
             $_4ByteArrayCharacter = self::forceToSingleCharacter(
                 $_4ByteArrayCharacter
@@ -403,17 +400,17 @@ abstract class Codec
     }
     
     /**
-     * Utility to detect a (potentially multibyte) string's encoding with 
-     * extra logic to deal with single characters that mb_detect_encoding() fails 
+     * Utility to detect a (potentially multibyte) string's encoding with
+     * extra logic to deal with single characters that mb_detect_encoding() fails
      * upon.
      *
      * @param string $string string to examine
-     * 
+     *
      * @return string returns detected encoding
      */
     public static function detectEncoding($string)
     {
-        // detect encoding, special-handling for chr(172) and chr(128) to 
+        // detect encoding, special-handling for chr(172) and chr(128) to
         //chr(159) which fail to be detected by mb_detect_encoding()
         $is_single_byte = false;
         try {
@@ -421,11 +418,11 @@ abstract class Codec
             if (is_array($bytes) && sizeof($bytes, 0) == 1) {
                 $is_single_byte = true;
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             // unreach?
             ESAPI::getLogger('Codec')->warning(
-                DefaultLogger::SECURITY, false,
+                DefaultLogger::SECURITY,
+                false,
                 'Codec::detectEncoding threw an exception whilst attempting'.
                 ' to unpack an input string',
                 $e
@@ -434,38 +431,39 @@ abstract class Codec
         
         if ($is_single_byte === false) {
             // NoOp
-        } else if ((ord($string) == 172) 
+        } elseif ((ord($string) == 172)
             || (ord($string) >= 128 && ord($string) <= 159)
         ) {
-             // although these chars are beyond ASCII range, if encoding is 
+            // although these chars are beyond ASCII range, if encoding is
              // forced to ISO-8859-1 they will all encode to &#x31;
              return 'ASCII'; //
-        } else if (ord($string) >= 160 && ord($string) <= 255) {
+        } elseif (ord($string) >= 160 && ord($string) <= 255) {
             return 'ISO-8859-1';
         }
         
         // Strict encoding detection with fallback to non-strict detection.
         if (mb_detect_encoding($string, 'UTF-32', true)) {
             return 'UTF-32';
-        } else if (mb_detect_encoding($string, 'UTF-16', true)) {
+        } elseif (mb_detect_encoding($string, 'UTF-16', true)) {
             return 'UTF-16';
-        } else if (mb_detect_encoding($string, 'UTF-8', true)) {
+        } elseif (mb_detect_encoding($string, 'UTF-8', true)) {
             return 'UTF-8';
-        } else if (mb_detect_encoding($string, 'ISO-8859-1', true)) {
+        } elseif (mb_detect_encoding($string, 'ISO-8859-1', true)) {
             // To try an catch strings containing mixed encoding, search
             // the string for chars of ordinal in the range 128 to 159 and
             // 172 and don't return ISO-8859-1 if present.
             $limit = mb_strlen($string, 'ISO-8859-1');
             for ($i = 0; $i < $limit; $i++) {
                 $char = mb_substr($string, $i, 1, 'ISO-8859-1');
-                if ((ord($char) == 172) 
+                if ((ord($char) == 172)
                     || (ord($char) >= 128 && ord($char) <= 159)
                 ) {
                     return 'UTF-8';
                 }
             }
+
             return 'ISO-8859-1';
-        } else if (mb_detect_encoding($string, 'ASCII', true)) {
+        } elseif (mb_detect_encoding($string, 'ASCII', true)) {
             return 'ASCII';
         } else {
             return mb_detect_encoding($string);
@@ -476,12 +474,12 @@ abstract class Codec
      * Utility to normalize a string's encoding to UTF-32.
      *
      * @param string $string string to normalize
-     * 
+     *
      * @return string normalized string
      */
     public static function normalizeEncoding($string)
     {
-        // Convert to UTF-32 (4 byte characters, regardless of actual number of 
+        // Convert to UTF-32 (4 byte characters, regardless of actual number of
         //bytes in the character).
         $initialEncoding = self::detectEncoding($string);
         
@@ -491,11 +489,11 @@ abstract class Codec
     }
     
     /**
-     * Utility to get first (potentially multibyte) character from a (potentially 
+     * Utility to get first (potentially multibyte) character from a (potentially
      * multicharacter) multibyte string.
      *
      * @param string $string string to convert
-     * 
+     *
      * @return string converted string
      */
     public static function forceToSingleCharacter($string)
@@ -509,7 +507,7 @@ abstract class Codec
      *
      * @param string $c Single character string that is potentially a hex digit
      *
-     * @return bool True indicates that the single character string is a hex 
+     * @return bool True indicates that the single character string is a hex
      *              digit
      */
     public function isHexDigit($c)
@@ -527,5 +525,4 @@ abstract class Codec
         
         return false;
     }
-
 }

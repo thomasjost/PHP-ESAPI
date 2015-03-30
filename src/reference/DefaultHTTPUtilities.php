@@ -42,15 +42,14 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
     /**
      * The constructor stores an instance of Auditor for the purpose of logging.
-     * 
+     *
      * @return null
      */
     public function __construct()
     {
         Global $ESAPI;
         $this->_auditor = ESAPI::getAuditor('DefaultHTTPUtilities');
-    $this->_validator = ESAPI::getValidator();
-
+        $this->_validator = ESAPI::getValidator();
     }
 
     /**
@@ -135,7 +134,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
                 'Possibly forged HTTP request without proper CSRF token detected.'
             );
         }
-        
     }
 
     /**
@@ -157,11 +155,10 @@ class DefaultHTTPUtilities implements HTTPUtilities
                     'CSRFToken' => ''
                 )
             );
-        } else if (! array_key_exists('HTTPUtilities', $_SESSION['ESAPI'])) {
+        } elseif (! array_key_exists('HTTPUtilities', $_SESSION['ESAPI'])) {
             $_SESSION['ESAPI']['HTTPUtilities'] = array(
                 'CSRFToken' => ''
             );
-            
         }
         
         $_SESSION['ESAPI']['HTTPUtilities']['CSRFToken']
@@ -285,15 +282,12 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function getParameter($request, $name, $default = null)
     {
-      $value = $request->getParameter($name);
-      if($this->_validator->isValidInput("HTTP parameter value: " . $value, $value, "HTTPParameterValue", 2000, true))
-    {
-      return $value;
-    }
-      else 
-    {
-      return $default;
-    }
+        $value = $request->getParameter($name);
+        if ($this->_validator->isValidInput("HTTP parameter value: " . $value, $value, "HTTPParameterValue", 2000, true)) {
+            return $value;
+        } else {
+            return $default;
+        }
     }
 
     /**
@@ -366,7 +360,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
                 if (! array_key_exists($name, $map)) {
                     $map[$name] = $value;
                 }
-            } catch(EncodingException $e) {
+            } catch (EncodingException $e) {
                 // NoOp - skip this pair - exception was logged already.
             }
         }
@@ -447,10 +441,10 @@ class DefaultHTTPUtilities implements HTTPUtilities
         }
         if ($paramsToObfuscate === null) {
             $paramsToObfuscate = array();
-        } else if (! is_array($paramsToObfuscate)) {
+        } elseif (! is_array($paramsToObfuscate)) {
             throw new InvalidArgumentException(
                 'logHTTPRequestObfuscate expects an array $paramsToObfuscate or null.'
-            );            
+            );
         }
         
         $msg  = '';
@@ -467,7 +461,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
         $params = $request->getParameterMap();
         if ($path !== '' && sizeof($params, false) > 0) {
             $msg .= '?';
-        } else if ($msg !== '') {
+        } elseif ($msg !== '') {
             $msg .= ' ';
         }
         $paramBuilder = array();
@@ -498,7 +492,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
         }
         
         $auditor->info(Auditor::SECURITY, true, $msg);
-        
     }
 
     /*
@@ -826,5 +819,4 @@ class DefaultHTTPUtilities implements HTTPUtilities
             'getSafeFileUploads method Not implemented'
         );
     }*/
-
 }

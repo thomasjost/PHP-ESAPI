@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -22,14 +22,14 @@
  */
 
 /**
- * An IntrusionException should be thrown anytime an error condition arises that 
- * is likely to be the result of an attack in progress. IntrusionExceptions are 
+ * An IntrusionException should be thrown anytime an error condition arises that
+ * is likely to be the result of an attack in progress. IntrusionExceptions are
  * handled specially by the IntrusionDetector, which is equipped to respond by
  * either specially logging the event, logging out the current user, or invalidating
  * the current user's account.
  * <P>
- * Unlike other exceptions in the ESAPI, the IntrusionException is a 
- * RuntimeException so that it can be thrown from anywhere and will not require a 
+ * Unlike other exceptions in the ESAPI, the IntrusionException is a
+ * RuntimeException so that it can be thrown from anywhere and will not require a
  * lot of special exception handling.
  *
  * @category  OWASP
@@ -49,10 +49,10 @@ class IntrusionException extends Exception
 
     /**
      * Instantiates a new intrusion exception.
-     * 
+     *
      * @param string $userMessage the message displayed to the user
      * @param string $logMessage  the message logged
-     * 
+     *
      * @return does not return a value.
     */
     public function __construct($userMessage = '', $logMessage = '')
@@ -62,14 +62,12 @@ class IntrusionException extends Exception
         parent::__construct($userMessage);
         $this->logMessage = $logMessage;
         $logger = $ESAPI->getAuditor("IntrusionException");
-        $logger->error(
-            DefaultAuditor::SECURITY, false, "INTRUSION - " . $logMessage
-        );
+        $logger->error(DefaultAuditor::SECURITY, false, "INTRUSION - " . $logMessage);
     }
 
     /**
      * Returns a String containing a message that is safe to display to users
-     * 
+     *
      * @return string a String containing a message that is safe to display to users
      */
     public function getUserMessage()
@@ -79,13 +77,12 @@ class IntrusionException extends Exception
 
     /**
      * Returns a String that is safe to display in logs, but probably not to users
-     * 
-     * @return string a String containing a message that is safe to display in 
+     *
+     * @return string a String containing a message that is safe to display in
      *                logs, but probably not to users
      */
     public function getLogMessage()
     {
         return $this->logMessage;
     }
-
 }

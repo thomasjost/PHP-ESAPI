@@ -302,17 +302,16 @@ class FileBasedAccessController implements AccessController
      *  	<li>Access control decisions must deny by default</li>
      *      </ol>
      * <li>If access is not permitted, throw an AccessControlException with details</li>
-     * </ol> 
-     * 
-     * @param serviceName 
+     * </ol>
+     *
+     * @param serviceName
      * 		the service name
-     * 
+     *
      * @throws AccessControlException
      * 		if access is not permitted
-     */                
+     */
     public function assertAuthorizedForService($serviceName)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");    
+        throw new EnterpriseSecurityException("Method Not implemented");
     }
- 
 }

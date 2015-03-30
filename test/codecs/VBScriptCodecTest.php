@@ -23,8 +23,7 @@ class VBScriptCodecTest extends PHPUnit_Framework_TestCase
     {
         global $ESAPI;
 
-        if (!isset($ESAPI))
-        {
+        if (!isset($ESAPI)) {
             $ESAPI = new ESAPI();
         }
         

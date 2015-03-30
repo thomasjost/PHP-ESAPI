@@ -23,8 +23,7 @@ class OracleCodecTest extends PHPUnit_Framework_TestCase
     {
         global $ESAPI;
 
-        if (!isset($ESAPI))
-        {
+        if (!isset($ESAPI)) {
             $ESAPI = new ESAPI();
         }
         
@@ -44,7 +43,7 @@ class OracleCodecTest extends PHPUnit_Framework_TestCase
         $immune = array("");
         
         $this->assertEquals("''", $this->oracleCodec->encode($immune, "'"));
-    }    
+    }
     
     public function testDecode()
     {
@@ -56,5 +55,4 @@ class OracleCodecTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals("'", $this->oracleCodec->decode("''"));
     }
-    
 }

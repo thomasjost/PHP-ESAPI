@@ -24,12 +24,12 @@
  */
 
 /**
- * Use this ESAPI security control to read files from the operating 
+ * Use this ESAPI security control to read files from the operating
  * system.
- * 
- * The idea behind this interface is to extend the PHP SplFileObject 
- * to prevent against null byte injections and other unforeseen problems 
- * resulting from unprintable characters causing problems in path 
+ *
+ * The idea behind this interface is to extend the PHP SplFileObject
+ * to prevent against null byte injections and other unforeseen problems
+ * resulting from unprintable characters causing problems in path
  * lookups. This does NOT prevent against directory traversal attacks.
  *
  * @category  OWASP
@@ -63,7 +63,7 @@ class SafeFile extends SplFileObject
         try {
             @parent::__construct($path);
         } catch (Exception $e) {
-                throw new EnterpriseSecurityException(
+            throw new EnterpriseSecurityException(
                     'Failed to open stream',
                     'Failed to open stream ' . $e->getMessage()
                 );
@@ -151,13 +151,13 @@ class SafeFile extends SplFileObject
                 $filename
                     = mb_substr($filename, $dirLen, $fileLen-$dirLen, $charEncF);
             }
-
         }
 
         if (preg_match($this->_FILE_BLACKLIST_PAT, $filename)) {
             throw new ValidationException(
                 'Invalid file',
-                "File path ({$filename}) contains illegal character.");
+                "File path ({$filename}) contains illegal character."
+            );
         }
 
         if (preg_match($this->_PERCENTS_PAT, $filename)) {
@@ -192,6 +192,7 @@ class SafeFile extends SplFileObject
                 return $ch;
             }
         }
+
         return -1;
     }
 
@@ -213,5 +214,4 @@ class SafeFile extends SplFileObject
             );
         }
     }
-
 }

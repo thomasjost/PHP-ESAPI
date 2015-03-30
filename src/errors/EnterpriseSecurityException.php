@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -22,22 +22,22 @@
  */
 
 /**
- * EnterpriseSecurityException is the base class for all security related 
- * exceptions. You should pass in the root cause exception where possible. 
- * Constructors for classes extending EnterpriseSecurityException should be 
- * sure to call the appropriate super() method in order to ensure that logging 
+ * EnterpriseSecurityException is the base class for all security related
+ * exceptions. You should pass in the root cause exception where possible.
+ * Constructors for classes extending EnterpriseSecurityException should be
+ * sure to call the appropriate super() method in order to ensure that logging
  * and intrusion detection occur properly.
  * <P>
- * All EnterpriseSecurityExceptions have two messages, one for the user and one 
- * for the log file. This way, a message can be shown to the user that doesn't 
+ * All EnterpriseSecurityExceptions have two messages, one for the user and one
+ * for the log file. This way, a message can be shown to the user that doesn't
  * contain sensitive information or unnecessary implementation details. Meanwhile,
- * all the critical information can be included in the exception so that it gets 
+ * all the critical information can be included in the exception so that it gets
  * logged.
  * <P>
- * Note that the "logMessage" for ALL EnterpriseSecurityExceptions is logged in 
- * the log file. This feature should be used extensively throughout ESAPI 
+ * Note that the "logMessage" for ALL EnterpriseSecurityExceptions is logged in
+ * the log file. This feature should be used extensively throughout ESAPI
  * implementations and the result is a fairly complete set of security log records.
- * ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use 
+ * ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use
  * in detecting anomolous patterns of application usage.
  * <P>
  *
@@ -58,12 +58,12 @@ class EnterpriseSecurityException extends Exception
     protected $logMessage = null;
 
     /**
-     * Creates a new instance of EnterpriseSecurityException that includes a 
-     * root cause 
-     * 
+     * Creates a new instance of EnterpriseSecurityException that includes a
+     * root cause
+     *
      * @param string $userMessage the message displayed to the user
      * @param string $logMessage  the message logged
-     * 
+     *
      * @return does not return a value.
       */
     public function __construct($userMessage = '', $logMessage = '')
@@ -72,7 +72,6 @@ class EnterpriseSecurityException extends Exception
         
         if (empty($userMessage)) {
             $userMessage = null;
-            
         }
                 
         parent::__construct($userMessage);
@@ -86,8 +85,8 @@ class EnterpriseSecurityException extends Exception
 
     /**
      * Returns message that is safe to display to users
-     * 
-     * @return string a String containing a message that is safe to display to 
+     *
+     * @return string a String containing a message that is safe to display to
      *                users
      */
     public function getUserMessage()
@@ -97,13 +96,12 @@ class EnterpriseSecurityException extends Exception
 
     /**
      * Returns a message that is safe to display in logs, but probably not to users
-     * 
-     * @return string a String containing a message that is safe to display in 
+     *
+     * @return string a String containing a message that is safe to display in
      *                logs, but probably not to users
      */
     public function getLogMessage()
     {
         return $this->logMessage;
     }
-
 }

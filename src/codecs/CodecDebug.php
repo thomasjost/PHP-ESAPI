@@ -21,7 +21,7 @@
  */
 
 /**
- * 
+ *
  * @var string Define the name of the Auditor instance for CodecDebug.
  */
 define('CD_LOG', 'CodecDebug');
@@ -58,7 +58,7 @@ class CodecDebug
     
     /**
      * Prevents public cloning of this singleton class.
-     * 
+     *
      * @return null
      */
     private function __clone()
@@ -69,7 +69,7 @@ class CodecDebug
      * Private constructor ensures CodecDebug can only be instantiated privately.
      * Stores boolean true in $_enabled if SepcialDebugging is enabled.  This object
      * will only produce output if $_enabled is true.
-     * 
+     *
      * @return null
      */
     private function __construct()
@@ -80,7 +80,7 @@ class CodecDebug
 
     /**
      * Retrieves the singleton instance of CodecDebug.
-     * 
+     *
      * @return CodecDebug Singleton Instance of CodecDebug.
      */
     public static function getInstance()
@@ -88,6 +88,7 @@ class CodecDebug
         if (!self::$_instance) {
             self::$_instance = new CodecDebug();
         }
+
         return self::$_instance;
     }
 
@@ -96,7 +97,7 @@ class CodecDebug
      * Should be called, for example, from Codec->decode().
      *
      * @param string $stringNormalizedEncoding is a UTF-32 encoded string.
-     * 
+     *
      * @return null
      */
     public function addEncodedString($stringNormalizedEncoding)
@@ -116,7 +117,7 @@ class CodecDebug
      * Should be called, for example, from Codec->encode().
      *
      * @param string $stringNormalizedEncoding is a UTF-32 encoded string.
-     * 
+     *
      * @return null
      */
     public function addUnencodedString($stringNormalizedEncoding)
@@ -138,7 +139,7 @@ class CodecDebug
      * reuse.
      *
      * @param string $codecOutput is the final output being returned from Codec.
-     * 
+     *
      * @return null
      */
     public function output($codecOutput)
@@ -175,7 +176,7 @@ class CodecDebug
      * backtrace information to the buffer before adding any characters.
      *
      * @param string $string is a UTF-32 encoded string.
-     * 
+     *
      * @return null
      */
     private function _addString($string)
@@ -200,6 +201,7 @@ class CodecDebug
         $len = mb_strlen($string, 'UTF-32');
         if ($len == 0) {
             $this->_addNormalized('');
+
             return;
         }
         for ($i = 0; $i<$len; $i++) {
@@ -213,7 +215,7 @@ class CodecDebug
      * accompanying debug info) to the buffer.
      *
      * @param string $charNormalizedEncoding a single character.
-     * 
+     *
      * @return null
      */
     private function _addNormalized($charNormalizedEncoding)
@@ -236,7 +238,7 @@ class CodecDebug
      * Convenience method which returns a shortened backtrace.  it's not very
      * robust and assumes that one of the add*String methods was called from
      * either Codec or a method in one of the codecs.
-     * 
+     *
      * @return string shortened backtrace.
      */
     private function _shortTrace()
@@ -253,7 +255,7 @@ class CodecDebug
             ) {
                 if ($i == 4) { // this is a bit tenuous, but it should suffice...
                     $pos = 6;
-                    $trace .= $dt[$pos]['class'] . '-&gt;' .  
+                    $trace .= $dt[$pos]['class'] . '-&gt;' .
                         $dt[$pos--]['function'] . ', ';
                 } else {
                     $pos = ($dt[5]['class'] == 'SimpleInvoker') ? 4 : 5;
@@ -271,5 +273,4 @@ class CodecDebug
     
         return $trace;
     }
-
 }

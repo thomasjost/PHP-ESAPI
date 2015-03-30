@@ -39,8 +39,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
         $this->dtoi = new ArrayObject();
         $this->itod = new ArrayObject();
 
-        if (!empty($directReferences))
-        {
+        if (!empty($directReferences)) {
             $this->update($directReferences);
         }
     }
@@ -70,15 +69,13 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
      */
     public function getIndirectReference($direct)
     {
-        if (empty($direct))
-        {
+        if (empty($direct)) {
             return null;
         }
 
         $hash = $this->getHash($direct);
 
-        if (!($this->dtoi->offsetExists($hash)))
-        {
+        if (!($this->dtoi->offsetExists($hash))) {
             return null;
         }
 
@@ -103,8 +100,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
      */
     public function getDirectReference($indirectReference)
     {
-        if (!empty($indirectReference) && $this->itod->offsetExists($indirectReference))
-        {
+        if (!empty($indirectReference) && $this->itod->offsetExists($indirectReference)) {
             return $this->itod->offsetGet($indirectReference);
         }
 
@@ -124,15 +120,13 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
      */
     public function addDirectReference($direct)
     {
-        if (empty($direct))
-        {
+        if (empty($direct)) {
             return null;
         }
 
         $hash = $this->getHash($direct);
 
-        if ($this->dtoi->offsetExists($hash))
-        {
+        if ($this->dtoi->offsetExists($hash)) {
             return $this->dtoi->offsetGet($hash);
         }
 
@@ -150,14 +144,14 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
      *  @return
      *  	a random reference that is guaranteed to be unique
      */
-    public function getUniqueReference() {
+    public function getUniqueReference()
+    {
         return "".$this->count++;
     }
 
     public function getHash($direct)
     {
-        if (empty($direct))
-        {
+        if (empty($direct)) {
             return null;
         }
 
@@ -218,21 +212,18 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
         $dir = new ArrayObject($directReferences);
         $directIterator = $dir->getIterator();
 
-        while ($directIterator->valid())
-        {
+        while ($directIterator->valid()) {
             $indirect = null;
             $direct = $directIterator->current();
             $hash = $this->getHash($direct);
             
             // Try to get the old direct object reference (if it exists)
             // otherwise, create a new entry
-            if (!empty($direct) && $dtoi_old->offsetExists($hash))
-            {
+            if (!empty($direct) && $dtoi_old->offsetExists($hash)) {
                 $indirect = $dtoi_old->offsetGet($hash);
             }
             
-            if (empty($indirect))
-            {
+            if (empty($indirect)) {
                 $indirect = $this->getUniqueReference();
             }
             $this->itod->offsetSet($indirect, $direct);
@@ -240,5 +231,4 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
             $directIterator->next();
         }
     }
-
 }

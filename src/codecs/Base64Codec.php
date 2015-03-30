@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -55,7 +55,7 @@ class Base64Codec extends Codec
      *
      * @param string $input the input string to be encoded
      * @param bool   $wrap  if should wrap output
-     * 
+     *
      * @return string the encoded string
      */
     public function encode($input, $wrap = true)
@@ -80,23 +80,19 @@ class Base64Codec extends Codec
         }
         
         return $wrapped;
-        
     }
     
     /**
      * Encodes a single character to Base64.
      *
      * @param string $input the character to encode
-     * 
+     *
      * @return string the base64 encoded character
      */
     public function encodeCharacter($input)
     {
         $detectedCharacterEncoding = Codec::detectEncoding($input);
-        $c = mb_substr(
-            $input, 0, 1,
-            $detectedCharacterEncoding
-        );
+        $c = mb_substr($input, 0, 1, $detectedCharacterEncoding);
         
         return $this->encode($c, false);
     }
@@ -105,7 +101,7 @@ class Base64Codec extends Codec
      * Decodes the given input string from Base64 to plain text.
      *
      * @param string $input the base64 encoded input string
-     * 
+     *
      * @return string the decoded string
      */
     public function decode($input)
@@ -117,12 +113,11 @@ class Base64Codec extends Codec
      * Decodes a character from Base64 to plain text
      *
      * @param string $input the character to decode
-     * 
+     *
      * @return string the decoded character
      */
     public function decodeCharacter($input)
     {
         return $this->decode($input);
     }
-
 }

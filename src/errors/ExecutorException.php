@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -38,15 +38,14 @@ class ExecutorException extends EnterpriseSecurityException
 {
     /**
      * Create a new ExecutorException
-     * 
+     *
      * @param string $userMessage the message displayed to the user
      * @param string $logMessage  the message logged
-     * 
+     *
      * @return does not return a value.
      */
     public function __construct($userMessage = '', $logMessage = '')
     {
         parent::__construct($userMessage, $logMessage);
     }
-
 }

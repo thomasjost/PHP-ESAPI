@@ -1,10 +1,10 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. 
- * 
+ * Enterprise Security API (ESAPI) project.
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -23,9 +23,9 @@
 
 /**
  * Use this ESAPI security control to enumerate validation exceptions.
- * 
- * The idea behind this interface is to define a well-formed collection of 
- * ValidationExceptions so that groups of validation functions can be 
+ *
+ * The idea behind this interface is to define a well-formed collection of
+ * ValidationExceptions so that groups of validation functions can be
  * called in a non-blocking fashion.
  *
  * @category  OWASP
@@ -47,18 +47,18 @@ class ValidationErrorList
 
     /**
      * Adds a new error to list with a unique named context.
-     * No action taken if either element is null. 
+     * No action taken if either element is null.
      * Existing contexts will be overwritten.
-     * 
+     *
      * @param string $context unique named context for this ValidationErrorList
      * @param string $ve      todo
-     * 
+     *
      * @return string todo
      */
-    public function addError($context, $ve) 
+    public function addError($context, $ve)
     {
         //		if (getError(context) != null) throw new RuntimeException("Context (" + context + ") already exists, programmer error");
-        //        
+        //
         //		if ((context != null) && (ve != null)) {
         //			errorList.put(context, ve);
         //		}
@@ -66,45 +66,44 @@ class ValidationErrorList
 
     /**
      * Returns list of ValidationException, or empty list of no errors exist.
-     * 
+     *
      * @return arrray todo
      */
-    public function errors() 
+    public function errors()
     {
         //		return new ArrayList( errorList.values() );
     }
 
     /**
      * Retrieves ValidationException for given context if one exists.
-     * 
+     *
      * @param string $context unique name for each error
-     * 
+     *
      * @return ValidationException or null for given context
      */
-    public function getError($context) 
+    public function getError($context)
     {
-        //		if (context == null) return null;        
+        //		if (context == null) return null;
         //		return (ValidationException)errorList.get(context);
     }
 
     /**
      * Returns true if no error are present.
-     * 
+     *
      * @return bool todo
      */
-    public function isEmpty() 
+    public function isEmpty()
     {
         //		return errorList.isEmpty();
     }
 
     /**
      * Returns the numbers of errors present.
-     * 
+     *
      * @return bool todo
      */
-    public function size() 
+    public function size()
     {
         //		return errorList.size();
     }
-
 }

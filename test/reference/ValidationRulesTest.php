@@ -35,8 +35,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         global $ESAPI;
-        if (!isset($ESAPI))
-        {
+        if (!isset($ESAPI)) {
             $ESAPI = new ESAPI();
         }
     }

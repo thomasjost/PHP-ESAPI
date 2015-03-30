@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -37,7 +37,7 @@ class OracleCodec extends Codec
 {
 
     /**
-     * Public Constructor 
+     * Public Constructor
      */
     public function __construct()
     {
@@ -56,7 +56,7 @@ class OracleCodec extends Codec
         // Normalize encoding to UTF-32
         $_4ByteUnencodedOutput = $this->normalizeEncoding($c);
         
-        // Start with nothing; format it to match the encoding of the string passed 
+        // Start with nothing; format it to match the encoding of the string passed
         //as an argument.
         $encodedOutput = mb_convert_encoding("", $initialEncoding);
         
@@ -83,7 +83,8 @@ class OracleCodec extends Codec
             // 1st character is null, so return null
             // eat the 1st character off the string and return null
             //todo: this is not neccessary
-            $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32"); 
+            $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32");
+
             return array(
                 'decodedCharacter' => null,
                 'encodedString' => null
@@ -115,5 +116,4 @@ class OracleCodec extends Codec
             'encodedString' => $this->normalizeEncoding("''")
         );
     }
-
 }

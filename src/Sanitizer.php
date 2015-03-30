@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -23,7 +23,7 @@
 
 /**
  * Use this ESAPI security control to wrap your sanitization functions.
- * 
+ *
  * The idea behind this interface is to define a set of functions that can
  * be used to attempt to sanitize data.
  *
@@ -41,12 +41,12 @@ interface Sanitizer
 
     /**
      * Returns valid, "safe" HTML.
-     * 
-     * This implementation uses HTMLPurifier {@link http://htmlpurifier.org}. 
-     * 
+     *
+     * This implementation uses HTMLPurifier {@link http://htmlpurifier.org}.
+     *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g. ProfilePage_Sig). This value is 
-     *                        used by any logging or error handling that is done 
+     *                        validating (e.g. ProfilePage_Sig). This value is
+     *                        used by any logging or error handling that is done
      *                        with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
@@ -56,13 +56,13 @@ interface Sanitizer
     
     /**
      * Returns valid, "safe" email address.
-     * 
-     * This implementation uses a PHP filter 
-     * {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
-     * 
+     *
+     * This implementation uses a PHP filter
+     * {@link http://php.net/manual/en/filter.filters.sanitize.php}.
+     *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g. ProfilePage_Sig). This value is 
-     *                        used by any logging or error handling that is done 
+     *                        validating (e.g. ProfilePage_Sig). This value is
+     *                        used by any logging or error handling that is done
      *                        with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
@@ -72,13 +72,13 @@ interface Sanitizer
     
     /**
      * Returns valid, "safe" URL.
-     * 
-     * This implementation uses a PHP filter 
-     * {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
-     * 
+     *
+     * This implementation uses a PHP filter
+     * {@link http://php.net/manual/en/filter.filters.sanitize.php}.
+     *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g. ProfilePage_Sig). This value is 
-     *                        used by any logging or error handling that is done 
+     *                        validating (e.g. ProfilePage_Sig). This value is
+     *                        used by any logging or error handling that is done
      *                        with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
@@ -88,16 +88,15 @@ interface Sanitizer
 
     /**
      * Generically attempts to sanitize English language words based on the
-     * provided guess by calculating and comparing metaphone values. 
-     * 
+     * provided guess by calculating and comparing metaphone values.
+     *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g. ProfilePage_Sig). This value is 
-     *                        used by any logging or error handling that is done 
+     *                        validating (e.g. ProfilePage_Sig). This value is
+     *                        used by any logging or error handling that is done
      *                        with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
      * @return string valid, "safe" word.
      */
-    public function getSanitizedWord($context, $input);    
-
+    public function getSanitizedWord($context, $input);
 }

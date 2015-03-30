@@ -110,13 +110,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
      */
     public function __construct($path = '')
     {
-        try
-        {
+        try {
             $this->_loadConfiguration($path);
             $this->setResourceDirectory(dirname(realpath($path)));
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $this->_logSpecial($e->getMessage());
         }
     }
@@ -156,8 +153,9 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
             $this->_logSpecial(
                 'SecurityConfiguration for '.
                 '/esapi-properties/IntrusionDetector/event not found in ESAPI.xml.'
-                );
-                return false;
+            );
+            
+            return false;
         }
 
         $this->_events = array();
@@ -179,9 +177,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 
             if (!empty($name) && $count > 0 && $interval > 0 && !empty($actions)) {
                 // Add a new threshold object to $_events array
-                $this->_events[] = new Threshold(
-                $name, $count, $interval, $actions
-                );
+                $this->_events[] = new Threshold($name, $count, $interval, $actions);
             }
         }
 
@@ -189,9 +185,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
             $this->_events = null;
             $this->_logSpecial(
                 'SecurityConfiguration found no valid events in '.
-                'the Intrusion Detection section.' 
-                );
-                return false;
+                'the Intrusion Detection section.'
+            );
+            
+            return false;
         }
 
         return true;
@@ -221,12 +218,12 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     {
         $val = $def;
 
-        $var = $this->_xml->xpath('/esapi-properties/'.$prop);
+        $var = $this->_xml->xpath('/esapi-properties/' . $prop);
 
         if ($var === false) {
             $this->_logSpecial(
-                'SecurityConfiguration for /esapi-properties/'.
-            $prop.' not found in ESAPI.xml. Using default: '. $def
+                'SecurityConfiguration for /esapi-properties/' .
+                $prop . ' not found in ESAPI.xml. Using default: ' . $def
             );
         }
 
@@ -249,12 +246,12 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     {
         $val = $def;
 
-        $var = $this->_xml->xpath('/esapi-properties/'.$prop);
+        $var = $this->_xml->xpath('/esapi-properties/' . $prop);
 
         if ($var === false) {
             $this->_logSpecial(
-                'SecurityConfiguration for /esapi-properties/'.
-            $prop.' not found in ESAPI.xml. Using default: '.$def
+                'SecurityConfiguration for /esapi-properties/' .
+                $prop . ' not found in ESAPI.xml. Using default: ' . $def
             );
         }
 
@@ -279,7 +276,6 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
      */
     private function _getESAPIValidationExpression($type)
     {
-
         $val = null;
         $found = false;
         $i = 0;
@@ -288,10 +284,11 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 
         if ($var === false) {
             $this->_logSpecial(
-                'getESAPIValidationExpression: No regular '.
+                'getESAPIValidationExpression: No regular ' .
                 'expressions in the config file.'
-                );
-                return false;
+            );
+            
+            return false;
         }
 
         if (isset($var[0])) {
@@ -315,9 +312,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
             return (string)$val->attributes()->value;
         } else {
             $this->_logSpecial(
-                'getESAPIValidationExpression: Cannot find '.
-                'regular expression: ' . $type 
+                'getESAPIValidationExpression: Cannot find ' .
+                'regular expression: ' . $type
             );
+            
             return false;
         }
     }
@@ -347,12 +345,12 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     {
         $val = $def;
 
-        $var = $this->_xml->xpath('/esapi-properties/'.$prop);
+        $var = $this->_xml->xpath('/esapi-properties/' . $prop);
 
         if ($var === false) {
             $this->_logSpecial(
-                'SecurityConfiguration for /esapi-properties/'.
-            $prop.' not found in ESAPI.xml. Using default: '. $def
+                'SecurityConfiguration for /esapi-properties/' .
+                $prop . ' not found in ESAPI.xml. Using default: ' . $def
             );
         }
 
@@ -390,7 +388,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_ApplicationName === null) {
             $this->_ApplicationName = $this->_getESAPIStringProperty(
                 "Logger/ApplicationName", 'DefaultName'
-                );
+            );
         }
 
         return $this->_ApplicationName;
@@ -446,7 +444,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_PasswordParameterName === null) {
             $this->_PasswordParameterName = $this->_getESAPIStringProperty(
                 "Authenticator/PasswordParameterName", 'password'
-                );
+            );
         }
 
         return $this->_PasswordParameterName;
@@ -460,7 +458,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_UsernameParameterName === null) {
             $this->_UsernameParameterName = $this->_getESAPIStringProperty(
                 "Authenticator/UsernameParameterName", 'username'
-                );
+            );
         }
 
         return $this->_UsernameParameterName;
@@ -558,7 +556,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_EncryptionAlgorithm === null) {
             $this->_EncryptionAlgorithm = $this->_getESAPIStringProperty(
                 "Encryptor/EncryptionAlgorithm", 'AES'
-                );
+            );
         }
 
         return $this->_EncryptionAlgorithm;
@@ -572,7 +570,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_HashAlgorithm === null) {
             $this->_HashAlgorithm = $this->_getESAPIStringProperty(
                 "Encryptor/HashAlgorithm", 'SHA-512'
-                );
+            );
         }
 
         return $this->_HashAlgorithm;
@@ -586,7 +584,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_CharacterEncoding === null) {
             $this->_CharacterEncoding = $this->_getESAPIStringProperty(
                 "Encryptor/CharacterEncoding", 'UTF-8'
-                );
+            );
         }
 
         return $this->_CharacterEncoding;
@@ -600,7 +598,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_DigitalSignatureAlgorithm === null) {
             $this->_DigitalSignatureAlgorithm = $this->_getESAPIStringProperty(
                 "Encryptor/DigitalSignatureAlgorithm", 'DSA'
-                );
+            );
         }
 
         return $this->_DigitalSignatureAlgorithm;
@@ -614,7 +612,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_RandomAlgorithm === null) {
             $this->_RandomAlgorithm = $this->_getESAPIStringProperty(
                 "Encryptor/RandomAlgorithm", 'SHA1PRNG'
-                );
+            );
         }
 
         return $this->_RandomAlgorithm;
@@ -687,7 +685,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_ResponseContentType === null) {
             $this->_ResponseContentType = $this->_getESAPIStringProperty(
                 "HttpUtilities/ResponseContentType", 'UTF-8'
-                );
+            );
         }
 
         return $this->_ResponseContentType;
@@ -729,7 +727,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_LogLevel === null) {
             $this->_LogLevel = $this->_getESAPIStringProperty(
                 "Logger/LogLevel", 'WARNING'
-                );
+            );
         }
 
         return $this->_LogLevel;
@@ -743,7 +741,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_LogFileName === null) {
             $this->_LogFileName = $this->_getESAPIStringProperty(
                 "Logger/LogFileName", 'ESAPI_logging_file'
-                );
+            );
         }
 
         return $this->_LogFileName;
@@ -785,7 +783,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($this->_LogFileDateFormat === null) {
             $this->_LogFileDateFormat = $this->_getESAPIStringProperty(
                 "Logger/LogFileDateFormat", 'Y-m-d H:i:s P'
-                );
+            );
         }
 
         return $this->_LogFileDateFormat;
@@ -802,11 +800,11 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     /**
      * @inheritdoc
      */
-    public function getWorkingDirectory() {
-
+    public function getWorkingDirectory()
+    {
         if ($this->_WorkingDirectory === null) {
-            $path = (substr(PHP_OS, 0, 3) == 'WIN')?
-                'ExecutorWindows/WorkingDirectory':
+            $path = (substr(PHP_OS, 0, 3) == 'WIN') ?
+                'ExecutorWindows/WorkingDirectory' :
                 'ExecutorUnix/WorkingDirectory';
             $this->_WorkingDirectory = $this->_getESAPIStringProperty($path, '');
         }
@@ -817,10 +815,11 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     /**
      * @inheritdoc
      */
-    public function getAllowedExecutables() {
+    public function getAllowedExecutables()
+    {
         if ($this->_AllowedExecutables === null) {
-            $path = (substr(PHP_OS, 0, 3) == 'WIN')?
-                'ExecutorWindows/ApprovedExecutables/command':
+            $path = (substr(PHP_OS, 0, 3) == 'WIN') ?
+                'ExecutorWindows/ApprovedExecutables/command' :
                 'ExecutorUnix/ApprovedExecutables/command';
             $this->_AllowedExecutables = $this->_getESAPIArrayProperty($path, null);
         }
@@ -831,7 +830,8 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     /**
      * @inheritdoc
      */
-    public function getAllowedIncludes() {
+    public function getAllowedIncludes()
+    {
         if ($this->_AllowedIncludes === null) {
             $path = 'HttpUtilities/ApprovedIncludes/include';
             $this->_AllowedIncludes = $this->_getESAPIArrayProperty($path, null);
@@ -858,10 +858,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
      * enabled. Default is false.
      * At the moment, special debugging is used for producing output from
      * CodecDebug.
-     * 
+     *
      * @return bool True if special debugging should be enabled. Default is false.
      */
-    public function getSpecialDebugging() 
+    public function getSpecialDebugging()
     {
         if ($this->_SpecialDebugging === null) {
             $path = 'SpecialDebugging/Enabled';
@@ -870,5 +870,4 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         
         return $this->_SpecialDebugging;
     }
-
 }

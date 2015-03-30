@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -26,8 +26,8 @@
 /**
  * Use this ESAPI security control to call command-line operating
  * system functions.
- * 
- * The idea behind this interface is to run an OS command with reduced 
+ *
+ * The idea behind this interface is to run an OS command with reduced
  * security risk.
  *
  * @category  OWASP
@@ -45,12 +45,12 @@ interface Executor
 {
 
     /**
-     * Invokes the specified executable with default workdir and not logging 
+     * Invokes the specified executable with default workdir and not logging
      * parameters.
-     * 
+     *
      * @param string $executable the command to execute
      * @param array  $params     the parameters of the command being executed
-     * 
+     *
      * @return does not return a value.
      */
     public function executeSystemCommand($executable, $params);
@@ -60,24 +60,21 @@ interface Executor
      * escaping all the parameters to ensure that injection is impossible.
      * Implementations must change to the specified working
      * directory before invoking the command.
-     *             
-     * note: this is PHP's equivalent to ESAPI4JAVA's overloaded 
+     *
+     * note: this is PHP's equivalent to ESAPI4JAVA's overloaded
      * executeSystemCommand($executable, $params, $workdir, $codec, $logParams)
-     * note: the codec argument has been eliminated from this implementation since 
+     * note: the codec argument has been eliminated from this implementation since
      * PHP's escapeshellcmd function does enough to not require explicit OS codecs
-     * 
+     *
      * @param string $executable the command to execute
      * @param array  $params     the parameters of the command being executed
      * @param string $workdir    the working directory
-     * @param bool   $logParams  use false if any parameters contains sensitive or 
-     *                           confidential information. (this is an ESAPI 2.0 
+     * @param bool   $logParams  use false if any parameters contains sensitive or
+     *                           confidential information. (this is an ESAPI 2.0
      *                           feature)
-     * 
+     *
      * @return string the output of the command being run
      * @throws ExecutorException the service exception
      */
-     public function executeSystemCommandLonghand($executable, $params, $workdir,
-         $logParams
-     );
-
+     public function executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
 }

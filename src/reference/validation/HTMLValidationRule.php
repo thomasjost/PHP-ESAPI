@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -41,9 +41,9 @@ class HTMLValidationRule extends StringValidationRule
     // TODO : configuration of htmlpurifier and logging
     //
     // // replace with your encoding
-    // $config->set('Core.Encoding', 'UTF-8'); 
+    // $config->set('Core.Encoding', 'UTF-8');
     // //replace with your doctype
-    // $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); 
+    // $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
     // $config->set('Core.CollectErrors' , true);
     //
     //
@@ -60,27 +60,23 @@ class HTMLValidationRule extends StringValidationRule
      * @param string $typeName         descriptive name for this validator.
      * @param object $encoder          providing canonicalize method.
      * @param string $whitelistPattern whitelist regex.
-     * 
+     *
      * @return does not return a value.
      */
-    public function __construct($typeName, $encoder = null,
-        $whitelistPattern = null
-    ) {
+    public function __construct($typeName, $encoder = null, $whitelistPattern = null)
+    {
         global $ESAPI;
 
         parent::__construct($typeName, $encoder);
 
         $this->_auditor = ESAPI::getAuditor('HTMLValidationRule');
-        try
-        {
+        try {
             $this->_purifier = new HTMLPurifier($this->_basicConfig());
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             throw new ValidationException(
                 'Could not initialize HTMLPurifier.',
-                'Caught ' . gettype($e) . 
-                ' attempting to instantiate HTMLPurifier: '. 
+                'Caught ' . gettype($e) .
+                ' attempting to instantiate HTMLPurifier: '.
                 $e->getMessage,
                 'HTMLValidationRule->construct'
             );
@@ -92,7 +88,7 @@ class HTMLValidationRule extends StringValidationRule
      * errorCollector which we'll use to determine whether there were errors in
      * the HTML
      * TODO load an ini file.
-     * 
+     *
      * @return string returns some HTMLPurifier config directives
      */
     private function _basicConfig()
@@ -102,6 +98,7 @@ class HTMLValidationRule extends StringValidationRule
         $a['HTML.Doctype'] = 'XHTML 1.0 Transitional';
         $a['HTML.ForbiddenAttributes'] = 'body@onload';
         $a['Core.CollectErrors'] = true;
+
         return $a;
     }
 
@@ -111,8 +108,8 @@ class HTMLValidationRule extends StringValidationRule
      * IntrusionException if the input is an obvious attack.
      *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g., ProfilePage_Signature). This value 
-     *                        is used by any logging or error handling that is done 
+     *                        validating (e.g., ProfilePage_Signature). This value
+     *                        is used by any logging or error handling that is done
      *                        with respect to the value passed in.
      * @param string $input   The actual string user input data to validate.
      *
@@ -127,11 +124,10 @@ class HTMLValidationRule extends StringValidationRule
         $clean_html = null;
         try {
             $clean_html = $this->_purifier->purify($canonical);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new ValidationException(
                 'HTML Input is not valid.',
-                'Caught ' . gettype($e) . ' attempting to purify HTML: '. 
+                'Caught ' . gettype($e) . ' attempting to purify HTML: '.
                 $e->getMessage,
                 $context
             );
@@ -151,7 +147,7 @@ class HTMLValidationRule extends StringValidationRule
                     $context
                  );
             }
-        } else if (strcmp($canonical, $clean_html) !== 0) {
+        } elseif (strcmp($canonical, $clean_html) !== 0) {
             throw new ValidationException(
                 'HTML Input may not be valid.',
                 'Resorted to string comparsion of canonicalized and purified '.
@@ -169,8 +165,8 @@ class HTMLValidationRule extends StringValidationRule
      * TODO this should sanitize based on a specific policy.
      *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g., ProfilePage_Signature). This value 
-     *                        is used by any logging or error handling that is done 
+     *                        validating (e.g., ProfilePage_Signature). This value
+     *                        is used by any logging or error handling that is done
      *                        with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
@@ -184,7 +180,7 @@ class HTMLValidationRule extends StringValidationRule
         } catch (Exception $e) {
             // NoOp - return clean_html
         }
+
         return $clean_html;
     }
-
 }

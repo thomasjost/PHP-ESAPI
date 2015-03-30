@@ -97,9 +97,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
 
         $logMsg = 'testExceptionAutoAdd_';
         $logMsg .= getRandomAlphaNumString(32);
-        new EnterpriseSecurityException(
-            'user message - testExceptionAutoAdd', $logMsg
-        );
+        new EnterpriseSecurityException('user message - testExceptionAutoAdd', $logMsg);
 
         $m = 'Test attempts to detect exception log message in logfile - %s';
         $this->assertTrue(
@@ -169,9 +167,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         $m = 'Test attempts to detect IntrusionDetector' .
             ' action log message in logfile - %s';
         $this->assertTrue(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 5, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 5, $this->_logDateFormat),
             $m
         );
     }
@@ -212,9 +208,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         $m = 'Test attempts to detect IntrusionDetector' .
             ' action log message in logfile - %s';
         $this->assertTrue(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 5, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 5, $this->_logDateFormat),
             $m
         );
     }
@@ -256,9 +250,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         $m = 'Test attempts to detect IntrusionDetector' .
             ' action log message in logfile - %s';
         $this->assertTrue(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 5, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 5, $this->_logDateFormat),
             $m
         );
     }
@@ -299,9 +291,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         $m = 'Test attempts to detect IntrusionDetector' .
             ' action log message in logfile - %s';
         $this->assertTrue(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 5, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 5, $this->_logDateFormat),
             $m
         );
     }
@@ -363,9 +353,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             'This is a Test Event for IntrusionDetectorTest.'
         );
         $this->assertFalse(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 10, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 10, $this->_logDateFormat),
             $m
         );
         ESAPI::getIntrusionDetector()->addEvent(
@@ -373,9 +361,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             'This is a Test Event for IntrusionDetectorTest.'
         );
         $this->assertFalse(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 10, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 10, $this->_logDateFormat),
             $m
         );
 
@@ -385,9 +371,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             'This is a Test Event for IntrusionDetectorTest.'
         );
         $this->assertTrue(
-            fileContainsExpected(
-                $this->_logFileLoc, $find, $date, 10, $this->_logDateFormat
-            ),
+            fileContainsExpected($this->_logFileLoc, $find, $date, 10, $this->_logDateFormat),
             $m
         );
     }

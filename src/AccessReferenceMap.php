@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -23,12 +23,12 @@
 
 /**
  * Use this ESAPI security control to create access reference maps.
- * 
- * The idea behind this interface is to map a set of internal direct 
+ *
+ * The idea behind this interface is to map a set of internal direct
  * object references to a set of indirect references that are safe to
  * disclose publicly. This can be used to help protect database keys,
- * filenames, and other types of direct object references. As a rule, 
- * developers should not expose their direct object references as it 
+ * filenames, and other types of direct object references. As a rule,
+ * developers should not expose their direct object references as it
  * enables attackers to attempt to manipulate them.
  *
  * @category  OWASP
@@ -44,9 +44,9 @@ interface AccessReferenceMap
 {
 
     /**
-     * Get an iterator through the direct object references. No guarantee is made as 
+     * Get an iterator through the direct object references. No guarantee is made as
      * to the order of items returned.
-     * 
+     *
      * @return iterator the iterator
      */
     public function iterator();
@@ -56,9 +56,9 @@ interface AccessReferenceMap
      * direct object reference. Developers should use this call when building
      * URL's, form fields, hidden fields, etc... to help protect their private
      * implementation information.
-     * 
+     *
      * @param string $directReference the direct reference
-     * 
+     *
      * @return string the indirect reference
      */
     public function getIndirectReference($directReference);
@@ -69,22 +69,22 @@ interface AccessReferenceMap
      * request to translate it back into the real direct reference. If an
      * invalid indirect reference is requested, then an AccessControlException is
      * thrown.
-     * 
+     *
      * @param string $indirectReference the indirect reference
-     * 
+     *
      * @return string the direct reference
-     * 
-     * @throws AccessControlException if no direct reference exists for the 
+     *
+     * @throws AccessControlException if no direct reference exists for the
      *                                specified indirect reference
      */
     public function getDirectReference($indirectReference);
 
     /**
-     * Adds a direct reference to the AccessReferenceMap, then generates and returns 
+     * Adds a direct reference to the AccessReferenceMap, then generates and returns
      * an associated indirect reference.
-     *  
+     *
      * @param string $direct the direct reference
-     * 
+     *
      * @return string the corresponding indirect reference
      */
     public function addDirectReference($direct);
@@ -92,26 +92,25 @@ interface AccessReferenceMap
     /**
      * Removes a direct reference and its associated indirect reference from
      * the AccessReferenceMap.
-     * 
+     *
      * @param string $direct the direct reference to remove
-     * 
+     *
      * @return does not return a avalue
-     * 
+     *
      * @throws AccessControlException
      */
     public function removeDirectReference($direct);
 
     /**
-     * Updates the access reference map with a new set of direct references, 
-     * maintaining any existing indirect references associated with items that 
-     * are in the new list. New indirect references could be generated every time, 
-     * but that might mess up anything that previously used an indirect reference, 
-     * such as a URL parameter. 
-     * 
+     * Updates the access reference map with a new set of direct references,
+     * maintaining any existing indirect references associated with items that
+     * are in the new list. New indirect references could be generated every time,
+     * but that might mess up anything that previously used an indirect reference,
+     * such as a URL parameter.
+     *
      * @param string $directReferences a Set of direct references to add
-     * 
+     *
      * @return does not return a avalue
      */
     public function update($directReferences);
-
 }

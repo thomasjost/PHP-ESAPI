@@ -8,7 +8,7 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
- * 
+ *
  * PHP version 5.2
  *
  * @category  OWASP
@@ -44,11 +44,11 @@ class ValidationException extends EnterpriseSecurityException
     /**
      * Instantiates a new ValidationException.
      * Create a new ValidationAvailabilityException
-     * 
+     *
      * @param string $userMessage the message displayed to the user
      * @param string $logMessage  the message logged
      * @param string $context     the source that caused this exception
-     * 
+     *
      * @return does not return a value.
      */
     public function __construct($userMessage = '', $logMessage = '', $context = '')
@@ -59,8 +59,8 @@ class ValidationException extends EnterpriseSecurityException
 
     /**
      * Returns the UI reference that caused this ValidationException
-     *  
-     * @return string context, the source that caused the exception, stored as a 
+     *
+     * @return string context, the source that caused the exception, stored as a
      *                string
      */
     public function getContext()
@@ -70,14 +70,13 @@ class ValidationException extends EnterpriseSecurityException
 
     /**
      * Set's the UI reference that caused this ValidationException
-     *  
+     *
      * @param string $context the context to set, passed as a String
-     * 
+     *
      * @return does not return a value.
      */
     public function setContext($context)
     {
         $this->_context = $context;
     }
-
 }

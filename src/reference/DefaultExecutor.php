@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -13,7 +13,7 @@
  *
  * @category  OWASP
  * @package   ESAPI_Reference
- * @author    Mike Boberski <boberski_michael@bah.com> 
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Linden Darling <linden.darling@jds.net.au>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
@@ -26,7 +26,7 @@
  *
  * @category  OWASP
  * @package   ESAPI_Reference
- * @author    Mike Boberski <boberski_michael@bah.com> 
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Linden Darling <linden.darling@jds.net.au>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
@@ -49,7 +49,7 @@ class DefaultExecutor implements Executor
     
     /**
      * Executor constructor.
-     * 
+     *
      * @return does not return a value.
      */
     public function __construct()
@@ -65,19 +65,16 @@ class DefaultExecutor implements Executor
     {
         $workdir = $this->_config->getWorkingDirectory();
         $logParams = false;
-        return $this->executeSystemCommandLonghand(
-            $executable, $params, $workdir, $logParams
-        );
+
+        return $this->executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
     }
      
      /**
      * @inheritdoc
      */
-    public function executeSystemCommandLonghand($executable, $params, $workdir,
-        $logParams
-    ) {
+    public function executeSystemCommandLonghand($executable, $params, $workdir, $logParams)
+    {
         try {
-            
             // executable must exist
             $resolved = $executable;
             
@@ -100,10 +97,10 @@ class DefaultExecutor implements Executor
                     "Execution failure, Attempt ".
                     "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
                 );
-            }            
+            }
                              
-            // exact, absolute, canonical path to executable must be listed 
-            //in ESAPI configuration 
+            // exact, absolute, canonical path to executable must be listed
+            //in ESAPI configuration
             $approved = $this->_config->getAllowedExecutables();
             if (!in_array($executable, $approved)) {
                 throw new ExecutorException(
@@ -111,11 +108,11 @@ class DefaultExecutor implements Executor
                     "is not listed as an approved executable in ESAPI ".
                     "configuration: ".$executable . " not listed in " . $approved
                 );
-            }            
+            }
 
             // escape any special characters in the parameters
             for ($i = 0; $i < count($params); $i++) {
-                $params[$i] = escapeshellcmd($params[$i]);  
+                $params[$i] = escapeshellcmd($params[$i]);
             }
            
             // working directory must exist
@@ -139,18 +136,16 @@ class DefaultExecutor implements Executor
             $paramstr = "";
             foreach ($params as $param) {
                 //note: will yield a paramstr with a leading whitespace
-                $paramstr .= " ".$param;    
+                $paramstr .= " ".$param;
             }
-            //note: no whitespace between $executable and $paramstr since 
+            //note: no whitespace between $executable and $paramstr since
             //$paramstr already has a leading whitespace
-            $output = shell_exec($executable . $paramstr);    
+            $output = shell_exec($executable . $paramstr);
+
             return $output;
-        }
-        catch (ExecutorException $e) {
+        } catch (ExecutorException $e) {
             $this->_auditor->warning(Auditor::SECURITY, true, $e->getMessage());
             throw new ExecutorException($e->getMessage());
         }
-    
-    }    
-    
+    }
 }

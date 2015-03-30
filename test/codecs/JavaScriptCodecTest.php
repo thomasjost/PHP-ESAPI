@@ -23,8 +23,7 @@ class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
     {
         global $ESAPI;
 
-        if (!isset($ESAPI))
-        {
+        if (!isset($ESAPI)) {
             $ESAPI = new ESAPI();
         }
         
@@ -37,22 +36,21 @@ class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
     }
-*/    
+*/
     public function testEncodeCharacter()
     {
         $immune = array("");
         
         $this->assertEquals("\\x3C", $this->javascriptCodec->encode($immune, "<"));
-    }    
-/*	
+    }
+/*
     function testDecode()
     {
         $this->assertEquals( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
     }
-*/        
+*/
     public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->javascriptCodec->decode("\\x3C"));
     }
-    
 }

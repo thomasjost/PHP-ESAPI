@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	
-<!-- 
+<!--
 W3C rules retrieved from:
 http://www.w3.org/TR/html401/struct/global.html
 -->
@@ -16,11 +16,11 @@ http://www.w3.org/TR/html401/struct/global.html
 	
 	<common-regexps>
 		
-		<!-- 
+		<!--
 		From W3C:
 		This attribute assigns a class name or set of class names to an
 		element. Any number of elements may be assigned the same class
-		name or names. Multiple class names must be separated by white 
+		name or names. Multiple class names must be separated by white
 		space characters.
 		-->
 		
@@ -28,7 +28,7 @@ http://www.w3.org/TR/html401/struct/global.html
 		<regexp name="number" value="[0-9]+"/>
 		<regexp name="anything" value=".*"/>
 		<regexp name="numberOrPercent" value="(\d)+(%{0,1})"/>
-		<regexp name="paragraph" value="[a-zA-Z0-9,'\.\s-_\(\)]*"/>	
+		<regexp name="paragraph" value="[a-zA-Z0-9,'\.\s-_\(\)]*"/>
 		<regexp name="htmlId" value="[a-zA-Z0-9-_]+"/>
 		<regexp name="htmlTitle" value="[a-zA-Z0-9\s-_',:\[\]!\.]*"/> <!-- force non-empty with a '+' at the end instead of '*' -->
 		<regexp name="htmlClass" value="[a-zA-Z0-9\s,-_]+"/>
@@ -70,24 +70,24 @@ http://www.w3.org/TR/html401/struct/global.html
 		<regexp name="cssAttributeExclusion" value=""/>
 		
 		<!--  This is for resources referenced from CSS (such as background images and other imported stylesheets) -->
-		<regexp name="cssUri" value="url\((\.\.|/|[a-zA-Z0-9\. ]+)*[a-zA-Z0-9\_]+\.(gif|jpg|ico|png|css)\)|url\((http|https|mailto)://[a-zA-Z0-9][a-zA-Z0-9\.]*\.[a-zA-Z]{2,5}(:[\d]+){0,1}/(\.\.|/|[a-zA-Z0-9 ]+)*[a-zA-Z0-9\\_]+\.(gif|jpg|ico|png|css)\)"/>		
+		<regexp name="cssUri" value="url\((\.\.|/|[a-zA-Z0-9\. ]+)*[a-zA-Z0-9\_]+\.(gif|jpg|ico|png|css)\)|url\((http|https|mailto)://[a-zA-Z0-9][a-zA-Z0-9\.]*\.[a-zA-Z]{2,5}(:[\d]+){0,1}/(\.\.|/|[a-zA-Z0-9 ]+)*[a-zA-Z0-9\\_]+\.(gif|jpg|ico|png|css)\)"/>
 
 		<!--  This is for comments within CSS (ex. /* comment */) -->
 		<regexp name="cssCommentText" value="[a-zA-Z0-9-_,\.\s]+"/>
 		
 		<regexp name="integer" value="(-|\+)?[0-9]+"/>
-		<regexp name="number" value="(-|\+)?([0-9]+(.[0-9]+)?)"/>		
+		<regexp name="number" value="(-|\+)?([0-9]+(.[0-9]+)?)"/>
 		<regexp name="angle" value="(-|\+)?([0-9]+(.[0-9]+)?)(deg|grads|rad)"/>
 		<regexp name="time" value="([0-9]+(.[0-9]+)?)(ms|s)"/>
-		<regexp name="frequency" value="([0-9]+(.[0-9]+)?)(hz|khz)"/>	
+		<regexp name="frequency" value="([0-9]+(.[0-9]+)?)(hz|khz)"/>
 		<regexp name="length" value="((-|\+)?0|(-|\+)?([0-9]+(.[0-9]+)?)(em|ex|px|in|cm|mm|pt|pc))"/>
 		<regexp name="percentage" value="(-|\+)?([0-9]+(.[0-9]+)?)%"/>
-		<regexp name="cssColor" value="(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)|rgb\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\)"/>		
+		<regexp name="cssColor" value="(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)|rgb\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\)"/>
 		<regexp name="absolute-size" value="(xx-small|x-small|small|medium|large|x-large|xx-large)"/>
 		<regexp name="relative-size" value="(larger|smaller)"/>
 	</common-regexps>
 	
-	<!-- 
+	<!--
 	
 	Tag.name = a, b, div, body, etc.
 	Tag.action = filter: remove tags, but keep content, validate: keep content as long as it passes rules, remove: remove tag and contents
@@ -97,7 +97,7 @@ http://www.w3.org/TR/html401/struct/global.html
 	 
 	 -->
 
-	<!-- 
+	<!--
 	Some attributes are common to all (or most) HTML tags. There aren't many that qualify for this. You have to make sure there's no
 	collisions between any of these attribute names with attribute names of other tags that are for different purposes.
 	-->
@@ -214,7 +214,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			</regexp-list>
 		</attribute>
 
-		<attribute name="bgcolor">		
+		<attribute name="bgcolor">
 			<regexp-list>
 				<regexp name="colorNameOrCode"/>
 			</regexp-list>
@@ -244,8 +244,8 @@ http://www.w3.org/TR/html401/struct/global.html
 		<attribute name="axis" description="The 'headers' attribute is a comma-separated list of related header cells">
 		 	<regexp-list>
 			 	<regexp value="[a-zA-Z0-9\s*,]*"/>
-		 	</regexp-list>		
-		</attribute> 
+		 	</regexp-list>
+		</attribute>
 		
 		<attribute name="nowrap" description="The 'nowrap' attribute tells the browser not to wrap text that goes over one line">
 			<regexp-list>
@@ -310,35 +310,35 @@ http://www.w3.org/TR/html401/struct/global.html
 			<literal-list>
 				<literal>javascript:void(0)</literal>
 				<literal>javascript:history.go(-1)</literal>
-			</literal-list>		 
+			</literal-list>
 		 </attribute>
 
 		 <attribute name="onDblClick" description="The 'onDblClick' event is executed when the control associated with the tag is clicked twice immediately">
 			<literal-list>
 				<literal>javascript:void(0)</literal>
 				<literal>javascript:history.go(-1)</literal>
-			</literal-list>		 
+			</literal-list>
 		 </attribute>
 		 
 		  <attribute name="onMouseDown" description="The 'onMouseDown' event is executed when the control associated with the tag is clicked but not yet released">
 			<literal-list>
 				<literal>javascript:void(0)</literal>
 				<literal>javascript:history.go(-1)</literal>
-			</literal-list>		 
+			</literal-list>
 		 </attribute>
 		 
 		 <attribute name="onMouseUp" description="The 'onMouseUp' event is executed when the control associated with the tag is clicked after the button is released">
 			<literal-list>
 				<literal>javascript:void(0)</literal>
 				<literal>javascript:history.go(-1)</literal>
-			</literal-list>		 
+			</literal-list>
 		 </attribute>
 		 
  		 <attribute name="onMouseOver" description="The 'onMouseOver' event is executed when the user's mouse hovers over the control associated with the tag">
 			<literal-list>
 				<literal>javascript:void(0)</literal>
 				<literal>javascript:history.go(-1)</literal>
-			</literal-list>		 
+			</literal-list>
 		 </attribute>
 		 
 		 <attribute name="scope" description="The 'scope' attribute defines what's covered by the header cells">
@@ -353,7 +353,7 @@ http://www.w3.org/TR/html401/struct/global.html
 		
 		
 		 <!-- If you want users to be able to mess with tabindex, uncomment this -->
-		 <!--  
+		 <!--
 		 <attribute name="tabindex" description="...">
 		 	<regexp-list>
 		 		<regexp name="number"/>
@@ -373,13 +373,13 @@ http://www.w3.org/TR/html401/struct/global.html
 		 <attribute name="readonly">
 		 	<regexp-list>
 		 		<regexp name="anything"/>
-		 	</regexp-list>		 
+		 	</regexp-list>
 		 </attribute>
 		 
 		 <attribute name="accesskey">
 		 	<regexp-list>
 		 		<regexp name="anything"/>
-		 	</regexp-list>		 
+		 	</regexp-list>
 		 </attribute>
 		 
 		 <attribute name="size">
@@ -399,13 +399,13 @@ http://www.w3.org/TR/html401/struct/global.html
 		 <attribute name="rows">
 		 	<regexp-list>
 		 		<regexp name="number"/>
-		 	</regexp-list>		 
+		 	</regexp-list>
 		 </attribute>
 
 		 <attribute name="cols">
 		 	<regexp-list>
 		 		<regexp name="number"/>
-		 	</regexp-list>		 
+		 	</regexp-list>
 		 </attribute>
 		 
 	</common-attributes>
@@ -413,7 +413,7 @@ http://www.w3.org/TR/html401/struct/global.html
 
 	<!--
 	This requires normal updates as browsers continue to diverge from the W3C and each other. As long as the browser wars continue
-	this is going to continue. I'm not sure war is the right word for what's going on. Doesn't somebody have to win a war after 
+	this is going to continue. I'm not sure war is the right word for what's going on. Doesn't somebody have to win a war after
 	a while? Even wars of attrition, surely?
 	 -->
 	
@@ -481,7 +481,7 @@ http://www.w3.org/TR/html401/struct/global.html
 		
 
 		<!--
-			If you wish to enable any of the form related tags, change the tag's action below from "filter" or "remove" to "validate". The attributes have been 
+			If you wish to enable any of the form related tags, change the tag's action below from "filter" or "remove" to "validate". The attributes have been
 			hardened so this is safe to do, if it's something you want to allow. Beware the <><ing possibilities!
 		 -->
 			
@@ -836,7 +836,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			<attribute name="width"/>
 			<attribute name="align"/>
 			<attribute name="char"/>
-			<attribute name="charoff"/>			
+			<attribute name="charoff"/>
 			<attribute name="valign"/>
 			<attribute name="colspan"/>
 			<attribute name="rowspan"/>
@@ -854,7 +854,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			<attribute name="width"/>
 			<attribute name="align"/>
 			<attribute name="char"/>
-			<attribute name="charoff"/>			
+			<attribute name="charoff"/>
 			<attribut name="valign"/>
 			<attribute name="colspan"/>
 			<attribute name="rowspan"/>
@@ -865,7 +865,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			<attribute name="width"/>
 			<attribute name="align"/>
 			<attribute name="char"/>
-			<attribute name="charoff"/>	
+			<attribute name="charoff"/>
 			<attribute name="background"/>
 		</tag>
 		
@@ -920,7 +920,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<literal value="behind"/>
 				<literal value="leftwards"/>
 				<literal value="rightwards"/>
-				<literal name="inherit"/>			
+				<literal name="inherit"/>
 			</literal-list>
 			<regexp-list>
 				<regexp name="angle"/>
@@ -936,7 +936,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<shorthand name="background-image"/>
 				<shorthand name="background-repeat"/>
 				<shorthand name="background-attachment"/>
-				<shorthand name="background-position"/>												
+				<shorthand name="background-position"/>
 			</shorthand-list>
 		</property>
 
@@ -975,14 +975,14 @@ http://www.w3.org/TR/html401/struct/global.html
 				<literal value="bottom"/>
 				<literal value="left"/>
 				<literal value="center"/>
-				<literal value="right"/>			
+				<literal value="right"/>
 				<literal name="inherit"/>
 			</literal-list>
 			<regexp-list>
 				<regexp name="percentage"/>
 				<regexp name="length"/>
 			</regexp-list>
-		</property>		
+		</property>
 
 		<property name="background-repeat" description="If a background image is specified, this property specifies whether the image is repeated (tiled), and how.">
 			<literal-list>
@@ -1882,7 +1882,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			</category-list>
 			<literal-list>
 				<literal value="inherit"/>
-				<literal value="none"/>				
+				<literal value="none"/>
 				<literal value="hidden"/>
 				<literal value="dotted"/>
 				<literal value="dashed"/>
@@ -2003,7 +2003,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			</literal-list>
 			<regexp-list>
 				<regexp name="length"/>
-				<regexp name="percentage"/>				
+				<regexp name="percentage"/>
 			</regexp-list>
 		</property>
 		<property name="margin-top" default="0" description="">
@@ -2086,12 +2086,12 @@ http://www.w3.org/TR/html401/struct/global.html
 			<regexp-list>
 				<regexp name="length"/>
 				<regexp name="percentage"/>
-			</regexp-list>			
+			</regexp-list>
 		</property>
 		<property name="padding-top" default="0" description="">
 			<category-list>
 				<category value="visual"/>
-			</category-list>				
+			</category-list>
 			<literal-list>
 				<literal value="inherit"/>
 			</literal-list>
@@ -2131,7 +2131,7 @@ http://www.w3.org/TR/html401/struct/global.html
 			<shorthand-list>
 				<shorthand name="padding"/>
 			</shorthand-list>
-		</property>		
+		</property>
 		<!-- end medium properties -->
 		
 		<!-- begin hard properties -->
@@ -2286,7 +2286,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<literal value="blink"/>
 				<literal value="inherit"/>
 			</literal-list>
-		</property>		
+		</property>
 		<!-- end hard properties -->
 		<!--  begin manual properties -->
 		<property name="border-spacing" default="0" description="The lengths specify the distance that separates adjacent cell borders. If one length is specified, it gives both the horizontal and vertical spacing. If two are specified, the first gives the horizontal spacing and the second the vertical spacing. Lengths may not be negative.">
@@ -2305,7 +2305,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<category value="visual"/>
 			</category-list>
 			<literal-list>
-				<literal value="auto"/>			
+				<literal value="auto"/>
 				<literal value="inherit"/>
 			</literal-list>
 			<regexp-list>
@@ -2317,7 +2317,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<category value="all"/>
 			</category-list>
 			<literal-list>
-				<literal value="none"/>			
+				<literal value="none"/>
 				<literal value="inherit"/>
 			</literal-list>
 			<regexp-list>
@@ -2330,7 +2330,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<category value="visual"/>
 			</category-list>
 			<literal-list>
-				<literal value="auto"/>			
+				<literal value="auto"/>
 				<literal value="inherit"/>
 			</literal-list>
 			<regexp-list>
@@ -2343,7 +2343,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<category value="interactive"/>
 			</category-list>
 			<literal-list>
-				<literal value="auto"/>			
+				<literal value="auto"/>
 				<literal value="inherit"/>
 				<literal value="crosshair"/>
 				<literal value="default"/>
@@ -2369,14 +2369,14 @@ http://www.w3.org/TR/html401/struct/global.html
 				<category value="visual"/>
 			</category-list>
 			<literal-list>
-				<literal value="none"/>			
+				<literal value="none"/>
 				<literal value="inherit"/>
 			</literal-list>
 			<regexp-list>
 				<regexp name="cssColor"/>
 				<regexp name="length"/>
 			</regexp-list>
-		</property>		
+		</property>
 		<property name="font" description="The 'font' property is, except as described below, a shorthand property for setting 'font-style', 'font-variant', 'font-weight', 'font-size', 'line-height', and 'font-family', at the same place in the style sheet.">
 			<category-list>
 				<category value="visual"/>
@@ -2396,7 +2396,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<shorthand name="font-variant"/>
 				<shorthand name="font-weight"/>
 				<shorthand name="font-size"/>
-				<shorthand name="line-height"/>	
+				<shorthand name="line-height"/>
 				<shorthand name="font-family"/>
 			</shorthand-list>
 		</property>
@@ -2410,7 +2410,7 @@ http://www.w3.org/TR/html401/struct/global.html
 				<literal value="sans-serif"/>
 				<literal value="cursive"/>
 				<literal value="fantasy"/>
-				<literal value="monospace"/>											
+				<literal value="monospace"/>
 			</literal-list>
 		</property>
 		<property name="page" description="The 'page' property can be used to specify a particular type of page where an element should be displayed.">
@@ -2432,9 +2432,9 @@ http://www.w3.org/TR/html401/struct/global.html
 			<literal-list>
 				<literal value="mix"/>
 				<literal value="repeat"/>
-				<literal value="none"/>		
+				<literal value="none"/>
 				<literal value="auto"/>
-				<literal value="inherit"/>				
+				<literal value="inherit"/>
 			</literal-list>
 			<regexp-list>
 				<regexp name="cssUri"/>
@@ -2448,9 +2448,9 @@ http://www.w3.org/TR/html401/struct/global.html
 			<literal-list>
 				<literal value="left"/>
 				<literal value="right"/>
-				<literal value="center"/>		
+				<literal value="center"/>
 				<literal value="justify"/>
-				<literal value="inherit"/>				
+				<literal value="inherit"/>
 			</literal-list>
 		</property>
 		<property name="voice-family" description="The value is a comma-separated, prioritized list of voice family names (compare with 'font-family').">
@@ -2461,10 +2461,10 @@ http://www.w3.org/TR/html401/struct/global.html
 			<literal-list>
 				<literal value="male"/>
 				<literal value="female"/>
-				<literal value="child"/>		
-				<literal value="inherit"/>				
+				<literal value="child"/>
+				<literal value="inherit"/>
 			</literal-list>
-		</property>		
+		</property>
 		<!--  end manual properties -->
 	</css-rules>
 
@@ -2662,7 +2662,7 @@ http://www.w3.org/TR/html401/struct/global.html
 		<entity name="uArr" cdata="&amp;#8657;"/> <!--upwards double arrow, U+21D1 ISOamsa -->
 		<entity name="rArr" cdata="&amp;#8658;"/> <!--rightwards double arrow, U+21D2 ISOtech -->
 		
-		<!-- ISO 10646 does not say this is the 'implies' character but does not have 
+		<!-- ISO 10646 does not say this is the 'implies' character but does not have
 		     another character with this function so ?
 		     rArr can be used for 'implies' as ISOtech suggests -->
 		     
@@ -2716,9 +2716,9 @@ http://www.w3.org/TR/html401/struct/global.html
 		<entity name="sub" cdata="&amp;#8834;"/> <!--subset of, U+2282 ISOtech -->
 		<entity name="sup" cdata="&amp;#8835;"/> <!--superset of, U+2283 ISOtech -->
 		
-		<!-- note that nsup, 'not a superset of, U+2283' is not covered by the Symbol 
+		<!-- note that nsup, 'not a superset of, U+2283' is not covered by the Symbol
 		     font encoding and is not included. Should it be, for symmetry?
-		     It is in ISOamsn  --> 
+		     It is in ISOamsn  -->
 		
 		<entity name="nsub" cdata="&amp;#8836;"/> <!--not a subset of, U+2284 ISOamsn -->
 		<entity name="sube" cdata="&amp;#8838;"/> <!--subset of or equal to, U+2286 ISOtech -->
@@ -2735,7 +2735,7 @@ http://www.w3.org/TR/html401/struct/global.html
 		<entity name="lfloor" cdata="&amp;#8970;"/> <!--left floor = apl downstile, U+230A ISOamsc  -->
 		<entity name="rfloor" cdata="&amp;#8971;"/> <!--right floor, U+230B ISOamsc  -->
 		<entity name="lang" cdata="&amp;#9001;"/> <!--left-pointing angle bracket = bra, U+2329 ISOtech -->
-		<!-- lang is NOT the same character as U+003C 'less than' 
+		<!-- lang is NOT the same character as U+003C 'less than'
 		     or U+2039 'single left-pointing angle quotation mark' -->
 		<entity name="rang" cdata="&amp;#9002;"/> <!--right-pointing angle bracket = ket, U+232A ISOtech -->
 		<!-- rang is NOT the same character as U+003E 'greater than' or U+203A 'single right-pointing angle quotation mark' -->

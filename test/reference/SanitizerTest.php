@@ -22,8 +22,7 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         global $ESAPI;
-        if (!isset($ESAPI))
-        {
+        if (!isset($ESAPI)) {
             $ESAPI = new ESAPI();
         }
     }
@@ -35,7 +34,8 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
     /**
      * Test of getSanitizedHTML method of class Sanitizer.
      */
-    public function testGetSanitizedHTML_01() {
+    public function testGetSanitizedHTML_01()
+    {
         $san = ESAPI::getSanitizer();
         
         $test1 = '<b>Jeff</b>';
@@ -46,7 +46,8 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
     /**
      * Test of getSanitizedHTML method of class Sanitizer.
      */
-    public function testGetSanitizedHTML_02() {
+    public function testGetSanitizedHTML_02()
+    {
         $san = ESAPI::getSanitizer();
         
         $test2 = "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>";
@@ -57,12 +58,12 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
     /**
      * Test of getSanitizedHTML method of class Sanitizer.
      */
-    public function testGetSanitizedHTML_03() {
+    public function testGetSanitizedHTML_03()
+    {
         $san = ESAPI::getSanitizer();
         
         $test3 = 'Test.<script>alert(document.cookie)</script>';
         $result3 = $san->getSanitizedHTML('test', $test3, 100, false);
         $this->assertEquals('Test.', $result3);
     }
-    
 }

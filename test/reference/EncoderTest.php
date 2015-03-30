@@ -16,12 +16,12 @@
  */
 
 /**
- * 
+ *
  */
 
 /**
  * Tests of DefaultEncoder methods.
- * 
+ *
  * @author jah (at jaboite.co.uk)
  * @since  1.6
  */
@@ -33,8 +33,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     {
         global $ESAPI;
 
-        if (!isset($ESAPI))
-        {
+        if (!isset($ESAPI)) {
             $ESAPI = new ESAPI(__DIR__.'/../testresources/ESAPI.xml');
         }
         
@@ -53,7 +52,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      * Test for exception thrown when DefaultEncoder is constructed with an array
      * containing an object other than a Codec instance.
      */
-    public function testDefaultEncoderException() {
+    public function testDefaultEncoderException()
+    {
         $codecList = array();
         array_push($codecList, new HTMLEntityCodec());
         array_push($codecList, new Exception()); // any class except a codec will suffice.
@@ -67,7 +67,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      *
      * @throws EncodingException
      */
-    public function testCanonicalize_001() {
+    public function testCanonicalize_001()
+    {
         // This block sets-up the encoder for subsequent canonicalize tests
         $codecArray = array();
         array_push($codecArray, new HTMLEntityCodec());
@@ -76,398 +77,522 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(null, $this->encoderInstance->canonicalize(null));
     }
-    public function testCanonicalize_002() {
+    public function testCanonicalize_002()
+    {
         $this->assertEquals(null, $this->encoderInstance->canonicalize(null, true));
     }
-    public function testCanonicalize_003() {
+    public function testCanonicalize_003()
+    {
         $this->assertEquals(null, $this->encoderInstance->canonicalize(null, false));
     }
 
-    public function testCanonicalize_004() {
+    public function testCanonicalize_004()
+    {
         $this->assertEquals("%", $this->encoderInstance->canonicalize("%25", true));
     }
-    public function testCanonicalize_005() {
+    public function testCanonicalize_005()
+    {
         $this->assertEquals("%", $this->encoderInstance->canonicalize("%25", false));
     }
 
-    public function testCanonicalize_006() {
+    public function testCanonicalize_006()
+    {
         $this->assertEquals("%", $this->encoderInstance->canonicalize("%25"));
     }
-    public function testCanonicalize_007() {
+    public function testCanonicalize_007()
+    {
         $this->assertEquals("%F", $this->encoderInstance->canonicalize("%25F"));
     }
-    public function testCanonicalize_008() {
+    public function testCanonicalize_008()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("%3c"));
     }
-    public function testCanonicalize_009() {
+    public function testCanonicalize_009()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("%3C"));
     }
-    public function testCanonicalize_010() {
+    public function testCanonicalize_010()
+    {
         $this->assertEquals("%X1", $this->encoderInstance->canonicalize("%X1"));
     }
 
-    public function testCanonicalize_011() {
+    public function testCanonicalize_011()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&lt"));
     }
-    public function testCanonicalize_012() {
+    public function testCanonicalize_012()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&LT"));
     }
-    public function testCanonicalize_013() {
+    public function testCanonicalize_013()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&lt;"));
     }
-    public function testCanonicalize_014() {
+    public function testCanonicalize_014()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&LT;"));
     }
 
-    public function testCanonicalize_015() {
+    public function testCanonicalize_015()
+    {
         $this->assertEquals("%", $this->encoderInstance->canonicalize("&#37;"));
     }
-    public function testCanonicalize_016() {
+    public function testCanonicalize_016()
+    {
         $this->assertEquals("%", $this->encoderInstance->canonicalize("&#37"));
     }
-    public function testCanonicalize_017() {
+    public function testCanonicalize_017()
+    {
         $this->assertEquals("%b", $this->encoderInstance->canonicalize("&#37b"));
     }
-    public function testCanonicalize_018() {
+    public function testCanonicalize_018()
+    {
         $this->assertEquals("%b", $this->encoderInstance->canonicalize("&#37;b"));
     }
-    public function testCanonicalize_019() {
+    public function testCanonicalize_019()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3c"));
     }
-    public function testCanonicalize_020() {
+    public function testCanonicalize_020()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3c;"));
     }
-    public function testCanonicalize_021() {
+    public function testCanonicalize_021()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3C"));
     }
-    public function testCanonicalize_022() {
+    public function testCanonicalize_022()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3c"));
     }
-    public function testCanonicalize_023() {
+    public function testCanonicalize_023()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3C"));
     }
-    public function testCanonicalize_024() {
+    public function testCanonicalize_024()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3C;"));
     }
 
     // percent encoding
-    public function testCanonicalize_025() {
+    public function testCanonicalize_025()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("%3c"));
     }
-    public function testCanonicalize_026() {
+    public function testCanonicalize_026()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("%3C"));
     }
 
     // html entity encoding
-    public function testCanonicalize_027() {
+    public function testCanonicalize_027()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#60"));
     }
-    public function testCanonicalize_028() {
+    public function testCanonicalize_028()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#060"));
     }
-    public function testCanonicalize_029() {
+    public function testCanonicalize_029()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#0060"));
     }
-    public function testCanonicalize_030() {
+    public function testCanonicalize_030()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#00060"));
     }
-    public function testCanonicalize_031() {
+    public function testCanonicalize_031()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#000060"));
     }
-    public function testCanonicalize_032() {
+    public function testCanonicalize_032()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#0000060"));
     }
-    public function testCanonicalize_033() {
+    public function testCanonicalize_033()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#60;"));
     }
-    public function testCanonicalize_034() {
+    public function testCanonicalize_034()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#060;"));
     }
-    public function testCanonicalize_035() {
+    public function testCanonicalize_035()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#0060;"));
     }
-    public function testCanonicalize_036() {
+    public function testCanonicalize_036()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#00060;"));
     }
-    public function testCanonicalize_037() {
+    public function testCanonicalize_037()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#000060;"));
     }
-    public function testCanonicalize_038() {
+    public function testCanonicalize_038()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#0000060;"));
     }
-    public function testCanonicalize_039() {
+    public function testCanonicalize_039()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3c"));
     }
-    public function testCanonicalize_040() {
+    public function testCanonicalize_040()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x03c"));
     }
-    public function testCanonicalize_041() {
+    public function testCanonicalize_041()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x003c"));
     }
-    public function testCanonicalize_042() {
+    public function testCanonicalize_042()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x0003c"));
     }
-    public function testCanonicalize_043() {
+    public function testCanonicalize_043()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x00003c"));
     }
-    public function testCanonicalize_044() {
+    public function testCanonicalize_044()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x000003c"));
     }
-    public function testCanonicalize_045() {
+    public function testCanonicalize_045()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3c;"));
     }
-    public function testCanonicalize_046() {
+    public function testCanonicalize_046()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x03c;"));
     }
-    public function testCanonicalize_047() {
+    public function testCanonicalize_047()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x003c;"));
     }
-    public function testCanonicalize_048() {
+    public function testCanonicalize_048()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x0003c;"));
     }
-    public function testCanonicalize_049() {
+    public function testCanonicalize_049()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x00003c;"));
     }
-    public function testCanonicalize_050() {
+    public function testCanonicalize_050()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x000003c;"));
     }
-    public function testCanonicalize_051() {
+    public function testCanonicalize_051()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3c"));
     }
-    public function testCanonicalize_052() {
+    public function testCanonicalize_052()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X03c"));
     }
-    public function testCanonicalize_053() {
+    public function testCanonicalize_053()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X003c"));
     }
-    public function testCanonicalize_054() {
+    public function testCanonicalize_054()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X0003c"));
     }
-    public function testCanonicalize_055() {
+    public function testCanonicalize_055()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X00003c"));
     }
-    public function testCanonicalize_056() {
+    public function testCanonicalize_056()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X000003c"));
     }
-    public function testCanonicalize_057() {
+    public function testCanonicalize_057()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3c;"));
     }
-    public function testCanonicalize_058() {
+    public function testCanonicalize_058()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X03c;"));
     }
-    public function testCanonicalize_059() {
+    public function testCanonicalize_059()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X003c;"));
     }
-    public function testCanonicalize_060() {
+    public function testCanonicalize_060()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X0003c;"));
     }
-    public function testCanonicalize_061() {
+    public function testCanonicalize_061()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X00003c;"));
     }
-    public function testCanonicalize_062() {
+    public function testCanonicalize_062()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X000003c;"));
     }
-    public function testCanonicalize_063() {
+    public function testCanonicalize_063()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3C"));
     }
-    public function testCanonicalize_064() {
+    public function testCanonicalize_064()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x03C"));
     }
-    public function testCanonicalize_065() {
+    public function testCanonicalize_065()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x003C"));
     }
-    public function testCanonicalize_066() {
+    public function testCanonicalize_066()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x0003C"));
     }
-    public function testCanonicalize_067() {
+    public function testCanonicalize_067()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x00003C"));
     }
-    public function testCanonicalize_068() {
+    public function testCanonicalize_068()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x000003C"));
     }
-    public function testCanonicalize_069() {
+    public function testCanonicalize_069()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x3C;"));
     }
-    public function testCanonicalize_070() {
+    public function testCanonicalize_070()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x03C;"));
     }
-    public function testCanonicalize_071() {
+    public function testCanonicalize_071()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x003C;"));
     }
-    public function testCanonicalize_072() {
+    public function testCanonicalize_072()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x0003C;"));
     }
-    public function testCanonicalize_073() {
+    public function testCanonicalize_073()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x00003C;"));
     }
-    public function testCanonicalize_074() {
+    public function testCanonicalize_074()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#x000003C;"));
     }
-    public function testCanonicalize_075() {
+    public function testCanonicalize_075()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3C"));
     }
-    public function testCanonicalize_076() {
+    public function testCanonicalize_076()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X03C"));
     }
-    public function testCanonicalize_077() {
+    public function testCanonicalize_077()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X003C"));
     }
-    public function testCanonicalize_078() {
+    public function testCanonicalize_078()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X0003C"));
     }
-    public function testCanonicalize_079() {
+    public function testCanonicalize_079()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X00003C"));
     }
-    public function testCanonicalize_080() {
+    public function testCanonicalize_080()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X000003C"));
     }
-    public function testCanonicalize_081() {
+    public function testCanonicalize_081()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X3C;"));
     }
-    public function testCanonicalize_082() {
+    public function testCanonicalize_082()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X03C;"));
     }
-    public function testCanonicalize_083() {
+    public function testCanonicalize_083()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X003C;"));
     }
-    public function testCanonicalize_084() {
+    public function testCanonicalize_084()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X0003C;"));
     }
-    public function testCanonicalize_085() {
+    public function testCanonicalize_085()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X00003C;"));
     }
-    public function testCanonicalize_086() {
+    public function testCanonicalize_086()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&#X000003C;"));
     }
 
-    public function testCanonicalize_087() {
+    public function testCanonicalize_087()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&lt"));
     }
-    public function testCanonicalize_088() {
+    public function testCanonicalize_088()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&lT"));
     }
-    public function testCanonicalize_089() {
+    public function testCanonicalize_089()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&Lt"));
     }
-    public function testCanonicalize_090() {
+    public function testCanonicalize_090()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&LT"));
     }
-    public function testCanonicalize_091() {
+    public function testCanonicalize_091()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&lt;"));
     }
-    public function testCanonicalize_092() {
+    public function testCanonicalize_092()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&lT;"));
     }
-    public function testCanonicalize_093() {
+    public function testCanonicalize_093()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&Lt;"));
     }
-    public function testCanonicalize_094() {
+    public function testCanonicalize_094()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("&LT;"));
     }
 
-    public function testCanonicalize_095() {
+    public function testCanonicalize_095()
+    {
         $this->assertEquals("<script>alert(\"hello\");</script>",
             $this->encoderInstance->canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E"));
     }
-    public function testCanonicalize_096() {
+    public function testCanonicalize_096()
+    {
         $this->assertEquals("<script>alert(\"hello\");</script>",
             $this->encoderInstance->canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E", false));
     }
 
     // javascript escape syntax
-    public function testCanonicalize_097() {
+    public function testCanonicalize_097()
+    {
         $this->encoderInstance = null;
         $this->encoderInstance = new DefaultEncoder(array(new JavaScriptCodec()));
 
         $this->assertEquals("\0", $this->encoderInstance->canonicalize("\\0"));
     }
-    public function testCanonicalize_098() {
+    public function testCanonicalize_098()
+    {
         $this->assertEquals("".chr(0x08), $this->encoderInstance->canonicalize("\\b"));
     }
-    public function testCanonicalize_099() {
+    public function testCanonicalize_099()
+    {
         $this->assertEquals("\t", $this->encoderInstance->canonicalize("\\t"));
     }
-    public function testCanonicalize_100() {
+    public function testCanonicalize_100()
+    {
         $this->assertEquals("\n", $this->encoderInstance->canonicalize("\\n"));
     }
-    public function testCanonicalize_101() {
+    public function testCanonicalize_101()
+    {
         $this->assertEquals("".chr(0x0b), $this->encoderInstance->canonicalize("\\v"));
     }
-    public function testCanonicalize_102() {
+    public function testCanonicalize_102()
+    {
         $this->assertEquals("".chr(0x0c), $this->encoderInstance->canonicalize("\\f"));
     }
-    public function testCanonicalize_103() {
+    public function testCanonicalize_103()
+    {
         $this->assertEquals("\r", $this->encoderInstance->canonicalize("\\r"));
     }
-    public function testCanonicalize_104() {
+    public function testCanonicalize_104()
+    {
         $this->assertEquals("'", $this->encoderInstance->canonicalize("\\'"));
     }
-    public function testCanonicalize_105() {
+    public function testCanonicalize_105()
+    {
         $this->assertEquals("\"", $this->encoderInstance->canonicalize("\\\""));
     }
-    public function testCanonicalize_106() {
+    public function testCanonicalize_106()
+    {
         $this->assertEquals("\\", $this->encoderInstance->canonicalize("\\\\"));
     }
-    public function testCanonicalize_107() {
+    public function testCanonicalize_107()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\<"));
     }
-    public function testCanonicalize_108() {
+    public function testCanonicalize_108()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\u003c"));
     }
-    public function testCanonicalize_109() {
+    public function testCanonicalize_109()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\U003c"));
     }
-    public function testCanonicalize_110() {
+    public function testCanonicalize_110()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\u003C"));
     }
-    public function testCanonicalize_111() {
+    public function testCanonicalize_111()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\U003C"));
     }
-    public function testCanonicalize_112() {
+    public function testCanonicalize_112()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\x3c"));
     }
-    public function testCanonicalize_113() {
+    public function testCanonicalize_113()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\X3c"));
     }
-    public function testCanonicalize_114() {
+    public function testCanonicalize_114()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\x3C"));
     }
-    public function testCanonicalize_115() {
+    public function testCanonicalize_115()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\X3C"));
     }
 
     // css escape syntax
-    public function testCanonicalize_116() {
+    public function testCanonicalize_116()
+    {
         $this->encoderInstance = null;
         $this->encoderInstance = new DefaultEncoder(array(new CSSCodec()));
 
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\3c"));
     }
-    public function testCanonicalize_117() {
+    public function testCanonicalize_117()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\03c"));
     }
-    public function testCanonicalize_118() {
+    public function testCanonicalize_118()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\003c"));
     }
-    public function testCanonicalize_119() {
+    public function testCanonicalize_119()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\0003c"));
     }
-    public function testCanonicalize_120() {
+    public function testCanonicalize_120()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\00003c"));
     }
-    public function testCanonicalize_121() {
+    public function testCanonicalize_121()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\3C"));
     }
-    public function testCanonicalize_122() {
+    public function testCanonicalize_122()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\03C"));
     }
-    public function testCanonicalize_123() {
+    public function testCanonicalize_123()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\003C"));
     }
-    public function testCanonicalize_124() {
+    public function testCanonicalize_124()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\0003C"));
     }
-    public function testCanonicalize_125() {
+    public function testCanonicalize_125()
+    {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\00003C"));
     }
 
@@ -535,7 +660,6 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     public function testDoubleEncodingCanonicalization_13()
     {
         $this->assertEquals("<", $this->encoderInstance->canonicalize("%&#x33;c", false)); //nested encode 3 with entity
-
     }
 
     // multiple encoding tests
@@ -546,7 +670,6 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     public function testDoubleEncodingCanonicalization_15()
     {
         $this->assertEquals("< < < < < < <", $this->encoderInstance->canonicalize("%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B", false));
-
     }
 
     // test strict mode with both mixed and multiple encoding
@@ -557,7 +680,6 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     }
     public function testDoubleEncodingCanonicalization_17()
     {
-
         $this->setExpectedException('IntrusionException');
         $this->encoderInstance->canonicalize('%253Cscript');
     }
@@ -572,48 +694,59 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      *
      * @throws Exception
      */
-    public function testEncodeForHTML_01() {
+    public function testEncodeForHTML_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForHTML(null));
     }
-    public function testEncodeForHTML_02() {
+    public function testEncodeForHTML_02()
+    {
         $instance = ESAPI::getEncoder();
         // test invalid characters are replaced with spaces
         $this->assertEquals("a b c d e f&#x9;g", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
     }
-    public function testEncodeForHTML_03() {
+    public function testEncodeForHTML_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
     }
-    public function testEncodeForHTML_04() {
+    public function testEncodeForHTML_04()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&lt;script&gt;", $instance->encodeForHTML("<script>"));
     }
-    public function testEncodeForHTML_05() {
+    public function testEncodeForHTML_05()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&amp;lt&#x3b;script&amp;gt&#x3b;", $instance->encodeForHTML("&lt;script&gt;"));
     }
-    public function testEncodeForHTML_06() {
+    public function testEncodeForHTML_06()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML("!@$%()=+{}[]"));
     }
-    public function testEncodeForHTML_07() {
+    public function testEncodeForHTML_07()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML($instance->canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;", false)));
     }
-    public function testEncodeForHTML_08() {
+    public function testEncodeForHTML_08()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(",.-_ ", $instance->encodeForHTML(",.-_ "));
     }
-    public function testEncodeForHTML_09() {
+    public function testEncodeForHTML_09()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("dir&amp;", $instance->encodeForHTML("dir&"));
     }
-    public function testEncodeForHTML_10() {
+    public function testEncodeForHTML_10()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("one&amp;two", $instance->encodeForHTML("one&two"));
     }
-    public function testEncodeForHTML_11() {
+    public function testEncodeForHTML_11()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("".(chr(12345)).(chr(65533)).(chr(1244)), "".(chr(12345)).(chr(65533)).(chr(1244)));
     }
@@ -621,19 +754,23 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForHTMLAttribute method of class Encoder.
      */
-    public function testEncodeForHTMLAttribute_01() {
+    public function testEncodeForHTMLAttribute_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForHTMLAttribute(null));
     }
-    public function testEncodeForHTMLAttribute_02() {
+    public function testEncodeForHTMLAttribute_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&lt;script&gt;", $instance->encodeForHTMLAttribute("<script>"));
     }
-    public function testEncodeForHTMLAttribute_03() {
+    public function testEncodeForHTMLAttribute_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(",.-_", $instance->encodeForHTMLAttribute(",.-_"));
     }
-    public function testEncodeForHTMLAttribute_04() {
+    public function testEncodeForHTMLAttribute_04()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTMLAttribute(" !@$%()=+{}[]"));
     }
@@ -641,15 +778,18 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForCSS method of class Encoder.
      */
-    public function testEncodeForCSS_01() {
+    public function testEncodeForCSS_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForCSS(null));
     }
-    public function testEncodeForCSS_02() {
+    public function testEncodeForCSS_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("\\3c script\\3e ", $instance->encodeForCSS("<script>"));
     }
-    public function testEncodeForCSS_03() {
+    public function testEncodeForCSS_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("\\21 \\40 \\24 \\25 \\28 \\29 \\3d \\2b \\7b \\7d \\5b \\5d ", $instance->encodeForCSS("!@$%()=+{}[]"));
     }
@@ -659,27 +799,33 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      * Note that JavaScriptCodec is closer to ESAPI 2 for Java and so these
      * tests are taken from that version.
      */
-    public function testEncodeForJavascript_01() {
+    public function testEncodeForJavascript_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForJavaScript(null));
     }
-    public function testEncodeForJavascript_02() {
+    public function testEncodeForJavascript_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("\\x3Cscript\\x3E", $instance->encodeForJavaScript("<script>"));
     }
-    public function testEncodeForJavascript_03() {
+    public function testEncodeForJavascript_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(",.\\x2D_\\x20", $instance->encodeForJavaScript(",.-_ "));
     }
-    public function testEncodeForJavascript_04() {
+    public function testEncodeForJavascript_04()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("\\x21\\x40\\x24\\x25\\x28\\x29\\x3D\\x2B\\x7B\\x7D\\x5B\\x5D", $instance->encodeForJavaScript("!@$%()=+{}[]"));
     }
-    public function testEncodeForJavascript_05() {
+    public function testEncodeForJavascript_05()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("\\x00", $instance->encodeForJavaScript("\0"));
     }
-    public function testEncodeForJavascript_06() {
+    public function testEncodeForJavascript_06()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("\\x5C", $instance->encodeForJavaScript("\\"));
     }
@@ -687,19 +833,23 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForVBScript method of class Encoder.
      */
-    public function testEncodeForVBScript_01() {
+    public function testEncodeForVBScript_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForVBScript(null));
     }
-    public function testEncodeForVBScript_02() {
+    public function testEncodeForVBScript_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals('""', $instance->encodeForVBScript('"'));
     }
-    public function testEncodeForVBScript_03() {
+    public function testEncodeForVBScript_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals('"<script">', $instance->encodeForVBScript('<script>'));
     }
-    public function testEncodeForVBScript_04() {
+    public function testEncodeForVBScript_04()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(' "!"@"$"%"(")"="+"{"}"["]""', $instance->encodeForVBScript(' !@$%()=+{}[]"'));
     }
@@ -707,11 +857,13 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForXPath method of class Encoder.
      */
-    public function testEncodeForXPath_01() {
+    public function testEncodeForXPath_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForXPath(null));
     }
-    public function testEncodeForXPath_02() {
+    public function testEncodeForXPath_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&#x27;or 1&#x3d;1", $instance->encodeForXPath("'or 1=1"));
     }
@@ -719,37 +871,44 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForSQL method of class Encoder.
      */
-    public function testEncodeForSQL_MySQL_ANSI_01() {
+    public function testEncodeForSQL_MySQL_ANSI_01()
+    {
         $instance = ESAPI::getEncoder();
         $mysqlAnsiCodec = new MySQLCodec(MySQLCodec::MYSQL_ANSI);
         $this->assertEquals(null, $instance->encodeForSQL($mysqlAnsiCodec, null));
     }
-    public function testEncodeForSQL_MySQL_ANSI_02() {
+    public function testEncodeForSQL_MySQL_ANSI_02()
+    {
         $instance = ESAPI::getEncoder();
         $mysqlAnsiCodec = new MySQLCodec(MySQLCodec::MYSQL_ANSI);
         $this->assertEquals("Jeff'' or ''1''=''1", $instance->encodeForSQL($mysqlAnsiCodec, "Jeff' or '1'='1"));
     }
-    public function testEncodeForSQL_MySQL_STD_01() {
+    public function testEncodeForSQL_MySQL_STD_01()
+    {
         $instance = ESAPI::getEncoder();
         $mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
         $this->assertEquals(null, $instance->encodeForSQL($mysqlStdCodec, null));
     }
-    public function testEncodeForSQL_MySQL_STD_02() {
+    public function testEncodeForSQL_MySQL_STD_02()
+    {
         $instance = ESAPI::getEncoder();
         $mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
         $this->assertEquals("Jeff\\' or \\'1\\'\\=\\'1", $instance->encodeForSQL($mysqlStdCodec, "Jeff' or '1'='1"));
     }
-    public function testEncodeForSQL_MySQL_STD_03() {
+    public function testEncodeForSQL_MySQL_STD_03()
+    {
         $instance = ESAPI::getEncoder();
         $mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
         $this->assertEquals("\\b \\n \\r \\t \\Z \\_ \\\" \\' \\\\ \\0 \\%", $instance->encodeForSQL($mysqlStdCodec, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25"));
     }
-    public function testEncodeForSQL_Oracle01() {
+    public function testEncodeForSQL_Oracle01()
+    {
         $instance = ESAPI::getEncoder();
         $oracleCodec = new OracleCodec();
         $this->assertEquals(null, $instance->encodeForSQL($oracleCodec, null));
     }
-    public function testEncodeForSQL_Oracle02() {
+    public function testEncodeForSQL_Oracle02()
+    {
         $instance = ESAPI::getEncoder();
         $oracleCodec = new OracleCodec();
         $this->assertEquals("Jeff'' or ''1''=''1", $instance->encodeForSQL($oracleCodec, "Jeff' or '1'='1"));
@@ -758,25 +917,29 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForLDAP method of class Encoder.
      */
-    public function testEncodeForLDAP_01() {
+    public function testEncodeForLDAP_01()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForLDAP(null));
         */
     }
-    public function testEncodeForLDAP_02() {
+    public function testEncodeForLDAP_02()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("No special characters to escape", "Hi This is a test #��", $instance->encodeForLDAP("Hi This is a test #��"));
         */
     }
-    public function testEncodeForLDAP_03() {
+    public function testEncodeForLDAP_03()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("Zeros", "Hi \\00", $instance->encodeForLDAP("Hi \u0000"));
         */
     }
-    public function testEncodeForLDAP_04() {
+    public function testEncodeForLDAP_04()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("LDAP Christams Tree", "Hi \\28This\\29 = is \\2a a \\5c test # � � �", $instance->encodeForLDAP("Hi (This) = is * a \\ test # � � �"));
@@ -786,49 +949,57 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForDN method of class Encoder.
      */
-    public function testEncodeForDN_01() {
+    public function testEncodeForDN_01()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForDN(null));
         */
     }
-    public function testEncodeForDN_02() {
+    public function testEncodeForDN_02()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("No special characters to escape", "Hello�", $instance->encodeForDN("Hello�"));
         */
     }
-    public function testEncodeForDN_03() {
+    public function testEncodeForDN_03()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("leading #", "\\# Hello�", $instance->encodeForDN("# Hello�"));
         */
     }
-    public function testEncodeForDN_04() {
+    public function testEncodeForDN_04()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("leading space", "\\ Hello�", $instance->encodeForDN(" Hello�"));
         */
     }
-    public function testEncodeForDN_05() {
+    public function testEncodeForDN_05()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("trailing space", "Hello�\\ ", $instance->encodeForDN("Hello� "));
         */
     }
-    public function testEncodeForDN_06() {
+    public function testEncodeForDN_06()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("less than greater than", "Hello\\<\\>", $instance->encodeForDN("Hello<>"));
         */
     }
-    public function testEncodeForDN_07() {
+    public function testEncodeForDN_07()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("only 3 spaces", "\\  \\ ", $instance->encodeForDN("   "));
         */
     }
-    public function testEncodeForDN_08() {
+    public function testEncodeForDN_08()
+    {
         $this->markTestIncomplete('This test has not been implemented yet.'); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->assertEquals("Christmas Tree DN", "\\ Hello\\\\ \\+ \\, \\\"World\\\" \\;\\ ", $instance->encodeForDN(" Hello\\ + , \"World\" ; "));
@@ -838,27 +1009,33 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForXML method of class Encoder.
      */
-    public function testEncodeForXML_null() {
+    public function testEncodeForXML_null()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForXML(null));
     }
-    public function testEncodeForXML_space() {
+    public function testEncodeForXML_space()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(' ', $instance->encodeForXML(' '));
     }
-    public function testEncodeForXML_scripttag() {
+    public function testEncodeForXML_scripttag()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals('&lt;script&gt;', $instance->encodeForXML('<script>'));
     }
-    public function testEncodeForXML_immune() {
+    public function testEncodeForXML_immune()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(',.-_', $instance->encodeForXML(',.-_'));
     }
-    public function testEncodeForXML_symbols() {
+    public function testEncodeForXML_symbols()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals('&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;', $instance->encodeForXML('!@$%()=+{}[]'));
     }
-    public function testEncodeForXML_pound() {
+    public function testEncodeForXML_pound()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals('&#xa3;', $instance->encodeForXML("\xA3"));
     }
@@ -866,27 +1043,33 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForXMLAttribute method of class Encoder.
      */
-    public function testEncodeForXMLAttribute_null() {
+    public function testEncodeForXMLAttribute_null()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForXMLAttribute(null));
     }
-    public function testEncodeForXMLAttribute_space() {
+    public function testEncodeForXMLAttribute_space()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&#x20;", $instance->encodeForXMLAttribute(" "));
     }
-    public function testEncodeForXMLAttribute_scripttag() {
+    public function testEncodeForXMLAttribute_scripttag()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&lt;script&gt;", $instance->encodeForXMLAttribute("<script>"));
     }
-    public function testEncodeForXMLAttribute_immune() {
+    public function testEncodeForXMLAttribute_immune()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(",.-_", $instance->encodeForXMLAttribute(",.-_"));
     }
-    public function testEncodeForXMLAttribute_symbols() {
+    public function testEncodeForXMLAttribute_symbols()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForXMLAttribute(" !@$%()=+{}[]"));
     }
-    public function testEncodeForXMLAttribute_pound() {
+    public function testEncodeForXMLAttribute_pound()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals('&#xa3;', $instance->encodeForXMLAttribute("\xA3"));
     }
@@ -894,15 +1077,18 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForURL method of class Encoder.
      */
-    public function testEncodeForURL_01() {
+    public function testEncodeForURL_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForURL(null));
     }
-    public function testEncodeForURL_02() {
+    public function testEncodeForURL_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("%3Cscript%3E", $instance->encodeForURL("<script>"));
     }
-    public function testEncodeForURL_03() {
+    public function testEncodeForURL_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("+", $instance->encodeForURL(" "));
     }
@@ -910,15 +1096,18 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of decodeFromURL method, of class Encoder.
      */
-    public function testDecodeFromURL_01() {
+    public function testDecodeFromURL_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->decodeFromURL(null));
     }
-    public function testDecodeFromURL_02() {
+    public function testDecodeFromURL_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("<script>", $instance->decodeFromURL("%3Cscript%3E"));
     }
-    public function testDecodeFromURL_03() {
+    public function testDecodeFromURL_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals("     ", $instance->decodeFromURL("+++++"));
     }
@@ -926,20 +1115,24 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of encodeForBase64 method of class Encoder.
      */
-    public function testEncodeForBase64_01() {
+    public function testEncodeForBase64_01()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForBase64(null, false));
     }
-    public function testEncodeForBase64_02() {
+    public function testEncodeForBase64_02()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->encodeForBase64(null, true));
     }
-    public function testEncodeForBase64_03() {
+    public function testEncodeForBase64_03()
+    {
         $instance = ESAPI::getEncoder();
         $this->assertEquals(null, $instance->decodeFromBase64(null));
     }
     // Test wrapping at 76 chars
-    public function testEncodeForBase64_04() {
+    public function testEncodeForBase64_04()
+    {
         $instance = ESAPI::getEncoder();
         $unencoded = ESAPI::getRandomizer()->getRandomString(76, Encoder::CHAR_SPECIALS);
         $encoded = $instance->encodeForBase64($unencoded, false);
@@ -947,7 +1140,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $expected = mb_substr($encoded, 0, 76, 'ASCII') . "\r\n" . mb_substr($encoded, 76, mb_strlen($encoded, 'ASCII')-76, 'ASCII');
         $this->assertEquals($expected, $encodedWrapped);
     }
-    public function testEncodeForBase64_05() {
+    public function testEncodeForBase64_05()
+    {
         $instance = ESAPI::getEncoder();
         try {
             for ($i = 0; $i < 100; $i++) {
@@ -964,7 +1158,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of decodeFromBase64 method, of class Encoder.
      */
-    public function testDecodeFromBase64_01() {
+    public function testDecodeFromBase64_01()
+    {
         $instance = ESAPI::getEncoder();
         for ($i = 0; $i < 100; $i++) {
             try {
@@ -1036,22 +1231,26 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of WindowsCodec
      */
-    public function testWindowsCodec_01() {
+    public function testWindowsCodec_01()
+    {
         $instance = ESAPI::getEncoder();
         $codec_win = new WindowsCodec();
         $this->assertEquals(null, $instance->encodeForOS($codec_win, null));
     }
-    public function testWindowsCodec_02() {
+    public function testWindowsCodec_02()
+    {
         $codec_win = new WindowsCodec();
         $decoded = $codec_win->decodeCharacter(Codec::normalizeEncoding("n"));
         $this->assertEquals(null, $decoded['decodedCharacter']);
     }
-    public function testWindowsCodec_03() {
+    public function testWindowsCodec_03()
+    {
         $codec_win = new WindowsCodec();
         $decoded = $codec_win->decodeCharacter(Codec::normalizeEncoding(""));
         $this->assertEquals(null, $decoded['decodedCharacter']);
     }
-    public function testWindowsCodec_04() {
+    public function testWindowsCodec_04()
+    {
         $codec_win = new WindowsCodec();
 
         $immune = array("\0"); // not that it matters, but the java test would encode alphanums with such an immune param.
@@ -1060,14 +1259,16 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $decoded = $codec_win->decode($encoded);
         $this->assertEquals("<", $decoded);
     }
-    public function testWindowsCodec_05() {
+    public function testWindowsCodec_05()
+    {
         $codec_win = new WindowsCodec();
 
         $orig = "c:\\jeff";
 
         $this->assertEquals($orig, $codec_win->decode($orig));
     }
-    public function testWindowsCodec_06() {
+    public function testWindowsCodec_06()
+    {
         $codec_win = new WindowsCodec();
 
         $immune = array();
@@ -1076,26 +1277,30 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($orig, $codec_win->decode($encoded));
     }
-    public function testWindowsCodec_07() {
+    public function testWindowsCodec_07()
+    {
         $codec_win = new WindowsCodec();
         $instance = ESAPI::getEncoder();
 
         $this->assertEquals("c^:^\\jeff", $instance->encodeForOS($codec_win, "c:\\jeff"));
     }
-    public function testWindowsCodec_08() {
+    public function testWindowsCodec_08()
+    {
         $codec_win = new WindowsCodec();
 
         $immune = array();
 
         $this->assertEquals("c^:^\\jeff", $codec_win->encode($immune, "c:\\jeff"));
     }
-    public function testWindowsCodec_09() {
+    public function testWindowsCodec_09()
+    {
         $codec_win = new WindowsCodec();
         $instance = ESAPI::getEncoder();
 
         $this->assertEquals("dir^ ^&^ foo", $instance->encodeForOS($codec_win, "dir & foo"));
     }
-    public function testWindowsCodec_10() {
+    public function testWindowsCodec_10()
+    {
         $codec_win = new WindowsCodec();
 
         $immune = array();
@@ -1106,22 +1311,26 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     /*
      * Test of UnixCodec
      */
-    public function testUnixCodec_01() {
+    public function testUnixCodec_01()
+    {
         $instance = ESAPI::getEncoder();
         $codec_unix = new UnixCodec();
         $this->assertEquals(null, $instance->encodeForOS($codec_unix, null));
     }
-    public function testUnixCodec_02() {
+    public function testUnixCodec_02()
+    {
         $codec_unix = new UnixCodec();
         $decoded = $codec_unix->decodeCharacter(Codec::normalizeEncoding("n"));
         $this->assertEquals(null, $decoded['decodedCharacter']);
     }
-    public function testUnixCodec_03() {
+    public function testUnixCodec_03()
+    {
         $codec_unix = new UnixCodec();
         $decoded = $codec_unix->decodeCharacter(Codec::normalizeEncoding(""));
         $this->assertEquals(null, $decoded['decodedCharacter']);
     }
-    public function testUnixCodec_04() {
+    public function testUnixCodec_04()
+    {
         $codec_unix = new UnixCodec();
 
         $immune = array("\0"); // not that it matters, but the java test would encode alphanums with such an immune param.
@@ -1130,14 +1339,16 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $decoded = $codec_unix->decode($encoded);
         $this->assertEquals("<", $decoded);
     }
-    public function testUnixCodec_05() {
+    public function testUnixCodec_05()
+    {
         $codec_unix = new UnixCodec();
 
         $orig = "/etc/passwd";
 
         $this->assertEquals($orig, $codec_unix->decode($orig));
     }
-    public function testUnixCodec_06() {
+    public function testUnixCodec_06()
+    {
         $codec_unix = new UnixCodec();
 
         $immune = array();
@@ -1146,14 +1357,16 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($orig, $codec_unix->decode($encoded));
     }
-    public function testUnixCodec_07() {
+    public function testUnixCodec_07()
+    {
         $codec_unix = new UnixCodec();
         $instance = ESAPI::getEncoder();
 
         // TODO: Check that this is acceptable for Unix hosts
         $this->assertEquals("c\\:\\\\jeff", $instance->encodeForOS($codec_unix, "c:\\jeff"));
     }
-    public function testUnixCodec_08() {
+    public function testUnixCodec_08()
+    {
         $codec_unix = new UnixCodec();
 
         $immune = array();
@@ -1161,14 +1374,16 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         // TODO: Check that this is acceptable for Unix hosts
         $this->assertEquals("c\\:\\\\jeff", $codec_unix->encode($immune, "c:\\jeff"));
     }
-    public function testUnixCodec_09() {
+    public function testUnixCodec_09()
+    {
         $codec_unix = new UnixCodec();
         $instance = ESAPI::getEncoder();
 
         // TODO: Check that this is acceptable for Unix hosts
         $this->assertEquals("dir\\ \\&\\ foo", $instance->encodeForOS($codec_unix, "dir & foo"));
     }
-    public function testUnixCodec_10() {
+    public function testUnixCodec_10()
+    {
         $codec_unix = new UnixCodec();
 
         $immune = array();
@@ -1177,7 +1392,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("dir\\ \\&\\ foo", $codec_unix->encode($immune, "dir & foo"));
     }
     // Unix paths (that must be encoded safely)
-    public function testUnixCodec_11() {
+    public function testUnixCodec_11()
+    {
         $codec_unix = new UnixCodec();
         $instance = ESAPI::getEncoder();
 
@@ -1186,7 +1402,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         // TODO: Check that this is acceptable for Unix
         $this->assertEquals("\\/etc\\/hosts", $instance->encodeForOS($codec_unix, "/etc/hosts"));
     }
-    public function testUnixCodec_12() {
+    public function testUnixCodec_12()
+    {
         $codec_unix = new UnixCodec();
         $instance = ESAPI::getEncoder();
 
@@ -1198,30 +1415,33 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
     // these tests check that mixed character encoding is handled properly when
     // encoding.
-    public function testCharsForBase64() {
+    public function testCharsForBase64()
+    {
         $instance = $this->encoderInstance;
         $expected = '/^[a-zA-Z0-9\/+]*={0,2}$/';
-        for ($i = 0; $i<256 ; $i++) {
+        for ($i = 0; $i<256; $i++) {
             $input = chr($i);
             $output = $instance->encodeForBase64($input);
             $this->assertRegExp($expected, $output, "Input was character with ordinal: {$i} - %s");
             $this->assertEquals($input, $instance->decodeFromBase64($output));
         }
     }
-    public function testCharsPlusAlphaForBase64() {
+    public function testCharsPlusAlphaForBase64()
+    {
         $instance = $this->encoderInstance;
         $expected = '/^[a-zA-Z0-9\/+]*={0,2}$/';
-        for ($i = 0; $i<256 ; $i++) {
+        for ($i = 0; $i < 256; $i++) {
             $input = 'a' . chr($i);
             $output = $instance->encodeForBase64($input);
             $this->assertRegExp($expected, $output, "Input was 'a' concat with character with ordinal: {$i} - %s");
             $this->assertEquals($input, $instance->decodeFromBase64($output));
         }
     }
-    public function testCharsPlusUnicodeForBase64() {
+    public function testCharsPlusUnicodeForBase64()
+    {
         $instance = $this->encoderInstance;
         $expected = '/^[a-zA-Z0-9\/+]*={0,2}$/';
-        for ($i = 0; $i<256 ; $i++) {
+        for ($i = 0; $i < 256; $i++) {
             $input = 'ϑ' . chr($i);
             $output = $instance->encodeForBase64($input);
             $this->assertRegExp($expected, $output, "Input was char known as '&thetasym;' concat with character with ordinal: {$i} - %s");
@@ -1229,9 +1449,10 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testCharsForCSS() {
+    public function testCharsForCSS()
+    {
         $instance = new CSSCodec();
-        for ($i = 1; $i<256 ; $i++) {
+        for ($i = 1; $i < 256; $i++) {
             if (($i >= 0x30 && $i <= 0x39)
                 || ($i >= 0x41 && $i <= 0x5a)
                 || ($i >= 0x61 && $i <= 0x7a)
@@ -1251,9 +1472,10 @@ class EncoderTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($expected, $instance->decode($input));
         }
     }
-    public function testCharsPlusAlphaForCSS() {
+    public function testCharsPlusAlphaForCSS()
+    {
         $instance = new CSSCodec();
-        for ($i = 1; $i<256 ; $i++) {
+        for ($i = 1; $i < 256; $i++) {
             // expected to take account of non encoding of alphanums
             if (($i >= 0x30 && $i <= 0x39)
                 || ($i >= 0x41 && $i <= 0x5a)
@@ -1273,9 +1495,10 @@ class EncoderTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($expected, $instance->decode($input));
         }
     }
-    public function testCharsPlusUnicodeForCSS() {
+    public function testCharsPlusUnicodeForCSS()
+    {
         $instance = new CSSCodec();
-        for ($i = 1; $i<256 ; $i++) {
+        for ($i = 1; $i < 256; $i++) {
             $input = 'ϑ' . chr($i);
             // expected to take account of non-encoding of alphanums
             if (($i >= 0x30 && $i <= 0x39)

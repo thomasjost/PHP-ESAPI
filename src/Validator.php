@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -24,8 +24,8 @@
  */
 
 /**
- * Use this ESAPI security control to wrap data validation functions. 
- * 
+ * Use this ESAPI security control to wrap data validation functions.
+ *
  * The idea behind this interface is to define a set of functions that
  * perform a more complete set of checks than frameworks for example
  * otherwise typically do, or make available for developers to use, such
@@ -52,17 +52,17 @@ interface Validator
      * in the ESAPI configuration or a valid regular expression pattern.
      *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. LoginPage_UsernameField). This 
-     *                          value is used by any logging or error handling 
+     *                          validating (e.g. LoginPage_UsernameField). This
+     *                          value is used by any logging or error handling
      *                          that is done with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
-     * @param string $type      The regular expression name that maps to the actual 
-     *                          regular expression from "ESAPI.xml" or an actual 
+     * @param string $type      The regular expression name that maps to the actual
+     *                          regular expression from "ESAPI.xml" or an actual
      *                          regular expression.
      * @param int    $maxLength The maximum post-canonicalized String length allowed.
      * @param bool   $allowNull If allowNull is true then an input that is NULL or an
-     *                          empty string will be legal. If allowNull is false 
-     *                          then NULL or an empty String will throw a 
+     *                          empty string will be legal. If allowNull is false
+     *                          then NULL or an empty String will throw a
      *                          ValidationException.
      *
      * @return bool TRUE if the input is valid, FALSE otherwise.
@@ -75,13 +75,13 @@ interface Validator
      *
      * @param string $context   A descriptive name of the parameter that you are
      *                          validating (e.g. ProfilePage_DoB). This value is used
-     *                          by any logging or error handling that is done with 
+     *                          by any logging or error handling that is done with
      *                          respect to the value passed in.
      * @param string $input     The actual user input data to validate.
      * @param string $format    Required formatting of date inputted {@see date}.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
+     *                          an empty string will be legal. If allowNull is
+     *                          false then NULL or an empty String will throw a
      *                          ValidationException.
      *
      * @return bool TRUE if the input is valid, FALSE otherwise.
@@ -90,39 +90,39 @@ interface Validator
 
     /**
      * Returns true if the canonicalized input is valid, "safe" HTML.
-     * 
+     *
      * Implementors should reference the OWASP AntiSamy project for ideas on how
      * to do HTML validation in a whitelist way, as this is an extremely
      * difficult problem. It is recommended that PHP implementations make use of
      * HTMLPurifier {@link http://htmlpurifier.org}.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. ProfilePage_Sig). This value is 
-     *                          used by any logging or error handling that is done 
+     *                          validating (e.g. ProfilePage_Sig). This value is
+     *                          used by any logging or error handling that is done
      *                          with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
-     * @param int    $maxLength The maximum post-canonicalized String length 
+     * @param int    $maxLength The maximum post-canonicalized String length
      *                          allowed.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
      *                          an empty string will be legal. If allowNull is false
-     *                          then NULL or an empty String will throw a 
+     *                          then NULL or an empty String will throw a
      *                          ValidationException.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidHTML($context, $input, $maxLength, $allowNull);
 
     /**
      * Returns true if the canonicalized input is a valid Credit Card Number.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. PurchasePage_CCNum). This value 
-     *                          is used by any logging or error handling that is 
+     *                          validating (e.g. PurchasePage_CCNum). This value
+     *                          is used by any logging or error handling that is
      *                          done with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
+     *                          an empty string will be legal. If allowNull is
+     *                          false then NULL or an empty String will throw a
      *                          ValidationException.
      *
      * @return bool TRUE if the input is valid, FALSE otherwise.
@@ -131,15 +131,15 @@ interface Validator
     
     /**
      * Returns true if the canonicalized input is a valid directory path.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. IncludeFile). This value is used 
-     *                          by any logging or error handling that is done with 
+     *                          validating (e.g. IncludeFile). This value is used
+     *                          by any logging or error handling that is done with
      *                          respect to the value passed in.
      * @param string $input     The actual user input data to validate.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
+     *                          an empty string will be legal. If allowNull is
+     *                          false then NULL or an empty String will throw a
      *                          ValidationException.
      *
      * @return bool TRUE if the input is valid, FALSE otherwise.
@@ -149,79 +149,73 @@ interface Validator
     /**
      * Returns true if the canonicalized input is a valid, real number within
      * the specified range minValue to maxValue.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. PurchasePage_Quantity). This value 
+     *                          validating (e.g. PurchasePage_Quantity). This value
      *                          is used by any logging or error handling that is done
      *                          with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
      * @param int    $minValue  The numeric lowest legal value for input.
      * @param int    $maxValue  The numeric highest legal value for input.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
+     *                          an empty string will be legal. If allowNull is
+     *                          false then NULL or an empty String will throw a
      *                          ValidationException.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
-    public function isValidNumber($context, $input, $minValue, $maxValue,
-        $allowNull
-    );
+    public function isValidNumber($context, $input, $minValue, $maxValue, $allowNull);
 
     /**
      * Returns true if the canonicalized input is a valid integer within the
      * specified range minValue to maxValue.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. PurchasePage_Quantity). This value 
-     *                          is used by any logging or error handling that is 
+     *                          validating (e.g. PurchasePage_Quantity). This value
+     *                          is used by any logging or error handling that is
      *                          done with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
      * @param int    $minValue  The numeric lowest legal value for input.
      * @param int    $maxValue  The numeric highest legal value for input.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
+     *                          an empty string will be legal. If allowNull is
+     *                          false then NULL or an empty String will throw a
      *                          ValidationException.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
-    public function isValidInteger($context, $input, $minValue, $maxValue,
-        $allowNull
-    );
+    public function isValidInteger($context, $input, $minValue, $maxValue, $allowNull);
 
     /**
      * Returns true if the canonicalized input is a valid double within the
      * specified range minValue to maxValue.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. PurchasePage_Quantity). This value 
-     *                          is used by any logging or error handling that is 
+     *                          validating (e.g. PurchasePage_Quantity). This value
+     *                          is used by any logging or error handling that is
      *                          done with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
      * @param int    $minValue  The numeric lowest legal value for input.
      * @param int    $maxValue  The numeric highest legal value for input.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is false 
-     *                          then NULL or an empty String will throw a 
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or
+     *                          an empty string will be legal. If allowNull is false
+     *                          then NULL or an empty String will throw a
      *                          ValidationException.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
-    public function isValidDouble($context, $input, $minValue, $maxValue,
-        $allowNull
-    );
+    public function isValidDouble($context, $input, $minValue, $maxValue, $allowNull);
  
     /**
      * Returns true if the canonicalized input exactly matches a list item.
-     * 
+     *
      * @param string $context A descriptive name of the parameter that you are
-     *                        validating (e.g. Contact_Recipient). This value 
-     *                        is used by any logging or error handling that 
+     *                        validating (e.g. Contact_Recipient). This value
+     *                        is used by any logging or error handling that
      *                        is done with respect to the value passed in.
      * @param string $input   The value to search for in the supplied list.
      * @param array  $list    The list to search for the supplied input.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidListItem($context, $input, $list);
@@ -229,38 +223,37 @@ interface Validator
     /**
      * Returns true if the canonicalized input contains no more than the number
      * of valid printable ASCII characters specified.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. ASCIIArt_Submission). This value 
-     *                          is used by any logging or error handling that is 
+     *                          validating (e.g. ASCIIArt_Submission). This value
+     *                          is used by any logging or error handling that is
      *                          done with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
      * @param int    $maxLength The maximum number of canonicalized ascii characters
      *                          allowed in a legal input.
      * @param bool   $allowNull If allowNull is true then an input that is NULL or an
-     *                          empty string will be legal. If allowNull is false 
-     *                          then NULL or an empty String will throw a 
+     *                          empty string will be legal. If allowNull is false
+     *                          then NULL or an empty String will throw a
      *                          ValidationException.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidPrintable($context, $input, $maxLength, $allowNull);
     
     /**
      * Returns true if input is a valid redirect location.
-     * 
+     *
      * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. ASCIIArt_Submission). This value 
-     *                          is used by any logging or error handling that is 
+     *                          validating (e.g. ASCIIArt_Submission). This value
+     *                          is used by any logging or error handling that is
      *                          done with respect to the value passed in.
      * @param string $input     The actual user input data to validate.
      * @param bool   $allowNull If allowNull is true then an input that is NULL or an
-     *                          empty string will be legal. If allowNull is false 
-     *                          then NULL or an empty String will throw a 
+     *                          empty string will be legal. If allowNull is false
+     *                          then NULL or an empty String will throw a
      *                          ValidationException.
-     * 
+     *
      * @return bool TRUE if the input is valid, FALSE otherwise.
-     */    
+     */
     public function isValidRedirectLocation($context, $input, $allowNull);
- 
 }

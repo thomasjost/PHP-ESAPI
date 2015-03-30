@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -44,7 +44,7 @@ class DefaultAuditorFactory implements AuditorFactory
 
     /**
      * DefaultAuditorFactory constructor.
-     * 
+     *
      * @return does not return a value.
      */
     public function __construct()
@@ -55,7 +55,7 @@ class DefaultAuditorFactory implements AuditorFactory
     /**
      * {@inheritdoc}
      */
-    public function getLogger($moduleName) 
+    public function getLogger($moduleName)
     {
 
         // If a logger for this module already exists, we return the same one,
@@ -67,8 +67,8 @@ class DefaultAuditorFactory implements AuditorFactory
         } else {
             $moduleLogger = new DefaultAuditor($moduleName);
             $this->_loggerMap[$moduleName] = $moduleLogger;
+
             return $moduleLogger;
         }
     }
-
 }
