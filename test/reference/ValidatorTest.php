@@ -15,33 +15,31 @@
  * @created 2009
  */
 
-
 require_once __DIR__ . '/../testresources/TestHelpers.php';
 // require_once __DIR__.'/HTTPUtilitiesTest.php';
-
 
 class ValidatorTest extends PHPUnit_Framework_TestCase
 {
     private $_os;
     
-    const PLATFORM_WINDOWS 	= 1;
-	const PLATFORM_UNIX 	= 2;
+    const PLATFORM_WINDOWS    = 1;
+    const PLATFORM_UNIX    = 2;
     
     function setUp()
     {
         global $ESAPI;
-        if ( !isset($ESAPI))
+        if (!isset($ESAPI))
         {
             $ESAPI = new ESAPI();
         }
         
         if (substr(PHP_OS, 0, 3) == 'WIN')
         {
-        	$this->_os = self::PLATFORM_WINDOWS; 
+            $this->_os = self::PLATFORM_WINDOWS; 
         }
         else 
         {
-        	$this->_os = self::PLATFORM_UNIX;
+            $this->_os = self::PLATFORM_UNIX;
         }
     }
 
@@ -126,7 +124,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance->isValidInput('test', null, 'Email', 100, true));
     }
 
-
     /**
      * Test isValidInput method of class Validator with an invalid type: Email.
      */
@@ -135,7 +132,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertFalse($instance->isValidInput('test', 'jeff.williams@@aspectsecurity.com', 'Email', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with an invalid type: Email.
@@ -146,7 +142,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidInput('test', 'jeff.williams@aspectsecurity', 'Email', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with an invalid type: Email.
      */
@@ -155,7 +150,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertFalse($instance->isValidInput('test', null, 'Email', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with a valid type:
@@ -167,7 +161,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance->isValidInput('test', '123.168.100.234', 'IPAddress', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with a valid type:
      * IPv4 Address.
@@ -177,7 +170,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertTrue($instance->isValidInput('test', '192.168.1.234', 'IPAddress', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with an invalid type:
@@ -189,7 +181,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidInput('test', '..168.1.234', 'IPAddress', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with an invalid type:
      * IPv4 Address.
@@ -200,7 +191,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidInput('test', '10.x.1.234', 'IPAddress', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with a valid type: URL.
      */
@@ -209,7 +199,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertTrue($instance->isValidInput('test', 'http://www.aspectsecurity.com', 'URL', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with an invalid type: URL.
@@ -220,7 +209,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidInput('test', 'http:///www.aspectsecurity.com', 'URL', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with an invalid type: URL.
      */
@@ -229,7 +217,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertFalse($instance->isValidInput('test', 'http://www.aspect security.com', 'URL', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with a valid type:
@@ -241,7 +228,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance->isValidInput('test', '078-05-1120', 'SSN', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with a valid type:
      * US Social Security Number.
@@ -251,7 +237,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertTrue($instance->isValidInput('test', '078 05 1120', 'SSN', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with a valid type:
@@ -263,7 +248,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance->isValidInput('test', '078051120', 'SSN', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with an invalid type:
      * US Social Security Number.
@@ -273,7 +257,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertFalse($instance->isValidInput('test', '987-65-4320', 'SSN', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with an invalid type:
@@ -285,7 +268,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidInput('test', '000-00-0000', 'SSN', 100, false));
     }
 
-
     /**
      * Test isValidInput method of class Validator with an invalid type:
      * US Social Security Number.
@@ -295,7 +277,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $instance = ESAPI::getValidator();
         $this->assertFalse($instance->isValidInput('test', '(555) 555-5555', 'SSN', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with an invalid type:
@@ -307,17 +288,13 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidInput('test', 'test', 'SSN', 100, false));
     }
 
-
-
-
-
     /**
      * Test assertValidInput method of class Validator with a valid type: Email.
      */
-	function testAssertValidInput_Email_valid_01()
+    function testAssertValidInput_Email_valid_01()
     {
-    	$this->markTestIncomplete(); 
-    	
+        $this->markTestIncomplete(); 
+        
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', 'jeff.williams@aspectsecurity.com', 'Email', 100, false);
@@ -329,10 +306,10 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * Test assertValidInput method of class Validator with a valid type: Email.
      */
-	function testAssertValidInput_Email_valid_02()
+    function testAssertValidInput_Email_valid_02()
     {
-    	$this->markTestIncomplete(); 
-    	
+        $this->markTestIncomplete(); 
+        
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', null, 'Email', 100, true);
@@ -344,41 +321,38 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * Test assertValidInput method of class Validator with an invalid type: Email.
      */
-	function testAssertValidInput_Email_invalid_01()
+    function testAssertValidInput_Email_invalid_01()
     {
-    	$this->markTestIncomplete(); 
-    	
+        $this->markTestIncomplete(); 
+        
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', 'jeff.williams@@aspectsecurity.com', 'Email', 100, false);
     }
-
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: Email.
      */
     function testAssertValidInput_Email_invalid_02()
     {
-    	$this->markTestIncomplete(); 
-    	
+        $this->markTestIncomplete(); 
+        
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', 'jeff.williams@aspectsecurity', 'Email', 100, false);
     }
-
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: Email.
      */
     function testAssertValidInput_Email_invalid_03()
     {
-    	$this->markTestIncomplete(); 
-    	
+        $this->markTestIncomplete(); 
+        
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', null, 'Email', 100, false);
     }
-
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
@@ -386,7 +360,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     function testAssertValidInput_IPv4Address_valid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', '123.168.100.234', 'IPAddress', 100, false);
@@ -395,14 +369,13 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         }
     }
 
-
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * IPv4 Address.
      */
    function testAssertValidInput_IPv4Address_valid_02()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', '192.168.1.234', 'IPAddress', 100, false);
@@ -411,39 +384,36 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         }
     }
 
-
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * IPv4 Address.
      */
     function testAssertValidInput_IPv4Address_invalid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', '..168.1.234', 'IPAddress', 100, false);
     }
 
-
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * IPv4 Address.
      */
-	function testAssertValidInput_IPv4Address_invalid_02()
+    function testAssertValidInput_IPv4Address_invalid_02()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', '10.x.1.234', 'IPAddress', 100, false);
     }
 
-
     /**
      * Test assertValidInput method of class Validator with a valid type: URL.
      */
-	function testAssertValidInput_URL_valid_01()
+    function testAssertValidInput_URL_valid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', 'http://www.aspectsecurity.com', 'URL', 100, false);
@@ -455,26 +425,24 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * Test assertValidInput method of class Validator with an invalid type: URL.
      */
-	function testAssertValidInput_URL_invalid_01()
+    function testAssertValidInput_URL_invalid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', 'http:///www.aspectsecurity.com', 'URL', 100, false);
     }
 
-
     /**
      * Test assertValidInput method of class Validator with an invalid type: URL.
      */
-	function testAssertValidInput_URL_invalid_02()
+    function testAssertValidInput_URL_invalid_02()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidInput('test', 'http://www.aspect security.com', 'URL', 100, false);
     }
-
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
@@ -482,7 +450,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     function testAssertValidInput_SSN_valid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', '078-05-1120', 'SSN', 100, false);
@@ -491,14 +459,13 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         }
     }
 
-
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * US Social Security Number.
      */
     function testAssertValidInput_SSN_valid_02()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', '078 05 1120', 'SSN', 100, false);
@@ -513,7 +480,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     function testAssertValidInput_SSN_valid_03()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidInput('test', '078051120', 'SSN', 100, false);
@@ -521,7 +488,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             $this->fail();
         }
     }
-
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
@@ -580,7 +546,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance->isValidDate('testIsValidDate_valid_01', 'June 23, 1967', 'F j, Y', false));
     }
 
-
     /**
      * Test of isValidDate method of class Validator with an invalid date.
      */
@@ -590,13 +555,12 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidDate('testIsValidDate_invalid_01', 'freakshow', 'F j, Y', false));
     }
 
-
     /**
      * Test of assertValidDate method of class Validator with an valid date.
      */
-	function testAssertValidDate_valid_01()
+    function testAssertValidDate_valid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         try {
             $instance->assertValidDate('testAssertValidDate_valid_01', 'June 23, 1967', 'F j, Y', false);
@@ -610,22 +574,18 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     function testAssertValidDate_invalid_01()
     {
-    	$this->markTestIncomplete(); 
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
         $this->setExpectedException('ValidationException');
         $instance->assertValidDate('testAssertValidDate_invalid_01', 'freakshow', 'F j, Y', false);
     }
 
-
-
-
-
     /**
      * Test of isValidSafeHTML method, of class org.owasp.esapi.Validator.
      */
- 	function testIsValidSafeHTML() 
- 	{
-		$this->markTestIncomplete(); 
+    function testIsValidSafeHTML() 
+    {
+        $this->markTestIncomplete(); 
         $instance = ESAPI::getValidator();
 
         $this->assertTrue($instance->isValidSafeHTML('test', '<b>Jeff</b>', 100, false));
@@ -648,7 +608,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($val->isValidCreditCard('testIsValidCreditCard_valid_01', '1234 9876 0000 0008', false));
     }
 
-
     /**
      * Test of isValidEmailCreditCard method of Validator with a valid CC number.
      */
@@ -658,7 +617,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($val->isValidCreditCard('testIsValidCreditCard_valid_02', '1234987600000008', false));
     }
 
-
     /**
      * Test of isValidEmailCreditCard method of Validator with a valid CC number.
      */
@@ -667,7 +625,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $val = ESAPI::getValidator();
         $this->assertTrue($val->isValidCreditCard('testIsValidCreditCard_valid_03', '1234-9876-0000-0008', false));
     }
-
 
     /**
      * Test of isValidEmailCreditCard method of Validator with valid allowable
@@ -679,7 +636,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($val->isValidCreditCard('testIsValidCreditCard_valid_04', '', true));
     }
 
-
     /**
      * Test of isValidEmailCreditCard method of Validator with valid allowable
      * null.
@@ -690,7 +646,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($val->isValidCreditCard('testIsValidCreditCard_valid_05', null, true));
     }
 
-
     /**
      * Test of isValidEmailCreditCard method of Validator with an invalid CC number.
      */
@@ -699,7 +654,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $val = ESAPI::getValidator();
         $this->assertFalse($val->isValidCreditCard('testIsValidCreditCard_invalid_01', '12349876000000081', false));
     }
-
 
     /**
      * Test of isValidEmailCreditCard method of Validator with an invalid CC number.
@@ -710,7 +664,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($val->isValidCreditCard('testIsValidCreditCard_invalid_02', '4417 1234 5678 9112', false));
     }
 
-
     /**
      * Test of isValidEmailCreditCard method of Validator with allowable null.
      */
@@ -719,7 +672,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $val = ESAPI::getValidator();
         $this->assertFalse($val->isValidCreditCard('testIsValidCreditCard_valid_06', 0, true));
     }
-
 
     /**
      * Test of isValidEmailCreditCard method of Validator with allowable null.
@@ -730,22 +682,20 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($val->isValidCreditCard('testIsValidCreditCard_valid_07', array(), true));
     }
 
-
     /**
      * Test of isValidListItem method, of class org.owasp.esapi.Validator.
      */
     function testIsValidListItem() {
         $val = ESAPI::getValidator();
-        $list=array('one','two');
+        $list = array('one','two');
         $this->assertTrue($val->isValidListItem('test', 'one', $list));
         $this->assertFalse($val->isValidListItem('test', 'three', $list));
     }
 
-
     /**
      * Test of isValidNumber method, of class org.owasp.esapi.Validator.
      */
-    function testIsValidNumber()  {
+    function testIsValidNumber() {
         $instance = ESAPI::getValidator();
 //        testing negative range
         $this->assertFalse($instance->isValidNumber('test', '-4', 1, 10, false));
@@ -777,7 +727,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($instance->isValidNumber('test', '1e-6', -999999999, 999999999, false));
         $this->assertTrue($instance->isValidNumber('test', '-1e-6', -999999999, 999999999, false));
     }
-
 
     /**
      *
@@ -816,7 +765,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
     }
 
-
     /**
      * Test isValidPrintable method of class Validator with a valid input.
      */
@@ -828,7 +776,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
                 ->isValidPrintable('test', 'abcDEF', 100, false)
         );
     }
-
 
     /**
      * Test isValidPrintable method of class Validator with a valid input.
@@ -846,7 +793,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * Test isValidPrintable method of class Validator with a valid input.
      */
@@ -858,7 +804,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
                 ->isValidPrintable('test', '!@#R()*$;><()', 100, false)
         );
     }
-
 
     /**
      * Test isValidPrintable method of class Validator with an invalid input.
@@ -872,7 +817,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
                 ->isValidPrintable('test', $bytes, 100, false)
         );
     }
-
 
     /**
      * Test isValidPrintable method of class Validator with an invalid input.
@@ -904,12 +848,12 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      * Test of isValidDirectoryPath method, of class org.owasp.esapi.Validator.
      */
     function testIsValidDirectoryPath() {
-        $list=array();
-        array_push($list,new HTMLEntityCodec());
+        $list = array();
+        array_push($list, new HTMLEntityCodec());
         $encoder = new DefaultEncoder($list);
         $instance = ESAPI::getValidator();
         
-        switch ( $this->_os )
+        switch ($this->_os)
         {
             case self::PLATFORM_WINDOWS:
             // Windows paths that don't exist and thus should fail
@@ -984,4 +928,3 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         );
     }*/
 }
-?>

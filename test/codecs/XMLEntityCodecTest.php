@@ -20,11 +20,9 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
 /**
  * Require ESAPI and XMLEntityCodec.
  */
-
 
 /**
  * Test case for XMLEntityCodec.
@@ -64,9 +62,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
         $this->_xmlEntityCodec = new XMLEntityCodec();
     }
 
-
     /* ENCODING METHODS */
-
 
     /**
      *  testEncodeForXML - note that xml entities include &apos; which is not
@@ -314,9 +310,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     /* DECODE METHODS */
-
 
     /**
      * testDecodeFromXML

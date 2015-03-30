@@ -19,14 +19,13 @@
  * @since 1.6
  */
 
-
 class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 {
     function setUp()
     {
         global $ESAPI;
 
-        if ( !isset($ESAPI))
+        if (!isset($ESAPI))
         {
             $ESAPI = new ESAPI(__DIR__.'/../testresources/ESAPI.xml');
         }
@@ -545,4 +544,3 @@ class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 //        }
 //    }
 }
-?>

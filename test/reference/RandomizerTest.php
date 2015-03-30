@@ -19,22 +19,22 @@
  
 class RandomizerTest extends PHPUnit_Framework_TestCase 
 {
-	private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
-	
-	function setUp() 
-	{
-		global $ESAPI;
-		
-		if ( !isset($ESAPI)) 
-		{
-			$ESAPI = new ESAPI(__DIR__.'/../testresources/ESAPI.xml');
-		}	
-	}
-	
-	function tearDown()
-	{
-		
-	}
+    private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
+    
+    function setUp() 
+    {
+        global $ESAPI;
+        
+        if (!isset($ESAPI)) 
+        {
+            $ESAPI = new ESAPI(__DIR__.'/../testresources/ESAPI.xml');
+        }    
+    }
+    
+    function tearDown()
+    {
+        
+    }
 
     /**
      * Test of getRandomGUID method, of class org.owasp.esapi.Randomizer.
@@ -47,23 +47,23 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $list = array();
         
         $result = true;
-        for ( $i = 0; $i < 100; $i++ ) {
+        for ($i = 0; $i < 100; $i++) {
             $guid = $instance->getRandomGUID();
-            if ( in_array($guid, $list) )
+            if (in_array($guid, $list))
             {
-            	$result = false;
-				$this->fail();     	
+                $result = false;
+                $this->fail();         
             } 
 
             $list[] = $guid;
         }
         
         $this->assertTrue($result);
-    }	
-	
-	/**
-	 * Test of getRandomString method, of class org.owasp.esapi.Randomizer.
-	 */
+    }    
+    
+    /**
+     * Test of getRandomString method, of class org.owasp.esapi.Randomizer.
+     */
     function testGetRandomString() {
         
         $length = 20;
@@ -71,27 +71,27 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $charset = str_split($this->CHAR_ALPHANUMERICS);
         
         try {
-	        for ( $i = 0; $i < 100; $i++ ) {
-	            $result = $instance->getRandomString($length, $this->CHAR_ALPHANUMERICS);	// TODO replace with DefaultEncoder...
-	            
-	            for ( $j=0; $j< strlen($result); $j++ ) {
-	            	
-	            	if ( !in_array($result[$j], $charset) ) {			// TODO replace with DefaultEncoder...
-	            		$this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
-	            	}
-	            }
-	            $this->assertEquals($length, strlen($result));
-	        }
+            for ($i = 0; $i < 100; $i++) {
+                $result = $instance->getRandomString($length, $this->CHAR_ALPHANUMERICS);    // TODO replace with DefaultEncoder...
+                
+                for ($j = 0; $j< strlen($result); $j++) {
+                    
+                    if (!in_array($result[$j], $charset)) {            // TODO replace with DefaultEncoder...
+                        $this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
+                    }
+                }
+                $this->assertEquals($length, strlen($result));
+            }
         }
-		catch (InvalidArgumentException $e)
-		{
-			$this->fail("getRandomString() failed due to too short length ($length) or no character set [ ".$this->CHAR_ALPHANUMERICS." ]");
-		}		        
+        catch (InvalidArgumentException $e)
+        {
+            $this->fail("getRandomString() failed due to too short length ($length) or no character set [ ".$this->CHAR_ALPHANUMERICS." ]");
+        }                
     }
 
     /**
-	 * Test of getRandomInteger method, of class org.owasp.esapi.Randomizer.
-	 */
+     * Test of getRandomInteger method, of class org.owasp.esapi.Randomizer.
+     */
     function testGetRandomInteger() {
         
         $min = -20;
@@ -99,26 +99,26 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         
         $instance = ESAPI::getRandomizer();        
         
-        $minResult = ( $max - $min ) / 2;
-        $maxResult = ( $max - $min ) / 2;
+        $minResult = ($max - $min) / 2;
+        $maxResult = ($max - $min) / 2;
         
-        for ( $i = 0; $i < 100; $i++ ) {
+        for ($i = 0; $i < 100; $i++) {
             $result = $instance->getRandomInteger($min, $max);
-            if ( $result < $minResult ) 
+            if ($result < $minResult) 
             {
-            	$minResult = $result;	
+                $minResult = $result;    
             }
-            if ( $result > $maxResult ) 
-			{
-				$maxResult = $result;
-			}
+            if ($result > $maxResult) 
+            {
+                $maxResult = $result;
+            }
         }
-        $this->assertTrue( ($minResult >= $min && $maxResult <= $max), "minResult ($minResult) >= min ($min) && maxResult ($maxResult) <= max ($max)" );
+        $this->assertTrue(($minResult >= $min && $maxResult <= $max), "minResult ($minResult) >= min ($min) && maxResult ($maxResult) <= max ($max)");
     }
 
     /**
-	 * Test of getRandomReal method, of class org.owasp.esapi.Randomizer.
-	 */
+     * Test of getRandomReal method, of class org.owasp.esapi.Randomizer.
+     */
     function testGetRandomReal() {
         
         $min = -20.5234;
@@ -126,39 +126,39 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         
         $instance = ESAPI::getRandomizer();
         
-        $minResult = ( $max - $min ) / 2;
-        $maxResult = ( $max - $min ) / 2;
+        $minResult = ($max - $min) / 2;
+        $maxResult = ($max - $min) / 2;
         
-        for ( $i = 0; $i < 100; $i++ ) {
+        for ($i = 0; $i < 100; $i++) {
             $result = $instance->getRandomReal($min, $max);
-            if ( $result < $minResult ) 
+            if ($result < $minResult) 
             {
-            	$minResult = $result;
+                $minResult = $result;
             }
-            if ( $result > $maxResult ) 
+            if ($result > $maxResult) 
             {
-            	$maxResult = $result;
+                $maxResult = $result;
             }
         }
         $this->assertTrue(($minResult >= $min && $maxResult <= $max));
     }
     
     function testGetRandomBoolean() {
-    	$instance = ESAPI::getRandomizer();
-    	
-    	$result = $instance->getRandomBoolean();
-    	
-    	// PHP funkyness: I am using the equal operator with the type equivalence extra '='
-    	// If both true and false are not found, then we don't have a boolean
-    	$this->assertFalse($result !== true && $result !== false);
+        $instance = ESAPI::getRandomizer();
+        
+        $result = $instance->getRandomBoolean();
+        
+        // PHP funkyness: I am using the equal operator with the type equivalence extra '='
+        // If both true and false are not found, then we don't have a boolean
+        $this->assertFalse($result !== true && $result !== false);
     }
     
     function testGetRandomLong() {
-    	$instance = ESAPI::getRandomizer();
-    	$result = $instance->getRandomLong();
-    	
-    	$this->assertTrue($result >= 0);
-    	$this->assertTrue($result < mt_getrandmax());
+        $instance = ESAPI::getRandomizer();
+        $result = $instance->getRandomLong();
+        
+        $this->assertTrue($result >= 0);
+        $this->assertTrue($result < mt_getrandmax());
     }
     
     function testGetRandomFilenameCharSet() {
@@ -167,28 +167,28 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
         $charset = str_split('abcdefghijklmnopqrstuvxyz0123456789'); // TODO replace with DefaultEncoder...
         
         try {
-	        for ( $i = 0; $i < 100; $i++ ) {
-	            $result = $instance->getRandomFilename();
-	            $len = strlen($result);		// Filenames should be 16 characters long
-	            
-	            for ( $j = 0; $j < $len; $j++ ) {
-	            	if ( !in_array($result[$j], $charset) ) {			
-	            		$this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
-	            	}
-	            }
-	            
-	        }
+            for ($i = 0; $i < 100; $i++) {
+                $result = $instance->getRandomFilename();
+                $len = strlen($result);        // Filenames should be 16 characters long
+                
+                for ($j = 0; $j < $len; $j++) {
+                    if (!in_array($result[$j], $charset)) {            
+                        $this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
+                    }
+                }
+                
+            }
         }
-		catch (InvalidArgumentException $e)
-		{
-			$this->fail("getRandomFilename() failed due to too short length (16) or no character set [ abcdefghijklmnopqrstuvxyz0123456789 ]");
-		}
-		
-		// TODO: probably should try to prove something here. Equivalent to SimpleTest's pass method
-		$this->assertTrue(true);
+        catch (InvalidArgumentException $e)
+        {
+            $this->fail("getRandomFilename() failed due to too short length (16) or no character set [ abcdefghijklmnopqrstuvxyz0123456789 ]");
+        }
+        
+        // TODO: probably should try to prove something here. Equivalent to SimpleTest's pass method
+        $this->assertTrue(true);
     }
     
-	function testGetRandomFilenameLengthNoExtension() {
+    function testGetRandomFilenameLengthNoExtension() {
 
         $instance = ESAPI::getRandomizer();
         
@@ -205,4 +205,3 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
     }
     
 }
-?>

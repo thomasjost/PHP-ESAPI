@@ -15,51 +15,49 @@
  * @created 2009
  */
 
-
 class PercentCodecTest extends PHPUnit_Framework_TestCase
 {
-	private $percentCodec = null;
-	
-	function setUp()
-	{
-		global $ESAPI;
+    private $percentCodec = null;
+    
+    function setUp()
+    {
+        global $ESAPI;
 
-		if ( !isset($ESAPI))
-		{
-			$ESAPI = new ESAPI();
-		}
-		
-		$this->percentCodec = new PercentCodec();
-	}
+        if (!isset($ESAPI))
+        {
+            $ESAPI = new ESAPI();
+        }
+        
+        $this->percentCodec = new PercentCodec();
+    }
 
-	function tearDown()
-	{
+    function tearDown()
+    {
 
-	}
-	
-	function testEncode()
-	{
-		$immune = array("/");
-		
-		$this->assertEquals( '%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # ') );
-	}
-	
-	function testEncodeCharacter()
-	{
-		$immune = array("");
-		
-		$this->assertEquals( "%3C", $this->percentCodec->encode($immune, "<") );
-	}	
-	
-	function testDecode()
-	{
-		$this->assertEquals( '"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20') );
-	}
-		
-	function testDecodeCharacter()
-	{
-		$this->assertEquals( "<", $this->percentCodec->decode("%3C") );
-	}
-	
+    }
+    
+    function testEncode()
+    {
+        $immune = array("/");
+        
+        $this->assertEquals('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # '));
+    }
+    
+    function testEncodeCharacter()
+    {
+        $immune = array("");
+        
+        $this->assertEquals("%3C", $this->percentCodec->encode($immune, "<"));
+    }    
+    
+    function testDecode()
+    {
+        $this->assertEquals('"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20'));
+    }
+        
+    function testDecodeCharacter()
+    {
+        $this->assertEquals("<", $this->percentCodec->decode("%3C"));
+    }
+    
 }
-?>

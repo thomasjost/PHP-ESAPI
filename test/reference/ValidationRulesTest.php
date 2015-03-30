@@ -35,12 +35,11 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
     function __construct()
     {
         global $ESAPI;
-        if ( !isset($ESAPI))
+        if (!isset($ESAPI))
         {
             $ESAPI = new ESAPI();
         }
     }
-
 
     /**************************************************************************
      *
@@ -50,7 +49,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      * sufficient...
      *
      **************************************************************************/
-
 
     /**
      * test allowNull getter and setter
@@ -85,7 +83,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('A_String', $svr->getTypeName());
     }
 
-
     /**
      * accepts only objects which provide canonicalize
      */
@@ -99,7 +96,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $svr->setEncoder(new Base64Codec);
     }
 
-
     /**
      * assertValid returns null for valid input
      */
@@ -109,7 +105,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertNull($svr->assertValid('testStringVR_assertValid_valid', 'aabbcc'));
     }
-
 
     /**
      * assertValid throws ValidationException for invalid input
@@ -122,7 +117,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $svr->assertValid('testStringVR_assertValid_invalid', 'dddddd');
     }
 
-
     /**
      * assertValid throws IntrusionException for obvious attack ;)
      */
@@ -133,7 +127,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('IntrusionException');
         $svr->assertValid('testStringVR_assertValid_attack', 'dddddd%2500');
     }
-
 
     /**
      * getSafe returns canonicalised input for valid input
@@ -147,7 +140,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('aabbcc', $svr->getSafe('testStringVR_getSafe_valid', '%61abbcc'));
     }
 
-
     /**
      * getSafe returns sanitized for invalid input
      */
@@ -157,7 +149,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('aabbcc00', $svr->getSafe('testStringVR_getSafe_invalid', 'aabbcc%00'));
     }
-
 
     /**
      * getSafe does not catch IntrusionExceptions
@@ -169,7 +160,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('IntrusionException');
         $svr->getSafe('testStringVR_getSafe_valid', 'aabbcc%2500');
     }
-
 
     /**
      * isValid returns boolean values only
@@ -185,7 +175,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($svr->isValid('testStringVR_isValid', 'dddddd%2500'));
     }
 
-
     /**
      * whitelist returns a string containing only those chars from input that
      * are present in the whitelist
@@ -197,14 +186,12 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('aabbcc', $svr->whitelist('aabbcc%00', 'abc'));
     }
 
-
     /**************************************************************************
      *
      *                  CreditCardValidationRule tests
      *
      *
      **************************************************************************/
-
 
     /**
      * Test supplying constructor with an instance of a validator
@@ -221,7 +208,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ccvr->isValid('testCCVR_constructValidator', '0000-0000-0000-0000'));
     }
 
-
     /**
      * getValid returns canonicalised input for valid input
      */
@@ -234,7 +220,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('0000 0000 0000 0000', $ccvr->getValid('testCCVR_getValid_valid', '0000%200000%200000%200000'));
     }
 
-
     /**
      * `&nbsp;` entity does not match a space in preg_match.
      */
@@ -245,7 +230,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('ValidationException');
         $ccvr->assertValid('testCCVR_getValid_nbsp', '0000&nbsp;0000&nbsp;0000&nbsp;0018');
     }
-
 
     /**
      * getValid throws ValidationException for invalid
@@ -258,7 +242,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $ccvr->getValid('testCCVR_getValid_invalid', '0000 0000 0000%000018');
     }
 
-
     /**
      * getValid throws IntrusionException for obvious attack
      */
@@ -269,7 +252,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('IntrusionException');
         $ccvr->getValid('testCCVR_getValid_attack', '0000%200000%25200000%200018');
     }
-
 
     /**
      * getValid does not treat '0' as empty. disallows empty values when
@@ -295,7 +277,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($ccvr->isValid('testCCVR_getValid_Empty', null));
     }
 
-
     /**
      * isValid returns boolean values only
      */
@@ -314,14 +295,12 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ccvr->isValid('testCCVR_isValid', '0000-0000-0000-0001'));
     }
 
-
     /**************************************************************************
      *
      *                       DateValidationRule tests
      *
      *
      **************************************************************************/
-
 
     /**
      * constructor sets a sane default date format string ('Y-m-d')
@@ -333,14 +312,12 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($dvr->getValid('testDateVR_construct_format', '1970-01-31')->format('Y-m-d') == '1970-01-31');
     }
 
-
     /**************************************************************************
      *
      *                       HTMLValidationRule tests
      *
      *
      **************************************************************************/
-
 
     /**
      * Quick test to ensure HTMLPurifier 'works'
@@ -353,7 +330,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $a = '<body><body><div>Hi!</div></body>';
         $hvr->getValid('testHTMLVR_construct_purifier', $a); // error=Unrecognized <body> tag removed
     }
-
 
     /**************************************************************************
      *
@@ -376,7 +352,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((int) PHP_INT_MAX === $ivr->getValid('testIntegerVR_getValid_valid', '' . PHP_INT_MAX));
     }
 
-
     /**
      * getValid does not treat '0' as empty. disallows empty values when
      * allowNull is false.
@@ -398,7 +373,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($ivr->isValid('testIntegerVR_getValid_Empty', null));
     }
 
-
     /**
      * getSafe returns canonicalised input for valid input
      */
@@ -411,7 +385,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((int) 2 === $ivr->getSafe('testIntegerVR_getSafe_valid', '%32'));
     }
 
-
     /**
      * getSafe returns sanitized (zero) for invalid input
      */
@@ -421,7 +394,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue((int) 0 === $ivr->getSafe('testIntegerVR_getSafe_invalid', '00%00'));
     }
-
 
     /**
      * getSafe does not catch IntrusionExceptions
@@ -433,7 +405,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('IntrusionException');
         $ivr->getSafe('testIntegerVR_getSafe_valid', '00%2500');
     }
-
 
     /**
      * isValid returns boolean values only
@@ -456,7 +427,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ivr->isValid('testIntegerVR_isValid', "{$i}"));
     }
 
-
     /**
      * test sanity check min < max with PHP_INT_MAX
      */
@@ -468,7 +438,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $ivr->getValid('testIntegerVR_MinMax', '0');
     }
 
-
     /**
      * test sanitize returns zero (always, for now)
      */
@@ -478,7 +447,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue((int) 0 === $ivr->sanitize('testIntegerVR_sanitize', 'abc%00'));
     }
-
 
     /**
      * test sanitize with empty input
@@ -491,8 +459,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue((int) 0 === $ivr->sanitize('testIntegerVR_sanitize_empty', ''));
     }
-
-
 
     /**************************************************************************
      *
@@ -515,7 +481,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((double) PHP_INT_MAX === $nvr->getValid('testNumberVR_getValid_valid', '' . PHP_INT_MAX));
     }
 
-
     /**
      * getValid does not treat '0' as empty. disallows empty values when
      * allowNull is false.
@@ -537,7 +502,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($nvr->isValid('testNumberVR_getValid_Empty', null));
     }
 
-
     /**
      * getSafe returns canonicalised input for valid input
      */
@@ -550,7 +514,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((double) 2 === $nvr->getSafe('testNumberVR_getSafe_valid', '%32'));
     }
 
-
     /**
      * getSafe returns sanitized (zero) for invalid input
      */
@@ -560,7 +523,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue((double) 0 === $nvr->getSafe('testNumberVR_getSafe_invalid', '00%00'));
     }
-
 
     /**
      * getSafe does not catch IntrusionExceptions
@@ -572,7 +534,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('IntrusionException');
         $nvr->getSafe('testNumberVR_getSafe_valid', '00%2500');
     }
-
 
     /**
      * isValid returns boolean values only
@@ -595,7 +556,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($nvr->isValid('testNumberVR_isValid', "{$i}"));
     }
 
-
     /**
      * isValid returns boolean values only
      */
@@ -610,7 +570,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($nvr->isValid('testNumberVR_isValid_INF', '' . log(0)));
     }
 
-
     /**
      * test sanity check min < max with INF
      */
@@ -622,7 +581,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $nvr->getValid('testNumberVR_MinMax', '0');
     }
 
-
     /**
      * test sanitize returns zero (always, for now)
      */
@@ -632,7 +590,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue((double) 0 === $nvr->sanitize('testNumberVR_sanitize', 'abc%00'));
     }
-
 
     /**
      * test sanitize with empty input
@@ -646,14 +603,12 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((double) 0 === $nvr->sanitize('testNumberVR_sanitize_empty', ''));
     }
 
-
     /**************************************************************************
      *
      *                       StringValidationRule tests
      *
      *
      **************************************************************************/
-
 
     /**
      * test addWhitelistPattern
@@ -671,7 +626,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($svr->isValid('testStringVR_addWhitelistPattern', 'aabbcc'));
     }
 
-
     /**
      * test addBlacklistPattern
      */
@@ -688,7 +642,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($svr->isValid('testStringVR_addBlacklistPattern', 'dddddd'));
     }
 
-
     /**
      * test setMinimumLength
      */
@@ -702,7 +655,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($svr->isValid('testStringVR_setMinimumLength', 'aabbc'));
     }
-
 
     /**
      * test setMaximumLength
@@ -718,7 +670,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($svr->isValid('testStringVR_setMaximumLength', 'aabbccc'));
     }
 
-
     /**
      * getValid returns canonicalised input for valid input
      */
@@ -730,7 +681,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('aabbcc', $svr->getValid('testStringVR_getValid_valid', '%61abbcc'));
     }
-
 
     /**
      * getValid does not treat '0' as empty. disallows empty values when
@@ -753,7 +703,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($svr->isValid('testStringVR_getValid_Empty', null));
     }
 
-
     /**
      * test sanitize
      */
@@ -763,7 +712,6 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('abc00', $svr->sanitize('testStringVR_sanitize', 'abc%00'));
     }
-
 
     /**
      * test sanitize with empty input

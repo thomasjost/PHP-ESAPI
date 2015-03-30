@@ -15,46 +15,43 @@
  * @created 2009
  */
 
-
-
 class VBScriptCodecTest extends PHPUnit_Framework_TestCase
 {
-	private $vbScriptCodec = null;
-	
-	function setUp()
-	{
-		global $ESAPI;
+    private $vbScriptCodec = null;
+    
+    function setUp()
+    {
+        global $ESAPI;
 
-		if ( !isset($ESAPI))
-		{
-			$ESAPI = new ESAPI();
-		}
-		
-		$this->vbScriptCodec = new VBScriptCodec();
-	}
-		
-	function testEncode()
-	{
-		$immune = array(" ");
+        if (!isset($ESAPI))
+        {
+            $ESAPI = new ESAPI();
+        }
+        
+        $this->vbScriptCodec = new VBScriptCodec();
+    }
+        
+    function testEncode()
+    {
+        $immune = array(" ");
 
-		$this->assertEquals( " \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>") );
-	}
-	
-	function testEncodeCharacter()
-	{
-		$immune = array(" ");
-		
-		$this->assertEquals( "\"<", $this->vbScriptCodec->encode($immune, "<") );
-	}
-	
-	function testDecode()
-	{
-		$this->assertEquals( " !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"") );
-	}
-		
-	function testDecodeCharacter()
-	{
-		$this->assertEquals( "<", $this->vbScriptCodec->decode("\"<") );
-	}
+        $this->assertEquals(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>"));
+    }
+    
+    function testEncodeCharacter()
+    {
+        $immune = array(" ");
+        
+        $this->assertEquals("\"<", $this->vbScriptCodec->encode($immune, "<"));
+    }
+    
+    function testDecode()
+    {
+        $this->assertEquals(" !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\""));
+    }
+        
+    function testDecodeCharacter()
+    {
+        $this->assertEquals("<", $this->vbScriptCodec->decode("\"<"));
+    }
 }
-?>

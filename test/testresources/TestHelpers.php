@@ -22,7 +22,6 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
 /**
  * Helper method which opens a file handle to the supplied path, reads it
  * line-by-line and performs preg_match on the line with the supplied regex. You can
@@ -87,7 +86,6 @@ function fileContainsExpected(
     return false;
 }
 
-
 /**
  * Helper returns the ESAPILogger log file absolute path.
  *
@@ -99,7 +97,6 @@ function getLogFileLoc()
     $filename = ESAPI::getSecurityConfiguration()->getLogFileName();
     return realpath($filename);
 }
-
 
 /**
  * Helper method returns a random string of alphanumeric characters of the

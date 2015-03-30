@@ -31,7 +31,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
     {
         global $ESAPI;
 
-        if ( !isset($ESAPI))
+        if (!isset($ESAPI))
         {
             $ESAPI = new ESAPI();
         }
@@ -39,9 +39,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
         $this->htmlEntityCodec = new HTMLEntityCodec();
     }
 
-
     /* ENCODING METHODS */
-
 
     // nice example of encoding for HTML.
     function testEncodeForHTML()
@@ -172,7 +170,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    function testSomeChars ()
+    function testSomeChars()
     {
         $this->assertEquals(
             ''.(chr(12345)).(chr(65533)).(chr(1244)),
@@ -219,9 +217,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     /* DECODE METHODS */
-
 
     function testDecodeFromHTML()
     {
@@ -345,7 +341,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 
     function testDecodeCharacter()
     {
-        $this->assertEquals( '<', $this->htmlEntityCodec->decode('&lt;') );
+        $this->assertEquals('<', $this->htmlEntityCodec->decode('&lt;'));
     }
 
 }

@@ -15,47 +15,44 @@
  * @created 2009
  */
 
-
-
 class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
 {
-	private $javascriptCodec = null;
-	
-	function setUp()
-	{
-		global $ESAPI;
+    private $javascriptCodec = null;
+    
+    function setUp()
+    {
+        global $ESAPI;
 
-		if ( !isset($ESAPI))
-		{
-			$ESAPI = new ESAPI();
-		}
-		
-		$this->javascriptCodec = new JavaScriptCodec();
-	}
-		
+        if (!isset($ESAPI))
+        {
+            $ESAPI = new ESAPI();
+        }
+        
+        $this->javascriptCodec = new JavaScriptCodec();
+    }
+        
 /*	function testEncode()
-	{
-		$immune = array("");
-		
-		$this->assertEquals( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
-	}
-*/	
-	function testEncodeCharacter()
-	{
-		$immune = array("");
-		
-		$this->assertEquals( "\\x3C", $this->javascriptCodec->encode($immune, "<") );
-	}	
+    {
+        $immune = array("");
+        
+        $this->assertEquals( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
+    }
+*/    
+    function testEncodeCharacter()
+    {
+        $immune = array("");
+        
+        $this->assertEquals("\\x3C", $this->javascriptCodec->encode($immune, "<"));
+    }    
 /*	
-	function testDecode()
-	{
-		$this->assertEquals( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
-	}
-*/		
-	function testDecodeCharacter()
-	{
-		$this->assertEquals( "<", $this->javascriptCodec->decode("\\x3C") );
-	}
-	
+    function testDecode()
+    {
+        $this->assertEquals( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
+    }
+*/        
+    function testDecodeCharacter()
+    {
+        $this->assertEquals("<", $this->javascriptCodec->decode("\\x3C"));
+    }
+    
 }
-?>

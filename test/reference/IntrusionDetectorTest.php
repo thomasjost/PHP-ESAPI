@@ -20,12 +20,10 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-
 /**
  * Require Test Helpers and SecurityConfiguration
  */
 require_once __DIR__ . '/../testresources/TestHelpers.php';
-
 
 /**
  * Test for the DefaultIntrusionDetector implementation of the IntrusionDetector
@@ -46,7 +44,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
     private $_logFileLoc    = null;
     private $_logDateFormat = null;
     private $_restoreSecCon = null;
-
 
     /**
      * Constructor swaps the SecurityConfiguration currently in use with one which
@@ -73,7 +70,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         $this->_logDateFormat = $sc->getLogFileDateFormat();
     }
 
-
     /**
      * Destructor restores the original SecurityConfiguration.
      *
@@ -83,7 +79,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
     {
         ESAPI::setSecurityConfiguration($this->_restoreSecCon);
     }
-
 
     /**
      * Test to ensure that EnterpriseSecurityExceptions are automatically added
@@ -113,7 +108,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * Test of addException method of class DefaultIntrusionDetector.
      *
@@ -137,7 +131,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             $m
         );
     }
-
 
     /**
      * Test of addEvent method of DefaultIntrusionDetector.  This test checks
@@ -183,7 +176,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * This test shows that IntrusionExceptions can be tracked by
      * IntrusionDetector.
@@ -226,7 +218,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             $m
         );
     }
-
 
     /**
      * Test Rapid events
@@ -272,7 +263,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * Once IntrusionDetector has been triggered, it can be triggered again with
      * another occurrence of the same event
@@ -315,7 +305,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             $m
         );
     }
-
 
     /**
      * This test will trigger IDS at a point which demonstrates the calculation
