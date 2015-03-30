@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Linden Darling <linden.darling@jds.net.au>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -25,12 +29,16 @@
  * Reference Implementation of the Executor interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Linden Darling <linden.darling@jds.net.au>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultExecutor implements Executor
@@ -69,7 +77,7 @@ class DefaultExecutor implements Executor
         return $this->executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
     }
      
-     /**
+    /**
      * @inheritdoc
      */
     public function executeSystemCommandLonghand($executable, $params, $workdir, $logParams)

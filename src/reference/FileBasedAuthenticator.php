@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
@@ -13,7 +13,9 @@
  *
  * @author Bipin Upadhyay <http://projectbee.org/blog/contact/>
  * @created 2009
+ *
  * @since 1.4
+ *
  * @package ESAPI_Reference
  */
 
@@ -22,10 +24,14 @@ define('MAX_ACCOUNT_NAME_LENGTH', 250);
  * Reference Implementation of the FileBasedAuthenticator interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class FileBasedAuthenticator implements Authenticator
@@ -78,28 +84,25 @@ class FileBasedAuthenticator implements Authenticator
      * current user.
      *
      * Specification:  The implementation should do the following:
-     * 	1) Check if the User is already stored in the session
-     * 		a. If so, check that session absolute and inactivity timeout have not expired
-     * 		b. Step 2 may not be required if 1a has been satisfied
-     * 	2) Verify User credentials
-     * 		a. It is recommended that you use
-     * 			loginWithUsernameAndPassword(HttpServletRequest, HttpServletResponse) to verify credentials
-     * 	3) Set the last host of the User (ex.  user.setLastHostAddress(address) )
-     * 	4) Verify that the request is secure (ex. over SSL)
-     * 	5) Verify the User account is allowed to be logged in
-     * 		a. Verify the User is not disabled, expired or locked
-     * 	6) Assign User to session variable
+     * 1) Check if the User is already stored in the session
+     *     a. If so, check that session absolute and inactivity timeout have not expired
+     *     b. Step 2 may not be required if 1a has been satisfied
+     * 2) Verify User credentials
+     *     a. It is recommended that you use
+     *         loginWithUsernameAndPassword(HttpServletRequest, HttpServletResponse) to verify credentials
+     * 3) Set the last host of the User (ex.  user.setLastHostAddress(address) )
+     * 4) Verify that the request is secure (ex. over SSL)
+     * 5) Verify the User account is allowed to be logged in
+     *     a. Verify the User is not disabled, expired or locked
+     * 6) Assign User to session variable
      *
-     * @param request
-     *            the current HTTP request
-     * @param response
-     *            the HTTP response
+     * @param $request The current HTTP request
+     * @param $response The hTTP response
      *
-     * @return
-     * 		the User
+     * @throws AuthenticationException If the credentials are not verified, or if the account is disabled, locked, expired, or timed out
      *
-     * @throws AuthenticationException
-     *             if the credentials are not verified, or if the account is disabled, locked, expired, or timed out
+     * @return The user
+     *
      */
     public function login($request, $response)
     {
@@ -113,13 +116,10 @@ class FileBasedAuthenticator implements Authenticator
      * This method is typically used for "reauthentication" for the most sensitive functions, such
      * as transactions, changing email address, and changing other account information.
      *
-     * @param user
-     * 		the user who requires verification
-     * @param password
-     * 		the hashed user-supplied password
+     * @param $user The user who requires verification
+     * @param $password The hashed user-supplied password
      *
-     * @return
-     * 		true, if the password is correct for the specified user
+     * @return TRUE, if the password is correct for the specified user
      */
     public function verifyPassword($user, $password)
     {
@@ -145,18 +145,14 @@ class FileBasedAuthenticator implements Authenticator
      * include a "re-type password" field in their forms. Implementations should verify that
      * both are the same.
      *
-     * @param accountName
-     * 		the account name of the new user
-     * @param password1
-     * 		the password of the new user
-     * @param password2
-     * 		the password of the new user.  This field is to encourage user interface designers to include two password fields in their forms.
+     * @param $accountName The account name of the new user
+     * @param $password1 The password of the new user
+     * @param $password2 The password of the new user.  This field is to encourage user interface designers to include two password fields in their forms.
      *
-     * @return
-     * 		the User that has been created
+     * @throws AuthenticationException If user creation fails due to any of the qualifications listed in this method's description
      *
-     * @throws AuthenticationException
-     * 		if user creation fails due to any of the qualifications listed in this method's description
+     * @return The User that has been created
+     *
      */
     public function createUser($accountName, $password1, $password2)
     {
@@ -228,8 +224,7 @@ class FileBasedAuthenticator implements Authenticator
      * Saves the user database to the file system. In this implementation you must call save to commit any changes to
      * the user file. Otherwise changes will be lost when the program ends.
      *
-     * @throws AuthenticationException
-     * 		if the user file could not be written
+     * @throws AuthenticationException If the user file could not be written
      */
     public function saveUsers()
     {
@@ -241,13 +236,10 @@ class FileBasedAuthenticator implements Authenticator
      * should verify that the new password does not include information such as the username, fragments of the
      * old password, and other information that could be used to weaken the strength of the password.
      *
-     * @param user
-     * 		the user whose information to use when generating password
-     * @param oldPassword
-     * 		the old password to use when verifying strength of new password.  The new password may be checked for fragments of oldPassword.
+     * @param $user The user whose information to use when generating password
+     * @param $oldPassword The old password to use when verifying strength of new password.  The new password may be checked for fragments of oldPassword.
      *
-     * @return
-     * 		a password with strong password strength
+     * @return A password with strong password strength
      */
     public function generateStrongPassword($user = null, $oldPassword = null)
     {
@@ -271,17 +263,12 @@ class FileBasedAuthenticator implements Authenticator
      * the password to replace it with. The new password should be checked against old hashes to be sure the new password does not closely resemble or equal any recent passwords for that User.
      * Password strength should also be verified.  This new password must be repeated to ensure that the user has typed it in correctly.
      *
-     * @param user
-     * 		the user to change the password for
-     * @param currentPassword
-     * 		the current password for the specified user
-     * @param newPassword
-     * 		the new password to use
-     * @param newPassword2
-     * 		a verification copy of the new password
+     * @param $user The user to change the password for
+     * @param $currentPassword The current password for the specified user
+     * @param $newPassword The new password to use
+     * @param $newPassword2 A verification copy of the new password
      *
-     * @throws AuthenticationException
-     * 		if any errors occur
+     * @throws AuthenticationException If any errors occur
      */
     public function changePassword($user, $currentPassword, $newPassword, $newPassword2)
     {
@@ -315,18 +302,16 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Returns all of the specified User's hashed passwords.  If the User's list of passwords is null,
-     * and create is set to true, an empty password list will be associated with the specified User
-     * and then returned. If the User's password map is null and create is set to false, an exception
+     * Returns all of the specified User's hashed passwords.  If the User's list of passwords is NULL,
+     * and create is set to TRUE, an empty password list will be associated with the specified User
+     * and then returned. If the User's password map is NULL and create is set to FALSE, an exception
      * will be thrown.
      *
-     * @param user
-     * 		the User whose old hashes should be returned
-     * @param create
-     * 		true - if no password list is associated with this user, create one
-     * 		false - if no password list is associated with this user, do not create one
-     * @return
-     * 		a List containing all of the specified User's password hashes
+     * @param $user The user whose old hashes should be returned
+     * @param $create TRUE - if no password list is associated with this user, create one
+     *                FALSE - if no password list is associated with this user, do not create one
+     *
+     * @return A list containing all of the specified User's password hashes
      */
     public function getAllHashedPasswords($user, $create)
     {
@@ -346,10 +331,9 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Return the specified User's current hashed password.
      *
-     * @param user
-     * 		this User's current hashed password will be returned
-     * @return
-     * 		the specified User's current hashed password
+     * @param $user This user's current hashed password will be returned
+     *
+     * @return The specified User's current hashed password
      */
     public function getHashedPassword($user)
     {
@@ -361,10 +345,9 @@ class FileBasedAuthenticator implements Authenticator
      * Get a List of the specified User's old password hashes.  This will not return the User's current
      * password hash.
      *
-     * @param user
-     * 		he user whose old password hashes should be returned
-     * @return
-     * 		the specified User's old password hashes
+     * @param $user The user whose old password hashes should be returned
+     *
+     * @return The specified User's old password hashes
      */
     public function getOldPasswordHashes($user)
     {
@@ -377,13 +360,11 @@ class FileBasedAuthenticator implements Authenticator
 
     /**
      * Returns the User matching the provided accountId.  If the accoundId is not found, an Anonymous
-     * User or null may be returned.
+     * User or NULL may be returned.
      *
-     * @param accountId
-     *            the account id
+     * @param $accountId The account id
      *
-     * @return
-     * 		the matching User object, or the Anonymous User if no match exists
+     * @return The matching User object, or the Anonymous User if no match exists
      */
     public function getUserById($accountId)
     {
@@ -403,13 +384,11 @@ class FileBasedAuthenticator implements Authenticator
 
     /**
      * Returns the User matching the provided accountName.  If the accoundId is not found, an Anonymous
-     * User or null may be returned.
+     * User or NULL may be returned.
      *
-     * @param accountName
-     *            the account name
+     * @param $accountName The account name
      *
-     * @return
-     * 		the matching User object, or the Anonymous User if no match exists
+     * @return The matching User object, or the Anonymous User if no match exists
      */
     public function getUserByName($accountName)
     {
@@ -427,8 +406,7 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Gets a collection containing all the existing user names.
      *
-     * @return
-     * 		a set of all user names
+     * @return A set of all user names
      */
     public function getUserNames()
     {
@@ -459,8 +437,7 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Returns the currently logged in User.
      *
-     * @return
-     * 		the matching User object, or the Anonymous User if no match
+     * @return The matching User object, or the Anonymous User if no match
      *         exists
      */
     public function getCurrentUser()
@@ -471,8 +448,7 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Sets the currently logged in User.
      *
-     * @param user
-     *          the user to set as the current user
+     * @param $user The user to set as the current user
      */
     public function setCurrentUser($user)
     {
@@ -483,10 +459,8 @@ class FileBasedAuthenticator implements Authenticator
      * Add a hash to a User's hashed password list.  This method is used to store a user's old password hashes
      * to be sure that any new passwords are not too similar to old passwords.
      *
-     * @param user
-     * 		the user to associate with the new hash
-     * @param hash
-     * 		the hash to store in the user's password hash list
+     * @param $user The user to associate with the new hash
+     * @param $hash The hash to store in the user's password hash list
      */
     private function setHashedPassword($user, $hash)
     {
@@ -507,13 +481,10 @@ class FileBasedAuthenticator implements Authenticator
      * value. The Encryptor.hash method can be used if a different salt is
      * required.
      *
-     * @param password
-     *            the password to hash
-     * @param accountName
-     *            the account name to use as the salt
+     * @param $password The password to hash
+     * @param $accountName The account name to use as the salt
      *
-     * @return
-     * 		the hashed password
+     * @return The hashed password
      */
     public function hashPassword($password, $accountName)
     {
@@ -524,11 +495,9 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Removes the account of the specified accountName.
      *
-     * @param accountName
-     *            the account name to remove
+     * @param $accountName The account name to remove
      *
-     * @throws AuthenticationException
-     *             the authentication exception if user does not exist
+     * @throws AuthenticationException The authentication exception if user does not exist
      */
     public function removeUser($accountName)
     {
@@ -546,11 +515,9 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Ensures that the account name passes site-specific complexity requirements, like minimum length.
      *
-     * @param accountName
-     *            the account name
+     * @param $accountName The account name
      *
-     * @throws AuthenticationException
-     *             if account name does not meet complexity requirements
+     * @throws AuthenticationException If account name does not meet complexity requirements
      */
     public function verifyAccountNameStrength($accountName)
     {
@@ -570,13 +537,10 @@ class FileBasedAuthenticator implements Authenticator
      * invoked when the user has entered the old password, as the list of old
      * credentials stored by ESAPI is all hashed.
      *
-     * @param oldPassword
-     *            the old password
-     * @param newPassword
-     *            the new password
+     * @param $oldPassword The old password
+     * @param $newPassword The new password
      *
-     * @throws AuthenticationException
-     *     if newPassword is too similar to oldPassword or if newPassword does not meet complexity requirements
+     * @throws AuthenticationException If newPassword is too similar to oldPassword or if newPassword does not meet complexity requirements
      */
     public function verifyPasswordStrength($oldPassword, $newPassword)
     {
@@ -634,10 +598,9 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Determine if the account exists.
      *
-     * @param accountName
-     *            the account name
+     * @param $accountName The account name
      *
-     * @return true, if the account exists
+     * @return TRUE, if the account exists
      */
     public function exists($accountName)
     {

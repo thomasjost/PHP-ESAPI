@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -29,12 +33,16 @@
  * headers, and logging.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface HTTPUtilities
@@ -45,7 +53,7 @@ interface HTTPUtilities
      * purposes of preventing CSRF attacks. This method should be used on all URLs
      * to be put into all links and forms the application generates.
      *
-     * @param string $href the URL to which the CSRF token will be appended.
+     * @param string $href The URL to which the CSRF token will be appended.
      *
      * @return string URL with the CSRF token parameter appended to it.
      */
@@ -53,11 +61,11 @@ interface HTTPUtilities
 
     /**
      * Returns the CSRF token from the current session. If there is no current
-     * session then null is returned. If the CSRF Token is not present in the
+     * session then NULL is returned. If the CSRF Token is not present in the
      * session it will be created.
      *
-     * @return string|null CSRF token for the current session or
-     *                     null.
+     * @return string|NULL CSRF token for the current session or
+     *                     NULL.
      */
     public function getCSRFToken();
 
@@ -66,8 +74,6 @@ interface HTTPUtilities
      * in the current session and throws an IntrusionException if it is missing.
      *
      * @param SafeRequest $request A request object.
-     *
-     * @return null
      *
      * @throws IntrusionException if the CSRF token is missing or incorrect.
      */
@@ -78,7 +84,6 @@ interface HTTPUtilities
      * started at the time this method is called then the token will not be
      * generated.
      *
-     * @return null
      */
     public function setCSRFToken();
 
@@ -88,8 +93,8 @@ interface HTTPUtilities
      * @param SafeRequest $request Request object.
      * @param string      $name    The name of the cookie to retreive.
      *
-     * @return string|null value of the requested cookie or
-     *                     null if the specified cookie is not present.
+     * @return string|NULL value of the requested cookie or
+     *                     NULL if the specified cookie is not present.
      */
     public function getCookie($request, $name);
 
@@ -100,8 +105,6 @@ interface HTTPUtilities
      * be called from any method that uses sensitive data from a web form.
      *
      * @param SafeRequest $request The request object to test.
-     *
-     * @return null
      *
      * @throws AccessControlException if security constraints are not met.
      */
@@ -114,8 +117,8 @@ interface HTTPUtilities
      * the existing session contents. Care should be taken to use this only when
      * the existing session does not contain hazardous contents.
      *
-     * @return bool true if the change of Session Identifier was successful,
-     *              false otherwise
+     * @return bool TRUE if the change of Session Identifier was successful,
+     *              FALSE otherwise
      */
     public function changeSessionIdentifier();
 
@@ -141,7 +144,6 @@ interface HTTPUtilities
      *
      * @param SafeRequest $request Request object.
      *
-     * @return null.
      */
     public function killAllCookies($request);
 
@@ -153,7 +155,6 @@ interface HTTPUtilities
      * @param SafeRequest $request Request object.
      * @param string      $name    Name of the cookie to be killed.
      *
-     * @return null.
      *
      */
     public function killCookie($request, $name);
@@ -164,7 +165,6 @@ interface HTTPUtilities
      *
      * @param SafeRequest $request Current Request object.
      *
-     * @return null.
      */
     public function setCurrentHTTP($request);
 
@@ -183,7 +183,6 @@ interface HTTPUtilities
      * @param SafeRequest $request Current Request object.
      * @param Auditor     $auditor the auditor to write the request to.
      *
-     * @return null
      */
     public function logHTTPRequest($request, $auditor);
 
@@ -191,7 +190,7 @@ interface HTTPUtilities
      * Format the Source IP address, URL, URL parameters, and all form parameters
      * into a string suitable for the log file. The list of parameters to obfuscate
      * should be specified in order to prevent sensitive information from being
-     * logged. If a null or empty list of parameters is provided, then all
+     * logged. If a NULL or empty list of parameters is provided, then all
      * parameters will be logged in the clear. If HTTP request logging is done in a
      * central place $paramsToObfuscate could be made a configuration parameter. We
      * include it here in case different parts of the application need to obfuscate
@@ -199,9 +198,8 @@ interface HTTPUtilities
      *
      * @param SafeRequest $request           Current Request object.
      * @param Auditor     $auditor           The auditor to write the request to.
-     * @param array|null  $paramsToObfuscate The sensitive parameters.
+     * @param array|NULL  $paramsToObfuscate The sensitive parameters.
      *
-     * @return null
      */
     public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate);
 
@@ -227,8 +225,8 @@ interface HTTPUtilities
      * @param string       $password the user's password.
      * @param int          $maxAge   the length of time that the token should be
      *                               valid for in relative seconds.
-     * @param string|null  $domain   the domain to restrict the token to.
-     * @param string|null  $path     the path to restrict the token to.
+     * @param string|NULL  $domain   the domain to restrict the token to.
+     * @param string|NULL  $path     the path to restrict the token to.
      *
      * @return string  encrypted "Remember Me" token.
      */
@@ -241,7 +239,7 @@ interface HTTPUtilities
      * the field does not decrypt properly, an IntrusionException is thrown to
      * indicate tampering.
      *
-     * @param string $encrypted hidden field value to decrypt.
+     * @param string $encrypted Hidden field value to decrypt.
      *
      * @return string decrypted hidden field value.
      *
@@ -264,7 +262,7 @@ interface HTTPUtilities
     /*
      * Retrieves a map of data from a cookie encrypted with encryptStateInCookie().
      *
-     * @param SafeRequest $request object.
+     * @param SafeRequest $request Object.
      *
      * @return array a map containing the decrypted cookie state value.
      *
@@ -289,9 +287,10 @@ interface HTTPUtilities
      *
      * @param string $query Query string to be encrypted.
      *
+     * @throws EncryptionException
+     *
      * @return string encrypted query string.
      *
-     * @throws EncryptionException
      */
     // public function encryptQueryString($query);
 
@@ -305,7 +304,7 @@ interface HTTPUtilities
      * @param SafeResponse $response  response object.
      * @param array        $cleartext state information.
      *
-     * @return null.
+     * @return NULL.
      */
     // public function encryptStateInCookie($response, $cleartext);
 
@@ -340,7 +339,7 @@ interface HTTPUtilities
      *                                value passed in.
      * @param string       $location The URL to forward to.
      *
-     * @return null.
+     * @return NULL.
      *
      * @throws AccessControlException
      * @throws ServletException
@@ -366,7 +365,7 @@ interface HTTPUtilities
      * @param SafeResponse $response The response object to set the content type
      *                               for.
      *
-     * @return null.
+     * @return NULL.
      */
     // public function setSafeContentType($response);
 
@@ -378,14 +377,14 @@ interface HTTPUtilities
      * expected browsers. The safest approach is to set all relevant headers to
      * their most restrictive setting. These include:
      *
-     * <PRE>
+     * <pre>
      *
-     * Cache-Control: no-store<BR>
-     * Cache-Control: no-cache<BR>
-     * Cache-Control: must-revalidate<BR>
-     * Expires: -1<BR>
+     * Cache-Control: no-store<br />
+     * Cache-Control: no-cache<br />
+     * Cache-Control: must-revalidate<br />
+     * Expires: -1<br />
      *
-     * </PRE>
+     * </pre>
      *
      * Note that the header "pragma: no-cache" is only useful in HTTP requests,
      * not HTTP responses. So even though there are many articles recommending the
@@ -409,7 +408,7 @@ interface HTTPUtilities
      *
      * @param SafeResponse $response Response object.
      *
-     * @return null.
+     * @return NULL.
      */
     // public function setNoCacheHeaders($response);
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,11 +12,15 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -34,16 +38,20 @@ define('CD_LOG', 'CodecDebug');
  * and the buffer is cleared at that time.
  * To enable CodecDebug add the following to the ESAPI.xml file if not already
  * present:
- * <SpecialDebugging><Enabled>true</Enabled></SpecialDebugging>
+ * <SpecialDebugging><Enabled>TRUE</Enabled></SpecialDebugging>.
  *
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class CodecDebug
@@ -59,7 +67,6 @@ class CodecDebug
     /**
      * Prevents public cloning of this singleton class.
      *
-     * @return null
      */
     private function __clone()
     {
@@ -67,10 +74,9 @@ class CodecDebug
 
     /**
      * Private constructor ensures CodecDebug can only be instantiated privately.
-     * Stores boolean true in $_enabled if SepcialDebugging is enabled.  This object
-     * will only produce output if $_enabled is true.
+     * Stores TRUE in $_enabled if SepcialDebugging is enabled.  This object
+     * will only produce output if $_enabled is TRUE.
      *
-     * @return null
      */
     private function __construct()
     {
@@ -96,9 +102,8 @@ class CodecDebug
      * Adds a string of one or more encoded characters to the debug output.
      * Should be called, for example, from Codec->decode().
      *
-     * @param string $stringNormalizedEncoding is a UTF-32 encoded string.
+     * @param string $stringNormalizedEncoding Is a UTF-32 encoded string.
      *
-     * @return null
      */
     public function addEncodedString($stringNormalizedEncoding)
     {
@@ -116,9 +121,8 @@ class CodecDebug
      * Adds a string of one or more unencoded characters to the debug output.
      * Should be called, for example, from Codec->encode().
      *
-     * @param string $stringNormalizedEncoding is a UTF-32 encoded string.
+     * @param string $stringNormalizedEncoding Is a UTF-32 encoded string.
      *
-     * @return null
      */
     public function addUnencodedString($stringNormalizedEncoding)
     {
@@ -138,9 +142,8 @@ class CodecDebug
      * debugging output before resetting the CodecDebug instance ready for
      * reuse.
      *
-     * @param string $codecOutput is the final output being returned from Codec.
+     * @param string $codecOutput Is the final output being returned from Codec.
      *
-     * @return null
      */
     public function output($codecOutput)
     {
@@ -175,9 +178,8 @@ class CodecDebug
      * Codec input to the buffer character by character.  It also adds some
      * backtrace information to the buffer before adding any characters.
      *
-     * @param string $string is a UTF-32 encoded string.
+     * @param string $string Is a UTF-32 encoded string.
      *
-     * @return null
      */
     private function _addString($string)
     {
@@ -214,9 +216,8 @@ class CodecDebug
      * _addNormalized is called by _addString and adds a character (with
      * accompanying debug info) to the buffer.
      *
-     * @param string $charNormalizedEncoding a single character.
+     * @param string $charNormalizedEncoding A single character.
      *
-     * @return null
      */
     private function _addNormalized($charNormalizedEncoding)
     {

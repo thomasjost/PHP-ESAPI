@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,14 +12,18 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -31,14 +35,18 @@
  * established logging library.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface Auditor
@@ -144,11 +152,11 @@ interface Auditor
      * also record the stack trace associated with the event.
      *
      * @param int    $type      the type of event - an Logger Type constant.
-     * @param bool   $success   boolean true indicates this was a successful event,
-     *                          false indicates this was a failed event (the typical
+     * @param bool   $success   TRUE indicates this was a successful event,
+     *                          FALSE indicates this was a failed event (the typical
      *                          value).
      * @param string $message   the message to log.
-     * @param string $throwable the exception to be logged.
+     * @param string $throwable The exception to be logged.
      *
      * @return does not return a value.
      */
@@ -158,7 +166,7 @@ interface Auditor
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return bool true if fatal level messages will be output to the log.
+     * @return bool TRUE if fatal level messages will be output to the log.
      */
     public function isFatalEnabled();
 
@@ -167,11 +175,11 @@ interface Auditor
      * also record the stack trace associated with the event.
      *
      * @param int    $type      the type of event - an Logger Type constant.
-     * @param bool   $success   boolean true indicates this was a successful event,
-     *                          false indicates this was a failed event (the typical
+     * @param bool   $success   TRUE indicates this was a successful event,
+     *                          FALSE indicates this was a failed event (the typical
      *                          value).
      * @param string $message   the message to log.
-     * @param string $throwable the exception to be logged.
+     * @param string $throwable The exception to be logged.
      *
      * @return does not return a value.
      */
@@ -181,7 +189,7 @@ interface Auditor
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return bool true if error level messages will be output to the log.
+     * @return bool TRUE if error level messages will be output to the log.
      */
     public function isErrorEnabled();
 
@@ -190,11 +198,11 @@ interface Auditor
      * also record the stack trace associated with the event.
      *
      * @param int    $type      the type of event - an Logger Type constant.
-     * @param bool   $success   boolean true indicates this was a successful event,
-     *                          false indicates this was a failed event (the typical
+     * @param bool   $success   TRUE indicates this was a successful event,
+     *                          FALSE indicates this was a failed event (the typical
      *                          value).
      * @param string $message   the message to log.
-     * @param string $throwable the exception to be logged.
+     * @param string $throwable The exception to be logged.
      *
      * @return does not return a value.
      */
@@ -204,7 +212,7 @@ interface Auditor
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return bool true if warning level messages will be output to the log.
+     * @return bool TRUE if warning level messages will be output to the log.
      */
     public function isWarningEnabled();
 
@@ -213,11 +221,11 @@ interface Auditor
      * also record the stack trace associated with the event.
      *
      * @param int    $type      the type of event - an Logger Type constant.
-     * @param bool   $success   boolean true indicates this was a successful event,
-     *                          false indicates this was a failed event (the
+     * @param bool   $success   TRUE indicates this was a successful event,
+     *                          FALSE indicates this was a failed event (the
      *                          typical value).
      * @param string $message   the message to log.
-     * @param string $throwable the exception to be logged.
+     * @param string $throwable The exception to be logged.
      *
      * @return does not return a value
      */
@@ -227,7 +235,7 @@ interface Auditor
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return bool true if info level messages will be output to the log.
+     * @return bool TRUE if info level messages will be output to the log.
      */
     public function isInfoEnabled();
 
@@ -236,11 +244,11 @@ interface Auditor
      * also record the stack trace associated with the event.
      *
      * @param int    $type      the type of event - an Logger Type constant.
-     * @param bool   $success   boolean true indicates this was a successful event,
-     *                          false indicates this was a failed event (the
+     * @param bool   $success   TRUE indicates this was a successful event,
+     *                          FALSE indicates this was a failed event (the
      *                          typical value).
      * @param string $message   the message to log.
-     * @param string $throwable the exception to be logged.
+     * @param string $throwable The exception to be logged.
      *
      * @return does not return a value
      */
@@ -250,7 +258,7 @@ interface Auditor
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return bool true if debug level messages will be output to the log.
+     * @return bool TRUE if debug level messages will be output to the log.
      */
     public function isDebugEnabled();
 
@@ -259,11 +267,11 @@ interface Auditor
      * also record the stack trace associated with the event.
      *
      * @param int    $type      the type of event - an Logger Type constant.
-     * @param bool   $success   boolean true indicates this was a successful event,
-     *                          false indicates this was a failed event (the typical
+     * @param bool   $success   TRUE indicates this was a successful event,
+     *                          FALSE indicates this was a failed event (the typical
      *                          value).
      * @param string $message   the message to log.
-     * @param string $throwable the exception to be logged.
+     * @param string $throwable The exception to be logged.
      *
      * @return does not return a value.
      */
@@ -273,7 +281,7 @@ interface Auditor
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return bool true if trace level messages will be output to the log.
+     * @return bool TRUE if trace level messages will be output to the log.
      */
     public function isTraceEnabled();
 }

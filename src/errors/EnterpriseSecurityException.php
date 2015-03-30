@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Errors
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -27,27 +31,31 @@
  * Constructors for classes extending EnterpriseSecurityException should be
  * sure to call the appropriate super() method in order to ensure that logging
  * and intrusion detection occur properly.
- * <P>
+ * <p>
  * All EnterpriseSecurityExceptions have two messages, one for the user and one
  * for the log file. This way, a message can be shown to the user that doesn't
  * contain sensitive information or unnecessary implementation details. Meanwhile,
  * all the critical information can be included in the exception so that it gets
  * logged.
- * <P>
+ * <p>
  * Note that the "logMessage" for ALL EnterpriseSecurityExceptions is logged in
  * the log file. This feature should be used extensively throughout ESAPI
  * implementations and the result is a fairly complete set of security log records.
  * ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use
  * in detecting anomolous patterns of application usage.
- * <P>
+ * <p>.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Errors
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class EnterpriseSecurityException extends Exception
@@ -59,13 +67,13 @@ class EnterpriseSecurityException extends Exception
 
     /**
      * Creates a new instance of EnterpriseSecurityException that includes a
-     * root cause
+     * root cause.
      *
-     * @param string $userMessage the message displayed to the user
+     * @param string $userMessage The message displayed to the user
      * @param string $logMessage  the message logged
      *
      * @return does not return a value.
-      */
+     */
     public function __construct($userMessage = '', $logMessage = '')
     {
         $cause = 0;
@@ -84,7 +92,7 @@ class EnterpriseSecurityException extends Exception
     }
 
     /**
-     * Returns message that is safe to display to users
+     * Returns message that is safe to display to users.
      *
      * @return string a String containing a message that is safe to display to
      *                users
@@ -95,7 +103,7 @@ class EnterpriseSecurityException extends Exception
     }
 
     /**
-     * Returns a message that is safe to display in logs, but probably not to users
+     * Returns a message that is safe to display in logs, but probably not to users.
      *
      * @return string a String containing a message that is safe to display in
      *                logs, but probably not to users

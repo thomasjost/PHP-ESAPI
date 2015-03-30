@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -29,12 +33,16 @@
  * functions related to manipulating strings.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class StringUtilities
@@ -42,9 +50,9 @@ class StringUtilities
 
     /**
      * Removes all unprintable characters from a string
-     * and replaces with a space for use in an HTTP header
+     * and replaces with a space for use in an HTTP header.
      *
-     * @param string $input a string that may have unprintable characters
+     * @param string $input A string that may have unprintable characters
      *
      * @return string the stripped header
      */
@@ -71,8 +79,8 @@ class StringUtilities
     /**
      * Union two character arrays.
      *
-     * @param string $c1 the first character array
-     * @param string $c2 the second character array
+     * @param string $c1 The first character array
+     * @param string $c2 The second character array
      *
      * @return array the union of the two character arrays
      */
@@ -86,12 +94,12 @@ class StringUtilities
     }
 
     /**
-     * Returns true if the character is contained in the provided StringBuffer.
+     * Returns TRUE if the character is contained in the provided StringBuffer.
      *
-     * @param string $haystack the string to search
+     * @param string $haystack The string to search
      * @param string $c        the character to search for in the string
      *
-     * @return bool TRUE, if the character is found, false otherwise
+     * @return bool TRUE, if the character is found, FALSE otherwise
      */
     public static function contains($haystack, $c)
     {

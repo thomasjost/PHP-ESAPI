@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -25,12 +29,16 @@
  * Reference Implementation of the SecurityConfiguration interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultSecurityConfiguration implements SecurityConfiguration
@@ -104,7 +112,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     /**
      * SecurityConfiguration constructor.
      *
-     * @param string $path configuration file path.
+     * @param string $path Configuration file path.
      *
      * @return does not return a value.
      */
@@ -123,8 +131,9 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
      *
      * @param string $path ESAPI configuration file path.
      *
-     * @return does not return a value.
      * @throws Exception thrown if configuration file does not exist.
+     *
+     * @return does not return a value.
      */
     private function _loadConfiguration($path)
     {
@@ -854,12 +863,12 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     }
     
     /**
-     * getSpecialDebugging returns boolean true if special debugging should be
-     * enabled. Default is false.
+     * getSpecialDebugging returns TRUE if special debugging should be
+     * enabled. Default is FALSE.
      * At the moment, special debugging is used for producing output from
      * CodecDebug.
      *
-     * @return bool True if special debugging should be enabled. Default is false.
+     * @return bool True if special debugging should be enabled. Default is FALSE.
      */
     public function getSpecialDebugging()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,14 +12,18 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -27,14 +31,18 @@
  * Extension of the abstract class Codec for XML entity encoding.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class XMLEntityCodec extends Codec
@@ -49,7 +57,6 @@ class XMLEntityCodec extends Codec
      * Public Constructor calls the parent construcor and initialises the character
      * to entity and entity to character maps.
      *
-     * @return null
      */
     public function __construct()
     {
@@ -282,7 +289,7 @@ class XMLEntityCodec extends Codec
      *                      semi-colon e.g. '437ae;'.
      *
      * @return array Returns an array containing two objects:
-     *               'decodedCharacter' => null if input is null, the character of
+     *               'decodedCharacter' => NULL if input is NULL, the character of
      *               input after decoding
      *               'encodedString' => the string that was decoded or found to be
      *               malformed.
@@ -351,7 +358,7 @@ class XMLEntityCodec extends Codec
 
     /**
      * Returns the decoded version of the character starting at index, or
-     * null if no decoding is possible.
+     * NULL if no decoding is possible.
      *
      * Formats all are legal both with and without semi-colon, upper/lower case:
      * &aa;
@@ -371,7 +378,7 @@ class XMLEntityCodec extends Codec
      *
      * @return array Returns an array containing two objects:
      *               'decodedCharacter' => the decoded version of the character
-     *               starting at index, or null if no decoding is possible.
+     *               starting at index, or NULL if no decoding is possible.
      *               'encodedString' => the string that was decoded or found to be
      *               malformed.
      */
@@ -502,7 +509,6 @@ class XMLEntityCodec extends Codec
      * During the initialization, the length of the longest named entity (including
      * the leading ampersand and trailing semi-colon) is noted in _longestEntity.
      *
-     * @return null
      */
     private function _initializeMaps()
     {

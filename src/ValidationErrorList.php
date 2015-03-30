@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -29,28 +33,32 @@
  * called in a non-blocking fashion.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class ValidationErrorList
 {
 
     /**
-     * Error list of ValidationException's
+     * Error list of ValidationException's.
      */
     // private HashMap errorList = new HashMap();
 
     /**
      * Adds a new error to list with a unique named context.
-     * No action taken if either element is null.
+     * No action taken if either element is NULL.
      * Existing contexts will be overwritten.
      *
-     * @param string $context unique named context for this ValidationErrorList
+     * @param string $context Unique named context for this ValidationErrorList
      * @param string $ve      todo
      *
      * @return string todo
@@ -77,9 +85,9 @@ class ValidationErrorList
     /**
      * Retrieves ValidationException for given context if one exists.
      *
-     * @param string $context unique name for each error
+     * @param string $context Unique name for each error
      *
-     * @return ValidationException or null for given context
+     * @return ValidationException or NULL for given context
      */
     public function getError($context)
     {
@@ -88,7 +96,7 @@ class ValidationErrorList
     }
 
     /**
-     * Returns true if no error are present.
+     * Returns TRUE if no error are present.
      *
      * @return bool todo
      */

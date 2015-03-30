@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -38,12 +42,16 @@
  * DefaultIntrusionDetector instance.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultIntrusionDetector implements IntrusionDetector
@@ -56,7 +64,6 @@ class DefaultIntrusionDetector implements IntrusionDetector
      * Constructor stores an instance of Auditor for logging and initialises the
      * storage for events generated for a user.
      *
-     * @return null
      */
     public function __construct()
     {
@@ -75,7 +82,6 @@ class DefaultIntrusionDetector implements IntrusionDetector
      *
      * @param Exception $exception The exception to add.
      *
-     * @return null
      */
     public function addException($exception)
     {
@@ -124,7 +130,6 @@ class DefaultIntrusionDetector implements IntrusionDetector
      * @param string $eventName  The event to add.
      * @param string $logMessage Message to log with the event.
      *
-     * @return null
      */
     public function addEvent($eventName, $logMessage)
     {
@@ -169,7 +174,6 @@ class DefaultIntrusionDetector implements IntrusionDetector
      * @param string $action  The action to take.
      * @param string $message Message to log where the action is 'log'.
      *
-     * @return null
      */
     private function _takeSecurityAction($action, $message)
     {
@@ -182,7 +186,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
         }
     }
 
-     /**
+    /**
      * Adds a security event.  These events are used to check that the user has
      * not reached the security thresholds set in the properties file.  If a PHP
      * session has been started the events are stored there, otherwise they are
@@ -192,7 +196,6 @@ class DefaultIntrusionDetector implements IntrusionDetector
      *
      * @param string $eventName The name of the event that occurred.
      *
-     * @return null
      */
     private function _addSecurityEvent($eventName)
     {

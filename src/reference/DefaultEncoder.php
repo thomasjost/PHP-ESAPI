@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,14 +12,18 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -27,13 +31,17 @@
  * Reference implementation of the Encoder interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultEncoder implements Encoder
@@ -72,9 +80,10 @@ class DefaultEncoder implements Encoder
      * @param array $codecs An array of Codec instances which will be used for
      *                      canonicalization.
      *
+     * @throws InvalidArgumentException
+     *
      * @return does not return a value.
      *
-     * @throws InvalidArgumentException
      */
     public function __construct($codecs = null)
     {

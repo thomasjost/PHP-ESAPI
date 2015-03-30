@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,13 +12,17 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -30,23 +34,27 @@
  * validation logic.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface ValidationRule
 {
 
     /**
-     * Sets the boolean allowNull property which, if set true, will allow empty
-     * inputs to validate as true.
+     * Sets the allowNull property which, if set TRUE, will allow empty
+     * inputs to validate as TRUE.
      *
-     * @param bool $flag TRUE, if empty inputs should validate as true.
+     * @param bool $flag TRUE, if empty inputs should validate as TRUE.
      *
      * @return does not return a value.
      */
@@ -55,7 +63,7 @@ interface ValidationRule
     /**
      * Sets a descriptive name for the validator e.g. CreditCardNumber.
      *
-     * @param string $typeName name describing the validator.
+     * @param string $typeName Name describing the validator.
      *
      * @return does not return a value.
      */
@@ -119,14 +127,15 @@ interface ValidationRule
      *                        is done with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
+     * @throws IntrusionException if intrusion detected
+     *
      * @return string valid, canonicalized input or sanitized input or a default
      *                value.
-     * @throws IntrusionException if intrusion detected
      */
     public function getSafe($context, $input);
 
     /**
-     * Returns boolean true if the input is valid, false otherwise.
+     * Returns TRUE if the input is valid, FALSE otherwise.
      *
      * @param string $context A descriptive name of the parameter that you are
      *                        validating (e.g., LoginPage_UsernameField). This
@@ -134,7 +143,7 @@ interface ValidationRule
      *                        is done with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
-     * @return bool true if the input is valid, false otherwise.
+     * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValid($context, $input);
 
@@ -159,7 +168,7 @@ interface ValidationRule
      * Returns the supplied input string after removing any characters not
      * present in the supplied whitelist.
      *
-     * @param string $input string input to be filtered.
+     * @param string $input String input to be filtered.
      * @param array  $list  array or string of whitelist characters.
      *
      * @return string a string of characters from $input that are present in $list.

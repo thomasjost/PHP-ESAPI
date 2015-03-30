@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -25,19 +29,23 @@
  * Reference implementation of the CSS codec.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class CSSCodec extends Codec
 {
 
     /**
-     * Public Constructor
+     * Public Constructor.
      */
     public function __construct()
     {
@@ -95,7 +103,7 @@ class CSSCodec extends Codec
     /**
      * {@inheritdoc}
      *
-     * Returns the decoded version of the character starting at index, or null if
+     * Returns the decoded version of the character starting at index, or NULL if
      * no decoding is possible.  This implementation does not support \\### octal
      * encoding nor special character encoding such as \\&, \\-, etc.
      */
@@ -197,7 +205,7 @@ class CSSCodec extends Codec
      *
      * @param string $input Hex encoded input (such as 437ae;)
      *
-     * @return null|string
+     * @return NULL|string
      */
     private function _parseHex($input)
     {

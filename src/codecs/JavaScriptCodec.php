@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,11 +12,15 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -24,18 +28,22 @@
  * Reference implementation of the JavaScriptCodec codec.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class JavaScriptCodec extends Codec
 {
 
     /**
-     * Public Constructor
+     * Public Constructor.
      */
     public function __construct()
     {
@@ -106,16 +114,16 @@ class JavaScriptCodec extends Codec
     
     /**
      * Returns the decoded version of the character starting at index, or
-     * null if no decoding is possible.
+     * NULL if no decoding is possible.
      * See http://www.planetpdf.com/codecuts/pdfs/tutorial/jsspec.pdf
      * Formats all are legal both upper/lower case:
      *   \\a - special characters
      *   \\xHH
      *   \\uHHHH
-     *   \\OOO (1, 2, or 3 digits)
+     *   \\OOO (1, 2, or 3 digits).
      *
      * {@inheritdoc}
-    */
+     */
     public function decodeCharacter($input)
     {
         // Assumption/prerequisite: $c is a UTF-32 encoded string
@@ -281,7 +289,7 @@ class JavaScriptCodec extends Codec
     /**
      * Utility function.
      *
-     * @param string $input string to parse
+     * @param string $input String to parse
      *
      * @return string hex value
      */

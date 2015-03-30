@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,14 +12,18 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -27,13 +31,17 @@
  * Reference extension of the BaseValidationRule class.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class IntegerValidationRule extends BaseValidationRule
@@ -47,7 +55,7 @@ class IntegerValidationRule extends BaseValidationRule
      * validator, an optional Encoder instance (for canonicalization) and
      * optional minimum and maximum bounds for valid integers.
      *
-     * @param string $typeName descriptive name for this validator.
+     * @param string $typeName Descriptive name for this validator.
      * @param object $encoder  providing canonicalize method.
      * @param int    $minValue minimum valid number.
      * @param int    $maxValue maximum valid number.
@@ -82,8 +90,9 @@ class IntegerValidationRule extends BaseValidationRule
      *                        is done with respect to the value passed in.
      * @param string $input   The actual string user input data to validate.
      *
-     * @return int integer parsed from canonicalized, valid input.
      * @throws ValidationException, IntrusionException
+     *
+     * @return int integer parsed from canonicalized, valid input.
      */
     public function getValid($context, $input)
     {

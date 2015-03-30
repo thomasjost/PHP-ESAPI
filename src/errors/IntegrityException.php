@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
@@ -13,7 +13,9 @@
  *
  * @author Andrew van der Stock <vanderaj .(at). owasp.org>
  * @created 2008
+ *
  * @since 1.4
+ *
  * @package ESAPI_Errors
  */
 
@@ -25,14 +27,11 @@
 class IntegrityException extends EnterpriseSecurityException
 {
     /**
-     * Create a new IntegrityException
+     * Create a new IntegrityException.
      *
-     * @param userMessage
-     *            the message to display to users
-     * @param logMessage
-     * 			  the message logged
-     * @param cause
-     * 			  the cause
+     * @param $userMessage The message to display to users
+     * @param $logMessage The message logged
+     * @param $cause The cause
      */
     public function __construct($userMessage = '', $logMessage = '')
     {

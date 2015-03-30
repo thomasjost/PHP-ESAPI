@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
@@ -12,9 +12,12 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  *
  *  @package ESAPI_Reference
+ *
  *  @author Andrew van der Stock
  *  @created 2009
+ *
  *  @since 1.6
+ *
  *  @license BSD license
  *
  */
@@ -23,10 +26,14 @@
  * Reference Implementation of the RandomAccessReferenceMap interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class RandomAccessReferenceMap implements AccessReferenceMap
@@ -65,11 +72,9 @@ class RandomAccessReferenceMap implements AccessReferenceMap
      * URL's, form fields, hidden fields, etc... to help protect their private
      * implementation information.
      *
-     * @param directReference
-     * 		the direct reference
+     * @param $directReference The direct reference
      *
-     * @return
-     * 		the indirect reference
+     * @return The indirect reference
      */
     public function getIndirectReference($direct)
     {
@@ -93,14 +98,12 @@ class RandomAccessReferenceMap implements AccessReferenceMap
      * invalid indirect reference is requested, then an AccessControlException is
      * thrown.
      *
-     * @param indirectReference
-     * 		the indirect reference
+     * @param $indirectReference The indirect reference
      *
-     * @return
-     * 		the direct reference
+     * @throws AccessControlException If no direct reference exists for the specified indirect reference
      *
-     * @throws AccessControlException
-     * 		if no direct reference exists for the specified indirect reference
+     * @return The direct reference
+     *
      */
     public function getDirectReference($indirectReference)
     {
@@ -116,11 +119,9 @@ class RandomAccessReferenceMap implements AccessReferenceMap
      * Adds a direct reference to the AccessReferenceMap, then generates and returns
      * an associated indirect reference.
      *
-     * @param direct
-     * 		the direct reference
+     * @param $direct The direct reference
      *
-     * @return
-     * 		the corresponding indirect reference
+     * @return The corresponding indirect reference
      */
     public function addDirectReference($direct)
     {
@@ -145,8 +146,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap
     /**
      * Create a new random reference that is guaranteed to be unique.
      *
-     *  @return
-     *  	a random reference that is guaranteed to be unique
+     *  @return A random reference that is guaranteed to be unique
      */
     public function getUniqueRandomReference()
     {
@@ -172,13 +172,12 @@ class RandomAccessReferenceMap implements AccessReferenceMap
     /**
      * Removes a direct reference and its associated indirect reference from the AccessReferenceMap.
      *
-     * @param direct
-     * 		the direct reference to remove
-     *
-     * @return
-     * 		the corresponding indirect reference
+     * @param $direct The direct reference to remove
      *
      * @throws AccessControlException
+     *
+     * @return The corresponding indirect reference
+     *
      */
     public function removeDirectReference($direct)
     {
@@ -205,8 +204,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap
      * might mess up anything that previously used an indirect reference, such
      * as a URL parameter.
      *
-     * @param directReferences
-     * 		a Set of direct references to add
+     * @param $directReferences A set of direct references to add
      */
     public function update($directReferences)
     {

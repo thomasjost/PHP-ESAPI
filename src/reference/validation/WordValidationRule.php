@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,11 +12,15 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -24,11 +28,15 @@
  * Reference extension of the StringValidationRule class.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class WordValidationRule extends StringValidationRule
@@ -45,7 +53,7 @@ class WordValidationRule extends StringValidationRule
      *
      * @param string $typeName         descriptive name for this validator.
      * @param object $encoder          providing canonicalize method.
-     * @param string $whitelistPattern whitelist regex.
+     * @param string $whitelistPattern Whitelist regex.
      *
      * @return does not return a value.
      */
@@ -69,9 +77,10 @@ class WordValidationRule extends StringValidationRule
      *                        with respect to the value passed in.
      * @param string $input   The actual string user input data to validate.
      *
+     * @throws ValidationException, IntrusionException
+     *
      * @return string canonicalized, valid input.
      *
-     * @throws ValidationException, IntrusionException
      */
     public function getValid($context, $input)
     {

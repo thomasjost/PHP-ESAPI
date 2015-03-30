@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,14 +12,18 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -27,14 +31,18 @@
  * Reference Implementation of the DefaultAuditorFactory interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultAuditorFactory implements AuditorFactory

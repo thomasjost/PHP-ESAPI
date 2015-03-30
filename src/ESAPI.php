@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,13 +12,17 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Bipin Upadhyay <bipin.code@gmail.com>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -31,13 +35,17 @@
  * to override default security control implementations.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Bipin Upadhyay <bipin.code@gmail.com>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class ESAPI
@@ -60,7 +68,7 @@ class ESAPI
      * This is the locator class' constructor, which prevents instantiation of this
      * class.
      *
-     * @param string $path the path of the ESAPI.xml configuration file.
+     * @param string $path The path of the ESAPI.xml configuration file.
      */
     public function __construct($path = '')
     {
@@ -112,7 +120,7 @@ class ESAPI
      * Set the current ESAPI AccessController object being used to maintain the
      * access control rules for this application.
      *
-     * @param AccessController $accessController the new ESAPI AccessController.
+     * @param AccessController $accessController The new ESAPI AccessController.
      *
      * @return does not return a value.
      */
@@ -123,7 +131,7 @@ class ESAPI
 
     /**
      * Get the current ESAPI Encoder object being used to encode and decode data for
-     * this application
+     * this application.
      *
      * @return the current ESAPI Encoder.
      */
@@ -142,7 +150,7 @@ class ESAPI
      * Set the current ESAPI Encoder object being used to encode and decode data
      * for this application.
      *
-     * @param Encoder $encoder the new ESAPI AccessController.
+     * @param Encoder $encoder The new ESAPI AccessController.
      *
      * @return does not return a value.
      */
@@ -169,7 +177,7 @@ class ESAPI
      * Set the current ESAPI Encryptor object being used to encrypt and decrypt
      * data for this application.
      *
-     * @param Encryptor $encryptor the new ESAPI Encryptor.
+     * @param Encryptor $encryptor The new ESAPI Encryptor.
      *
      * @return does not return a value.
      */
@@ -202,7 +210,7 @@ class ESAPI
      * Set the current ESAPI Executor object being used to safely execute OS
      * commands for this application.
      *
-     * @param Executor $executor the new ESAPI Executor.
+     * @param Executor $executor The new ESAPI Executor.
      *
      * @return does not return a value.
      */
@@ -232,7 +240,7 @@ class ESAPI
      * Set the current ESAPI HttpUtilities object being used to safely access HTTP
      * requests and responses for this application.
      *
-     * @param HttpUtilities $httpUtilities the new ESAPI HttpUtilities.
+     * @param HttpUtilities $httpUtilities The new ESAPI HttpUtilities.
      *
      * @return does not return a value.
      */
@@ -262,7 +270,7 @@ class ESAPI
      * Set the current ESAPI AccessController object being used to to monitor for
      * intrusions in this application.
      *
-     * @param IntrusionDetector $intrusionDetector the new ESAPI IntrusionDetector.
+     * @param IntrusionDetector $intrusionDetector The new ESAPI IntrusionDetector.
      *
      * @return does not return a value.
      */
@@ -275,7 +283,7 @@ class ESAPI
      * Set then get the current ESAPI Logger factory object being used to create
      * the ESAPI Logger for this application.
      *
-     * @param string $logger the new ESAPI Auditor factory name.
+     * @param string $logger The new ESAPI Auditor factory name.
      *
      * @return the current ESAPI Logger.
      */
@@ -309,7 +317,7 @@ class ESAPI
      * Set the current ESAPI Logger factory object being used to create
      * the ESAPI Logger for this application.
      *
-     * @param string $factory the new ESAPI Logger factory.
+     * @param string $factory The new ESAPI Logger factory.
      *
      * @return does not return a value.
      */
@@ -339,7 +347,7 @@ class ESAPI
      * Set the current ESAPI Randomizer object being used to generate random numbers
      * for this application.
      *
-     * @param Randomizer $randomizer the new ESAPI Randomizer.
+     * @param Randomizer $randomizer The new ESAPI Randomizer.
      *
      * @return does not return a value.
      */
@@ -352,7 +360,7 @@ class ESAPI
      * Get the current ESAPI SecurityConfiguration object being used to manage the
      * security configuration for this application.
      *
-     * @param string $path the path of the ESAPI.xml configuration file.
+     * @param string $path The path of the ESAPI.xml configuration file.
      *
      * @return the current ESAPI SecurityConfiguration.
      */
@@ -371,7 +379,7 @@ class ESAPI
      * Set the current ESAPI SecurityConfiguration object being used to manage the
      * security configuration for this application.
      *
-     * @param SecurityConfiguration $securityConfiguration the new ESAPI
+     * @param SecurityConfiguration $securityConfiguration The new ESAPI
      * SecurityConfiguration.
      *
      * @return does not return a value.
@@ -402,7 +410,7 @@ class ESAPI
      * Set the current ESAPI Validator object being used to validate data for
      * this application.
      *
-     * @param Validator $validator the new ESAPI Validator.
+     * @param Validator $validator The new ESAPI Validator.
      *
      * @return does not return a value.
      */
@@ -432,7 +440,7 @@ class ESAPI
      * Set the current ESAPI Sanitizer object being used to sanitize data for
      * this application.
      *
-     * @param Sanitizer $sanitizer the new ESAPI Sanitizer.
+     * @param Sanitizer $sanitizer The new ESAPI Sanitizer.
      *
      * @return does not return a value.
      */

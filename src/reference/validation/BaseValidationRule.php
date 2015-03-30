@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,13 +12,17 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -26,13 +30,17 @@
  * Reference Implementation of the ValidationRule interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 abstract class BaseValidationRule implements ValidationRule
@@ -64,10 +72,10 @@ abstract class BaseValidationRule implements ValidationRule
     }
 
     /**
-     * Sets the boolean allowNull property which, if set true, will allow empty
-     * inputs to validate as true.
+     * Sets the allowNull property which, if set TRUE, will allow empty
+     * inputs to validate as TRUE.
      *
-     * @param bool $flag set to true if empty inputs should validate as true.
+     * @param bool $flag Set to TRUE if empty inputs should validate as TRUE.
      *
      * @return does not return a value.
      */
@@ -81,10 +89,10 @@ abstract class BaseValidationRule implements ValidationRule
     }
 
     /**
-     * Gets the boolean allowNull property which, if set true, will allow empty
-     * inputs to validate as true.
+     * Gets the allowNull property which, if set TRUE, will allow empty
+     * inputs to validate as TRUE.
      *
-     * @return bool returns true if empty inputs should validate as true, false
+     * @return bool returns TRUE if empty inputs should validate as TRUE, FALSE
      *              otherwise.
      */
     public function getAllowNull()
@@ -96,7 +104,7 @@ abstract class BaseValidationRule implements ValidationRule
      * Sets a descriptive name for the validator e.g. CreditCardNumber.
      * If $typeName is empty or not a string then a default value will be set.
      *
-     * @param string $typeName name describing the validator.
+     * @param string $typeName Name describing the validator.
      *
      * @return does not return a value.
      */
@@ -124,10 +132,11 @@ abstract class BaseValidationRule implements ValidationRule
      * TODO should ensure that a canonicalize method is available or should
      * only allow instances of Encoder implementations...
      *
-     * @param Encoder $encoder object which provides a canonicalize method.
+     * @param Encoder $encoder Object which provides a canonicalize method.
+     *
+     * @throws InvalidArgumentException if encoder is missing a canonicalize method
      *
      * @return does not return a value.
-     * @throws InvalidArgumentException if encoder is missing a canonicalize method
      */
     final public function setEncoder($encoder)
     {
@@ -186,7 +195,7 @@ abstract class BaseValidationRule implements ValidationRule
     }
 
     /**
-     * Returns boolean true if the input is valid, false otherwise.
+     * Returns TRUE if the input is valid, FALSE otherwise.
      *
      * @param string $context A descriptive name of the parameter that you are
      *                        validating (e.g., LoginPage_UsernameField). This
@@ -194,7 +203,7 @@ abstract class BaseValidationRule implements ValidationRule
      *                        is done with respect to the value passed in.
      * @param string $input   The actual user input data to validate.
      *
-     * @return bool true if the input is valid, false otherwise.
+     * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValid($context, $input)
     {
@@ -212,7 +221,7 @@ abstract class BaseValidationRule implements ValidationRule
      * present in the supplied whitelist.
      *
      * @param string $input     string input to be filtered.
-     * @param string $whitelist array or string of whitelist characters.
+     * @param string $whitelist Array or string of whitelist characters.
      *
      * @return string returns characters from $input that are present in $whitelist.
      */

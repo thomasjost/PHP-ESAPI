@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -32,12 +36,16 @@
  * enables attackers to attempt to manipulate them.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface AccessReferenceMap
@@ -47,7 +55,7 @@ interface AccessReferenceMap
      * Get an iterator through the direct object references. No guarantee is made as
      * to the order of items returned.
      *
-     * @return iterator the iterator
+     * @return Iterator the iterator
      */
     public function iterator();
 
@@ -57,7 +65,7 @@ interface AccessReferenceMap
      * URL's, form fields, hidden fields, etc... to help protect their private
      * implementation information.
      *
-     * @param string $directReference the direct reference
+     * @param string $directReference The direct reference
      *
      * @return string the indirect reference
      */
@@ -70,12 +78,13 @@ interface AccessReferenceMap
      * invalid indirect reference is requested, then an AccessControlException is
      * thrown.
      *
-     * @param string $indirectReference the indirect reference
-     *
-     * @return string the direct reference
+     * @param string $indirectReference The indirect reference
      *
      * @throws AccessControlException if no direct reference exists for the
      *                                specified indirect reference
+     *
+     * @return string the direct reference
+     *
      */
     public function getDirectReference($indirectReference);
 
@@ -83,7 +92,7 @@ interface AccessReferenceMap
      * Adds a direct reference to the AccessReferenceMap, then generates and returns
      * an associated indirect reference.
      *
-     * @param string $direct the direct reference
+     * @param string $direct The direct reference
      *
      * @return string the corresponding indirect reference
      */
@@ -93,11 +102,12 @@ interface AccessReferenceMap
      * Removes a direct reference and its associated indirect reference from
      * the AccessReferenceMap.
      *
-     * @param string $direct the direct reference to remove
+     * @param string $direct The direct reference to remove
+     *
+     * @throws AccessControlException
      *
      * @return does not return a avalue
      *
-     * @throws AccessControlException
      */
     public function removeDirectReference($direct);
 
@@ -108,7 +118,7 @@ interface AccessReferenceMap
      * but that might mess up anything that previously used an indirect reference,
      * such as a URL parameter.
      *
-     * @param string $directReferences a Set of direct references to add
+     * @param string $directReferences A Set of direct references to add
      *
      * @return does not return a avalue
      */

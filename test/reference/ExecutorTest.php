@@ -105,7 +105,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     *	Test to see if a good work directory is properly handled.
+     * Test to see if a good work directory is properly handled.
      */
     public function testExecuteWindowsGoodWorkDirectory()
     {
@@ -123,7 +123,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     
     
     /**
-     *	Test to see if a non-existent work directory is properly handled.
+     * Test to see if a non-existent work directory is properly handled.
      */
     public function testExecuteWindowsBadWorkDirectory()
     {
@@ -241,7 +241,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     *	Test to see if a good work directory is properly handled.
+     * Test to see if a good work directory is properly handled.
      */
     public function testExecuteUnixGoodWorkDirectory()
     {
@@ -259,7 +259,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     
     
     /**
-     *	Test to see if a non-existent work directory is properly handled.
+     * Test to see if a non-existent work directory is properly handled.
      */
     public function testExecuteUnixBadWorkDirectory()
     {

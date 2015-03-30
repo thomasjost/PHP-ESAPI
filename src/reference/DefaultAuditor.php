@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,7 +12,9 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
@@ -20,7 +22,9 @@
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -28,14 +32,18 @@
  * Reference Implementation of the Auditor interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultAuditor implements Auditor
@@ -54,7 +62,7 @@ class DefaultAuditor implements Auditor
     /**
      * DefaultAuditor constructor.
      *
-     * @param string $name logger name.
+     * @param string $name Logger name.
      *
      * @return does not return a value.
      */
@@ -207,11 +215,11 @@ class DefaultAuditor implements Auditor
      * @param int       $level     the priority level of the event - an Logger Level
      *                             constant.
      * @param int       $type      the type of the event - an Logger Event constant.
-     * @param bool      $success   boolean true indicates this was a successful
-     *                             event, false indicates this was a failed event
+     * @param bool      $success   TRUE indicates this was a successful
+     *                             event, FALSE indicates this was a failed event
      *                             (the typical value).
      * @param string    $message   the message to be logged.
-     * @param Exception $throwable the throwable Exception.
+     * @param Exception $throwable The throwable Exception.
      *
      * @return does not return a value.
      */
@@ -354,7 +362,7 @@ class DefaultAuditor implements Auditor
      * CRLF (\r\n) is treated as one character.
      *
      * @param string $message    message to process.
-     * @param string $substitute replacement for CR, LF or CRLF.
+     * @param string $substitute Replacement for CR, LF or CRLF.
      *
      * @return string message with characters replaced.
      */
@@ -408,9 +416,10 @@ class DefaultAuditor implements Auditor
      *
      * @param int $level The logging level to convert.
      *
-     * @return int The log4php logging Level equivalent.
      * @throws Exception if the supplied level doesn't match a level currently
      *                   defined.
+     *
+     * @return int The log4php logging Level equivalent.
      */
     private static function _convertESAPILeveltoLoggerLevel($level)
     {

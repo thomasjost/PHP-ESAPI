@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -25,19 +29,23 @@
  * Reference implementation of the Windows codec.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class WindowsCodec extends Codec
 {
     
     /**
-     * Public Constructor
+     * Public Constructor.
      */
     public function __construct()
     {

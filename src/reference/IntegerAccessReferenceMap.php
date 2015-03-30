@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
@@ -13,7 +13,9 @@
  *
  * @author Andrew van der Stock
  * @created 2009
+ *
  * @since 1.6
+ *
  * @package ESAPI_Reference
  */
 
@@ -21,10 +23,14 @@
  * Reference Implementation of the IntegerAccessReferenceMap interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class IntegerAccessReferenceMap implements AccessReferenceMap
@@ -45,10 +51,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     }
 
     /**
-     * Get an iterator through the direct object references. No guarantee is made as
-     * to the order of items returned.
-     *
-     * @return the iterator
+     * {@inheritDoc}
      */
     public function iterator()
     {
@@ -56,16 +59,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     }
 
     /**
-     * Get a safe indirect reference to use in place of a potentially sensitive
-     * direct object reference. Developers should use this call when building
-     * URL's, form fields, hidden fields, etc... to help protect their private
-     * implementation information.
-     *
-     * @param directReference
-     * 		the direct reference
-     *
-     * @return
-     * 		the indirect reference
+     * {@inheritDoc}
      */
     public function getIndirectReference($direct)
     {
@@ -83,20 +77,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     }
 
     /**
-     * Get the original direct object reference from an indirect reference.
-     * Developers should use this when they get an indirect reference from a
-     * request to translate it back into the real direct reference. If an
-     * invalid indirect reference is requested, then an AccessControlException is
-     * thrown.
-     *
-     * @param indirectReference
-     * 		the indirect reference
-     *
-     * @return
-     * 		the direct reference
-     *
-     * @throws AccessControlException
-     * 		if no direct reference exists for the specified indirect reference
+     * {@inheritDoc}
      */
     public function getDirectReference($indirectReference)
     {
@@ -109,14 +90,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     }
 
     /**
-     * Adds a direct reference to the AccessReferenceMap, then generates and returns
-     * an associated indirect reference.
-     *
-     * @param direct
-     * 		the direct reference
-     *
-     * @return
-     * 		the corresponding indirect reference
+     * {@inheritDoc}
      */
     public function addDirectReference($direct)
     {
@@ -141,14 +115,18 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     /**
      * Create a new random reference that is guaranteed to be unique.
      *
-     *  @return
-     *  	a random reference that is guaranteed to be unique
+     * @return string A random reference that is guaranteed to be unique
      */
     public function getUniqueReference()
     {
         return "".$this->count++;
     }
 
+    /**
+     * @param unknown $direct
+     *
+     * @return NULL|number
+     */
     public function getHash($direct)
     {
         if (empty($direct)) {
@@ -161,15 +139,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     }
 
     /**
-     * Removes a direct reference and its associated indirect reference from the AccessReferenceMap.
-     *
-     * @param direct
-     * 		the direct reference to remove
-     *
-     * @return
-     * 		the corresponding indirect reference
-     *
-     * @throws AccessControlException
+     * {@inheritDoc}
      */
     public function removeDirectReference($direct)
     {
@@ -190,14 +160,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
     }
 
     /**
-     * Updates the access reference map with a new set of direct references, maintaining
-     * any existing indirect references associated with items that are in the new list.
-     * New indirect references could be generated every time, but that
-     * might mess up anything that previously used an indirect reference, such
-     * as a URL parameter.
-     *
-     * @param directReferences
-     * 		a Set of direct references to add
+     * {@inheritDoc}
      */
     public function update($directReferences)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -29,19 +33,23 @@
  * management.
  *
  * @category  OWASP
+ *
  * @package   ESAPI
+ *
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface SecurityConfiguration
 {
 
     /**
-     * Gets the application name, used for logging
+     * Gets the application name, used for logging.
      *
      * @return string the name of the current application
      */
@@ -112,7 +120,7 @@ interface SecurityConfiguration
      * setCharacterEncoding() is called on SafeRequests and SafeResponses. This
      * scheme is also used for encoding/decoding URLs and any other place where
      * the current encoding scheme needs to be known.
-     * <br><br>
+     * <br /><br />
      * Note: This does not get the configured response content type. That is
      * accessed by calling getResponseContentType().
      *
@@ -148,7 +156,7 @@ interface SecurityConfiguration
 
     /**
      * getAllowedIncludes returns an array of include files that are allowed to be
-     * included by PHP. This is a ESAPI extension for PHP
+     * included by PHP. This is a ESAPI extension for PHP.
      *
      * @return array an array of allowed includes
      */
@@ -175,7 +183,7 @@ interface SecurityConfiguration
     /**
      * Gets the intrusion detection quota for the specified event.
      *
-     * @param string $eventName the name of the event whose quota is desired
+     * @param string $eventName The name of the event whose quota is desired
      *
      * @return int the Quota that has been configured for the specified type of
      *             event
@@ -185,7 +193,7 @@ interface SecurityConfiguration
     /**
      * Allows for complete disabling of all intrusion detection mechanisms.
      *
-     * @return bool true if intrusion detection should be disabled.
+     * @return bool TRUE if intrusion detection should be disabled.
      */
     public function getDisableIntrusionDetection();
 
@@ -207,7 +215,7 @@ interface SecurityConfiguration
 
     /**
      * Gets the content type for responses used when setSafeContentType() is called.
-     * <br><br>
+     * <br /><br />
      * Note: This does not get the configured character encoding scheme. That is
      * accessed by calling getCharacterEncoding().
      *
@@ -247,7 +255,7 @@ interface SecurityConfiguration
     /**
      * Returns whether HTML entity encoding should be applied to log entries.
      *
-     * @return bool True if log entries are to be HTML Entity encoded. False
+     * @return bool True if log entries are to be HTML Entity encoded. FALSE
      *              otherwise.
      */
     public function getLogEncodingRequired();
@@ -282,7 +290,7 @@ interface SecurityConfiguration
      * Get the specified validation pattern from the ESAPI configuration properties
      * file.
      *
-     * @param string $type validation pattern name
+     * @param string $type Validation pattern name
      *
      * @return string the regular expression.
      */

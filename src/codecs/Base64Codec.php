@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,13 +12,17 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    Martin Reiche <martin.reiche.ka@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -26,20 +30,24 @@
  * Reference implementation of the base 64 codec.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    Martin Reiche <martin.reiche.ka@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class Base64Codec extends Codec
 {
 
     /**
-     * Public Constructor
+     * Public Constructor.
      */
     public function __construct()
     {
@@ -50,10 +58,10 @@ class Base64Codec extends Codec
      * Encodes the input string to Base64.
      *
      * The output is wrapped at 76 characters by default, but this behaviour may
-     * be overridden by supplying a value of boolean false for the $wrap
+     * be overridden by supplying a value of FALSE for the $wrap
      * parameter.
      *
-     * @param string $input the input string to be encoded
+     * @param string $input The input string to be encoded
      * @param bool   $wrap  if should wrap output
      *
      * @return string the encoded string
@@ -85,7 +93,7 @@ class Base64Codec extends Codec
     /**
      * Encodes a single character to Base64.
      *
-     * @param string $input the character to encode
+     * @param string $input The character to encode
      *
      * @return string the base64 encoded character
      */
@@ -100,7 +108,7 @@ class Base64Codec extends Codec
     /**
      * Decodes the given input string from Base64 to plain text.
      *
-     * @param string $input the base64 encoded input string
+     * @param string $input The base64 encoded input string
      *
      * @return string the decoded string
      */
@@ -110,9 +118,9 @@ class Base64Codec extends Codec
     }
     
     /**
-     * Decodes a character from Base64 to plain text
+     * Decodes a character from Base64 to plain text.
      *
-     * @param string $input the character to decode
+     * @param string $input The character to decode
      *
      * @return string the decoded character
      */

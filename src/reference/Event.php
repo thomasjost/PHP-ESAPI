@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -30,12 +34,16 @@
  * determines whether the corresponding threshold has been reached.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class Event
@@ -44,7 +52,7 @@ class Event
     private $_times = array();
 
     /**
-     * @var int $count The number of times this event occurred for a given user.
+     * @var int The number of times this event occurred for a given user.
      */
     public $count = 0;
 
@@ -54,7 +62,6 @@ class Event
      * @param string $key A name by which the event is known e.g.
      *                   'IntegrityException'.
      *
-     * @return null
      */
     public function __construct($key)
     {
@@ -76,7 +83,6 @@ class Event
      * @param int $interval The number of seconds within which the supplied quota of
      *                      event occurrences will trigger Intrusion Detection.
      *
-     * @return null
      */
     public function increment($count, $interval)
     {

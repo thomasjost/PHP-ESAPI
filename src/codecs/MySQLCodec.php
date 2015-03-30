@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,12 +12,16 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    Arnaud Labenne <arnaud.labenne@dotsafe.fr>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -25,12 +29,16 @@
  * Reference implementation of the CSS codec.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
+ *
  * @author    Arnaud Labenne <arnaud.labenne@dotsafe.fr>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class MySQLCodec extends Codec
@@ -55,7 +63,7 @@ class MySQLCodec extends Codec
     private $_mode;
     
     /**
-     * Public Constructor
+     * Public Constructor.
      *
      * @param int $mode Mode has to be one of {MYSQL_MODE|ANSI_MODE} to allow
      *                  correct encoding
@@ -154,7 +162,7 @@ class MySQLCodec extends Codec
     }
     
     /**
-     * Encode a character suitable for MySQL
+     * Encode a character suitable for MySQL.
      *
      * @param string $c Character to encode
      *
@@ -201,7 +209,7 @@ class MySQLCodec extends Codec
     
     /**
      * Returns the decoded version of the character starting at index, or
-     * null if no decoding is possible.
+     * NULL if no decoding is possible.
      *
      *   In ANSI_MODE '' decodes to '
      *   In MYSQL_MODE \x decodes to x (or a small list of specials)
@@ -238,7 +246,7 @@ class MySQLCodec extends Codec
     }
     
     /**
-     * decodeCharacterANSI decodes the next character from ANSI SQL escaping
+     * decodeCharacterANSI decodes the next character from ANSI SQL escaping.
      *
      * @param string $input A string containing characters you'd like decoded
      *
@@ -268,7 +276,7 @@ class MySQLCodec extends Codec
     
     /**
      * decodeCharacterMySQL decodes all the potential escaped characters that
-     * MySQL is prepared to escape
+     * MySQL is prepared to escape.
      *
      * @param string $input A string you'd like to be decoded
      *

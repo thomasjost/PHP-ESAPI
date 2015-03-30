@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,13 +12,17 @@
  * PHP version 5.2
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -32,13 +36,17 @@
  * by attackers to bypass validation and bury encoded attacks in data.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Codecs
- * @author    Linden Darling <Linden.Darling@jds.net.au>
+ *
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 abstract class Codec
@@ -70,7 +78,7 @@ abstract class Codec
     /**
      * Encode a String with a Codec.
      *
-     * @param string $immune immune characters
+     * @param string $immune Immune characters
      * @param string $input  the String to encode.
      *
      * @return string the encoded string.
@@ -99,7 +107,7 @@ abstract class Codec
     /**
      * Encode a Character with a Codec.
      *
-     * @param string $immune immune characters
+     * @param string $immune Immune characters
      * @param string $c      the Character to encode.
      *
      * @return string the encoded Character.
@@ -125,11 +133,11 @@ abstract class Codec
     }
     
     /**
-     * Decode a String that was encoded using the encode method in this Class
+     * Decode a String that was encoded using the encode method in this Class.
      *
-     * @param string $input the String to decode
+     * @param string $input The String to decode
      *
-     * @return string returns the decoded string, otherwise null
+     * @return string returns the decoded string, otherwise NULL
      */
     public function decode($input)
     {
@@ -256,8 +264,8 @@ abstract class Codec
      * @param string &$targetString    String target.
      * @param string &$targetCharEnc   String target character encoding name.
      *
-     * @return bool returns true if the character was successfully appended to the
-     *              target false otherwise.
+     * @return bool returns TRUE if the character was successfully appended to the
+     *              target FALSE otherwise.
      */
     private function _appendCharacterToOuput(&$character_UTF32, &$targetString, &$targetCharEnc)
     {
@@ -324,12 +332,12 @@ abstract class Codec
      * single-byte alphanumeric. The character should be supplied as a string in
      * the UTF-32 character encoding.
      * If the character is an alphanumeric character with ordinal value below
-     * 255 then this method will return null.
+     * 255 then this method will return NULL.
      *
      * @param string $c 4 byte character character.
      *
      * @return string hexadecimal ordinal value of non-alphanumeric characters
-     *                or null otherwise.
+     *                or NULL otherwise.
      */
     public static function getHexForNonAlphanumeric($c)
     {
@@ -352,7 +360,7 @@ abstract class Codec
     /**
      * Return the hex value of a character as a string without leading zeroes.
      *
-     * @param string $c character to convert
+     * @param string $c Character to convert
      *
      * @return int returns hex value
      */
@@ -404,7 +412,7 @@ abstract class Codec
      * extra logic to deal with single characters that mb_detect_encoding() fails
      * upon.
      *
-     * @param string $string string to examine
+     * @param string $string String to examine
      *
      * @return string returns detected encoding
      */
@@ -473,7 +481,7 @@ abstract class Codec
     /**
      * Utility to normalize a string's encoding to UTF-32.
      *
-     * @param string $string string to normalize
+     * @param string $string String to normalize
      *
      * @return string normalized string
      */
@@ -492,7 +500,7 @@ abstract class Codec
      * Utility to get first (potentially multibyte) character from a (potentially
      * multicharacter) multibyte string.
      *
-     * @param string $string string to convert
+     * @param string $string String to convert
      *
      * @return string converted string
      */
@@ -503,11 +511,11 @@ abstract class Codec
     }
     
     /**
-     * Utility method to determine if a single character string is a hex digit
+     * Utility method to determine if a single character string is a hex digit.
      *
      * @param string $c Single character string that is potentially a hex digit
      *
-     * @return bool True indicates that the single character string is a hex
+     * @return bool TRUE indicates that the single character string is a hex
      *              digit
      */
     public function isHexDigit($c)

@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,13 +12,17 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -28,13 +32,17 @@
  * PHP version 5.2.9
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference_Validation
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DateValidationRule extends BaseValidationRule
@@ -52,7 +60,6 @@ class DateValidationRule extends BaseValidationRule
      * @param Encoder $encoder   Encoder object providing canonicalize method.
      * @param string  $newFormat Date format string {@see date()}.
      *
-     * @return null
      */
     public function __construct($typeName, $encoder = null, $newFormat = null)
     {
@@ -70,7 +77,6 @@ class DateValidationRule extends BaseValidationRule
      *
      * @param string $newFormat Date format string {@see date()}.
      *
-     * @return null
      */
     public function setDateFormat($newFormat)
     {
@@ -94,9 +100,10 @@ class DateValidationRule extends BaseValidationRule
      *                        with respect to the value passed in.
      * @param string $input   The actual string user input data to validate.
      *
+     * @throws ValidationException, IntrusionException
+     *
      * @return DateTime DateTime object parsed from canonicalized, valid input.
      *
-     * @throws ValidationException, IntrusionException
      */
     public function getValid($context, $input)
     {

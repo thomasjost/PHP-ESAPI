@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (ESAPI).
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -12,7 +12,9 @@
  * software.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
@@ -20,7 +22,9 @@
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   SVN: $Id$
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -28,7 +32,9 @@
  * Reference Implementation of the Validator interface.
  *
  * @category  OWASP
+ *
  * @package   ESAPI_Reference
+ *
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
@@ -36,7 +42,9 @@
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ *
  * @version   Release: @package_version@
+ *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class DefaultValidator implements Validator
@@ -82,11 +90,12 @@ class DefaultValidator implements Validator
      * @param string $input     Please see corresponding isValidXX description.
      * @param string $type      Please see corresponding isValidXX description.
      * @param int    $maxLength Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidInput($context, $input, $type, $maxLength, $allowNull)
     {
@@ -128,11 +137,12 @@ class DefaultValidator implements Validator
      * @param string $context   Please see corresponding isValidXX description.
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $format    Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidDate($context, $input, $format, $allowNull)
     {
@@ -164,11 +174,12 @@ class DefaultValidator implements Validator
      * @param string $context   Please see corresponding isValidXX description.
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $maxLength Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidHTML($context, $input, $maxLength, $allowNull)
     {
@@ -200,11 +211,12 @@ class DefaultValidator implements Validator
      *
      * @param string $context   Please see corresponding isValidXX description.
      * @param string $input     Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidCreditCard($context, $input, $allowNull)
     {
@@ -235,11 +247,12 @@ class DefaultValidator implements Validator
      *
      * @param string $context   Please see corresponding isValidXX description.
      * @param string $input     Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidDirectoryPath($context, $input, $allowNull)
     {
@@ -270,11 +283,12 @@ class DefaultValidator implements Validator
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $minValue  Please see corresponding isValidXX description.
      * @param int    $maxValue  Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidNumber($context, $input, $minValue, $maxValue, $allowNull)
     {
@@ -307,11 +321,12 @@ class DefaultValidator implements Validator
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $minValue  Please see corresponding isValidXX description.
      * @param int    $maxValue  Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidInteger($context, $input, $minValue, $maxValue, $allowNull)
     {
@@ -344,11 +359,12 @@ class DefaultValidator implements Validator
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $minValue  Please see corresponding isValidXX description.
      * @param int    $maxValue  Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidDouble($context, $input, $minValue, $maxValue, $allowNull)
     {
@@ -377,11 +393,12 @@ class DefaultValidator implements Validator
      * @param string $context   Please see corresponding isValidXX description.
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $maxBytes  Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidFileContent($context, $input, $maxBytes, $allowNull)
     {
@@ -467,9 +484,10 @@ class DefaultValidator implements Validator
      * @param string $input   Please see corresponding isValidXX description.
      * @param array  $list    Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidListItem($context, $input, $list)
     {
@@ -536,11 +554,12 @@ class DefaultValidator implements Validator
      * @param string $context   Please see corresponding isValidXX description.
      * @param string $input     Please see corresponding isValidXX description.
      * @param int    $maxLength Please see corresponding isValidXX description.
-     * @param bool   $allowNull Please see corresponding isValidXX description.
+     * @param bool   $allowNULL Please see corresponding isValidXX description.
      *
-     * @return does not return a value.
      * @throws ValidationException thrown if input is invalid.
      * @throws IntrusionException thrown if intrusion is detected.
+     *
+     * @return does not return a value.
      */
     private function _assertValidPrintable($context, $input, $maxLength, $allowNull)
     {
