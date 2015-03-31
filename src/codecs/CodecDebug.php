@@ -25,7 +25,6 @@
  */
 
 /**
- *
  * @var string Define the name of the Auditor instance for CodecDebug.
  */
 define('CD_LOG', 'CodecDebug');
@@ -66,7 +65,6 @@ class CodecDebug
     
     /**
      * Prevents public cloning of this singleton class.
-     *
      */
     private function __clone()
     {
@@ -76,7 +74,6 @@ class CodecDebug
      * Private constructor ensures CodecDebug can only be instantiated privately.
      * Stores TRUE in $_enabled if SepcialDebugging is enabled.  This object
      * will only produce output if $_enabled is TRUE.
-     *
      */
     private function __construct()
     {
@@ -103,7 +100,6 @@ class CodecDebug
      * Should be called, for example, from Codec->decode().
      *
      * @param string $stringNormalizedEncoding Is a UTF-32 encoded string.
-     *
      */
     public function addEncodedString($stringNormalizedEncoding)
     {
@@ -122,7 +118,6 @@ class CodecDebug
      * Should be called, for example, from Codec->encode().
      *
      * @param string $stringNormalizedEncoding Is a UTF-32 encoded string.
-     *
      */
     public function addUnencodedString($stringNormalizedEncoding)
     {
@@ -143,7 +138,6 @@ class CodecDebug
      * reuse.
      *
      * @param string $codecOutput Is the final output being returned from Codec.
-     *
      */
     public function output($codecOutput)
     {
@@ -179,7 +173,6 @@ class CodecDebug
      * backtrace information to the buffer before adding any characters.
      *
      * @param string $string Is a UTF-32 encoded string.
-     *
      */
     private function _addString($string)
     {
@@ -217,7 +210,6 @@ class CodecDebug
      * accompanying debug info) to the buffer.
      *
      * @param string $charNormalizedEncoding A single character.
-     *
      */
     private function _addNormalized($charNormalizedEncoding)
     {

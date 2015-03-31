@@ -71,8 +71,6 @@ class EnterpriseSecurityException extends Exception
      *
      * @param string $userMessage The message displayed to the user
      * @param string $logMessage  the message logged
-     *
-     * @return does not return a value.
      */
     public function __construct($userMessage = '', $logMessage = '')
     {
@@ -92,10 +90,9 @@ class EnterpriseSecurityException extends Exception
     }
 
     /**
-     * Returns message that is safe to display to users.
+     * Returns a message that is safe to display to users.
      *
-     * @return string a String containing a message that is safe to display to
-     *                users
+     * @return string A string containing a message that is safe to display to users
      */
     public function getUserMessage()
     {
@@ -105,7 +102,7 @@ class EnterpriseSecurityException extends Exception
     /**
      * Returns a message that is safe to display in logs, but probably not to users.
      *
-     * @return string a String containing a message that is safe to display in
+     * @return string A string containing a message that is safe to display in
      *                logs, but probably not to users
      */
     public function getLogMessage()

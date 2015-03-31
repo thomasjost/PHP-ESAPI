@@ -83,7 +83,6 @@ class DefaultEncoder implements Encoder
      * @throws InvalidArgumentException
      *
      * @return does not return a value.
-     *
      */
     public function __construct($codecs = null)
     {

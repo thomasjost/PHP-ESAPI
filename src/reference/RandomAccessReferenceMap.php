@@ -19,7 +19,6 @@
  *  @since 1.6
  *
  *  @license BSD license
- *
  */
 
 /**
@@ -103,7 +102,6 @@ class RandomAccessReferenceMap implements AccessReferenceMap
      * @throws AccessControlException If no direct reference exists for the specified indirect reference
      *
      * @return The direct reference
-     *
      */
     public function getDirectReference($indirectReference)
     {
@@ -177,7 +175,6 @@ class RandomAccessReferenceMap implements AccessReferenceMap
      * @throws AccessControlException
      *
      * @return The corresponding indirect reference
-     *
      */
     public function removeDirectReference($direct)
     {

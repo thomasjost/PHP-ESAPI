@@ -262,9 +262,9 @@ class DefaultUser implements User
      * Sets the user's password, performing a verification of the user's old password, the equality of the two new
      * passwords, and the strength of the new password.
      *
-     * @param $oldPassword The old password
-     * @param $newPassword1 The new password
-     * @param $newPassword2 The new password - used to verify that the new password was typed correctly
+     * @param string $oldPassword The old password
+     * @param string $newPassword1 The new password
+     * @param string $newPassword2 The new password - used to verify that the new password was typed correctly
      *
      * @throws AuthenticationException If newPassword1 does not match newPassword2, if oldPassword does not match the stored old password, or if the new password does not meet complexity requirements
      * @throws EncryptionException
@@ -354,7 +354,6 @@ class DefaultUser implements User
      * @throws AuthenticationException The authentication exception
      *
      * @return date of the last failed login
-     *
      */
     public function getLastFailedLoginTime()
     {
@@ -405,7 +404,7 @@ class DefaultUser implements User
     /**
      * Adds a session for this User.
      *
-     * @param $HttpSession string sessionID
+     * @param string $HttpSession sessionID
      */
     public function addSession($HttpSession = null)
     {
@@ -423,7 +422,7 @@ class DefaultUser implements User
     /**
      * Removes a session for this User.
      *
-     * @param $HttpSession string session id
+     * @param string $HttpSession session id
      */
     public function removeSession($HttpSession = null)
     {
@@ -683,7 +682,6 @@ class DefaultUser implements User
      * @throws AuthenticationException The authentication exception
      *
      * @return the new CSRF token
-     *
      */
     public function resetCSRFToken() //throws AuthenticationException;
     {
@@ -721,7 +719,7 @@ class DefaultUser implements User
     /**
      * Sets the date and time when this user's account will expire.
      *
-     * @param $ExpirationTime Timestamp the new expiration time
+     * @param int $ExpirationTime The new expiration time
      */
     public function setExpirationTime($ExpirationTime)
     {
@@ -767,12 +765,11 @@ class DefaultUser implements User
      * is typically used for "reauthentication" for the most sensitive functions, such
      * as transactions, changing email address, and changing other account information.
      *
-     * @param $password the password that the user entered
+     * @param string $password the password that the user entered
      *
      * @throws EncryptionException
      *
      * @return TRUE, if the password passed in matches the account's password
-     *
      */
     public function verifyPassword($password)
     {
@@ -793,7 +790,7 @@ class DefaultUser implements User
     /**
      * Set the last remote host address used by this user.
      *
-     * @param $remoteHost The address of the user's current source host.
+     * @param string $remoteHost The address of the user's current source host.
      */
     public function setLastHostAddress($RemoteHost)
     {

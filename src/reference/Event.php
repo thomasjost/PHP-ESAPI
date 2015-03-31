@@ -61,7 +61,6 @@ class Event
      *
      * @param string $key A name by which the event is known e.g.
      *                   'IntegrityException'.
-     *
      */
     public function __construct($key)
     {
@@ -82,7 +81,6 @@ class Event
      *                      within the supplied interval.
      * @param int $interval The number of seconds within which the supplied quota of
      *                      event occurrences will trigger Intrusion Detection.
-     *
      */
     public function increment($count, $interval)
     {

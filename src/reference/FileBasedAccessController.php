@@ -39,13 +39,13 @@ class FileBasedAccessController implements AccessController
     /**
      * Checks if an account is authorized to access the referenced URL. Generally, this method should be invoked in the
      * application's controller or a filter as follows:
-     * <pre>ESAPI.accessController().isAuthorizedForURL(request.getRequestURI().toString());</pre>.
+     * <pre>ESAPI::getAccessController()->isAuthorizedForURL($_SERVER['REQUEST_URI']);</pre>.
      *
      * The implementation of this method should call assertAuthorizedForURL($url), and if an AccessControlException is
      * not thrown, this method should return TRUE. This way, if the user is not authorized, FALSE would be returned, and the
      * exception would be logged.
      *
-     * @param $url The uRL as returned by request.getRequestURI().toString()
+     * @param string $url The URL as returned by $_SERVER['REQUEST_URI']
      *
      * @return TRUE, if is authorized for URL
      */
@@ -60,7 +60,7 @@ class FileBasedAccessController implements AccessController
      * The implementation of this method should call assertAuthorizedForFunction($functionName), and if an
      * AccessControlException is not thrown, this method should return TRUE.
      *
-     * @param $functionName The name of the function
+     * @param string $functionName The name of the function
      *
      * @return TRUE, if is authorized for function
      */
@@ -75,7 +75,7 @@ class FileBasedAccessController implements AccessController
      * The implementation of this method should call assertAuthorizedForData($key), and if an AccessControlException
      * is not thrown, this method should return TRUE.
      *
-     * @param $key The name of the referenced data object
+     * @param string $key The name of the referenced data object
      *
      * @return TRUE, if is authorized for the data
      */
@@ -90,8 +90,8 @@ class FileBasedAccessController implements AccessController
      * The implementation of this method should call assertAuthorizedForData($action, Object data), and if an
      * AccessControlException is not thrown, this method should return TRUE.
      *
-     * @param $action The action to check for in the configuration file in the resource directory
-     * @param $data The data to check for in the configuration file in the resource directory
+     * @param string $action The action to check for in the configuration file in the resource directory
+     * @param string $data The data to check for in the configuration file in the resource directory
      *
      * @return TRUE, if is authorized for the data
      */
@@ -106,7 +106,7 @@ class FileBasedAccessController implements AccessController
      * The implementation of this method should call assertAuthorizedForFile($filepath), and if an AccessControlException
      * is not thrown, this method should return TRUE.
      *
-     * @param $filepath The path of the file to be checked, including filename
+     * @param string $filepath The path of the file to be checked, including filename
      *
      * @return TRUE, if is authorized for the file
      */
@@ -122,7 +122,7 @@ class FileBasedAccessController implements AccessController
      * The implementation of this method should call assertAuthorizedForService($serviceName), and if an
      * AccessControlException is not thrown, this method should return TRUE.
      *
-     * @param $serviceName The service name
+     * @param string $serviceName The service name
      *
      * @return TRUE, if is authorized for the service
      */
@@ -135,10 +135,10 @@ class FileBasedAccessController implements AccessController
      * Checks if an account is authorized to access the referenced URL. The implementation should allow
      * access to be granted to any part of the URL. Generally, this method should be invoked in the
      * application's controller or a filter as follows:
-     * <pre>ESAPI.accessController().assertAuthorizedForURL(request.getRequestURI().toString());</pre>.
+     * <pre>ESAPI::getAccessController()->assertAuthorizedForURL($_SERVER['REQUEST_URI']);</pre>
      *
-     * This method throws an AccessControlException if access is not authorized, or if the referenced URL does not exist.
-     * If the User is authorized, this method simply returns.
+     * This method throws an AccessControlException if access is not authorized, or if the referenced URL does not
+     * exist. If the User is authorized, this method simply returns.
      *
      * Specification:  The implementation should do the following:
      * <ol>
@@ -153,7 +153,7 @@ class FileBasedAccessController implements AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>
      *
-     * @param $url The uRL as returned by request.getRequestURI().toString()
+     * @param string $url The URL as returned by request.getRequestURI().toString()
      *
      * @throws AccessControlException If access is not permitted
      */
@@ -183,7 +183,7 @@ class FileBasedAccessController implements AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>.
      *
-     * @param $functionName The function name
+     * @param string $functionName The function name
      *
      * @throws AccessControlException If access is not permitted
      */
@@ -209,7 +209,7 @@ class FileBasedAccessController implements AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>.
      *
-     * @param $key The name of the target data object
+     * @param string $key The name of the target data object
      *
      * @throws AccessControlException If access is not permitted
      */
@@ -235,8 +235,8 @@ class FileBasedAccessController implements AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>.
      *
-     * @param $action The action to check for in the configuration file in the resource directory
-     * @param $data The data to check for in the configuration file in the resource directory
+     * @param string $action The action to check for in the configuration file in the resource directory
+     * @param string $data The data to check for in the configuration file in the resource directory
      *
      * @throws AccessControlException If access is not permitted
      */
@@ -265,7 +265,7 @@ class FileBasedAccessController implements AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>.
      *
-     * @param $filepath Path to the file to be checked
+     * @param string $filepath Path to the file to be checked
      *
      * @throws AccessControlException if access is denied
      */
@@ -294,7 +294,7 @@ class FileBasedAccessController implements AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>.
      *
-     * @param $serviceName The service name
+     * @param string $serviceName The service name
      *
      * @throws AccessControlException If access is not permitted
      */

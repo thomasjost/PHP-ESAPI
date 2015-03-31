@@ -50,7 +50,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
     /**
      * The constructor stores an instance of Auditor for the purpose of logging.
-     *
      */
     public function __construct()
     {
@@ -145,7 +144,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * Sets the CSRF Token for the current session.  If the session has not been
      * started at the time this method is called then the token will not be
      * generated.
-     *
      */
     public function setCSRFToken()
     {
@@ -254,7 +252,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      *
      * @return bool TRUE if the request was made over Transport Layer Security
      *              FALSE otherwise.
-     *
      */
     public function isSecureChannel($request)
     {
@@ -299,7 +296,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * this method.
      *
      * @param SafeRequest $request Request object.
-     *
      */
     public function killAllCookies($request)
     {
@@ -321,8 +317,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      *
      * @param SafeRequest $request Request object.
      * @param string      $name    Name of the cookie to be killed.
-     *
-     *
      */
     public function killCookie($request, $name)
     {
@@ -374,7 +368,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * throughout ESAPI (and elsewhere).
      *
      * @param SafeRequest $request Current Request object.
-     *
      */
     public function setCurrentHTTP($request)
     {
@@ -403,7 +396,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      *
      * @param SafeRequest $request Current Request object.
      * @param Auditor     $auditor the auditor to write the request to.
-     *
      */
     public function logHTTPRequest($request, $auditor)
     {
@@ -423,7 +415,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * @param SafeRequest $request           Current Request object.
      * @param Auditor     $auditor           The auditor to write the request to.
      * @param array|NULL  $paramsToObfuscate The sensitive parameters.
-     *
      */
     public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate)
     {

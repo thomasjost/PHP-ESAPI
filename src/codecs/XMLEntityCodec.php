@@ -56,7 +56,6 @@ class XMLEntityCodec extends Codec
     /**
      * Public Constructor calls the parent construcor and initialises the character
      * to entity and entity to character maps.
-     *
      */
     public function __construct()
     {
@@ -508,7 +507,6 @@ class XMLEntityCodec extends Codec
      * for decoding of named entities.
      * During the initialization, the length of the longest named entity (including
      * the leading ampersand and trailing semi-colon) is noted in _longestEntity.
-     *
      */
     private function _initializeMaps()
     {

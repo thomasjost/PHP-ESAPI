@@ -52,13 +52,13 @@ interface AccessController
     /**
      * Checks if an account is authorized to access the referenced URL. Generally, this method should be invoked in the
      * application's controller or a filter as follows:
-     * <pre>ESAPI.accessController().isAuthorizedForURL(request.getRequestURI().toString());</pre>.
+     * <pre>ESAPI::getAccessController()->isAuthorizedForURL($_SERVER['REQUEST_URI']);</pre>.
      *
      * The implementation of this method should call assertAuthorizedForURL($url), and if an AccessControlException is
      * not thrown, this method should return TRUE. This way, if the user is not authorized, FALSE would be returned, and the
      * exception would be logged.
      *
-     * @param string $url The URL as returned by request.getRequestURI().toString()
+     * @param string $url The URL as returned by $_SERVER['REQUEST_URI']
      *
      * @return bool TRUE, if is authorized for URL
      */
@@ -130,7 +130,7 @@ interface AccessController
      * Checks if an account is authorized to access the referenced URL. The implementation should allow
      * access to be granted to any part of the URL. Generally, this method should be invoked in the
      * application's controller or a filter as follows:
-     * <pre>ESAPI.accessController().assertAuthorizedForURL(request.getRequestURI().toString());</pre>.
+     * <pre>ESAPI::getAccessController()->assertAuthorizedForURL($_SERVER['REQUEST_URI']);</pre>.
      *
      * This method throws an AccessControlException if access is not authorized, or if the referenced URL does not exist.
      * If the User is authorized, this method simply returns.
@@ -148,7 +148,7 @@ interface AccessController
      *     <li>If access is not permitted, throw an AccessControlException with details</li>
      * </ol>
      *
-     * @param string $url The URL as returned by request.getRequestURI().toString()
+     * @param string $url The URL as returned by $_SERVER['REQUEST_URI']
      *
      * @throws AccessControlException if access is not permitted
      */
