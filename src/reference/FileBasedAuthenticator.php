@@ -116,7 +116,7 @@ class FileBasedAuthenticator implements Authenticator
      * This method is typically used for "reauthentication" for the most sensitive functions, such
      * as transactions, changing email address, and changing other account information.
      *
-     * @param $user The user who requires verification
+     * @param User $user The user who requires verification
      * @param string $password The hashed user-supplied password
      *
      * @return TRUE, if the password is correct for the specified user
@@ -235,7 +235,7 @@ class FileBasedAuthenticator implements Authenticator
      * should verify that the new password does not include information such as the username, fragments of the
      * old password, and other information that could be used to weaken the strength of the password.
      *
-     * @param $user The user whose information to use when generating password
+     * @param User $user The user whose information to use when generating password
      * @param string $oldPassword The old password to use when verifying strength of new password.  The new password may be checked for fragments of oldPassword.
      *
      * @return A password with strong password strength
@@ -262,7 +262,7 @@ class FileBasedAuthenticator implements Authenticator
      * the password to replace it with. The new password should be checked against old hashes to be sure the new password does not closely resemble or equal any recent passwords for that User.
      * Password strength should also be verified.  This new password must be repeated to ensure that the user has typed it in correctly.
      *
-     * @param $user The user to change the password for
+     * @param User $user The user to change the password for
      * @param string $currentPassword The current password for the specified user
      * @param string $newPassword The new password to use
      * @param string $newPassword2 A verification copy of the new password
@@ -306,7 +306,7 @@ class FileBasedAuthenticator implements Authenticator
      * and then returned. If the User's password map is NULL and create is set to FALSE, an exception
      * will be thrown.
      *
-     * @param $user The user whose old hashes should be returned
+     * @param User $user The user whose old hashes should be returned
      * @param bool $create TRUE - if no password list is associated with this user, create one
      *                     FALSE - if no password list is associated with this user, do not create one
      *
@@ -330,7 +330,7 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Return the specified User's current hashed password.
      *
-     * @param $user This user's current hashed password will be returned
+     * @param User $user This user's current hashed password will be returned
      *
      * @return The specified User's current hashed password
      */
@@ -344,7 +344,7 @@ class FileBasedAuthenticator implements Authenticator
      * Get a List of the specified User's old password hashes.  This will not return the User's current
      * password hash.
      *
-     * @param $user The user whose old password hashes should be returned
+     * @param User $user The user whose old password hashes should be returned
      *
      * @return The specified User's old password hashes
      */
@@ -447,7 +447,7 @@ class FileBasedAuthenticator implements Authenticator
     /**
      * Sets the currently logged in User.
      *
-     * @param $user The user to set as the current user
+     * @param User $user The user to set as the current user
      */
     public function setCurrentUser($user)
     {
@@ -458,7 +458,7 @@ class FileBasedAuthenticator implements Authenticator
      * Add a hash to a User's hashed password list.  This method is used to store a user's old password hashes
      * to be sure that any new passwords are not too similar to old passwords.
      *
-     * @param $user The user to associate with the new hash
+     * @param User $user The user to associate with the new hash
      * @param string $hash The hash to store in the user's password hash list
      */
     private function setHashedPassword($user, $hash)
