@@ -64,11 +64,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Clears the current User. This allows the thread to be reused safely.
-     *
-     * This clears all threadlocal variables from the thread. This should ONLY be called after
-     * all possible ESAPI operations have concluded. If you clear too early, many calls will
-     * fail, including logging, which requires the user identity.
+     * {@inheritDoc}
      */
     public function clearCurrent()
     {
@@ -76,33 +72,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * This method should be called for every HTTP request, to login the current user either from the session of HTTP
-     * request. This method will set the current user so that getCurrentUser() will work properly.
-     *
-     * Authenticates the user's credentials from the HttpServletRequest if
-     * necessary, creates a session if necessary, and sets the user as the
-     * current user.
-     *
-     * Specification:  The implementation should do the following:
-     * 1) Check if the User is already stored in the session
-     *     a. If so, check that session absolute and inactivity timeout have not expired
-     *     b. Step 2 may not be required if 1a has been satisfied
-     * 2) Verify User credentials
-     *     a. It is recommended that you use
-     *         loginWithUsernameAndPassword(HttpServletRequest, HttpServletResponse) to verify credentials
-     * 3) Set the last host of the User (ex.  user.setLastHostAddress(address) )
-     * 4) Verify that the request is secure (ex. over SSL)
-     * 5) Verify the User account is allowed to be logged in
-     *     a. Verify the User is not disabled, expired or locked
-     * 6) Assign User to session variable
-     *
-     * @param $request The current HTTP request
-     * @param $response The HTTP response
-     *
-     * @throws AuthenticationException If the credentials are not verified, or if the account is disabled, locked,
-     *                                 expired, or timed out
-     *
-     * @return The user
+     * {@inheritDoc}
      */
     public function login($request, $response)
     {
@@ -110,16 +80,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Verify that the supplied password matches the password for this user. Password should
-     * be stored as a hash. It is recommended you use the hashPassword(password, accountName) method
-     * in this class.
-     * This method is typically used for "reauthentication" for the most sensitive functions, such
-     * as transactions, changing email address, and changing other account information.
-     *
-     * @param User $user The user who requires verification
-     * @param string $password The hashed user-supplied password
-     *
-     * @return TRUE, if the password is correct for the specified user
+     * {@inheritDoc}
      */
     public function verifyPassword($user, $password)
     {
@@ -127,9 +88,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Logs out the current user.
-     *
-     * This is usually done by calling User.logout on the current User.
+     * {@inheritDoc}
      */
     public function logout()
     {
@@ -137,21 +96,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Creates a new User with the information provided. Implementations should check
-     * accountName and password for proper format and strength against brute force
-     * attacks ( verifyAccountNameStrength(String), verifyPasswordStrength(String, String)  ).
-     *
-     * Two copies of the new password are required to encourage user interface designers to
-     * include a "re-type password" field in their forms. Implementations should verify that
-     * both are the same.
-     *
-     * @param string $accountName The account name of the new user
-     * @param string $password1 The password of the new user
-     * @param string $password2 The password of the new user.  This field is to encourage user interface designers to include two password fields in their forms.
-     *
-     * @throws AuthenticationException If user creation fails due to any of the qualifications listed in this method's description
-     *
-     * @return The User that has been created
+     * {@inheritDoc}
      */
     public function createUser($accountName, $password1, $password2)
     {
@@ -231,14 +176,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Generate strong password that takes into account the user's information and old password. Implementations
-     * should verify that the new password does not include information such as the username, fragments of the
-     * old password, and other information that could be used to weaken the strength of the password.
-     *
-     * @param User $user The user whose information to use when generating password
-     * @param string $oldPassword The old password to use when verifying strength of new password.  The new password may be checked for fragments of oldPassword.
-     *
-     * @return A password with strong password strength
+     * {@inheritDoc}
      */
     public function generateStrongPassword($user = null, $oldPassword = null)
     {
@@ -258,16 +196,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Changes the password for the specified user. This requires the current password, as well as
-     * the password to replace it with. The new password should be checked against old hashes to be sure the new password does not closely resemble or equal any recent passwords for that User.
-     * Password strength should also be verified.  This new password must be repeated to ensure that the user has typed it in correctly.
-     *
-     * @param User $user The user to change the password for
-     * @param string $currentPassword The current password for the specified user
-     * @param string $newPassword The new password to use
-     * @param string $newPassword2 A verification copy of the new password
-     *
-     * @throws AuthenticationException If any errors occur
+     * {@inheritDoc}
      */
     public function changePassword($user, $currentPassword, $newPassword, $newPassword2)
     {
@@ -358,12 +287,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Returns the User matching the provided accountId.  If the accoundId is not found, an Anonymous
-     * User or NULL may be returned.
-     *
-     * @param int $accountId The account id
-     *
-     * @return The matching User object, or the Anonymous User if no match exists
+     * {@inheritDoc}
      */
     public function getUserById($accountId)
     {
@@ -382,12 +306,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Returns the User matching the provided accountName.  If the accoundId is not found, an Anonymous
-     * User or NULL may be returned.
-     *
-     * @param string $accountName The account name
-     *
-     * @return The matching User object, or the Anonymous User if no match exists
+     * {@inheritDoc}
      */
     public function getUserByName($accountName)
     {
@@ -403,9 +322,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Gets a collection containing all the existing user names.
-     *
-     * @return A set of all user names
+     * {@inheritDoc}
      */
     public function getUserNames()
     {
@@ -434,10 +351,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Returns the currently logged in User.
-     *
-     * @return The matching User object, or the Anonymous User if no match
-     *         exists
+     * {@inheritDoc}
      */
     public function getCurrentUser()
     {
@@ -445,9 +359,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Sets the currently logged in User.
-     *
-     * @param User $user The user to set as the current user
+     * {@inheritDoc}
      */
     public function setCurrentUser($user)
     {
@@ -473,17 +385,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Returns a $representation of the hashed password, using the
-     * accountName as the salt. The salt helps to prevent against "rainbow"
-     * table attacks where the attacker pre-calculates hashes for known strings.
-     * This method specifies the use of the user's account name as the "salt"
-     * value. The Encryptor.hash method can be used if a different salt is
-     * required.
-     *
-     * @param string $password The password to hash
-     * @param string $accountName The account name to use as the salt
-     *
-     * @return The hashed password
+     * {@inheritDoc}
      */
     public function hashPassword($password, $accountName)
     {
@@ -492,11 +394,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Removes the account of the specified accountName.
-     *
-     * @param string $accountName The account name to remove
-     *
-     * @throws AuthenticationException The authentication exception if user does not exist
+     * {@inheritDoc}
      */
     public function removeUser($accountName)
     {
@@ -512,11 +410,7 @@ class FileBasedAuthenticator implements Authenticator
     }
 
     /**
-     * Ensures that the account name passes site-specific complexity requirements, like minimum length.
-     *
-     * @param string $accountName The account name
-     *
-     * @throws AuthenticationException If account name does not meet complexity requirements
+     * {@inheritDoc}
      */
     public function verifyAccountNameStrength($accountName)
     {
@@ -606,6 +500,12 @@ class FileBasedAuthenticator implements Authenticator
         throw new EnterpriseSecurityException("Method Not implemented");
     }
 
+    /**
+     * Checks if the given string is valid
+     *
+     * @param string $param
+     * @return bool
+     */
     private function isValidString($param)
     {
         return (isset($param) && $param != '');
