@@ -16,6 +16,9 @@
  */
 class AccessControllerTest extends PHPUnit_Framework_TestCase
 {
+    
+    //TODO: write tests for AccessController
+    
     public function setUp()
     {
     }
@@ -24,8 +27,7 @@ class AccessControllerTest extends PHPUnit_Framework_TestCase
     {
     }
     
-    public function testFail()
+    public function test()
     {
-        $this->fail();
     }
 }
