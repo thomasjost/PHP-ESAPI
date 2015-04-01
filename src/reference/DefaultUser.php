@@ -227,7 +227,10 @@ class DefaultUser implements User
      */
     public function getLocale()
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
     
     /**
@@ -235,7 +238,10 @@ class DefaultUser implements User
      */
     public function setLocale(Locale $locale)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
     
     /**
@@ -285,7 +291,7 @@ class DefaultUser implements User
     public function disable()
     {
         $this->_enabled = false;
-        ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, true, "Account disabled: ".$this->getAccountName());
+        ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, true, "Account disabled: " . $this->getAccountName());
     }
 
     /**
@@ -745,7 +751,10 @@ class DefaultUser implements User
      */
     public function getEventMap()
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
     
     /*

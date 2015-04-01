@@ -51,7 +51,10 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForURL($url)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -66,7 +69,10 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForFunction($functionName)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -81,7 +87,10 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForDataByKey($key)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -97,7 +106,10 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForData($action, $data)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -112,7 +124,10 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForFile($filepath)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -128,7 +143,10 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForService($serviceName)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -159,7 +177,10 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForURL($url)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -189,7 +210,10 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForFunction($functionName)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -215,7 +239,10 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForDataByKey($key)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -242,7 +269,10 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForData($action, $data)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
      
     /**
@@ -271,7 +301,10 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForFile($filepath)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 
     /**
@@ -300,6 +333,9 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForService($serviceName)
     {
-        throw new EnterpriseSecurityException('Method "' . __METHOD__ . '" not implemented');
+        throw new EnterpriseSecurityException(
+            'Method not implemented',
+            'Method "' . __METHOD__ . '" not implemented'
+        );
     }
 }
