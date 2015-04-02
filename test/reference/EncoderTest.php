@@ -516,6 +516,9 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     //}
     public function testCanonicalize_107()
     {
+        $this->encoderInstance = null;
+        $this->encoderInstance = new DefaultEncoder(array(new JavaScriptCodec()));
+    
         $this->assertEquals("<", $this->encoderInstance->canonicalize("\\<"));
     }
     public function testCanonicalize_108()
