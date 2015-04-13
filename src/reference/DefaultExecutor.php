@@ -86,10 +86,11 @@ class DefaultExecutor implements Executor
             // executable must exist
             $resolved = $executable;
             
+            // resolve environment variables on Windows
             if (substr(PHP_OS, 0, 3) == 'WIN') {
-                $exploded = explode("%", $executable);
-                $systemroot = getenv($exploded[1]);
-                $resolved = $systemroot . $exploded[2];
+                $resolved = preg_replace_callback('/%(\w+)%/', function ($matches) {
+                    return getenv($matches[1]);
+                }, $executable);
             }
             
             if (!file_exists($resolved)) {
@@ -146,13 +147,11 @@ class DefaultExecutor implements Executor
             // working directory must exist
             $resolved_workdir = $workdir;
             if (substr(PHP_OS, 0, 3) == 'WIN') {
-                if (substr_count($workdir, '%') >= 2) {
-                    //only explode on % if at least 2x % chars exist in string
-                    $exploded = explode("%", $workdir);
-                    $systemroot = getenv($exploded[1]);
-                    $resolved_workdir = $systemroot . $exploded[2];
-                }
+                $resolved_workdir = preg_replace_callback('/%(\w+)%/', function ($matches) {
+                    return getenv($matches[1]);
+                }, $workdir);
             }
+            
             if (!file_exists($resolved_workdir)) {
                 throw new ExecutorException(
                     "Execution failure, No such".
