@@ -114,7 +114,7 @@ class DefaultExecutor implements Executor
                 throw new ExecutorException(
                     "Execution failure, Attempt to invoke executable that ".
                     "is not listed as an approved executable in ESAPI ".
-                    "configuration: ".$executable . " not listed in " . $approved
+                    "configuration: ".$executable . " not listed in " . implode(';', $approved)
                 );
             }
 
