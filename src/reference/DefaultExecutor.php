@@ -100,22 +100,42 @@ class DefaultExecutor implements Executor
             }
             
             // executable must use canonical path
-            if (strcmp($resolved, realpath($resolved)) != 0) {
-                throw new ExecutorException(
-                    "Execution failure, Attempt ".
-                    "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
-                );
+            if (substr(PHP_OS, 0, 3) == 'WIN') {
+                if (strcasecmp($resolved, realpath($resolved)) != 0) {
+                    throw new ExecutorException(
+                        "Execution failure, Attempt ".
+                        "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
+                    );
+                }
+            } else {
+                if (strcmp($resolved, realpath($resolved)) != 0) {
+                    throw new ExecutorException(
+                        "Execution failure, Attempt ".
+                        "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
+                    );
+                }
             }
                              
-            // exact, absolute, canonical path to executable must be listed
-            //in ESAPI configuration
+            // exact, absolute, canonical path to executable must be listed in ESAPI configuration
             $approved = $this->_config->getAllowedExecutables();
-            if (!in_array($executable, $approved)) {
-                throw new ExecutorException(
-                    "Execution failure, Attempt to invoke executable that ".
-                    "is not listed as an approved executable in ESAPI ".
-                    "configuration: ".$executable . " not listed in " . implode(';', $approved)
-                );
+            if (substr(PHP_OS, 0, 3) == 'WIN') {
+                if (!array_reduce($approved, function ($carry, $item) use ($executable) {
+                    return $carry || !strcasecmp($item, $executable);
+                }, false)) {
+                    throw new ExecutorException(
+                        "Execution failure, Attempt to invoke executable that ".
+                        "is not listed as an approved executable in ESAPI ".
+                        "configuration: ".$executable . " not listed in " . implode(';', $approved)
+                    );
+                }
+            } else {
+                if (!in_array($executable, $approved)) {
+                    throw new ExecutorException(
+                        "Execution failure, Attempt to invoke executable that ".
+                        "is not listed as an approved executable in ESAPI ".
+                        "configuration: ".$executable . " not listed in " . implode(';', $approved)
+                    );
+                }
             }
 
             // escape any special characters in the parameters
