@@ -43,7 +43,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
             $this->_workdir = '%SYSTEMROOT%\\Temp';
         } else {
             $this->_os = self::PLATFORM_UNIX;
-            $this->_executable = '/bin/sh';
+            $this->_executable = realpath('/bin/sh');
             $this->_params = array("-c", "'ls /'");
             $this->_workdir = '/tmp';
         }

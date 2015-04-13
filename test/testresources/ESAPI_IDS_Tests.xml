@@ -48,6 +48,8 @@
     <WorkingDirectory>/tmp</WorkingDirectory>
     <ApprovedExecutables>
       <command>/bin/sh</command>
+      <command>/bin/bash</command>
+      <command>/bin/dash</command>
       <command>/usr/bin/sudo</command>
     </ApprovedExecutables>
   </ExecutorUnix>
