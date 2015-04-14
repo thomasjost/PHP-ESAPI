@@ -119,7 +119,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
      */
     public function getUniqueReference()
     {
-        return "".$this->count++;
+        return (string) $this->count++;
     }
 
     /**
