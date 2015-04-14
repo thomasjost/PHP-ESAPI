@@ -348,7 +348,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue((int) -187 === $ivr->getValid('testIntegerVR_getValid_valid', '-187'));
 
-        $this->assertTrue((int) PHP_INT_MAX === $ivr->getValid('testIntegerVR_getValid_valid', '' . PHP_INT_MAX));
+        $this->assertTrue((int) PHP_INT_MAX === $ivr->getValid('testIntegerVR_getValid_valid', (string) PHP_INT_MAX));
     }
 
     /**
@@ -477,7 +477,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(187.211 === $nvr->getValid('testNumberVR_getValid_valid', '187.211'));
 
-        $this->assertTrue((double) PHP_INT_MAX === $nvr->getValid('testNumberVR_getValid_valid', '' . PHP_INT_MAX));
+        $this->assertTrue((double) PHP_INT_MAX === $nvr->getValid('testNumberVR_getValid_valid', (string) PHP_INT_MAX));
     }
 
     /**
@@ -566,7 +566,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($nvr->isValid('testNumberVR_isValid_INF', '0.00.00'));
 
-        $this->assertFalse($nvr->isValid('testNumberVR_isValid_INF', '' . log(0)));
+        $this->assertFalse($nvr->isValid('testNumberVR_isValid_INF', (string) log(0)));
     }
 
     /**
