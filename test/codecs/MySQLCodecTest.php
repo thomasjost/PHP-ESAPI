@@ -22,12 +22,6 @@ class MySQLCodecTest extends PHPUnit_Framework_TestCase
     
     public function setUp()
     {
-        global $ESAPI;
-
-        if (!isset($ESAPI)) {
-            $ESAPI = new ESAPI();
-        }
-        
         $this->mysqlAnsiCodec = new MySQLCodec(MySQLCodec::MYSQL_ANSI);
         $this->mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
     }

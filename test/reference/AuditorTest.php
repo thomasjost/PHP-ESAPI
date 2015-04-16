@@ -54,13 +54,6 @@ class AuditorTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        global $ESAPI;
-
-        if (!isset($ESAPI)) {
-            $ESAPI = new
-            ESAPI(__DIR__.'/../testresources/ESAPI.xml');
-        }
-
         $this->testLogger = ESAPI::getAuditor(__CLASS__);
         $this->testLogger->setLevel(Auditor::ALL);
     }

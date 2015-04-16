@@ -53,12 +53,6 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        global $ESAPI;
-        if (! isset($ESAPI)) {
-            $ESAPI = new ESAPI(
-                __DIR__ . '/../testresources/ESAPI.xml'
-            );
-        }
         $this->_restoreSecCon = ESAPI::getSecurityConfiguration();
         ESAPI::setSecurityConfiguration(null);
         // Use a custom properties file.

@@ -73,8 +73,6 @@ class HTMLValidationRule extends StringValidationRule
      */
     public function __construct($typeName, $encoder = null, $whitelistPattern = null)
     {
-        global $ESAPI;
-
         parent::__construct($typeName, $encoder);
 
         $this->_auditor = ESAPI::getAuditor('HTMLValidationRule');

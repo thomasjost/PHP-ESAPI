@@ -46,11 +46,6 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        global $ESAPI;
-
-        if (!isset($ESAPI)) {
-            $ESAPI = new ESAPI(__DIR__ . '/../testresources/ESAPI.xml');
-        }
     }
 
     /**

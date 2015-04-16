@@ -23,11 +23,6 @@ class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $ESAPI;
-
-        if (!isset($ESAPI)) {
-            $ESAPI = new ESAPI(__DIR__.'/../testresources/ESAPI.xml');
-        }
     }
 
     public function tearDown()

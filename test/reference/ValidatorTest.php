@@ -27,11 +27,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     
     public function setUp()
     {
-        global $ESAPI;
-        if (!isset($ESAPI)) {
-            $ESAPI = new ESAPI();
-        }
-        
         if (substr(PHP_OS, 0, 3) == 'WIN') {
             $this->_os = self::PLATFORM_WINDOWS;
         } else {

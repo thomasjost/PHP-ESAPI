@@ -59,11 +59,9 @@ class EmailAddressValidationRule extends StringValidationRule
      */
     public function __construct($typeName, $encoder = null, $whitelistPattern = null)
     {
-        global $ESAPI;
-
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = $ESAPI->getAuditor("EmailAddressValidationRule");
+        $this->_auditor = ESAPI::getAuditor("EmailAddressValidationRule");
     }
 
     /**

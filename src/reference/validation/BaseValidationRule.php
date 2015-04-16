@@ -62,7 +62,6 @@ abstract class BaseValidationRule implements ValidationRule
      */
     protected function __construct($typeName, $encoder)
     {
-        global $ESAPI;
         if ($encoder instanceof Encoder) {
             $this->encoder = $encoder;
         } else {

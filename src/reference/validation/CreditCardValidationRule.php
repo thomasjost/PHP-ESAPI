@@ -83,7 +83,6 @@ class CreditCardValidationRule extends BaseValidationRule
      */
     private function _getCCRule()
     {
-        global $ESAPI;
         $config = ESAPI::getSecurityConfiguration();
         $pattern = $config->getValidationPattern(self::CREDIT_CARD_VALIDATOR_KEY);
         $ccr = new StringValidationRule(
