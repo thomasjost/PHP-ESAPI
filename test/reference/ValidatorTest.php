@@ -854,21 +854,25 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         
         switch ($this->_os) {
             case self::PLATFORM_WINDOWS:
+                // Windows paths that should pass
+                $this->assertTrue($instance->isValidDirectoryPath('test', 'C:\\', false));                            // Windows root directory
+                $this->assertTrue($instance->isValidDirectoryPath('test', 'C:\\Windows', false));                     // Windows always exist directory
+
                 // Windows paths that don't exist and thus should fail
                 $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\ridiculous', false));
-                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\jeff', false));
                 $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\temp\\..\\etc', false));
-    
-                // Windows paths that should pass
-                $this->assertTrue($instance->isValidDirectoryPath('test', 'C:\\', false));                                // Windows root directory
-                $this->assertTrue($instance->isValidDirectoryPath('test', 'C:\\Windows', false));                        // Windows always exist directory
-                $this->assertTrue($instance->isValidDirectoryPath('test', 'C:\\Windows\\System32\\cmd.exe', false));        // Windows command shell
-                
+
+                // Windows path that exists but is not a directory
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'C:\\Windows\\System32\\cmd.exe', false)); // Windows command shell
+
+                // Windows path that exists but is not canonical
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'C:\\Windows\\System32\\..', false));
+
                 // Unix specific paths should not pass
-                $this->assertFalse($instance->isValidDirectoryPath('test', '/tmp', false));        // Unix Temporary directory
-                $this->assertFalse($instance->isValidDirectoryPath('test', '/bin/sh', false));    // Unix Standard shell
+                $this->assertFalse($instance->isValidDirectoryPath('test', '/tmp', false));                           // Unix Temporary directory
+                $this->assertFalse($instance->isValidDirectoryPath('test', '/bin/sh', false));                        // Unix Standard shell
                 $this->assertFalse($instance->isValidDirectoryPath('test', '/etc/config', false));
-    
+
                 // Unix specific paths that should not exist or work
                 $this->assertFalse($instance->isValidDirectoryPath('test', '/etc/ridiculous', false));
                 $this->assertFalse($instance->isValidDirectoryPath('test', '/tmp/../etc', false));
@@ -876,28 +880,29 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
                 break;
                 
             case self::PLATFORM_UNIX:
-                // Windows paths should fail
-                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\ridiculous', false));
-                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\temp\\..\\etc', false));
-    
-                // Standard Windows locations should fail
-                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\', false));                                // Windows root directory
-                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\Windows\\temp', false));                    // Windows temporary directory
-                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\Windows\\System32\\cmd.exe', false));    // Windows command shell
-    
                 // Unix specific paths should pass
-                $this->assertTrue($instance->isValidDirectoryPath('test', '/', false));            // Root directory
-                $this->assertTrue($instance->isValidDirectoryPath('test', '/bin', false));        // Always exist directory
-                $this->assertTrue($instance->isValidDirectoryPath('test', '/bin/sh', false));    // Standard shell
-    
+                $this->assertTrue($instance->isValidDirectoryPath('test', '/', false));                               // Root directory
+                $this->assertTrue($instance->isValidDirectoryPath('test', '/bin', false));                            // Always exist directory
+
+                // Unix specific path that exists but is not a directory
+                $this->assertFalse($instance->isValidDirectoryPath('test', '/bin/sh', false));                        // Standard shell
+
+                // Unix specific path that exists but is not canonical
+                $this->assertFalse($instance->isValidDirectoryPath('test', '/bin/../', false));
+                
                 // Unix specific paths that should not exist or work
                 $this->assertFalse($instance->isValidDirectoryPath('test', '/etc/ridiculous', false));
                 $this->assertFalse($instance->isValidDirectoryPath('test', '/tmp/../etc', false));
-                
-                break;
 
-            default:
-                $this->fail("No platform support for your platform.");
+                // Windows paths should fail
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\ridiculous', false));
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\temp\\..\\etc', false));
+
+                // Standard Windows locations should fail
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\', false));                           // Windows root directory
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\Windows\\temp', false));              // Windows temporary directory
+                $this->assertFalse($instance->isValidDirectoryPath('test', 'c:\\Windows\\System32\\cmd.exe', false)); // Windows command shell
+    
                 break;
         }
     }

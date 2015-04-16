@@ -53,6 +53,7 @@ class DefaultValidator implements Validator
     private $_rules = null;
     private $_auditor = null;
     private $_encoder = null;
+    private $_fileValidator = null;
      
     const MAX_PARAMETER_NAME_LENGTH = 100;
     const MAX_PARAMETER_VALUE_LENGTH = 65535;
@@ -67,6 +68,10 @@ class DefaultValidator implements Validator
         global $ESAPI;
         $this->_auditor = ESAPI::getAuditor('DefaultValidator');
         $this->_encoder = ESAPI::getEncoder();
+        $this->_fileValidator = new DefaultEncoder(array(
+        	new HTMLEntityCodec(),
+            new PercentCodec()
+        ));
     }
 
     /**
@@ -256,10 +261,40 @@ class DefaultValidator implements Validator
      */
     private function _assertValidDirectoryPath($context, $input, $allowNull)
     {
-        throw new EnterpriseSecurityException(
-            'Method Not implemented',
-            'assertValidDirectoryPath method not implemented'
-        );
+        if (empty($input)) {
+            if ($allowNull) {
+                return;
+            }
+
+            throw new ValidationException(
+                    "{$context}: Input directory path required",
+                    "Input directory path required: context={$context}, input={$input}",
+                    $context);
+        }
+
+        $dir = new SplFileInfo($input);
+
+        if (!$dir->isReadable()) {
+            throw new ValidationException(
+                    "{$context}: Invalid directory name",
+                    "Invalid directory, does not exist: context={$context}, input={$input}");
+        }
+
+        if (!$dir->isDir()) {
+            throw new ValidationException(
+                    "{$context}: Invalid directory name",
+                    "Invalid directory, not a directory: context={$context}, input={$input}");
+        }
+
+        $canonicalPath = $dir->getRealPath();
+        $canonical = $this->_fileValidator->canonicalize($canonicalPath);
+
+        if ($input !== $canonical) {
+            throw new ValidationException(
+                    "{$context}: Invalid directory name",
+                    "Invalid directory name does not match the canonical path: context={$context}, " .
+                    "input={$input}, canonical={$canonical}");
+        }
     }
 
     /**
