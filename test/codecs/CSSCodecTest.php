@@ -20,7 +20,7 @@ class CSSCodecTest extends PHPUnit_Framework_TestCase
 {
     private $cssCodec = null;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->cssCodec = new CSSCodec();
     }

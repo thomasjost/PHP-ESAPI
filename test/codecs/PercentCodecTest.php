@@ -19,15 +19,11 @@ class PercentCodecTest extends PHPUnit_Framework_TestCase
 {
     private $percentCodec = null;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->percentCodec = new PercentCodec();
     }
 
-    public function tearDown()
-    {
-    }
-    
     public function testEncode()
     {
         $immune = array("/");

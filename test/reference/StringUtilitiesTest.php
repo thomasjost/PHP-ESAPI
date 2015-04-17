@@ -22,22 +22,13 @@
  
 class StringUtilitiesTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        // Do nothing - these are static methods
-    }
     
-    public function tearDown()
-    {
-    }
-
     public function testStripControlsEmpty()
     {
         $this->assertEquals('', StringUtilities::stripControls(false));
         $this->assertEquals('', StringUtilities::stripControls(null));
         $this->assertEquals('', StringUtilities::stripControls(''));
     }
-    
     
     public function testStripControlsPass()
     {

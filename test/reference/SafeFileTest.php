@@ -39,14 +39,6 @@
  */
 class SafeFileTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Constructor ensures global ESAPI is set.
-     *
-     * @return null
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * Test constructor of class SafeFile.

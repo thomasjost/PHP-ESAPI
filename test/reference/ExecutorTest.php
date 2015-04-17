@@ -28,7 +28,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     const PLATFORM_WINDOWS    = 1;
     const PLATFORM_UNIX    = 2;
      
-    public function setUp()
+    protected function setUp()
     {
         if (substr(PHP_OS, 0, 3) == 'WIN') {
             $this->_os = self::PLATFORM_WINDOWS;
@@ -43,10 +43,6 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         }
         
         $this->_instance = new DefaultExecutor();
-    }
-        
-    public function tearDown()
-    {
     }
         
     /**

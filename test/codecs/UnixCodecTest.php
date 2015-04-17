@@ -19,15 +19,11 @@ class UnixCodecTest extends PHPUnit_Framework_TestCase
 {
     private $unixCodec = null;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->unixCodec = new UnixCodec();
     }
 
-    public function tearDown()
-    {
-    }
-    
     public function testEncode()
     {
         $immune = array("");

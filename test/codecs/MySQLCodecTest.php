@@ -20,7 +20,7 @@ class MySQLCodecTest extends PHPUnit_Framework_TestCase
     private $mysqlAnsiCodec = null;
     private $mysqlStdCodec = null;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->mysqlAnsiCodec = new MySQLCodec(MySQLCodec::MYSQL_ANSI);
         $this->mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);

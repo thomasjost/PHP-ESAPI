@@ -51,7 +51,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
      *
      * @return null
      */
-    public function __construct()
+    protected function setUp()
     {
         $this->_restoreSecCon = ESAPI::getSecurityConfiguration();
         ESAPI::setSecurityConfiguration(null);

@@ -21,14 +21,6 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
 {
     private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
     
-    public function setUp()
-    {
-    }
-    
-    public function tearDown()
-    {
-    }
-
     /**
      * Test of getRandomGUID method, of class org.owasp.esapi.Randomizer.
      * @throws EncryptionException

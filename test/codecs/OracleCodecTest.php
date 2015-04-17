@@ -19,7 +19,7 @@ class OracleCodecTest extends PHPUnit_Framework_TestCase
 {
     private $oracleCodec = null;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->oracleCodec = new OracleCodec();
     }

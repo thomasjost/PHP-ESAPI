@@ -21,14 +21,6 @@
 
 class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-    }
-
-    public function tearDown()
-    {
-    }
-
     public function testConfigExists()
     {
         $this->assertTrue(file_exists(__DIR__.'/../testresources/ESAPI.xml'));

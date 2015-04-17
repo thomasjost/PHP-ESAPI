@@ -27,7 +27,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
     private $immune_html     = array( ',', '.', '-', '_', ' ' );
     private $immune_htmlattr = array( ',', '.', '-', '_' );
 
-    public function setUp()
+    protected function setUp()
     {
         $this->htmlEntityCodec = new HTMLEntityCodec();
     }

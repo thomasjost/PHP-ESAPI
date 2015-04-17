@@ -46,21 +46,11 @@ class AuditorTest extends PHPUnit_Framework_TestCase
      */
     private $logfileIsReadable = false;
     
-    public function __construct()
-    {
-        ESAPI::getEncoder();
-        $this->logFileLoc = getLogFileLoc();
-    }
-
     protected function setUp()
     {
+        $this->logFileLoc = getLogFileLoc();
         $this->testLogger = ESAPI::getAuditor(__CLASS__);
         $this->testLogger->setLevel(Auditor::ALL);
-    }
-
-    public function tearDown()
-    {
-        $this->testLogger = null; // TODO - working?
     }
 
     public function testSetLevelOffCheckTrace()

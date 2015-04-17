@@ -57,7 +57,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      *
      * @return null
      */
-    public function __construct()
+    protected function setUp()
     {
         $this->_httpUtils = ESAPI::getHTTPUtilities();
     }

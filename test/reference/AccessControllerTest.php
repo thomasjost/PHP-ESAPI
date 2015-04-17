@@ -19,14 +19,6 @@ class AccessControllerTest extends PHPUnit_Framework_TestCase
     
     //TODO: write tests for AccessController
     
-    public function setUp()
-    {
-    }
-    
-    public function tearDown()
-    {
-    }
-    
     public function test()
     {
     }
