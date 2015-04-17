@@ -41,9 +41,9 @@ require_once __DIR__ . '/../testresources/TestHelpers.php';
 class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
 {
 
-    private $_logFileLoc    = null;
-    private $_logDateFormat = null;
-    private $_restoreSecCon = null;
+    private $_logFileLoc;
+    private $_logDateFormat;
+    private $_restoreSecCon;
 
     /**
      * Constructor swaps the SecurityConfiguration currently in use with one which

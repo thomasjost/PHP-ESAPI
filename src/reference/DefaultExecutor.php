@@ -45,15 +45,15 @@ class DefaultExecutor implements Executor
 {
         
     // Logger
-    private $_auditor = null;
-    private $_ApplicationName = null;
-    private $_LogEncodingRequired = null;
-    private $_LogLevel = null;
-    private $_LogFileName = null;
-    private $_MaxLogFileSize = null;
+    private $_auditor;
+    private $_ApplicationName;
+    private $_LogEncodingRequired;
+    private $_LogLevel;
+    private $_LogFileName;
+    private $_MaxLogFileSize;
     
     //SecurityConfiguration
-    private $_config = null;
+    private $_config;
     
     /**
      * Executor constructor.

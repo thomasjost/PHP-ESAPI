@@ -46,8 +46,8 @@
 abstract class BaseValidationRule implements ValidationRule
 {
 
-    protected $typeName  = null;
-    protected $encoder   = null;
+    protected $typeName;
+    protected $encoder;
     protected $allowNull = false;
 
     /**

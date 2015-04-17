@@ -41,7 +41,7 @@
 class DefaultSanitizer implements Sanitizer
 {
 
-    private $encoder = null;
+    private $encoder;
 
     public function __construct()
     {

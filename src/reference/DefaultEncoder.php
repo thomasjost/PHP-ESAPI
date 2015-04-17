@@ -47,13 +47,13 @@
 class DefaultEncoder implements Encoder
 {
 
-    private $_base64Codec     = null;
-    private $_cssCodec        = null;
-    private $_htmlCodec       = null;
-    private $_javascriptCodec = null;
-    private $_percentCodec    = null;
-    private $_vbscriptCodec   = null;
-    private $_xmlCodec        = null;
+    private $_base64Codec;
+    private $_cssCodec;
+    private $_htmlCodec;
+    private $_javascriptCodec;
+    private $_percentCodec;
+    private $_vbscriptCodec;
+    private $_xmlCodec;
 
     /*
      * Character sets that define characters (in addition to alphanumerics) that are
@@ -72,7 +72,7 @@ class DefaultEncoder implements Encoder
     private $_immune_url        = array( '.', '-', '*', '_');
 
     private $_codecs = array();
-    private $_auditor = null;
+    private $_auditor;
 
     /**
      * Encoder constructor.

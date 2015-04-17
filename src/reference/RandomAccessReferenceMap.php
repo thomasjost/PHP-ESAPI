@@ -38,8 +38,8 @@
 class RandomAccessReferenceMap implements AccessReferenceMap
 {
     
-    private $dtoi = null;
-    private $itod = null;
+    private $dtoi;
+    private $itod;
     private $random = 0;
 
     public function __construct($directReferences = null)

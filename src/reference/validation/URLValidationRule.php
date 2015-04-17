@@ -42,7 +42,7 @@
 class URLValidationRule extends StringValidationRule
 {
 
-    private $_auditor   = null;
+    private $_auditor;
  
     /**
      * Constructor sets-up the validation rule with a descriptive name for this

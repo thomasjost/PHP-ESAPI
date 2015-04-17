@@ -63,7 +63,7 @@ class EnterpriseSecurityException extends Exception
 
     /** The logger. */
     protected $logger;
-    protected $logMessage = null;
+    protected $logMessage;
 
     /**
      * Creates a new instance of EnterpriseSecurityException that includes a

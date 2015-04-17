@@ -56,7 +56,7 @@ class DefaultAuditor implements Auditor
      */
     private $_log4php;
     private $_log4phpName;
-    private $_appName = null;
+    private $_appName;
     private static $_initialised = false;
 
     /**

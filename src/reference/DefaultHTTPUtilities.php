@@ -44,9 +44,9 @@
 class DefaultHTTPUtilities implements HTTPUtilities
 {
 
-    private $_auditor        = null;
-    private $_currentRequest = null;
-    private $_validator      = null;
+    private $_auditor;
+    private $_currentRequest;
+    private $_validator;
 
     /**
      * The constructor stores an instance of Auditor for the purpose of logging.

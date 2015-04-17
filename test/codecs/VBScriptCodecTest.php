@@ -17,7 +17,7 @@
 
 class VBScriptCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $vbScriptCodec = null;
+    private $vbScriptCodec;
     
     protected function setUp()
     {

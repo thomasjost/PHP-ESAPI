@@ -33,10 +33,10 @@ class AuditorTest extends PHPUnit_Framework_TestCase
     /**
      * @var Auditor
      */
-    private $testLogger = null;
-    private $alphanum = null;
-    private $rnd = null;
-    private $logFileLoc = null;
+    private $testLogger;
+    private $alphanum;
+    private $rnd;
+    private $logFileLoc;
     /**
      * Set the first time we attempt to read the logfile.  Used to differentiate
      * between failure to read the logfile and failure to match a pattern in the

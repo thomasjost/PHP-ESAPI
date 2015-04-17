@@ -17,7 +17,7 @@
 
 class Base64CodecTest extends PHPUnit_Framework_TestCase
 {
-    private $base64Codec = null;
+    private $base64Codec;
     
     protected function setUp()
     {

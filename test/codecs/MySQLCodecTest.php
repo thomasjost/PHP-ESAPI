@@ -17,8 +17,8 @@
 
 class MySQLCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $mysqlAnsiCodec = null;
-    private $mysqlStdCodec = null;
+    private $mysqlAnsiCodec;
+    private $mysqlStdCodec;
     
     protected function setUp()
     {
@@ -28,14 +28,14 @@ class MySQLCodecTest extends PHPUnit_Framework_TestCase
         
     public function testANSIEncode()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals("'') or (''1''=''1--", $this->mysqlAnsiCodec->encode($immune, "') or ('1'='1--"));
     }
     
     public function testANSIEncodeCharacter()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals("''", $this->mysqlAnsiCodec->encode($immune, "'"));
     }

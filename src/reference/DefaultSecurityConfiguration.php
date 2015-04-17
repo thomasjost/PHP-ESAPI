@@ -45,53 +45,53 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 {
 
     // SimpleXML reads the entire file into memory
-    private $_xml = null;
+    private $_xml;
 
     // Authenticator
 
-    private $_RememberTokenDuration = null;
-    private $_AllowedLoginAttempts = null;
-    private $_MaxOldPasswordHashes = null;
-    private $_UsernameParameterName = null;
-    private $_PasswordParameterName = null;
-    private $_IdleTimeoutDuration = null;
-    private $_AbsoluteTimeoutDuration = null;
+    private $_RememberTokenDuration;
+    private $_AllowedLoginAttempts;
+    private $_MaxOldPasswordHashes;
+    private $_UsernameParameterName;
+    private $_PasswordParameterName;
+    private $_IdleTimeoutDuration;
+    private $_AbsoluteTimeoutDuration;
 
     // Encoder
 
     // Executor
 
-    private $_AllowedExecutables = null;
-    private $_WorkingDirectory = null;
+    private $_AllowedExecutables;
+    private $_WorkingDirectory;
 
     // Encryptor
 
-    private $_CharacterEncoding = null;
-    private $_MasterKey = null;
-    private $_MasterSalt = null;
-    private $_EncryptionAlgorithm = null;
-    private $_HashAlgorithm = null;
-    private $_DigitalSignatureAlgorithm = null;
-    private $_RandomAlgorithm = null;
+    private $_CharacterEncoding;
+    private $_MasterKey;
+    private $_MasterSalt;
+    private $_EncryptionAlgorithm;
+    private $_HashAlgorithm;
+    private $_DigitalSignatureAlgorithm;
+    private $_RandomAlgorithm;
 
     // HTTPUtilities
 
-    private $_AllowedFileExtensions = null;
-    private $_maxUploadSize = null;
-    private $_ResponseContentType = null;
-    private $_AllowedIncludes = null;
-    private $_AllowedResources = null;
+    private $_AllowedFileExtensions;
+    private $_maxUploadSize;
+    private $_ResponseContentType;
+    private $_AllowedIncludes;
+    private $_AllowedResources;
 
     // Logger
 
-    private $_ApplicationName = null;
-    private $_LogApplicationName = null;
-    private $_LogEncodingRequired = null;
-    private $_LogLevel = null;
-    private $_LogFileName = null;
-    private $_MaxLogFileSize = null;
-    private $_MaxLogFileBackups = null;
-    private $_LogFileDateFormat = null;
+    private $_ApplicationName;
+    private $_LogApplicationName;
+    private $_LogEncodingRequired;
+    private $_LogLevel;
+    private $_LogFileName;
+    private $_MaxLogFileSize;
+    private $_MaxLogFileBackups;
+    private $_LogFileDateFormat;
 
     // Validator
 
@@ -99,15 +99,15 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 
     // IntrusionDetector
 
-    private $_DisableIntrusionDetection = null;
+    private $_DisableIntrusionDetection;
 
-    private $_events = null;
+    private $_events;
 
-    private $_resourceDir = null;
+    private $_resourceDir;
 
     // Special Debugging
 
-    private $_SpecialDebugging = null;
+    private $_SpecialDebugging;
 
     /**
      * SecurityConfiguration constructor.

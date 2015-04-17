@@ -22,7 +22,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 {
     private $_os;
     
-    const PLATFORM_WINDOWS    = 1;
+    const PLATFORM_WINDOWS = 1;
     const PLATFORM_UNIX    = 2;
     
     protected function setUp()

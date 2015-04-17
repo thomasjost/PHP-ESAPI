@@ -75,30 +75,30 @@ class SafeRequest
     const PATTERN_IPV4_ADDRESS
         = '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 
-    private $_serverGlobals      = null;
+    private $_serverGlobals;
 
-    private $_authType           = null;
-    private $_contentLength      = null;
-    private $_contentType        = null;
-    private $_headers            = null;
-    private $_pathInfo           = null;
-    private $_pathTranslated     = null;
-    private $_queryString        = null;
-    private $_remoteAddr         = null;
-    private $_remoteHost         = null;
-    private $_remoteUser         = null;
-    private $_method             = null;
-    private $_requestURI         = null;
-    private $_serverName         = null;
-    private $_serverPort         = null;
-    private $_protocol           = null;
-    private $_cookies            = null;
-    private $_parameterNames     = null;
-    private $_parameterMap       = null;
+    private $_authType;
+    private $_contentLength;
+    private $_contentType;
+    private $_headers;
+    private $_pathInfo;
+    private $_pathTranslated;
+    private $_queryString;
+    private $_remoteAddr;
+    private $_remoteHost;
+    private $_remoteUser;
+    private $_method;
+    private $_requestURI;
+    private $_serverName;
+    private $_serverPort;
+    private $_protocol;
+    private $_cookies;
+    private $_parameterNames;
+    private $_parameterMap;
 
-    private $_validator = null;
-    private $_encoder   = null;
-    private $_auditor   = null;
+    private $_validator;
+    private $_encoder;
+    private $_auditor;
 
     /**
      * SafeRequest can be forced to use the supplied cookies, headers and server

@@ -55,8 +55,8 @@ class HTMLValidationRule extends StringValidationRule
     // $config->set('Core.CollectErrors' , true);
     //
     //
-    private $_auditor = null;
-    private $_purifier = null;
+    private $_auditor;
+    private $_purifier;
 
     /**
      * Constructor sets-up the validation rule with a descriptive name for this

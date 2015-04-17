@@ -53,7 +53,7 @@ class IntrusionException extends Exception
 {
 
     protected $logger; // ESAPI Logger class
-    protected $logMessage = null; // Message to be sent to the log
+    protected $logMessage; // Message to be sent to the log
 
     /**
      * Instantiates a new intrusion exception.

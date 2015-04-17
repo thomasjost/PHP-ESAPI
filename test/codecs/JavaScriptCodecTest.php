@@ -17,7 +17,7 @@
 
 class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $javascriptCodec = null;
+    private $javascriptCodec;
     
     protected function setUp()
     {
@@ -26,14 +26,14 @@ class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
         
 /*	function testEncode()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
     }
 */
     public function testEncodeCharacter()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals("\\x3C", $this->javascriptCodec->encode($immune, "<"));
     }

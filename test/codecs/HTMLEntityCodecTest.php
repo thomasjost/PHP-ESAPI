@@ -21,7 +21,7 @@
  */
 class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $htmlEntityCodec = null;
+    private $htmlEntityCodec;
 
     // these immune characters are the ones defined in DefaultEncoder.
     private $immune_html     = array( ',', '.', '-', '_', ' ' );
@@ -49,7 +49,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
     // test that characters normally immune from encoding, can be encoded.
     public function testEncodeImmuneCharsForHTML()
     {
-        $immune = array('');
+        $immune = array();
         $this->assertEquals(
             'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;&#x20;',
             $this->htmlEntityCodec->encode(
@@ -181,7 +181,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 
     public function testEncodeImmuneCharsForHTMLAttribute()
     {
-        $immune = array('');
+        $immune = array();
         $this->assertEquals(
             'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;',
             $this->htmlEntityCodec->encode(

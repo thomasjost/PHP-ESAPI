@@ -18,7 +18,7 @@
 
 class CSSCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $cssCodec = null;
+    private $cssCodec;
     
     protected function setUp()
     {
@@ -27,14 +27,14 @@ class CSSCodecTest extends PHPUnit_Framework_TestCase
         
     public function testEncode()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals('background\3a expression\28 window\2e x\3f 0\3a \28 alert\28 \2f XSS\2f \29 \2c window\2e x\3d 1\29 \29 \3b ', $this->cssCodec->encode($immune, 'background:expression(window.x?0:(alert(/XSS/),window.x=1));'));
     }
     
     public function testEncodeCharacter()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals("\\3c ", $this->cssCodec->encode($immune, "<"));
     }
@@ -106,7 +106,7 @@ class CSSCodecTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException');
 
-        $immune = array("");
+        $immune = array();
         $this->cssCodec->encodeCharacter($immune, chr(0x00));
     }
 }

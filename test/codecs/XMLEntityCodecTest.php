@@ -39,7 +39,7 @@
  */
 class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $_xmlEntityCodec = null;
+    private $_xmlEntityCodec;
 
     // these immune characters are the ones defined in DefaultEncoder.
     private $_immune_xml     = array( ',', '.', '-', '_', ' ' );
@@ -83,7 +83,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeImmuneCharsForXML()
     {
-        $immune = array('');
+        $immune = array();
         $this->assertEquals(
             'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;&#x20;',
             $this->_xmlEntityCodec->encode(
@@ -265,7 +265,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeImmuneCharsForXMLAttribute()
     {
-        $immune = array('');
+        $immune = array();
         $this->assertEquals(
             'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;',
             $this->_xmlEntityCodec->encode(

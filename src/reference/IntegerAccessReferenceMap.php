@@ -36,8 +36,8 @@
 class IntegerAccessReferenceMap implements AccessReferenceMap
 {
 
-    private $dtoi = null;
-    private $itod = null;
+    private $dtoi;
+    private $itod;
     private $count = 1;
 
     public function __construct($directReferences = null)

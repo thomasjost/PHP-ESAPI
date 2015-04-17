@@ -57,7 +57,7 @@ class CodecDebug
 {
     
     private $_verb;
-    private $_buf = null;
+    private $_buf;
     private $_allowRecurse = true;
     private $_enabled = false;
 

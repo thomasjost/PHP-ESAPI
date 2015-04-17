@@ -17,7 +17,7 @@
 
 class PercentCodecTest extends PHPUnit_Framework_TestCase
 {
-    private $percentCodec = null;
+    private $percentCodec;
     
     protected function setUp()
     {
@@ -33,7 +33,7 @@ class PercentCodecTest extends PHPUnit_Framework_TestCase
     
     public function testEncodeCharacter()
     {
-        $immune = array("");
+        $immune = array();
         
         $this->assertEquals("%3C", $this->percentCodec->encode($immune, "<"));
     }

@@ -49,7 +49,7 @@
  */
 class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
 {
-    private $_httpUtils = null;
+    private $_httpUtils;
 
     /**
      * Constructor ensures global ESAPI is set and stores an instance of
