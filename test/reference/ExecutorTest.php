@@ -172,7 +172,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         }
                 
         try {
-            $this->_params[] = "c:\\autoexec.bat c:\\config.sys";
+            $this->_params[] = "%SYSTEMROOT%\\explorer.exe %SYSTEMROOT%\\notepad.exe";
             $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
             $this->assertNotNull($result);
         } catch (ExecutorException $e) {
