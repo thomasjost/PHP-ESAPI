@@ -95,7 +95,7 @@ class DefaultExecutor implements Executor
             
             if (!file_exists($resolved)) {
                 throw new ExecutorException(
-                    "Execution failure, No such ".
+                    "Execution failure, No such " .
                     "executable: $executable"
                 );
             }
@@ -104,15 +104,15 @@ class DefaultExecutor implements Executor
             if (substr(PHP_OS, 0, 3) == 'WIN') {
                 if (strcasecmp($resolved, realpath($resolved)) != 0) {
                     throw new ExecutorException(
-                        "Execution failure, Attempt ".
-                        "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
+                        "Execution failure, Attempt " .
+                        "to invoke an executable using a non-absolute path: [" . realpath($resolved) . "] != [$executable]"
                     );
                 }
             } else {
                 if (strcmp($resolved, realpath($resolved)) != 0) {
                     throw new ExecutorException(
-                        "Execution failure, Attempt ".
-                        "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
+                        "Execution failure, Attempt " .
+                        "to invoke an executable using a non-absolute path: [" . realpath($resolved) . "] != [$executable]"
                     );
                 }
             }
@@ -124,26 +124,24 @@ class DefaultExecutor implements Executor
                     return $carry || !strcasecmp($item, $executable);
                 }, false)) {
                     throw new ExecutorException(
-                        "Execution failure, Attempt to invoke executable that ".
-                        "is not listed as an approved executable in ESAPI ".
-                        "configuration: ".$executable . " not listed in " . implode(';', $approved)
+                        "Execution failure, Attempt to invoke executable that " .
+                        "is not listed as an approved executable in ESAPI " .
+                        "configuration: " . $executable . " not listed in " . implode(';', $approved)
                     );
                 }
             } else {
                 if (!in_array($executable, $approved)) {
                     throw new ExecutorException(
-                        "Execution failure, Attempt to invoke executable that ".
-                        "is not listed as an approved executable in ESAPI ".
-                        "configuration: ".$executable . " not listed in " . implode(';', $approved)
+                        "Execution failure, Attempt to invoke executable that " .
+                        "is not listed as an approved executable in ESAPI " .
+                        "configuration: " . $executable . " not listed in " . implode(';', $approved)
                     );
                 }
             }
-
+        
             // escape any special characters in the parameters
-            for ($i = 0; $i < count($params); $i++) {
-                $params[$i] = escapeshellcmd($params[$i]);
-            }
-           
+            $params = array_map('escapeshellcmd', $params);
+             
             // working directory must exist
             $resolved_workdir = $workdir;
             if (substr(PHP_OS, 0, 3) == 'WIN') {
@@ -154,7 +152,7 @@ class DefaultExecutor implements Executor
             
             if (!file_exists($resolved_workdir)) {
                 throw new ExecutorException(
-                    "Execution failure, No such".
+                    "Execution failure, No such" .
                     " working directory for running executable: $workdir"
                 );
             }
@@ -163,7 +161,7 @@ class DefaultExecutor implements Executor
             $paramstr = "";
             foreach ($params as $param) {
                 //note: will yield a paramstr with a leading whitespace
-                $paramstr .= " ".$param;
+                $paramstr .= " " . $param;
             }
             //note: no whitespace between $executable and $paramstr since
             //$paramstr already has a leading whitespace

@@ -336,7 +336,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
     {
         $ivr = new IntegerValidationRule('An_Integer', null);
 
-        $this->assertTrue((int)187 === $ivr->getValid('testIntegerVR_getValid_valid', '187'));
+        $this->assertTrue((int) 187 === $ivr->getValid('testIntegerVR_getValid_valid', '187'));
 
         $this->assertTrue((int) -187 === $ivr->getValid('testIntegerVR_getValid_valid', '-187'));
 
@@ -465,7 +465,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
     {
         $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
-        $this->assertTrue((double)187 === $nvr->getValid('testNumberVR_getValid_valid', '187'));
+        $this->assertTrue((double) 187 === $nvr->getValid('testNumberVR_getValid_valid', '187'));
 
         $this->assertTrue(187.211 === $nvr->getValid('testNumberVR_getValid_valid', '187.211'));
 

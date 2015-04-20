@@ -88,7 +88,7 @@ class URLValidationRule extends StringValidationRule
         if ($clean_url == false) {
             throw new ValidationException(
                 'URL Input is not valid.',
-                'Error attempting to sanitize URL: '. $input,
+                'Error attempting to sanitize URL: ' . $input,
                 $context
             );
         }
@@ -96,7 +96,7 @@ class URLValidationRule extends StringValidationRule
         if (strcmp($canonical, $clean_url) !== 0) {
             throw new ValidationException(
                 'URL Input may not be valid.',
-                'Resorted to string comparsion of canonicalized and purified'.
+                'Resorted to string comparsion of canonicalized and purified' .
                 ' URL input - result was Not Equal',
                 $context
             );

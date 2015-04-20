@@ -70,6 +70,7 @@ function fileContainsExpected(
                     $dateString = $d->format($format);
                     if (strncmp($line, $dateString, strlen($dateString)) === 0) {
                         fclose($f);
+
                         return true;
                     }
                     $d->modify('+1 second');
@@ -78,11 +79,13 @@ function fileContainsExpected(
                 $d = null;
             } else {
                 fclose($f);
+
                 return true;
             }
         }
     }
     fclose($f);
+
     return false;
 }
 
@@ -95,6 +98,7 @@ function fileContainsExpected(
 function getLogFileLoc()
 {
     $filename = ESAPI::getSecurityConfiguration()->getLogFileName();
+
     return realpath($filename);
 }
 
@@ -112,6 +116,7 @@ function getRandomAlphaNumString($len)
         return null;
     }
     ESAPI::getEncoder();
+
     return ESAPI::getRandomizer()->getRandomString(
         $len,
         Encoder::CHAR_ALPHANUMERICS

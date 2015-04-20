@@ -109,7 +109,7 @@ class IntegerValidationRule extends BaseValidationRule
         }
         if ($this->_minValue > $this->_maxValue) {
             throw new RuntimeException(
-                'Validation misconfiguration - $_minValue should not be '.
+                'Validation misconfiguration - $_minValue should not be ' .
                 'greater than $_maxValue!'
             );
         }
@@ -131,7 +131,7 @@ class IntegerValidationRule extends BaseValidationRule
         } catch (EncodingException $e) {
             throw new ValidationException(
                 $context . ': Invalid input. Encoding problem detected.',
-                'An EncodingException was thrown during canonicalization of'.
+                'An EncodingException was thrown during canonicalization of' .
                 ' the input.',
                 $context
             );
@@ -142,7 +142,7 @@ class IntegerValidationRule extends BaseValidationRule
             if (! preg_match('/^[-+0-9]+$/', $canonical)) {
                 throw new ValidationException(
                     'Invalid integer input: context=' . $context,
-                    'Invalid integer input: Input is not a valid integer: '.$input,
+                    'Invalid integer input: Input is not a valid integer: ' . $input,
                     $context
                 );
             }
@@ -150,33 +150,34 @@ class IntegerValidationRule extends BaseValidationRule
             if ($i != intval($i)) {
                 throw new ValidationException(
                     'Invalid integer input: context=' . $context,
-                    'Invalid integer input: Input is not a valid integer: '.$input,
+                    'Invalid integer input: Input is not a valid integer: ' . $input,
                     $context
                 );
             }
             $i = (int) $i;
             if ($i < $this->_minValue) {
                 throw new ValidationException(
-                    'Invalid integer input must not be less than '.$this->_minValue,
-                    'Invalid integer input must not be less than '.$this->_minValue.
+                    'Invalid integer input must not be less than ' . $this->_minValue,
+                    'Invalid integer input must not be less than ' . $this->_minValue .
                     ': context=' . $context . ', input=' . $input,
                     $context
                 );
             }
             if ($i > $this->_maxValue) {
                 throw new ValidationException(
-                    'Invalid integer input must not be greater than '.
+                    'Invalid integer input must not be greater than ' .
                     $this->_maxValue,
-                    'Invalid integer input must not be greater than '.
-                    $this->_maxValue . ': context=' . $context . ', input='.$input,
+                    'Invalid integer input must not be greater than ' .
+                    $this->_maxValue . ': context=' . $context . ', input=' . $input,
                     $context
                 );
             }
+
             return $i;
         } catch (NumberFormatException $e) {
             throw new ValidationException(
                 $context . ': Invalid integer input',
-                'Invalid integer input format: Caught NumberFormatException: '.
+                'Invalid integer input format: Caught NumberFormatException: ' .
                 $e->getMessage() . 'context=' . $context . ', input=' . $input,
                 $context
             );

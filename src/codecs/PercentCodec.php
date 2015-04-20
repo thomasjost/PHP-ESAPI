@@ -103,6 +103,7 @@ class PercentCodec extends Codec
             // eat the 1st character off the string and return null
             //todo: this is not neccessary
             $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32");
+
             return array(
                 'decodedCharacter' => null,
                 'encodedString' => null
@@ -136,11 +137,13 @@ class PercentCodec extends Codec
             $charFromHex = $this->normalizeEncoding(
                 $this->_parseHex($potentialHexString)
             );
+
             return array(
                 'decodedCharacter' => $charFromHex,
                 'encodedString' => mb_substr($input, 0, 3, "UTF-32")
             );
         }
+
         return array(
             'decodedCharacter' => null,
             'encodedString' => null
@@ -191,6 +194,7 @@ class PercentCodec extends Codec
             } else {
                 $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
             }
+
             return $parsedCharacter;
         } catch (Exception $e) {
             //TODO: throw an exception for malformed entity?

@@ -152,7 +152,7 @@ abstract class Codec
         $decodedString           = '';
         $targetCharacterEncoding = 'ASCII';
         
-        //logic to iterate through the string's characters, while(input has
+        //logic to iterate through the string's characters, while (input has
         //characters remaining){} feed whole sequence into decoder, which then
         //determines the first decoded character from the input and "pushes back"
         //the encodedPortion of seuquence and the resultant decodedCharacter to here
@@ -197,10 +197,10 @@ abstract class Codec
                             // an exceptional one and shouldn't happen often...
                             throw new EncodingException(
                                 'Error encountered whilst decoding Input.',
-                                'A sequence of characters was recognised as using '.
-                                'a valid encoding scheme, but the character it '.
-                                'encodes is not a valid Unicode CodePoint. '.
-                                'The first character in the sequence is also not'.
+                                'A sequence of characters was recognised as using ' .
+                                'a valid encoding scheme, but the character it ' .
+                                'encodes is not a valid Unicode CodePoint. ' .
+                                'The first character in the sequence is also not' .
                                 'a valid Unicode CodePoint so decoding was aborted'
                             );
                         }
@@ -234,7 +234,7 @@ abstract class Codec
                     ESAPI::getLogger('Codec')->warn(
                         DefaultLogger::SECURITY,
                         false,
-                        'Input contained a character with an invalid Unicode '.
+                        'Input contained a character with an invalid Unicode ' .
                         'CodePoint. We destroyed it!'
                     );
                 }
@@ -431,7 +431,7 @@ abstract class Codec
             ESAPI::getLogger('Codec')->warning(
                 DefaultLogger::SECURITY,
                 false,
-                'Codec::detectEncoding threw an exception whilst attempting'.
+                'Codec::detectEncoding threw an exception whilst attempting' .
                 ' to unpack an input string',
                 $e
             );

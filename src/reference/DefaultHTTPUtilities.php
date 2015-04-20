@@ -182,6 +182,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
                 'getCookie expects an instance of SafeRequest.'
             );
         }
+
         return $request->getCookie($name);
     }
 
@@ -233,6 +234,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
     public function changeSessionIdentifier()
     {
         $result = session_regenerate_id(true);
+
         return $result;
     }
 

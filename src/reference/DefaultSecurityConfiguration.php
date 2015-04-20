@@ -160,7 +160,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ($_events === false) {
             $this->_events = null;
             $this->_logSpecial(
-                'SecurityConfiguration for '.
+                'SecurityConfiguration for ' .
                 '/esapi-properties/IntrusionDetector/event not found in ESAPI.xml.'
             );
             
@@ -193,7 +193,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if (count($this->_events) == 0) {
             $this->_events = null;
             $this->_logSpecial(
-                'SecurityConfiguration found no valid events in '.
+                'SecurityConfiguration found no valid events in ' .
                 'the Intrusion Detection section.'
             );
             
@@ -318,7 +318,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         }
 
         if ($found && isset($val->attributes()->value)) {
-            return (string)$val->attributes()->value;
+            return (string) $val->attributes()->value;
         } else {
             $this->_logSpecial(
                 'getESAPIValidationExpression: Cannot find ' .
@@ -367,7 +367,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
             $val = (int) $var[0];
         }
 
-        return (string)$val;
+        return (string) $val;
     }
 
     /**

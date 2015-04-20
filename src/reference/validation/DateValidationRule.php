@@ -80,7 +80,7 @@ class DateValidationRule extends BaseValidationRule
     {
         if (! is_string($newFormat) || $newFormat == '') {
             throw new RuntimeException(
-                'setDateFormat requires a non-empty string DateFormat as '.
+                'setDateFormat requires a non-empty string DateFormat as ' .
                 'accepted by date().'
             );
         }
@@ -134,7 +134,7 @@ class DateValidationRule extends BaseValidationRule
         } catch (EncodingException $e) {
             throw new ValidationException(
                 "{$context} -  Invalid input. Encoding problem detected.",
-                'An EncodingException was thrown during canonicalization of '.
+                'An EncodingException was thrown during canonicalization of ' .
                 'the input.',
                 $context
             );

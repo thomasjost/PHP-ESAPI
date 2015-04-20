@@ -117,31 +117,32 @@ class FileBasedAuthenticator implements Authenticator
             throw new AuthenticationAccountsException("Account creation failed", "Attempt to create user with null accountName");
         }
         if ($this->getUserByName($accountName) != null) {
-            throw new AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for ".$accountName);
+            throw new AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for " . $accountName);
         }
 
         $this->verifyAccountNameStrength($accountName);
 
         if ($password1 == null) {
-            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account ".$accountName." with a null password");
+            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account " . $accountName . " with a null password");
         }
         $this->verifyPasswordStrength(null, $password1);
 
         if ($password1 != $password2) {
-            throw new AuthenticationCredentialsException("Passwords do not match", "Passwords for ".$accountName." do not match");
+            throw new AuthenticationCredentialsException("Passwords do not match", "Passwords for " . $accountName . " do not match");
         }
 
         $user = new DefaultUser($accountName);
         try {
             $this->setHashedPassword($user, $this->hashPassword($password1, $accountName));
         } catch (EncryptionException $ee) {
-            throw new AuthenticationException("Internal error", "Error hashing password for ".$accountName);
+            throw new AuthenticationException("Internal error", "Error hashing password for " . $accountName);
         }
 
         $this->userMap[$user->getAccountId()] = $user;
 
-        $this->logger->info(ESAPILogger::SECURITY, true, "New user created: ".$accountName);
+        $this->logger->info(ESAPILogger::SECURITY, true, "New user created: " . $accountName);
         $this->saveUsers();
+
         return $user;
     }
 
@@ -152,7 +153,7 @@ class FileBasedAuthenticator implements Authenticator
     {
         //        throw new EnterpriseSecurityException("Method Not Implemented");
         if (!$this->isValidString($this->userDB)) {
-            $fileHandle = ESAPI::getSecurityConfiguration()->getResourceDirectory()."users.txt";
+            $fileHandle = ESAPI::getSecurityConfiguration()->getResourceDirectory() . "users.txt";
             $this->userDB = fopen($fileHandle, 'a');
         }
 
@@ -198,10 +199,10 @@ class FileBasedAuthenticator implements Authenticator
         $passLetters = $randomizer->getRandomString($letters, DefaultEncoder::CHAR_PASSWORD_LETTERS);
         $passDigits = $randomizer->getRandomString($digits, DefaultEncoder::CHAR_PASSWORD_DIGITS);
         $passSpecial = $randomizer->getRandomString(1, DefaultEncoder::CHAR_PASSWORD_SPECIALS);
-        $newPassword = $passLetters.$passSpecial.$passDigits;
+        $newPassword = $passLetters . $passSpecial . $passDigits;
 
         if ($this->isValidString($newPassword) && $this->isValidString($user)) {
-            $this->logger->info(ESAPILogger::SECURITY, true, "Generated strong password for ".$user->getAccountName());
+            $this->logger->info(ESAPILogger::SECURITY, true, "Generated strong password for " . $user->getAccountName());
         }
 
         return $newPassword;
@@ -219,11 +220,11 @@ class FileBasedAuthenticator implements Authenticator
             $verifyHash = $this->hashPassword($currentPassword, $accountName);
 
             if ($currentHash != $verifyHash) {
-                throw new AuthenticationCredentialsException("Password change failed", "Authentication failed for password change on user: ".$accountName);
+                throw new AuthenticationCredentialsException("Password change failed", "Authentication failed for password change on user: " . $accountName);
             }
 
             if (!$this->isValidString($newPassword) || !$this->isValidString($newPassword2) || $newPassword != $newPassword2) {
-                throw new AuthenticationCredentialsException("Password change failed", "Passwords do not match for password change on user: ".$accountName);
+                throw new AuthenticationCredentialsException("Password change failed", "Passwords do not match for password change on user: " . $accountName);
             }
 
             $this->verifyPasswordStrength($currentPassword, $newPassword);
@@ -231,13 +232,13 @@ class FileBasedAuthenticator implements Authenticator
             $user->setLastPasswordChangeTime(time());
             $newHash = $this->hashPassword($newPassword, $accountName);
             if (in_array($newHash, $this->getOldPasswordHashes($user))) {
-                throw new AuthenticationCredentialsException("Password change failed", "Password change matches a recent password for user: ".$accountName);
+                throw new AuthenticationCredentialsException("Password change failed", "Password change matches a recent password for user: " . $accountName);
             }
 
             $this->setHashedPassword($user, $newHash);
-            $this->logger->info(ESAPILogger::SECURITY, true, "Password changed for user: ".$accountName);
+            $this->logger->info(ESAPILogger::SECURITY, true, "Password changed for user: " . $accountName);
         } catch (EncryptionException $e) {
-            throw new AuthenticationException("Password change failed", "Encryption exception changing password for ".$accountName);
+            throw new AuthenticationException("Password change failed", "Encryption exception changing password for " . $accountName);
         }
     }
 
@@ -263,9 +264,10 @@ class FileBasedAuthenticator implements Authenticator
         if ($create) {
             $hashes = array();
             $this->passwordMap[$user] = $hashes;
+
             return hashes;
         }
-        throw new RuntimeException("No hashes found for ".$user->getAccountName().". Is User.hashcode() and equals() implemented correctly?");
+        throw new RuntimeException("No hashes found for " . $user->getAccountName() . ". Is User.hashcode() and equals() implemented correctly?");
     }
 
     /**
@@ -278,6 +280,7 @@ class FileBasedAuthenticator implements Authenticator
     public function getHashedPassword($user)
     {
         $hashes = $this->getAllHashedPasswords($user, false);
+
         return $hashes[0];
     }
 
@@ -295,6 +298,7 @@ class FileBasedAuthenticator implements Authenticator
         if (count($hashes) > 1) {
             return array_slice($hashes, 1, (count($hashes) - 1), true);
         }
+
         return array();
     }
 
@@ -399,7 +403,7 @@ class FileBasedAuthenticator implements Authenticator
             //TODO: Verify
             array_pop($hashes);
         }
-        $this->logger->info(ESAPILogger::SECURITY, true, "New hashed password stored for ".$user->getAccountName());
+        $this->logger->info(ESAPILogger::SECURITY, true, "New hashed password stored for " . $user->getAccountName());
     }
 
     /**
@@ -408,6 +412,7 @@ class FileBasedAuthenticator implements Authenticator
     public function hashPassword($password, $accountName)
     {
         $salt = strtolower($accountName);
+
         return ESAPI::getEncryptor()->hash($password, $salt);
     }
 
@@ -421,6 +426,7 @@ class FileBasedAuthenticator implements Authenticator
         $idx = array_search($accountName, $this->users);
         if (!empty($this->users) && $idx !== false) {
             unset($this->users[$idx]);
+
             return true;
         }
 
@@ -436,8 +442,8 @@ class FileBasedAuthenticator implements Authenticator
             throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
         }
 
-        if (true/*!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )*/) {
-            throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: ".$accountName);
+        if (true/*!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false)*/) {
+            throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: " . $accountName);
         }
     }
 
@@ -462,10 +468,10 @@ class FileBasedAuthenticator implements Authenticator
         // can't change to a password that contains any 3 character substring of old password
         if ($this->isValidString($oldPassword)) {
             $passwordLength = strlen($oldPassword);
-            for ($counter = 0; $counter < $passwordLength-2; $counter++) {
+            for ($counter = 0; $counter < $passwordLength - 2; $counter++) {
                 $sub = substr($oldPassword, $counter, 3);
                 if (strlen(strstr($newPassword, $sub)) > 0) {
-                    //                if( strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
+                    //                if (strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
                     throw new AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password");
                 }
             }

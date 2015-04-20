@@ -260,9 +260,9 @@ class CodecDebug
         if ($pos == 0) {
             throw new Exception('backtrace is odd!'); // abort!
         }
-        $trace .= $dt[$pos]['class'] . '.' .  $dt[$pos--]['function'] . ', ';
-        $trace .= $dt[$pos]['class'] . '.' .  $dt[$pos--]['function'] . ', ';
-        $trace .= $dt[$pos]['class'] . '.' .  $dt[$pos]['function']   . $objName;
+        $trace .= $dt[$pos]['class'] . '::' .  $dt[$pos--]['function'] . ', ';
+        $trace .= $dt[$pos]['class'] . '::' .  $dt[$pos--]['function'] . ', ';
+        $trace .= $dt[$pos]['class'] . '::' .  $dt[$pos]['function']   . $objName;
     
         return $trace;
     }

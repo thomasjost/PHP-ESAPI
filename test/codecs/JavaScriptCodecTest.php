@@ -28,7 +28,7 @@ class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
     {
         $immune = array();
         
-        $this->assertEquals( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
+        $this->assertEquals('TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));'));
     }
 */
     public function testEncodeCharacter()
@@ -40,7 +40,7 @@ class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
 /*
     function testDecode()
     {
-        $this->assertEquals( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
+        $this->assertEquals('"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO'));
     }
 */
     public function testDecodeCharacter()

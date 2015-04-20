@@ -336,7 +336,7 @@ class DefaultAuditor implements Auditor
                 }
             } catch (Exception $e) {
                 $exType = get_type($e);
-                $encodedMessage = "The supplied log message generated an ".
+                $encodedMessage = "The supplied log message generated an " .
                     "Exception of type {$exType} and was not included";
             }
         } else {
@@ -385,13 +385,13 @@ class DefaultAuditor implements Auditor
             } else {
                 $thisChar = $nextChar;
             }
-            if ($i+1 < $len) {
-                $nextChar = mb_substr($message, $i+1, 1, $detectedEncoding);
+            if ($i + 1 < $len) {
+                $nextChar = mb_substr($message, $i + 1, 1, $detectedEncoding);
             } else {
                 $nextChar = null;
             }
             if ($thisChar == "\r" && $nextChar == "\n") {
-                $index = $i+2;
+                $index = $i + 2;
                 $nextChar = null;
                 $crlfEncoded .= $substitute;
             } elseif ($thisChar == "\r" || $thisChar == "\n") {

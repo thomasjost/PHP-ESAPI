@@ -828,7 +828,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->isValidFileName('test', '', false));
         try {
             $instance->isValidFileName('test', 'abc/def', false);
-       } catch( IntrusionException $e ) {
+       } catch (IntrusionException $e) {
             // expected
         }
     }

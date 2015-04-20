@@ -82,9 +82,9 @@ class WordValidationRule extends StringValidationRule
     public function getValid($context, $input)
     {
         throw new ValidationException(
-                'Use the string validator to validate strings, this rule '.
+                'Use the string validator to validate strings, this rule ' .
                 'is for sanitizing only.',
-                'Error attempting to validate Word: '. $input,
+                'Error attempting to validate Word: ' . $input,
                 $context
            );
     }

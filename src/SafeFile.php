@@ -154,10 +154,10 @@ class SafeFile extends SplFileObject
                     );
                 }
 
-                // Assume file name is $filename with $dir+slash knocked off it.
+                // Assume file name is $filename with $dir + slash knocked off it.
                 $dirLen += 1;
                 $filename
-                    = mb_substr($filename, $dirLen, $fileLen-$dirLen, $charEncF);
+                    = mb_substr($filename, $dirLen, $fileLen - $dirLen, $charEncF);
             }
         }
 

@@ -34,7 +34,7 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
         while ($i->valid()) {
             $userName = $arm->getDirectReference($i->current());
             if (in_array($userName, $users) === false) {
-                $this->fail("Username = [".$userName."] not in users array");
+                $this->fail("Username = [" . $userName . "] not in users array");
             }
             $i->next();
         }

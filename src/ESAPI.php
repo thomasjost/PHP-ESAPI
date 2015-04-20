@@ -108,7 +108,7 @@ class ESAPI
     public static function getAccessController()
     {
         if (is_null(self::$_accessController)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/FileBasedAccessController.php';
             self::$_accessController = new FileBasedAccessController();
         }
@@ -138,7 +138,7 @@ class ESAPI
     public static function getEncoder()
     {
         if (is_null(self::$_encoder)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultEncoder.php';
             self::$_encoder = new DefaultEncoder();
         }
@@ -198,7 +198,7 @@ class ESAPI
     public static function getExecutor()
     {
         if (is_null(self::$_executor)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultExecutor.php';
             self::$_executor = new DefaultExecutor();
         }
@@ -228,7 +228,7 @@ class ESAPI
     public static function getHttpUtilities()
     {
         if (is_null(self::$_httpUtilities)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultHTTPUtilities.php';
             self::$_httpUtilities = new DefaultHTTPUtilities();
         }
@@ -258,7 +258,7 @@ class ESAPI
     public static function getIntrusionDetector()
     {
         if (is_null(self::$_intrusionDetector)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultIntrusionDetector.php';
             self::$_intrusionDetector = new DefaultIntrusionDetector();
         }
@@ -290,7 +290,7 @@ class ESAPI
     public static function getAuditor($logger)
     {
         if (self::$_auditorFactory == null) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultAuditorFactory.php';
             self::setAuditorFactory(new DefaultAuditorFactory());
         }
@@ -335,7 +335,7 @@ class ESAPI
     public static function getRandomizer()
     {
         if (is_null(self::$_randomizer)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultRandomizer.php';
             self::$_randomizer = new DefaultRandomizer();
         }
@@ -367,7 +367,7 @@ class ESAPI
     public static function getSecurityConfiguration($path = '')
     {
         if (is_null(self::$_securityConfiguration)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultSecurityConfiguration.php';
             self::$_securityConfiguration = new DefaultSecurityConfiguration($path);
         }
@@ -398,7 +398,7 @@ class ESAPI
     public static function getValidator()
     {
         if (is_null(self::$_validator)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultValidator.php';
             self::$_validator = new DefaultValidator();
         }
@@ -428,7 +428,7 @@ class ESAPI
     public static function getSanitizer()
     {
         if (is_null(self::$_sanitizer)) {
-            include_once __DIR__.
+            include_once __DIR__ .
               '/reference/DefaultSanitizer.php';
             self::$_sanitizer = new DefaultSanitizer();
         }

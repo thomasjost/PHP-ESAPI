@@ -42,12 +42,12 @@ class StringUtilitiesTest extends PHPUnit_Framework_TestCase
     
     public function testStripControlsHighChars()
     {
-        $this->assertEquals('  ', StringUtilities::stripControls(chr(0xFE).chr(0xED)));
+        $this->assertEquals('  ', StringUtilities::stripControls(chr(0xFE) . chr(0xED)));
     }
     
     public function testStripControlsBorderCases()
     {
-        $this->assertEquals('  ', StringUtilities::stripControls(chr(0x20).chr(0x7f)));
+        $this->assertEquals('  ', StringUtilities::stripControls(chr(0x20) . chr(0x7f)));
     }
     
     public function testContainsPass()

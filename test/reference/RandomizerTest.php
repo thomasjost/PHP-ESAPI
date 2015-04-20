@@ -60,13 +60,13 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
                 
                 for ($j = 0; $j< strlen($result); $j++) {
                     if (!in_array($result[$j], $charset)) {            // TODO replace with DefaultEncoder...
-                        $this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
+                        $this->fail("Character [ " . $result[$j] . " ] not found in [ " . $result . " ]");
                     }
                 }
                 $this->assertEquals($length, strlen($result));
             }
         } catch (InvalidArgumentException $e) {
-            $this->fail("getRandomString() failed due to too short length ($length) or no character set [ ".$this->CHAR_ALPHANUMERICS." ]");
+            $this->fail("getRandomString() failed due to too short length ($length) or no character set [ " . $this->CHAR_ALPHANUMERICS . " ]");
         }
     }
 
@@ -152,7 +152,7 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
                 
                 for ($j = 0; $j < $len; $j++) {
                     if (!in_array($result[$j], $charset)) {
-                        $this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
+                        $this->fail("Character [ " . $result[$j] . " ] not found in [ " . $result . " ]");
                     }
                 }
             }

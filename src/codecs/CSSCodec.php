@@ -114,6 +114,7 @@ class CSSCodec extends Codec
             // eat the 1st character off the string and return null
             //todo: is this mb_substr neccessary
             $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32");
+
             return array(
                 'decodedCharacter' => null,
                 'encodedString' => null
@@ -239,6 +240,7 @@ class CSSCodec extends Codec
             } else {
                 $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
             }
+
             return $parsedCharacter;
         } catch (Exception $e) {
             //TODO: throw an exception for malformed entity?

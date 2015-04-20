@@ -73,7 +73,7 @@ class StringValidationRule extends BaseValidationRule
             $this->addWhitelistPattern($whiteListPattern);
         } elseif ($whiteListPattern !== null) {
             throw new InvalidArgumentException(
-                'Validation misconfiguration - constructor expected a string'.
+                'Validation misconfiguration - constructor expected a string' .
                 ' $whiteListPattern'
             );
         }
@@ -91,7 +91,7 @@ class StringValidationRule extends BaseValidationRule
     {
         if (! is_string($pattern)) {
             throw new InvalidArgumentException(
-                'Validation misconfiguration - addWhitelistPattern expected a '.
+                'Validation misconfiguration - addWhitelistPattern expected a ' .
                 'string $pattern'
             );
         }
@@ -116,7 +116,7 @@ class StringValidationRule extends BaseValidationRule
     {
         if (! is_string($pattern)) {
             throw new InvalidArgumentException(
-                'Validation misconfiguration - addBlacklistPattern expected '.
+                'Validation misconfiguration - addBlacklistPattern expected ' .
                 'string $pattern'
             );
         }
@@ -144,7 +144,7 @@ class StringValidationRule extends BaseValidationRule
     {
         if (! is_numeric($length)) {
             throw new InvalidArgumentException(
-                'Validation misconfiguration - setMinimumLength expected '.
+                'Validation misconfiguration - setMinimumLength expected ' .
                 'numeric $length'
             );
         }
@@ -164,7 +164,7 @@ class StringValidationRule extends BaseValidationRule
     {
         if (! is_numeric($length)) {
             throw new InvalidArgumentException(
-                'Validation misconfiguration - setMaximumLength expected '.
+                'Validation misconfiguration - setMaximumLength expected ' .
                 'numeric $length'
             );
         }
@@ -201,7 +201,7 @@ class StringValidationRule extends BaseValidationRule
         }
         if ($this->minLength > $this->maxLength) {
             throw new RuntimeException(
-                'Validation misconfiguration - $minLength should not be greater '.
+                'Validation misconfiguration - $minLength should not be greater ' .
                 'than $maxLength!'
             );
         }
@@ -224,7 +224,7 @@ class StringValidationRule extends BaseValidationRule
         } catch (EncodingException $e) {
             throw new ValidationException(
                 $context . ': Invalid input. Encoding problem detected.',
-                'An EncodingException was thrown during canonicalization '.
+                'An EncodingException was thrown during canonicalization ' .
                 'of the input.',
                 $context
             );
@@ -235,7 +235,7 @@ class StringValidationRule extends BaseValidationRule
         $length = mb_strlen($canonical, $charEnc);
         if ($length < $this->minLength) {
             throw new ValidationException(
-                $context . ': Invalid input. Input was shorter than the '.
+                $context . ': Invalid input. Input was shorter than the ' .
                 'Minimum length of ' . $this->minLength . ' characters.',
                 'Length of Input was less than the minimum length of ' .
                 $this->minLength,
@@ -244,7 +244,7 @@ class StringValidationRule extends BaseValidationRule
         }
         if ($length > $this->maxLength) {
             throw new ValidationException(
-                $context . ': Invalid input. Input was longer than the '.
+                $context . ': Invalid input. Input was longer than the ' .
                 'Maximum length of ' . $this->maxLength . ' characters.',
                 'Length of Input was more than the maximum length of ' .
                 $this->maxLength,
@@ -258,7 +258,7 @@ class StringValidationRule extends BaseValidationRule
                 throw new ValidationException(
                     $context . ': Invalid input. Please conform to the regex ' .
                     $pattern,
-                    $context . ': Invalid input. Input does not conform to the'.
+                    $context . ': Invalid input. Input does not conform to the' .
                     ' whitelist regex ' . $pattern,
                     $context
                 );
@@ -271,7 +271,7 @@ class StringValidationRule extends BaseValidationRule
                 throw new ValidationException(
                     $context . ': Invalid input. Dangerous input matching ' .
                     $pattern,
-                    $context . ': Invalid input. Input matches the blacklist '.
+                    $context . ': Invalid input. Input matches the blacklist ' .
                     'regex ' . $pattern,
                     $context
                 );

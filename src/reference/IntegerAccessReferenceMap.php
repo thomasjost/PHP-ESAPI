@@ -86,6 +86,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
         }
 
         throw new AccessControlException("Access denied", "Request for invalid indirect reference: " + $indirectReference);
+
         return null;
     }
 
@@ -153,6 +154,7 @@ class IntegerAccessReferenceMap implements AccessReferenceMap
             $indirect = $this->dtoi->offsetGet($hash);
             $this->itod->offsetUnset($indirect);
             $this->dtoi->offsetUnset($hash);
+
             return $indirect;
         }
 

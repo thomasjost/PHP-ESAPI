@@ -646,6 +646,7 @@ class SafeRequest
         }
 
         $this->_headers = $this->_validateHeaders($this->_serverGlobals);
+
         return $this->_headers;
     }
 
@@ -771,6 +772,7 @@ class SafeRequest
         if (! is_array($this->_parameterMap[$name])) {
             return $this->_parameterMap[$name];
         }
+
         return $this->_parameterMap[$name][0];
     }
 
@@ -793,6 +795,7 @@ class SafeRequest
             $tmp[] = $name;
         }
         $this->_parameterNames = $tmp;
+
         return $this->_parameterNames;
     }
 
@@ -819,6 +822,7 @@ class SafeRequest
         if (! array_key_exists($name, $this->_parameterMap)) {
             return null;
         }
+
         return $this->_parameterMap[$name];
     }
 
@@ -857,6 +861,7 @@ class SafeRequest
             }
         }
         $this->_parameterMap = $tmp;
+
         return $this->_parameterMap;
     }
 
@@ -902,6 +907,7 @@ class SafeRequest
                 // Validation or Intrusion Exceptions perform auto logging.
             }
         }
+
         return $tmp;
     }
 
@@ -945,6 +951,7 @@ class SafeRequest
                 // NoOp
             }
         }
+
         return $tmp;
     }
 
@@ -990,6 +997,7 @@ class SafeRequest
                 // Validation or Intrusion Exceptions perform auto logging.
             }
         }
+
         return $tmp;
     }
 
@@ -1051,6 +1059,7 @@ class SafeRequest
             $pad = mb_strlen($h, 'ASCII') == 1 ? '0' : '';
             $hex .= '\\x' . $pad . $h;
         }
+
         return $hex;
     }
 }

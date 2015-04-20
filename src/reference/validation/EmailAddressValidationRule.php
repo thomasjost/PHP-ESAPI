@@ -88,7 +88,7 @@ class EmailAddressValidationRule extends StringValidationRule
         if ($clean_email == false) {
             throw new ValidationException(
                 'Email Address Input is not valid.',
-                'Error attempting to sanitize Email Address: '. $input,
+                'Error attempting to sanitize Email Address: ' . $input,
                 $context
             );
         }
@@ -96,7 +96,7 @@ class EmailAddressValidationRule extends StringValidationRule
         if (strcmp($canonical, $clean_email) !== 0) {
             throw new ValidationException(
                 'Email Address Input may not be valid.',
-                'Resorted to string comparsion of canonicalized and purified '.
+                'Resorted to string comparsion of canonicalized and purified ' .
                 'Email Address input - result was Not Equal',
                 $context
             );

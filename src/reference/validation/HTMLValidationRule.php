@@ -82,7 +82,7 @@ class HTMLValidationRule extends StringValidationRule
             throw new ValidationException(
                 'Could not initialize HTMLPurifier.',
                 'Caught ' . gettype($e) .
-                ' attempting to instantiate HTMLPurifier: '.
+                ' attempting to instantiate HTMLPurifier: ' .
                 $e->getMessage,
                 'HTMLValidationRule->construct'
             );
@@ -134,7 +134,7 @@ class HTMLValidationRule extends StringValidationRule
         } catch (Exception $e) {
             throw new ValidationException(
                 'HTML Input is not valid.',
-                'Caught ' . gettype($e) . ' attempting to purify HTML: '.
+                'Caught ' . gettype($e) . ' attempting to purify HTML: ' .
                 $e->getMessage,
                 $context
             );
@@ -157,7 +157,7 @@ class HTMLValidationRule extends StringValidationRule
         } elseif (strcmp($canonical, $clean_html) !== 0) {
             throw new ValidationException(
                 'HTML Input may not be valid.',
-                'Resorted to string comparsion of canonicalized and purified '.
+                'Resorted to string comparsion of canonicalized and purified ' .
                 'HTML input - result was Not Equal',
                 $context
             );

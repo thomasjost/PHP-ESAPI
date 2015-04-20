@@ -113,7 +113,7 @@ class NumberValidationRule extends BaseValidationRule
             && $this->_minValue > $this->_maxValue
         ) {
             throw new RuntimeException(
-                'Validation misconfiguration - $minValue should not be greater'.
+                'Validation misconfiguration - $minValue should not be greater' .
                 ' than $maxValue!'
             );
         }
@@ -137,7 +137,7 @@ class NumberValidationRule extends BaseValidationRule
         } catch (EncodingException $e) {
             throw new ValidationException(
                 $context . ': Invalid input. Encoding problem detected.',
-                'An EncodingException was thrown during canonicalization of '.
+                'An EncodingException was thrown during canonicalization of ' .
                 'the input.',
                 $context
             );
