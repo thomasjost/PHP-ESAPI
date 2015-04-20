@@ -248,8 +248,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals(null, $instance->encodeForHTML(null));
         // test invalid characters are replaced with spaces
-        $this->assertEquals("a b c d e f&#x9;g", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
-        $this->assertEquals("a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
+        $this->assertEquals("a b c d e f&#x9;g", $instance->encodeForHTML("a".chr(0)."b".chr(4)."c".chr(128)."d".chr(150)."e".chr(159)."f".chr(9)."g"));
+        $this->assertEquals("a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m", $instance->encodeForHTML("a".chr(0)."b".chr(4)."c".chr(128)."d".chr(150)."e".chr(159)."f".chr(9)."g".chr(127)."h".chr(129)."i".chr(159)."j".chr(160)."k".chr(161)."l".chr(162)."m"));
         
         $this->assertEquals("&lt;script&gt;", $instance->encodeForHTML("<script>"));
         $this->assertEquals("&amp;lt&#x3b;script&amp;gt&#x3b;", $instance->encodeForHTML("&lt;script&gt;"));
@@ -258,7 +258,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(",.-_ ", $instance->encodeForHTML(",.-_ "));
         $this->assertEquals("dir&amp;", $instance->encodeForHTML("dir&"));
         $this->assertEquals("one&amp;two", $instance->encodeForHTML("one&two"));
-        $this->assertEquals("".(chr(12345)).(chr(65533)).(chr(1244)), "".(chr(12345)).(chr(65533)).(chr(1244)));
+        $this->assertEquals("".chr(12345).chr(65533).chr(1244), "".chr(12345).chr(65533).chr(1244));
     }
 
     /**

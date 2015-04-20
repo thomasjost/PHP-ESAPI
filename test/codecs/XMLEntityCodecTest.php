@@ -135,8 +135,8 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
             'a b c d e f&#x9;g',
             $this->_xmlEntityCodec->encode(
                 $this->_immune_xml,
-                'a' . (chr(0)) . 'b' . (chr(4)) . 'c' . (chr(128)) . 'd' .
-                (chr(150)) . 'e' . (chr(159)) . 'f' . (chr(9)) . 'g'
+                'a' . chr(0) . 'b' . chr(4) . 'c' . chr(128) . 'd' .
+                chr(150) . 'e' . chr(159) . 'f' . chr(9) . 'g'
             )
         );
     }
@@ -152,10 +152,10 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
             'a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m',
             $this->_xmlEntityCodec->encode(
                 $this->_immune_xml,
-                'a' . (chr(0))   . 'b' . (chr(4))   . 'c' . (chr(128)) .
-                'd' . (chr(150)) . 'e' . (chr(159)) . 'f' . (chr(9))   .
-                'g' . (chr(127)) . 'h' . (chr(129)) . 'i' . (chr(159)) .
-                'j' . (chr(160)) . 'k' . (chr(161)) . 'l' . (chr(162)) .
+                'a' . chr(0)   . 'b' . chr(4)   . 'c' . chr(128) .
+                'd' . chr(150) . 'e' . chr(159) . 'f' . chr(9)   .
+                'g' . chr(127) . 'h' . chr(129) . 'i' . chr(159) .
+                'j' . chr(160) . 'k' . chr(161) . 'l' . chr(162) .
                 'm'
             )
         );
