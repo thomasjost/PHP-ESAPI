@@ -44,9 +44,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultEncoder implements Encoder
-{
+namespace PHPESAPI\PHPESAPI\Reference;
 
+class DefaultEncoder implements \PHPESAPI\PHPESAPI\Encoder
+{
     private $_base64Codec;
     private $_cssCodec;
     private $_htmlCodec;
@@ -86,34 +87,34 @@ class DefaultEncoder implements Encoder
      */
     public function __construct($codecs = null)
     {
-        $this->logger = ESAPI::getAuditor("Encoder");
+        $this->logger = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("Encoder");
 
         // initialise codecs
-        $this->_base64Codec     = new Base64Codec();
-        $this->_cssCodec        = new CSSCodec();
-        $this->_htmlCodec       = new HTMLEntityCodec();
-        $this->_javascriptCodec = new JavaScriptCodec();
-        $this->_percentCodec    = new PercentCodec();
-        $this->_vbscriptCodec   = new VBScriptCodec();
-        $this->_xmlCodec        = new XMLEntityCodec();
+        $this->_base64Codec     = new \PHPESAPI\PHPESAPI\Codecs\Base64Codec();
+        $this->_cssCodec        = new \PHPESAPI\PHPESAPI\Codecs\CSSCodec();
+        $this->_htmlCodec       = new \PHPESAPI\PHPESAPI\Codecs\HTMLEntityCodec();
+        $this->_javascriptCodec = new \PHPESAPI\PHPESAPI\Codecs\JavaScriptCodec();
+        $this->_percentCodec    = new \PHPESAPI\PHPESAPI\Codecs\PercentCodec();
+        $this->_vbscriptCodec   = new \PHPESAPI\PHPESAPI\Codecs\VBScriptCodec();
+        $this->_xmlCodec        = new \PHPESAPI\PHPESAPI\Codecs\XMLEntityCodec();
 
         // initialise array of codecs for use by canonicalize
         if ($codecs === null) {
             array_push($this->_codecs, $this->_htmlCodec);
             array_push($this->_codecs, $this->_javascriptCodec);
             array_push($this->_codecs, $this->_percentCodec);
-            // leaving css and vbs codecs out - they eat / and " chars respectively
+        // leaving css and vbs codecs out - they eat / and " chars respectively
             // array_push($this->_codecs,$this->_cssCodec);
             // array_push($this->_codecs,$this->_vbscriptCodec);
         } elseif (! is_array($codecs)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Expected the $codecs array parameter to be an array of instances of Codec.'
             );
         } else {
             // check array contains only codec instances
             foreach ($codecs as $codec) {
-                if ($codec instanceof Codec == false) {
-                    throw new InvalidArgumentException(
+                if ($codec instanceof \PHPESAPI\PHPESAPI\Codecs\Codec) {
+                    throw new \InvalidArgumentException(
                         'Expected every member of the $codecs array parameter to be an instance of Codec.'
                     );
                 }
@@ -155,39 +156,39 @@ class DefaultEncoder implements Encoder
         }
         if ($foundCount >= 2 && $mixedCount > 1) {
             if ($strict == true) {
-                throw new IntrusionException(
+                throw new \PHPESAPI\PHPESAPI\Errors\IntrusionException(
                     'Input validation failure',
                     "Multiple ({$foundCount}x) and mixed ({$mixedCount}x) encoding detected in {$input}"
                 );
             } else {
                 $this->logger->warning(
-                    Auditor::SECURITY,
+                    \PHPESAPI\PHPESAPI\Auditor::SECURITY,
                     false,
                     "Multiple ({$foundCount}x) and mixed ({$mixedCount}x) encoding detected in {$input}"
                 );
             }
         } elseif ($foundCount >= 2) {
             if ($strict == true) {
-                throw new IntrusionException(
+                throw new \PHPESAPI\PHPESAPI\Errors\IntrusionException(
                     'Input validation failure',
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
                 );
             } else {
                 $this->logger->warning(
-                    Auditor::SECURITY,
+                    \PHPESAPI\PHPESAPI\Auditor::SECURITY,
                     false,
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
                 );
             }
         } elseif ($mixedCount > 1) {
             if ($strict == true) {
-                throw new IntrusionException(
+                throw new \PHPESAPI\PHPESAPI\Errors\IntrusionException(
                     'Input validation failure',
                     "Mixed encoding ({$mixedCount}x) detected in {$input}"
                 );
             } else {
                 $this->logger->warning(
-                    Auditor::SECURITY,
+                    \PHPESAPI\PHPESAPI\Auditor::SECURITY,
                     false,
                     "Mixed encoding ({$mixedCount}x) detected in {$input}"
                 );
@@ -277,9 +278,9 @@ class DefaultEncoder implements Encoder
         if ($input === null) {
             return null;
         }
-        
-        if ($codec instanceof Codec == false) {
-            ESAPI::getLogger('Encoder')->error(
+
+        if ($codec instanceof \PHPESAPI\PHPESAPI\Codecs\Codec) {
+            \PHPESAPI\PHPESAPI\ESAPI::getLogger('Encoder')->error(
                 ESAPILogger::SECURITY,
                 false,
                 'Invalid Argument, expected an instance of an OS Codec.'
@@ -287,7 +288,7 @@ class DefaultEncoder implements Encoder
 
             return null;
         }
-        
+
         return $codec->encode($this->_immune_os, $input);
     }
 

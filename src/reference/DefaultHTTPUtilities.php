@@ -41,9 +41,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultHTTPUtilities implements HTTPUtilities
-{
+namespace PHPESAPI\PHPESAPI\Reference;
 
+class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
+{
     private $_auditor;
     private $_currentRequest;
     private $_validator;
@@ -53,8 +54,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function __construct()
     {
-        $this->_auditor = ESAPI::getAuditor('DefaultHTTPUtilities');
-        $this->_validator = ESAPI::getValidator();
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('DefaultHTTPUtilities');
+        $this->_validator = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
     }
 
     /**
@@ -69,25 +70,25 @@ class DefaultHTTPUtilities implements HTTPUtilities
     public function addCSRFToken($href)
     {
         if (! is_string($href) || empty($href)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'addCSRFToken expects string $href.'
             );
         }
         if (! isset($_SESSION)) {
             return $href;
         }
-        
+
         $token = $this->getCSRFToken();
         if ($token === null) {
             return $href;
         }
-        
+
         if (strpos($href, '?') === false) {
             $href .= '?' . $token;
         } else {
             $href .= '&' . $token;
         }
-        
+
         return $href;
     }
 
@@ -104,14 +105,14 @@ class DefaultHTTPUtilities implements HTTPUtilities
         if (! isset($_SESSION)) {
             return null;
         }
-        
+
         if (! array_key_exists('ESAPI', $_SESSION)
             || ! array_key_exists('HTTPUtilities', $_SESSION['ESAPI'])
             || ! array_key_exists('CSRFToken', $_SESSION['ESAPI']['HTTPUtilities'])
         ) {
             $this->setCSRFToken();
         }
-        
+
         return $_SESSION['ESAPI']['HTTPUtilities']['CSRFToken'];
     }
 
@@ -125,14 +126,14 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function verifyCSRFToken($request)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'verifyCSRFToken expects an instance of SafeRequest.'
             );
         }
 
         if ($request->getParameter($this->getCSRFToken()) === null) {
-            throw new IntrusionException(
+            throw new \PHPESAPI\PHPESAPI\Errors\IntrusionException(
                 'Authentication failed.',
                 'Possibly forged HTTP request without proper CSRF token detected.'
             );
@@ -149,7 +150,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
         if (! isset($_SESSION)) {
             return null;
         }
-        
+
         if (! array_key_exists('ESAPI', $_SESSION)) {
             $_SESSION['ESAPI'] = array(
                 'HTTPUtilities' => array(
@@ -161,9 +162,9 @@ class DefaultHTTPUtilities implements HTTPUtilities
                 'CSRFToken' => ''
             );
         }
-        
+
         $_SESSION['ESAPI']['HTTPUtilities']['CSRFToken']
-            = ESAPI::getRandomizer()->getRandomGUID();
+            = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomGUID();
     }
 
     /**
@@ -177,8 +178,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function getCookie($request, $name)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'getCookie expects an instance of SafeRequest.'
             );
         }
@@ -198,8 +199,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function assertSecureRequest($request)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'assertSecureRequest expects an instance of SafeRequest.'
             );
         }
@@ -207,14 +208,14 @@ class DefaultHTTPUtilities implements HTTPUtilities
         $requiredMethod = 'POST';
         $receivedMethod = $request->getMethod();
         if ($receivedMethod !== $requiredMethod) {
-            throw new AccessControlException(
+            throw new \PHPESAPI\PHPESAPI\Errors\AccessControlException(
                 'Insecure request received',
                 "Request Not Secure: Received request using {$receivedMethod} when only {$requiredMethod} is allowed."
             );
         }
 
         if ($this->isSecureChannel($request) != true) {
-            throw new AccessControlException(
+            throw new \PHPESAPI\PHPESAPI\Errors\AccessControlException(
                 'Your request was not sent using Transport Layer Security',
                 'Request Not Secure: $_SERVER[\'HTTPS\'] was empty or off; Request was not sent over secured transport.'
             );
@@ -256,8 +257,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function isSecureChannel($request)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'isSecureChannel expects an instance of SafeRequest.'
             );
         }
@@ -265,7 +266,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
         $isSecure = $request->getServerGlobal('HTTPS');
 
         if ($isSecure === null) {
-            throw new EnterpriseSecurityException(
+            throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
                 'Your Request could not be completed.',
                 '$_SERVER[\'HTTPS\'] is not available to isSecureChannel. Cannot determine whether request is secure.'
             );
@@ -300,8 +301,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function killAllCookies($request)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'killAllCookies expects an instance of SafeRequest.'
             );
         }
@@ -321,8 +322,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function killCookie($request, $name)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'killCookie expects an instance of SafeRequest.'
             );
         }
@@ -351,12 +352,12 @@ class DefaultHTTPUtilities implements HTTPUtilities
         foreach ($parts as $part) {
             try {
                 $nvpair = explode('=', $part);
-                $name = ESAPI::getEncoder()->decodeFromURL($nvpair[0]);
-                $value = ESAPI::getEncoder()->decodeFromURL($nvpair[1]);
+                $name = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()->decodeFromURL($nvpair[0]);
+                $value = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()->decodeFromURL($nvpair[1]);
                 if (! array_key_exists($name, $map)) {
                     $map[$name] = $value;
                 }
-            } catch (EncodingException $e) {
+            } catch (\PHPESAPI\PHPESAPI\Errors\EncodingException $e) {
                 // NoOp - skip this pair - exception was logged already.
             }
         }
@@ -372,8 +373,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function setCurrentHTTP($request)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'setCurrentHTTP expects an instance of SafeRequest.'
             );
         }
@@ -419,24 +420,24 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate)
     {
-        if ($request instanceof SafeRequest == false) {
-            throw new InvalidArgumentException(
+        if ($request instanceof \PHPESAPI\PHPESAPI\Filters\SafeRequest) {
+            throw new \InvalidArgumentException(
                 'logHTTPRequestObfuscate expects an instance of SafeRequest.'
             );
         }
-        if ($auditor instanceof Auditor == false) {
-            throw new InvalidArgumentException(
+        if ($auditor instanceof \PHPESAPI\PHPESAPI\Auditor) {
+            throw new \InvalidArgumentException(
                 'logHTTPRequestObfuscate expects an instance of Auditor.'
             );
         }
         if ($paramsToObfuscate === null) {
             $paramsToObfuscate = array();
         } elseif (! is_array($paramsToObfuscate)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'logHTTPRequestObfuscate expects an array $paramsToObfuscate or null.'
             );
         }
-        
+
         $msg  = '';
         $msg .= $request->getRemoteAddr();
         if ($msg !== '') {
@@ -472,7 +473,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
             }
         }
         $msg .= implode('&', $paramBuilder);
-        
+
         $cookies = $request->getCookies();
         $sessName = session_name();
         foreach ($cookies as $cName => $cValue) {
@@ -480,7 +481,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
                 $msg .= "+{$cName}={$cValue}";
             }
         }
-        
+
         $auditor->info(Auditor::SECURITY, true, $msg);
     }
 

@@ -46,7 +46,9 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultAuditor implements Auditor
+namespace PHPESAPI\PHPESAPI\Reference;
+
+class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
 {
 
     /**
@@ -71,11 +73,11 @@ class DefaultAuditor implements Auditor
         if (self::$_initialised == false) {
             self::_initialise();
         }
-        $this->_log4php = Logger::getLogger($name);
+        $this->_log4php = \Logger::getLogger($name);
         $this->_log4phpName = $name;
 
         // set ApplicationName only if it is to be logged.
-        $sc = ESAPI::getSecurityConfiguration();
+        $sc = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         if ($sc->getLogApplicationName()) {
             $this->_appName = $sc->getApplicationName();
         }
@@ -88,14 +90,14 @@ class DefaultAuditor implements Auditor
     {
         try {
             $this->_log4php->setLevel(
-            $this->_convertESAPILeveltoLoggerLevel($level)
+                $this->_convertESAPILeveltoLoggerLevel($level)
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error(
-            Logger::SECURITY,
-            false,
+                \Logger::SECURITY,
+                false,
                 'IllegalArgumentException',
-            $e
+                $e
             );
         }
     }
@@ -105,7 +107,7 @@ class DefaultAuditor implements Auditor
      */
     public function fatal($type, $success, $message, $throwable = null)
     {
-        $this->_log(Auditor::FATAL, $type, $success, $message, $throwable);
+        $this->_log(\PHPESAPI\PHPESAPI\Auditor::FATAL, $type, $success, $message, $throwable);
     }
 
     /**
@@ -113,7 +115,7 @@ class DefaultAuditor implements Auditor
      */
     public function isFatalEnabled()
     {
-        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelFatal());
+        return $this->_log4php->isEnabledFor(\LoggerLevel::getLevelFatal());
     }
 
     /**
@@ -121,7 +123,7 @@ class DefaultAuditor implements Auditor
      */
     public function error($type, $success, $message, $throwable = null)
     {
-        $this->_log(Auditor::ERROR, $type, $success, $message, $throwable);
+        $this->_log(\PHPESAPI\PHPESAPI\Auditor::ERROR, $type, $success, $message, $throwable);
     }
 
     /**
@@ -129,7 +131,7 @@ class DefaultAuditor implements Auditor
      */
     public function isErrorEnabled()
     {
-        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelError());
+        return $this->_log4php->isEnabledFor(\LoggerLevel::getLevelError());
     }
 
     /**
@@ -137,7 +139,7 @@ class DefaultAuditor implements Auditor
      */
     public function warning($type, $success, $message, $throwable = null)
     {
-        $this->_log(Auditor::WARNING, $type, $success, $message, $throwable);
+        $this->_log(\PHPESAPI\PHPESAPI\Auditor::WARNING, $type, $success, $message, $throwable);
     }
 
     /**
@@ -145,7 +147,7 @@ class DefaultAuditor implements Auditor
      */
     public function isWarningEnabled()
     {
-        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelWarn());
+        return $this->_log4php->isEnabledFor(\LoggerLevel::getLevelWarn());
     }
 
     /**
@@ -153,7 +155,7 @@ class DefaultAuditor implements Auditor
      */
     public function info($type, $success, $message, $throwable = null)
     {
-        $this->_log(Auditor::INFO, $type, $success, $message, $throwable);
+        $this->_log(\PHPESAPI\PHPESAPI\Auditor::INFO, $type, $success, $message, $throwable);
     }
 
     /**
@@ -161,7 +163,7 @@ class DefaultAuditor implements Auditor
      */
     public function isInfoEnabled()
     {
-        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelInfo());
+        return $this->_log4php->isEnabledFor(\LoggerLevel::getLevelInfo());
     }
 
     /**
@@ -169,7 +171,7 @@ class DefaultAuditor implements Auditor
      */
     public function debug($type, $success, $message, $throwable = null)
     {
-        $this->_log(Auditor::DEBUG, $type, $success, $message, $throwable);
+        $this->_log(\PHPESAPI\PHPESAPI\Auditor::DEBUG, $type, $success, $message, $throwable);
     }
 
     /**
@@ -177,7 +179,7 @@ class DefaultAuditor implements Auditor
      */
     public function isDebugEnabled()
     {
-        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelDebug());
+        return $this->_log4php->isEnabledFor(\LoggerLevel::getLevelDebug());
     }
 
     /**
@@ -185,7 +187,7 @@ class DefaultAuditor implements Auditor
      */
     public function trace($type, $success, $message, $throwable = null)
     {
-        $this->_log(Auditor::TRACE, $type, $success, $message, $throwable);
+        $this->_log(\PHPESAPI\PHPESAPI\Auditor::TRACE, $type, $success, $message, $throwable);
     }
 
     /**
@@ -193,7 +195,7 @@ class DefaultAuditor implements Auditor
      */
     public function isTraceEnabled()
     {
-        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelAll());
+        return $this->_log4php->isEnabledFor(\LoggerLevel::getLevelAll());
     }
 
     /**
@@ -231,8 +233,8 @@ class DefaultAuditor implements Auditor
             return;
         }
 
-        $encoder   = ESAPI::getEncoder();
-        $secConfig = ESAPI::getSecurityConfiguration();
+        $encoder   = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
+        $secConfig = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
 
         // Add some context to log the message.
         $context = '';
@@ -270,10 +272,10 @@ class DefaultAuditor implements Auditor
             $context .= '-FAILURE';
         }
 
-        $request = ESAPI::getHttpUtilities()->getCurrentRequest();
+        $request = \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()->getCurrentRequest();
         if ($request === null) {
-            $request = new SafeRequest;
-            ESAPI::getHttpUtilities()->setCurrentHTTP($request);
+            $request = new \PHPESAPI\PHPESAPI\Filters\SafeRequest;
+            \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()->setCurrentHTTP($request);
         }
 
         $laddr = $request->getServerName();
@@ -304,9 +306,9 @@ class DefaultAuditor implements Auditor
                 = $_SESSION['DefaultAuditor']['SessionIDForLogging'];
             } else {
                 try {
-                    $userSessionIDforLogging = (string) ESAPI::getRandomizer()->getRandomInteger(0, 1000000);
+                    $userSessionIDforLogging = (string) \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomInteger(0, 1000000);
                     $_SESSION['DefaultAuditor']['SessionIDForLogging'] = $userSessionIDforLogging;
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     // continue
                 }
             }
@@ -334,8 +336,8 @@ class DefaultAuditor implements Auditor
                 if ($encodedMessage !== $crlfEncoded) {
                     $encodedMessage .= ' (This log message was encoded for HTML)';
                 }
-            } catch (Exception $e) {
-                $exType = get_type($e);
+            } catch (\Exception $e) {
+                $exType = gettype($e);
                 $encodedMessage = "The supplied log message generated an " .
                     "Exception of type {$exType} and was not included";
             }
@@ -345,7 +347,7 @@ class DefaultAuditor implements Auditor
 
         // Now handle the exception
         $dumpedException = '';
-        if ($throwable !== null && $throwable instanceof Exception) {
+        if ($throwable !== null && $throwable instanceof \Exception) {
             $dumpedException = ' ' . $this->_replaceCRLF($throwable, ' | ');
         }
 
@@ -371,7 +373,7 @@ class DefaultAuditor implements Auditor
         if ($message === null || $substitute === null) {
             return $message;
         }
-        $detectedEncoding = Codec::detectEncoding($message);
+        $detectedEncoding = \PHPESAPI\PHPESAPI\Codecs\Codec::detectEncoding($message);
         $len = mb_strlen($message, $detectedEncoding);
         $crlfEncoded = '';
         $nextChar = null;
@@ -428,45 +430,45 @@ class DefaultAuditor implements Auditor
                 case 'ALL':
                     /* Same as TRACE */
                 case 'TRACE':
-                    return LoggerLevel::getLevelAll();
+                    return \LoggerLevel::getLevelAll();
                 case 'DEBUG':
-                    return LoggerLevel::getLevelDebug();
+                    return \LoggerLevel::getLevelDebug();
                 case 'INFO':
-                    return LoggerLevel::getLevelInfo();
+                    return \LoggerLevel::getLevelInfo();
                 case 'WARN':
-                    return LoggerLevel::getLevelWarn();
+                    return \LoggerLevel::getLevelWarn();
                 case 'ERROR':
-                    return LoggerLevel::getLevelError();
+                    return \LoggerLevel::getLevelError();
                 case 'FATAL':
-                    return LoggerLevel::getLevelFatal();
+                    return \LoggerLevel::getLevelFatal();
                 case 'OFF':
-                    return LoggerLevel::getLevelOff();
+                    return \LoggerLevel::getLevelOff();
                 default:
                     throw new Exception(
-                    "Invalid logging level Value was: {$level}"
+                        "Invalid logging level Value was: {$level}"
                     );
             }
         } else {
             switch ($level) {
-                case Auditor::ALL:
+                case \PHPESAPI\PHPESAPI\Auditor::ALL:
                     /* Same as TRACE */
-                case Auditor::TRACE:
-                    return LoggerLevel::getLevelAll();
-                case Auditor::DEBUG:
-                    return LoggerLevel::getLevelDebug();
-                case Auditor::INFO:
-                    return LoggerLevel::getLevelInfo();
-                case Auditor::WARNING:
-                    return LoggerLevel::getLevelWarn();
-                case Auditor::ERROR:
-                    return LoggerLevel::getLevelError();
-                case Auditor::FATAL:
-                    return LoggerLevel::getLevelFatal();
-                case Auditor::OFF:
-                    return LoggerLevel::getLevelOff();
+                case \PHPESAPI\PHPESAPI\Auditor::TRACE:
+                    return \LoggerLevel::getLevelAll();
+                case \PHPESAPI\PHPESAPI\Auditor::DEBUG:
+                    return \LoggerLevel::getLevelDebug();
+                case \PHPESAPI\PHPESAPI\Auditor::INFO:
+                    return \LoggerLevel::getLevelInfo();
+                case \PHPESAPI\PHPESAPI\Auditor::WARNING:
+                    return \LoggerLevel::getLevelWarn();
+                case \PHPESAPI\PHPESAPI\Auditor::ERROR:
+                    return \LoggerLevel::getLevelError();
+                case \PHPESAPI\PHPESAPI\Auditor::FATAL:
+                    return \LoggerLevel::getLevelFatal();
+                case \PHPESAPI\PHPESAPI\Auditor::OFF:
+                    return \LoggerLevel::getLevelOff();
                 default:
-                    throw new Exception(
-                    "Invalid logging level Value was: {$level}"
+                    throw new \Exception(
+                        "Invalid logging level Value was: {$level}"
                     );
             }
         }
@@ -485,7 +487,7 @@ class DefaultAuditor implements Auditor
     {
         self::$_initialised = true;
 
-        $secConfig = ESAPI::getSecurityConfiguration();
+        $secConfig = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $logLevel = $secConfig->getLogLevel();
 
         // Patterns representing the format of Log entries
@@ -499,11 +501,11 @@ class DefaultAuditor implements Auditor
         $maxLogFileBackups = $secConfig->getMaxLogFileBackups();
 
         // LogFile layout
-        $logfileLayout = new LoggerLayoutPattern();
+        $logfileLayout = new \LoggerLayoutPattern();
         $logfileLayout->setConversionPattern($logfileLayoutPattern);
 
         // LogFile RollingFile Appender
-        $appenderLogfile = new LoggerAppenderRollingFile('ESAPI LogFile');
+        $appenderLogfile = new \LoggerAppenderRollingFile('ESAPI LogFile');
         $appenderLogfile->setFile($logFileName, true);
         $appenderLogfile->setMaxFileSize($maxLogFileSize);
         $appenderLogfile->setMaxBackupIndex($maxLogFileBackups);
@@ -514,7 +516,7 @@ class DefaultAuditor implements Auditor
 
         // Get the RootLogger and reset it, before adding our Appenders and
         // setting our Loglevel
-        $rootLogger = Logger::getRootLogger();
+        $rootLogger = \Logger::getRootLogger();
         $rootLogger->removeAllAppenders();
         $rootLogger->addAppender($appenderLogfile);
         $rootLogger->setLevel(

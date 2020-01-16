@@ -47,14 +47,15 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultValidator implements Validator
-{
+namespace PHPESAPI\PHPESAPI\Reference;
 
+class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
+{
     private $_rules;
     private $_auditor;
     private $_encoder;
     private $_fileValidator;
-     
+
     const MAX_PARAMETER_NAME_LENGTH = 100;
     const MAX_PARAMETER_VALUE_LENGTH = 65535;
 
@@ -65,11 +66,11 @@ class DefaultValidator implements Validator
      */
     public function __construct()
     {
-        $this->_auditor = ESAPI::getAuditor('DefaultValidator');
-        $this->_encoder = ESAPI::getEncoder();
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('DefaultValidator');
+        $this->_encoder = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
         $this->_fileValidator = new DefaultEncoder(array(
-        	new HTMLEntityCodec(),
-            new PercentCodec()
+            new \PHPESAPI\PHPESAPI\Codecs\HTMLEntityCodec(),
+            new \PHPESAPI\PHPESAPI\Codecs\PercentCodec()
         ));
     }
 
@@ -103,9 +104,9 @@ class DefaultValidator implements Validator
      */
     private function _assertValidInput($context, $input, $type, $maxLength, $allowNull)
     {
-        $validationRule = new StringValidationRule($type, $this->_encoder);
+        $validationRule = new Validation\StringValidationRule($type, $this->_encoder);
 
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $pattern = $config->getValidationPattern($type);
         if ($pattern !== false) {
             $validationRule->addWhitelistPattern($pattern);
@@ -128,7 +129,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidDate($context, $input, $format, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -150,7 +151,7 @@ class DefaultValidator implements Validator
      */
     private function _assertValidDate($context, $input, $format, $allowNull)
     {
-        $dvr = new DateValidationRule('DateValidator', $this->_encoder, $format);
+        $dvr = new Validation\DateValidationRule('DateValidator', $this->_encoder, $format);
         $dvr->setAllowNull($allowNull);
 
         $dvr->assertValid($context, $input);
@@ -165,7 +166,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidHTML($context, $input, $maxLength, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -187,7 +188,7 @@ class DefaultValidator implements Validator
      */
     private function _assertValidHTML($context, $input, $maxLength, $allowNull)
     {
-        $hvr = new HTMLValidationRule('HTML_Validator', $this->_encoder);
+        $hvr = new Validation\HTMLValidationRule('HTML_Validator', $this->_encoder);
         $hvr->setMaximumLength($maxLength);
         $hvr->setAllowNull($allowNull);
 
@@ -203,7 +204,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidCreditCard($context, $input, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -224,11 +225,11 @@ class DefaultValidator implements Validator
      */
     private function _assertValidCreditCard($context, $input, $allowNull)
     {
-        $ccvr = new CreditCardValidationRule('CreditCard', $this->_encoder);
+        $ccvr = new Validation\CreditCardValidationRule('CreditCard', $this->_encoder);
         $ccvr->setAllowNull($allowNull);
 
         $ccvr->assertValid($context, $input);
-         
+
         return null;
     }
 
@@ -239,7 +240,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidDirectoryPath($context, $input, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -265,34 +266,38 @@ class DefaultValidator implements Validator
                 return;
             }
 
-            throw new ValidationException(
-                    "{$context}: Input directory path required",
-                    "Input directory path required: context={$context}, input={$input}",
-                    $context);
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
+                "{$context}: Input directory path required",
+                "Input directory path required: context={$context}, input={$input}",
+                $context
+            );
         }
 
-        $dir = new SplFileInfo($input);
+        $dir = new \SplFileInfo($input);
 
         if (!$dir->isReadable()) {
-            throw new ValidationException(
-                    "{$context}: Invalid directory name",
-                    "Invalid directory, does not exist: context={$context}, input={$input}");
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
+                "{$context}: Invalid directory name",
+                "Invalid directory, does not exist: context={$context}, input={$input}"
+            );
         }
 
         if (!$dir->isDir()) {
             throw new ValidationException(
-                    "{$context}: Invalid directory name",
-                    "Invalid directory, not a directory: context={$context}, input={$input}");
+                "{$context}: Invalid directory name",
+                "Invalid directory, not a directory: context={$context}, input={$input}"
+            );
         }
 
         $canonicalPath = $dir->getRealPath();
         $canonical = $this->_fileValidator->canonicalize($canonicalPath);
 
         if ($input !== $canonical) {
-            throw new ValidationException(
-                    "{$context}: Invalid directory name",
-                    "Invalid directory name does not match the canonical path: context={$context}, " .
-                    "input={$input}, canonical={$canonical}");
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
+                "{$context}: Invalid directory name",
+                "Invalid directory name does not match the canonical path: context={$context}, " .
+                    "input={$input}, canonical={$canonical}"
+            );
         }
     }
 
@@ -303,7 +308,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -326,7 +331,7 @@ class DefaultValidator implements Validator
      */
     private function _assertValidNumber($context, $input, $minValue, $maxValue, $allowNull)
     {
-        $nvr = new NumberValidationRule('NumberValidator', $this->_encoder, $minValue, $maxValue);
+        $nvr = new Validation\NumberValidationRule('NumberValidator', $this->_encoder, $minValue, $maxValue);
         $nvr->setAllowNull($allowNull);
 
         $nvr->assertValid($context, $input);
@@ -341,7 +346,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidInteger($context, $input, $minValue, $maxValue, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -364,7 +369,7 @@ class DefaultValidator implements Validator
      */
     private function _assertValidInteger($context, $input, $minValue, $maxValue, $allowNull)
     {
-        $nvr = new IntegerValidationRule('IntegerValidator', $this->_encoder, $minValue, $maxValue);
+        $nvr = new Validation\IntegerValidationRule('IntegerValidator', $this->_encoder, $minValue, $maxValue);
         $nvr->setAllowNull($allowNull);
 
         $nvr->assertValid($context, $input);
@@ -379,7 +384,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidDouble($context, $input, $minValue, $maxValue, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -414,7 +419,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidFileContent($context, $input, $maxBytes, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -440,7 +445,7 @@ class DefaultValidator implements Validator
             $context = 'Validate File Content';
         }
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
@@ -449,7 +454,7 @@ class DefaultValidator implements Validator
 
         if (! is_numeric($maxBytes) || $maxBytes < 0) {
             $this->_auditor->warning(
-            ESAPILogger::SECURITY,
+                ESAPILogger::SECURITY,
                 false,
                 'assertValidFileContent expected $maxBytes as positive integer.' .
                 ' Falling back to AllowedFileUploadSize.'
@@ -461,21 +466,21 @@ class DefaultValidator implements Validator
             if ($this->allowNull) {
                 return null;
             }
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input required: context={$context}",
                 $context
             );
         }
 
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $esapiMaxBytes = $config->getAllowedFileUploadSize();
 
         $charEnc = mb_detect_encoding($input);
         $inputLen = mb_strlen($input, $charEnc);
 
         if ($inputLen > $esapiMaxBytes) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Invalid file content. Size must not exceed " .
                 "{$esapiMaxBytes} bytes.",
                 "Invalid file content. Input ({$inputLen} bytes) exceeds " .
@@ -483,9 +488,9 @@ class DefaultValidator implements Validator
                 $context
             );
         }
-         
+
         if ($maxBytes !== null && $inputLen > $maxBytes) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Invalid file content. Size must not exceed " .
                 "{$maxBytes} bytes.",
                 "Invalid file content. Input ({$inputLen} bytes) exceeds " .
@@ -504,7 +509,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidListItem($context, $input, $list);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -530,14 +535,14 @@ class DefaultValidator implements Validator
             $context = 'ValidListItem';
         }
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
             );
         }
         if (! is_array($list)) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'Validation misconfiguration - assertValidListItem expected' .
                 ' an array $list!'
             );
@@ -547,9 +552,9 @@ class DefaultValidator implements Validator
         $canonical = null;
         try {
             $canonical = $this->_encoder->canonicalize($input, true);
-        } catch (EncodingException $e) {
-            throw new ValidationException(
-            $context . ': Invalid input. Encoding problem detected.',
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncodingException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
+                $context . ': Invalid input. Encoding problem detected.',
                 'An EncodingException was thrown during canonicalization of ' .
                 'the input.',
                 $context
@@ -557,8 +562,8 @@ class DefaultValidator implements Validator
         }
 
         if (in_array($canonical, $list, true) != true) {
-            throw new ValidationException(
-            $context . ': Invalid input. Input was not a valid member of ' .
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
+                $context . ': Invalid input. Input was not a valid member of ' .
                 'the list.',
                 'canonicalized input was not a member of the supplied list.',
                 $context
@@ -575,7 +580,7 @@ class DefaultValidator implements Validator
     {
         try {
             $this->_assertValidPrintable($context, $input, $maxLength, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -598,10 +603,10 @@ class DefaultValidator implements Validator
     private function _assertValidPrintable($context, $input, $maxLength, $allowNull)
     {
         $this->_assertValidInput($context, $input, 'PrintableASCII', $maxLength, $allowNull);
-        
+
         return null;
     }
-  
+
     /**
      * @inheritdoc
      */

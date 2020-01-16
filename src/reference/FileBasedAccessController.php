@@ -33,7 +33,9 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class FileBasedAccessController implements AccessController
+namespace PHPESAPI\PHPESAPI\Reference;
+
+class FileBasedAccessController implements \PHPESAPI\PHPESAPI\AccessController
 {
 
     /**
@@ -51,7 +53,7 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForURL($url)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -69,7 +71,7 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForFunction($functionName)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -87,7 +89,7 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForDataByKey($key)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -106,7 +108,7 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForData($action, $data)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -124,7 +126,7 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForFile($filepath)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -143,7 +145,7 @@ class FileBasedAccessController implements AccessController
      */
     public function isAuthorizedForService($serviceName)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -177,7 +179,7 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForURL($url)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -210,7 +212,7 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForFunction($functionName)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -239,7 +241,7 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForDataByKey($key)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -269,12 +271,12 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForData($action, $data)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
     }
-     
+
     /**
      * Checks if an account is authorized to access the referenced file. The implementation should validate and canonicalize the
      * input to be sure the filepath is not malicious.
@@ -301,7 +303,7 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForFile($filepath)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -333,7 +335,7 @@ class FileBasedAccessController implements AccessController
      */
     public function assertAuthorizedForService($serviceName)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );

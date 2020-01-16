@@ -43,9 +43,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class StringValidationRule extends BaseValidationRule
 {
-
     protected $whitelistPatterns;
     protected $blacklistPatterns;
     protected $minLength = 0;
@@ -97,7 +98,8 @@ class StringValidationRule extends BaseValidationRule
         }
         if ($pattern == '') {
             ESAPI::getLogger()->warning(
-                ESAPILogger::SECURITY, false,
+                ESAPILogger::SECURITY,
+                false,
                 'addWhitelistPattern received $pattern as an empty string.'
             );
         }
@@ -120,14 +122,15 @@ class StringValidationRule extends BaseValidationRule
                 'string $pattern'
             );
         }
-        
+
         if ($pattern == '') {
             ESAPI::getLogger()->warning(
-                ESAPILogger::SECURITY, false,
+                ESAPILogger::SECURITY,
+                false,
                 'addBlacklistPattern received $pattern as an empty string.'
             );
         }
-        
+
         array_push($this->blacklistPatterns, $pattern);
     }
 

@@ -46,6 +46,8 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference;
+
 class Event
 {
     private $_key;
@@ -109,7 +111,7 @@ class Event
             }
             $present = $now;
             if ($present - $past < $interval) {
-                throw new IntrusionException(
+                throw new \PHPESAPI\PHPESAPI\Errors\IntrusionException(
                     "Threshold exceeded",
                     "Exceeded threshold for " . $this->_key
                 );

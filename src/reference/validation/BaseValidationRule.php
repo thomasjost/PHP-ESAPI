@@ -43,9 +43,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-abstract class BaseValidationRule implements ValidationRule
-{
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
 
+abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
+{
     protected $typeName;
     protected $encoder;
     protected $allowNull = false;

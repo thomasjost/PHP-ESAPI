@@ -43,6 +43,8 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class HTMLValidationRule extends StringValidationRule
 {
 
@@ -152,7 +154,7 @@ class HTMLValidationRule extends StringValidationRule
                     'HTML Input is not valid.',
                     "{$numErrors} found in HTML - Input is not valid.",
                     $context
-                 );
+                );
             }
         } elseif (strcmp($canonical, $clean_html) !== 0) {
             throw new ValidationException(

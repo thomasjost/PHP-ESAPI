@@ -54,9 +54,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultIntrusionDetector implements IntrusionDetector
-{
+namespace PHPESAPI\PHPESAPI\Reference;
 
+class DefaultIntrusionDetector implements \PHPESAPI\PHPESAPI\IntrusionDetector
+{
     private $_auditor;
     private $_userEvents;
 
@@ -66,7 +67,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
      */
     public function __construct()
     {
-        $this->_auditor = ESAPI::getAuditor('IntrusionDetector');
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('IntrusionDetector');
         $this->_userEvents = array();
     }
 
@@ -83,24 +84,24 @@ class DefaultIntrusionDetector implements IntrusionDetector
      */
     public function addException($exception)
     {
-        $secConfig = ESAPI::getSecurityConfiguration();
+        $secConfig = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
 
         if ($secConfig->getDisableIntrusionDetection()) {
             return;
         }
 
-        if ($exception instanceof EnterpriseSecurityException) {
-            $this->_auditor->warning(Auditor::SECURITY, false, $exception->getLogMessage(), $exception);
+        if ($exception instanceof \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException) {
+            $this->_auditor->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $exception->getLogMessage(), $exception);
         } else {
-            $this->_auditor->warning(Auditor::SECURITY, false, $exception->getMessage(), $exception);
+            $this->_auditor->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $exception->getMessage(), $exception);
         }
 
         // add the exception, which may trigger a detector
         $eventName = get_class($exception);
         try {
             $this->_addSecurityEvent($eventName);
-        } catch (IntrusionException $intrusionException) {
-            $quota = ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        } catch (\PHPESAPI\PHPESAPI\Errors\IntrusionException $intrusionException) {
+            $quota = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
             $message = 'User exceeded quota of ' . $quota->count . ' per ' .
                 $quota->interval . ' seconds for event ' . $eventName .
                 sprintf(
@@ -130,14 +131,14 @@ class DefaultIntrusionDetector implements IntrusionDetector
      */
     public function addEvent($eventName, $logMessage)
     {
-        $secConfig = ESAPI::getSecurityConfiguration();
+        $secConfig = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
 
         if ($secConfig->getDisableIntrusionDetection()) {
             return;
         }
 
         $this->_auditor->warning(
-            Auditor::SECURITY,
+            \PHPESAPI\PHPESAPI\Auditor::SECURITY,
             false,
             "Security event {$eventName} received - {$logMessage}"
         );
@@ -145,7 +146,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
         // add the event, which may trigger an IntrusionException
         try {
             $this->_addSecurityEvent($eventName);
-        } catch (IntrusionException $intrusionException) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\IntrusionException $intrusionException) {
             $quota = $secConfig->getQuota($eventName);
             $message = 'User exceeded quota of ' . $quota->count . ' per ' .
                 $quota->interval . ' seconds for event ' . $eventName .
@@ -175,7 +176,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
     {
         if ($action == 'log') {
             $this->_auditor->fatal(
-                Auditor::SECURITY,
+                \PHPESAPI\PHPESAPI\Auditor::SECURITY,
                 false,
                 "INTRUSION - {$message}"
             );
@@ -195,7 +196,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
     private function _addSecurityEvent($eventName)
     {
         // if there is a threshold, then track this event
-        $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        $threshold = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
         if ($threshold === null) {
             return;
         }
@@ -231,7 +232,7 @@ class DefaultIntrusionDetector implements IntrusionDetector
             $event = $this->_userEvents[$eventName];
         }
         if ($event == null) {
-            $this->_userEvents[$eventName] = new Event($eventName);
+            $this->_userEvents[$eventName] = new \Event($eventName);
             $event = $this->_userEvents[$eventName];
         }
         if ($threshold->count > 0) {

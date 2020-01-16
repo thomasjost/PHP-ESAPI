@@ -45,20 +45,11 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultAuditorFactory implements AuditorFactory
+namespace PHPESAPI\PHPESAPI\Reference;
+
+class DefaultAuditorFactory implements \PHPESAPI\PHPESAPI\AuditorFactory
 {
-
     private $_loggerMap = array();
-
-    /**
-     * DefaultAuditorFactory constructor.
-     *
-     * @return does not return a value.
-     */
-    public function __construct()
-    {
-        // NoOp
-    }
 
     /**
      * {@inheritdoc}

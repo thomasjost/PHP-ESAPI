@@ -38,14 +38,15 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultSanitizer implements Sanitizer
-{
+namespace PHPESAPI\PHPESAPI\Reference;
 
+class DefaultSanitizer implements \PHPESAPI\PHPESAPI\Sanitizer
+{
     private $encoder;
 
     public function __construct()
     {
-        $this->encoder = ESAPI::getEncoder();
+        $this->encoder = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
     }
 
     /**
@@ -63,7 +64,7 @@ class DefaultSanitizer implements Sanitizer
      */
     public function getSanitizedHTML($context, $input)
     {
-        $hvr = new HTMLValidationRule('HTML_Validator', $this->encoder);
+        $hvr = new Validation\HTMLValidationRule('HTML_Validator', $this->encoder);
 
         return $hvr->sanitize($context, $input);
     }
@@ -83,7 +84,7 @@ class DefaultSanitizer implements Sanitizer
      */
     public function getSanitizedEmailAddress($context, $input)
     {
-        $evr = new EmailAddressValidationRule('EmailAddress_Validator', $this->encoder);
+        $evr = new Validation\EmailAddressValidationRule('EmailAddress_Validator', $this->encoder);
 
         return $evr->sanitize($context, $input);
     }
@@ -103,11 +104,11 @@ class DefaultSanitizer implements Sanitizer
      */
     public function getSanitizedURL($context, $input)
     {
-        $uvr = new URLValidationRule('URL_Validator', $this->encoder);
+        $uvr = new Validation\URLValidationRule('URL_Validator', $this->encoder);
 
         return $uvr->sanitize($context, $input);
     }
-    
+
     /**
      * Returns valid, "safe" English language word based on the provided guess.
      *
@@ -121,8 +122,8 @@ class DefaultSanitizer implements Sanitizer
      */
     public function getSanitizedWord($context, $input)
     {
-        $wvr = new WordValidationRule('Word_Validator', $this->encoder);
-        
+        $wvr = new Validation\WordValidationRule('Word_Validator', $this->encoder);
+
         return $wvr->sanitize($context, $input);
     }
 }

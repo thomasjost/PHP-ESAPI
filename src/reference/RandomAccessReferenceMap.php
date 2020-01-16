@@ -35,9 +35,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class RandomAccessReferenceMap implements AccessReferenceMap
+namespace PHPESAPI\PHPESAPI\Reference;
+
+class RandomAccessReferenceMap implements \PHPESAPI\PHPESAPI\AccessReferenceMap
 {
-    
     private $dtoi;
     private $itod;
     private $random = 0;
@@ -46,8 +47,8 @@ class RandomAccessReferenceMap implements AccessReferenceMap
     {
         $this->random = mt_rand();
 
-        $this->dtoi = new ArrayObject();
-        $this->itod = new ArrayObject();
+        $this->dtoi = new \ArrayObject();
+        $this->itod = new \ArrayObject();
 
         if (!empty($directReferences)) {
             $this->update($directReferences);
@@ -109,9 +110,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap
             return $this->itod->offsetGet($indirectReference);
         }
 
-        throw new AccessControlException("Access denied", "Request for invalid indirect reference: " + $indirectReference);
-
-        return null;
+        throw new \PHPESAPI\PHPESAPI\Errors\AccessControlException("Access denied", "Request for invalid indirect reference: " + $indirectReference);
     }
 
     /**
@@ -152,7 +151,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap
         $candidate = null;
 
         do {
-            $candidate = ESAPI::getRandomizer()->getRandomString(6, "123456789");
+            $candidate = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(6, "123456789");
         } while ($this->itod->offsetExists($candidate));
 
         return $candidate;
@@ -164,9 +163,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap
             return null;
         }
 
-        $hash = hexdec(substr(md5(serialize($direct)), -7));
-
-        return $hash;
+        return hexdec(substr(md5(serialize($direct)), -7));
     }
 
     /**
@@ -213,23 +210,23 @@ class RandomAccessReferenceMap implements AccessReferenceMap
         unset($this->dtoi);
         unset($this->itod);
 
-        $this->dtoi = new ArrayObject();
-        $this->itod = new ArrayObject();
+        $this->dtoi = new \ArrayObject();
+        $this->itod = new \ArrayObject();
 
-        $dir = new ArrayObject($directReferences);
+        $dir = new \ArrayObject($directReferences);
         $directIterator = $dir->getIterator();
 
         while ($directIterator->valid()) {
             $indirect = null;
             $direct = $directIterator->current();
             $hash = $this->getHash($direct);
-                
+
             // Try to get the old direct object reference (if it exists)
             // otherwise, create a new entry
             if (!empty($direct) && $dtoi_old->offsetExists($hash)) {
                 $indirect = $dtoi_old->offsetGet($hash);
             }
-                
+
             if (empty($indirect)) {
                 $indirect = $this->getUniqueRandomReference();
             }

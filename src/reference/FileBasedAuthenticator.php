@@ -18,6 +18,7 @@
  *
  * @package ESAPI_Reference
  */
+namespace PHPESAPI\PHPESAPI\Reference;
 
 define('MAX_ACCOUNT_NAME_LENGTH', 250);
 /**
@@ -34,9 +35,8 @@ define('MAX_ACCOUNT_NAME_LENGTH', 250);
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class FileBasedAuthenticator implements Authenticator
+class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
 {
-
     private $users;
 
     /** The file that contains the user db */
@@ -60,7 +60,7 @@ class FileBasedAuthenticator implements Authenticator
     public function __construct()
     {
         $this->users = array();
-        $this->logger = ESAPI::getLogger("Authenticator");
+        $this->logger = \PHPESAPI\PHPESAPI\ESAPI::getLogger("Authenticator");
     }
 
     /**
@@ -68,7 +68,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function clearCurrent()
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -79,7 +79,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function login($request, $response)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -90,7 +90,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function verifyPassword($user, $password)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -101,7 +101,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function logout()
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -114,33 +114,33 @@ class FileBasedAuthenticator implements Authenticator
     {
         $this->loadUsersIfNecessary();
         if (!$this->isValidString($accountName)) {
-            throw new AuthenticationAccountsException("Account creation failed", "Attempt to create user with null accountName");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException("Account creation failed", "Attempt to create user with null accountName");
         }
         if ($this->getUserByName($accountName) != null) {
-            throw new AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for " . $accountName);
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for " . $accountName);
         }
 
         $this->verifyAccountNameStrength($accountName);
 
         if ($password1 == null) {
-            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account " . $accountName . " with a null password");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid account name", "Attempt to create account " . $accountName . " with a null password");
         }
         $this->verifyPasswordStrength(null, $password1);
 
         if ($password1 != $password2) {
-            throw new AuthenticationCredentialsException("Passwords do not match", "Passwords for " . $accountName . " do not match");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Passwords do not match", "Passwords for " . $accountName . " do not match");
         }
 
         $user = new DefaultUser($accountName);
         try {
             $this->setHashedPassword($user, $this->hashPassword($password1, $accountName));
-        } catch (EncryptionException $ee) {
-            throw new AuthenticationException("Internal error", "Error hashing password for " . $accountName);
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncryptionException $ee) {
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationException("Internal error", "Error hashing password for " . $accountName);
         }
 
         $this->userMap[$user->getAccountId()] = $user;
 
-        $this->logger->info(ESAPILogger::SECURITY, true, "New user created: " . $accountName);
+        $this->logger->info(\ESAPILogger::SECURITY, true, "New user created: " . $accountName);
         $this->saveUsers();
 
         return $user;
@@ -151,9 +151,8 @@ class FileBasedAuthenticator implements Authenticator
      */
     protected function loadUsersIfNecessary()
     {
-        //        throw new EnterpriseSecurityException("Method Not Implemented");
         if (!$this->isValidString($this->userDB)) {
-            $fileHandle = ESAPI::getSecurityConfiguration()->getResourceDirectory() . "users.txt";
+            $fileHandle = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getResourceDirectory() . "users.txt";
             $this->userDB = fopen($fileHandle, 'a');
         }
 
@@ -174,7 +173,7 @@ class FileBasedAuthenticator implements Authenticator
 
     protected function loadUsersImmediately()
     {
-        throw new EnterpriseSecurityException("Method Not Implemented");
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException("Method Not Implemented");
     }
 
     /**
@@ -185,7 +184,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function saveUsers()
     {
-        throw new EnterpriseSecurityException("Method Not Implemented");
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException("Method Not Implemented");
     }
 
     /**
@@ -193,7 +192,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function generateStrongPassword($user = null, $oldPassword = null)
     {
-        $randomizer = ESAPI::getRandomizer();
+        $randomizer = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer();
         $letters = $randomizer->getRandomInteger(4, 6);
         $digits = 7 - $letters;
         $passLetters = $randomizer->getRandomString($letters, DefaultEncoder::CHAR_PASSWORD_LETTERS);
@@ -202,7 +201,7 @@ class FileBasedAuthenticator implements Authenticator
         $newPassword = $passLetters . $passSpecial . $passDigits;
 
         if ($this->isValidString($newPassword) && $this->isValidString($user)) {
-            $this->logger->info(ESAPILogger::SECURITY, true, "Generated strong password for " . $user->getAccountName());
+            $this->logger->info(\ESAPILogger::SECURITY, true, "Generated strong password for " . $user->getAccountName());
         }
 
         return $newPassword;
@@ -220,11 +219,11 @@ class FileBasedAuthenticator implements Authenticator
             $verifyHash = $this->hashPassword($currentPassword, $accountName);
 
             if ($currentHash != $verifyHash) {
-                throw new AuthenticationCredentialsException("Password change failed", "Authentication failed for password change on user: " . $accountName);
+                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Password change failed", "Authentication failed for password change on user: " . $accountName);
             }
 
             if (!$this->isValidString($newPassword) || !$this->isValidString($newPassword2) || $newPassword != $newPassword2) {
-                throw new AuthenticationCredentialsException("Password change failed", "Passwords do not match for password change on user: " . $accountName);
+                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Password change failed", "Passwords do not match for password change on user: " . $accountName);
             }
 
             $this->verifyPasswordStrength($currentPassword, $newPassword);
@@ -232,13 +231,13 @@ class FileBasedAuthenticator implements Authenticator
             $user->setLastPasswordChangeTime(time());
             $newHash = $this->hashPassword($newPassword, $accountName);
             if (in_array($newHash, $this->getOldPasswordHashes($user))) {
-                throw new AuthenticationCredentialsException("Password change failed", "Password change matches a recent password for user: " . $accountName);
+                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Password change failed", "Password change matches a recent password for user: " . $accountName);
             }
 
             $this->setHashedPassword($user, $newHash);
-            $this->logger->info(ESAPILogger::SECURITY, true, "Password changed for user: " . $accountName);
-        } catch (EncryptionException $e) {
-            throw new AuthenticationException("Password change failed", "Encryption exception changing password for " . $accountName);
+            $this->logger->info(\ESAPILogger::SECURITY, true, "Password changed for user: " . $accountName);
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncryptionException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationException("Password change failed", "Encryption exception changing password for " . $accountName);
         }
     }
 
@@ -265,9 +264,9 @@ class FileBasedAuthenticator implements Authenticator
             $hashes = array();
             $this->passwordMap[$user] = $hashes;
 
-            return hashes;
+            return $hashes;
         }
-        throw new RuntimeException("No hashes found for " . $user->getAccountName() . ". Is User.hashcode() and equals() implemented correctly?");
+        throw new \RuntimeException("No hashes found for " . $user->getAccountName() . ". Is User.hashcode() and equals() implemented correctly?");
     }
 
     /**
@@ -371,7 +370,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function getCurrentUser()
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -382,7 +381,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function setCurrentUser($user)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );
@@ -399,11 +398,11 @@ class FileBasedAuthenticator implements Authenticator
     {
         $hashes = $this->getAllHashedPasswords($user, true);
         $hashes[0] = $hash;
-        if (count($hashes) > ESAPI::getSecurityConfiguration()->getMaxOldPasswordHashes()) {
+        if (count($hashes) > \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getMaxOldPasswordHashes()) {
             //TODO: Verify
             array_pop($hashes);
         }
-        $this->logger->info(ESAPILogger::SECURITY, true, "New hashed password stored for " . $user->getAccountName());
+        $this->logger->info(\ESAPILogger::SECURITY, true, "New hashed password stored for " . $user->getAccountName());
     }
 
     /**
@@ -439,12 +438,13 @@ class FileBasedAuthenticator implements Authenticator
     public function verifyAccountNameStrength($accountName)
     {
         if (!$this->isValidString($accountName)) {
-            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
         }
-
-        if (true/*!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false)*/) {
-            throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: " . $accountName);
+        /*
+        if (!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false)) {
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid account name", "New account name is not valid: " . $accountName);
         }
+        */
     }
 
     /**
@@ -462,7 +462,7 @@ class FileBasedAuthenticator implements Authenticator
     public function verifyPasswordStrength($oldPassword, $newPassword)
     {
         if (!$this->isValidString($newPassword)) {
-            throw new AuthenticationCredentialsException("Invalid password", "New password cannot be null");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid password", "New password cannot be null");
         }
 
         // can't change to a password that contains any 3 character substring of old password
@@ -472,7 +472,7 @@ class FileBasedAuthenticator implements Authenticator
                 $sub = substr($oldPassword, $counter, 3);
                 if (strlen(strstr($newPassword, $sub)) > 0) {
                     //                if (strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
-                    throw new AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password");
+                    throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password");
                 }
             }
         }
@@ -508,7 +508,7 @@ class FileBasedAuthenticator implements Authenticator
         // calculate and verify password strength
         $passwordStrength = $passwordLength * $charsets;
         if ($passwordStrength < 16) {
-            throw new AuthenticationCredentialsException("Invalid password", "New password is not long and complex enough");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid password", "New password is not long and complex enough");
         }
     }
 
@@ -521,7 +521,7 @@ class FileBasedAuthenticator implements Authenticator
      */
     public function exists($accountName)
     {
-        throw new EnterpriseSecurityException(
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
             'Method "' . __METHOD__ . '" not implemented'
         );

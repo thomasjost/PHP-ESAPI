@@ -41,20 +41,16 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultExecutor implements Executor
+namespace PHPESAPI\PHPESAPI\Reference;
+
+class DefaultExecutor implements \PHPESAPI\PHPESAPI\Executor
 {
-        
+
     // Logger
     private $_auditor;
-    private $_ApplicationName;
-    private $_LogEncodingRequired;
-    private $_LogLevel;
-    private $_LogFileName;
-    private $_MaxLogFileSize;
-    
     //SecurityConfiguration
     private $_config;
-    
+
     /**
      * Executor constructor.
      *
@@ -62,8 +58,8 @@ class DefaultExecutor implements Executor
      */
     public function __construct()
     {
-        $this->_auditor = ESAPI::getAuditor('Executor');
-        $this->_config = ESAPI::getSecurityConfiguration();
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('Executor');
+        $this->_config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
     }
 
     /**
@@ -76,7 +72,7 @@ class DefaultExecutor implements Executor
 
         return $this->executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
     }
-     
+
     /**
      * @inheritdoc
      */
@@ -85,45 +81,45 @@ class DefaultExecutor implements Executor
         try {
             // executable must exist
             $resolved = $executable;
-            
+
             // resolve environment variables on Windows
             if (substr(PHP_OS, 0, 3) == 'WIN') {
                 $resolved = preg_replace_callback('/%(\w+)%/', function ($matches) {
                     return getenv($matches[1]);
                 }, $executable);
             }
-            
+
             if (!file_exists($resolved)) {
-                throw new ExecutorException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
                     "Execution failure, No such " .
                     "executable: $executable"
                 );
             }
-            
+
             // executable must use canonical path
             if (substr(PHP_OS, 0, 3) == 'WIN') {
                 if (strcasecmp($resolved, realpath($resolved)) != 0) {
-                    throw new ExecutorException(
+                    throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
                         "Execution failure, Attempt " .
                         "to invoke an executable using a non-absolute path: [" . realpath($resolved) . "] != [$executable]"
                     );
                 }
             } else {
                 if (strcmp($resolved, realpath($resolved)) != 0) {
-                    throw new ExecutorException(
+                    throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
                         "Execution failure, Attempt " .
                         "to invoke an executable using a non-absolute path: [" . realpath($resolved) . "] != [$executable]"
                     );
                 }
             }
-                             
+
             // exact, absolute, canonical path to executable must be listed in ESAPI configuration
             $approved = $this->_config->getAllowedExecutables();
             if (substr(PHP_OS, 0, 3) == 'WIN') {
                 if (!array_reduce($approved, function ($carry, $item) use ($executable) {
                     return $carry || !strcasecmp($item, $executable);
                 }, false)) {
-                    throw new ExecutorException(
+                    throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
                         "Execution failure, Attempt to invoke executable that " .
                         "is not listed as an approved executable in ESAPI " .
                         "configuration: " . $executable . " not listed in " . implode(';', $approved)
@@ -131,17 +127,17 @@ class DefaultExecutor implements Executor
                 }
             } else {
                 if (!in_array($executable, $approved)) {
-                    throw new ExecutorException(
+                    throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
                         "Execution failure, Attempt to invoke executable that " .
                         "is not listed as an approved executable in ESAPI " .
                         "configuration: " . $executable . " not listed in " . implode(';', $approved)
                     );
                 }
             }
-        
+
             // escape any special characters in the parameters
             $params = array_map('escapeshellcmd', $params);
-             
+
             // working directory must exist
             $resolved_workdir = $workdir;
             if (substr(PHP_OS, 0, 3) == 'WIN') {
@@ -149,14 +145,14 @@ class DefaultExecutor implements Executor
                     return getenv($matches[1]);
                 }, $workdir);
             }
-            
+
             if (!file_exists($resolved_workdir)) {
-                throw new ExecutorException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
                     "Execution failure, No such" .
                     " working directory for running executable: $workdir"
                 );
             }
- 
+
             // run the command
             $paramstr = "";
             foreach ($params as $param) {
@@ -168,9 +164,9 @@ class DefaultExecutor implements Executor
             $output = shell_exec($executable . $paramstr);
 
             return $output;
-        } catch (ExecutorException $e) {
-            $this->_auditor->warning(Auditor::SECURITY, true, $e->getMessage());
-            throw new ExecutorException($e->getMessage());
+        } catch (\PHPESAPI\PHPESAPI\Errors\ExecutorException $e) {
+            $this->_auditor->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $e->getMessage());
+            throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException($e->getMessage());
         }
     }
 }

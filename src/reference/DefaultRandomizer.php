@@ -18,24 +18,24 @@
  *
  * @package ESAPI_Reference
  */
+namespace PHPESAPI\PHPESAPI\Reference;
 
-class DefaultRandomizer implements Randomizer
+class DefaultRandomizer implements \PHPESAPI\PHPESAPI\Randomizer
 {
-    
     private $maxRand;
 
     public function __construct()
     {
         $this->maxRand = mt_getrandmax();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function getRandomString($numChars, $charset)
     {
         if ($numChars < 1 || strlen($charset) < 2) {
-            throw new InvalidArgumentException();
+            throw new \InvalidArgumentException();
         }
 
         $l = strlen($charset) - 1;
