@@ -82,12 +82,12 @@ class StringUtilities
     /**
      * Union two character arrays.
      *
-     * @param string $c1 The first character array
-     * @param string $c2 The second character array
+     * @param array $c1 The first character array
+     * @param array $c2 The second character array
      *
      * @return array the union of the two character arrays
      */
-    public static function union($c1, $c2)
+    public static function union(array $c1, array $c2)
     {
         if (empty($c1) && empty($c2)) {
             return null;
@@ -110,6 +110,6 @@ class StringUtilities
             return false;
         }
 
-        return (strpos($haystack, $c) !== false) ? true : false;
+        return strpos($haystack, $c);
     }
 }

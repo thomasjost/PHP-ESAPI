@@ -54,7 +54,7 @@ class ValidationErrorList
     /**
      * Error list of ValidationException's.
      */
-    // private HashMap errorList = new HashMap();
+    private $errorList;
 
     /**
      * Adds a new error to list with a unique named context.
@@ -68,11 +68,15 @@ class ValidationErrorList
      */
     public function addError($context, $ve)
     {
-        //		if (getError(context) != null) throw new RuntimeException("Context (" + context + ") already exists, programmer error");
-        //
-        //		if ((context != null) && (ve != null)) {
-        //			errorList.put(context, ve);
-        //		}
+        if ($this->getError($context) != null) {
+            throw new \RuntimeException("Context ({$context}) already exists, programmer error");
+        }
+        if (($context != null) && ($ve != null)) {
+            $this->errorList[] = [
+                'context' => $context,
+                've' => $ve
+            ];
+        }
     }
 
     /**
@@ -82,7 +86,7 @@ class ValidationErrorList
      */
     public function errors()
     {
-        //		return new ArrayList(errorList.values());
+        // return new \ArrayList($this->errorList.values());
     }
 
     /**
@@ -94,18 +98,12 @@ class ValidationErrorList
      */
     public function getError($context)
     {
-        //		if (context == null) return null;
-        //		return (ValidationException)errorList.get(context);
-    }
-
-    /**
-     * Returns TRUE if no error are present.
-     *
-     * @return bool todo
-     */
-    public function isEmpty()
-    {
-        //		return errorList.isEmpty();
+        /*
+        if (is_null($context)) {
+            return $context;
+        }
+        return (ValidationException)errorList.get($context);
+        */
     }
 
     /**
@@ -115,6 +113,6 @@ class ValidationErrorList
      */
     public function size()
     {
-        //		return errorList.size();
+        return sizeof($this->errorList);
     }
 }

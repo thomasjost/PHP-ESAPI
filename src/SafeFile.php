@@ -54,7 +54,7 @@
 
 namespace PHPESAPI\PHPESAPI;
 
-class SafeFile extends SplFileObject
+class SafeFile extends \SplFileObject
 {
     private $_PERCENTS_PAT = "/(%)([0-9a-f])([0-9a-f])/i";
     private $_FILE_BLACKLIST_PAT = "/([\\/:*?<>|])/";
@@ -66,14 +66,14 @@ class SafeFile extends SplFileObject
      *
      * @param string $path The path to the file (path && file name)
      *
-     * @return does not return a value.
+     * @return void.
      */
     public function __construct($path)
     {
         try {
             @parent::__construct($path);
-        } catch (Exception $e) {
-            throw new EnterpriseSecurityException(
+        } catch (\Exception $e) {
+            throw new \EnterpriseSecurityException(
                 'Failed to open stream',
                 'Failed to open stream ' . $e->getMessage()
             );
@@ -89,22 +89,22 @@ class SafeFile extends SplFileObject
      *
      * @param string $path The path to the file (path && file name)
      *
-     * @return does not return a value
-     * @exception ValidationException thrown if check fails
+     * @return void
+     * @exception \ValidationException thrown if check fails
      */
     private function _doDirCheck($path)
     {
         $dir = $this->getPath();
 
         if (preg_match($this->_DIR_BLACKLIST_PAT, $dir)) {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid directory',
                 "Directory path ({$dir}) contains illegal character. "
             );
         }
 
         if (preg_match($this->_PERCENTS_PAT, $dir)) {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid directory',
                 "Directory path ({$dir}) contains encoded characters. "
             );
@@ -112,7 +112,7 @@ class SafeFile extends SplFileObject
 
         $ch = $this->_containsUnprintableCharacters($path);
         if ($ch != -1) {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid directory',
                 "Directory path ({$dir}) contains unprintable character. "
             );
@@ -124,8 +124,8 @@ class SafeFile extends SplFileObject
      *
      * @param string $path The file name
      *
-     * @return does not return a value
-     * @exception ValidationException thrown if check fails
+     * @return void
+     * @exception \ValidationException thrown if check fails
      */
     private function _doFileCheck($path)
     {
@@ -150,7 +150,7 @@ class SafeFile extends SplFileObject
                 // sanity check that the entire path returned by getFilename is
                 // longer than the path returned by getPath
                 if ($fileLen <= $dirLen) {
-                    throw new ValidationException(
+                    throw new \ValidationException(
                         'Invalid file',
                         'The path returned from SplFileObject::getFilename should have been shorter than the path returned by SplFileObject::getPath.'
                     );
@@ -164,14 +164,14 @@ class SafeFile extends SplFileObject
         }
 
         if (preg_match($this->_FILE_BLACKLIST_PAT, $filename)) {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid file',
                 "File path ({$filename}) contains illegal character."
             );
         }
 
         if (preg_match($this->_PERCENTS_PAT, $filename)) {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid file',
                 "File path ({$filename}) contains encoded characters."
             );
@@ -179,7 +179,7 @@ class SafeFile extends SplFileObject
 
         $ch = $this->_containsUnprintableCharacters($filename);
         if ($ch != -1) {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid file',
                 "File path ({$filename}) contains unprintable character."
             );
@@ -211,14 +211,14 @@ class SafeFile extends SplFileObject
      *
      * @param string $path The string to check
      *
-     * @return does not return a value
-     * @exception ValidationException thrown if check fails
+     * @return void
+     * @exception \ValidationException thrown if check fails
      */
     private function _doExtraCheck($path)
     {
         $last = substr($path, -1);
         if ($last === '/') {
-            throw new ValidationException(
+            throw new \ValidationException(
                 'Invalid file',
                 "File path ({$path}) contains an extra slash."
             );

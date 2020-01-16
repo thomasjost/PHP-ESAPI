@@ -50,9 +50,9 @@
  */
 
 namespace PHPESAPI\PHPESAPI;
+
 class ESAPI
 {
-
     private static $_accessController = null;
     private static $_encoder = null;
     private static $_encryptor = null;
@@ -112,7 +112,7 @@ class ESAPI
         if (is_null(self::$_accessController)) {
             include_once __DIR__ .
               '/reference/FileBasedAccessController.php';
-            self::$_accessController = new FileBasedAccessController();
+            self::$_accessController = new \FileBasedAccessController();
         }
 
         return self::$_accessController;
@@ -124,7 +124,7 @@ class ESAPI
      *
      * @param AccessController $accessController The new ESAPI AccessController.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setAccessController($accessController)
     {
@@ -132,8 +132,8 @@ class ESAPI
     }
 
     /**
-     * Get the current ESAPI Encoder object being used to encode and decode data for
-     * this application.
+     * Get the current ESAPI Encoder object being used to encode and
+     * decode data for this application.
      *
      * @return the current ESAPI Encoder.
      */
@@ -142,19 +142,19 @@ class ESAPI
         if (is_null(self::$_encoder)) {
             include_once __DIR__ .
               '/reference/DefaultEncoder.php';
-            self::$_encoder = new DefaultEncoder();
+            self::$_encoder = new \DefaultEncoder();
         }
 
         return self::$_encoder;
     }
 
     /**
-     * Set the current ESAPI Encoder object being used to encode and decode data
-     * for this application.
+     * Set the current ESAPI Encoder object being used to encode and
+     * decode data for this application.
      *
      * @param Encoder $encoder The new ESAPI AccessController.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setEncoder($encoder)
     {
@@ -162,30 +162,28 @@ class ESAPI
     }
 
     /**
-     * Get the current ESAPI Encryptor object being used to encrypt and decrypt data
-     * for this application.
+     * Get the current ESAPI Encryptor object being used to encrypt and
+     * decrypt data for this application.
      *
      * @return the current ESAPI Encryptor.
      */
     public static function getEncryptor()
     {
-        throw new EnterpriseSecurityException(
+        throw new \EnterpriseSecurityException(
             'Method Not implemented',
             'Encryptor not implemented'
         );
     }
 
     /**
-     * Set the current ESAPI Encryptor object being used to encrypt and decrypt
-     * data for this application.
+     * Set the current ESAPI Encryptor object being used to encrypt and
+     * decrypt data for this application.
      *
-     * @param Encryptor $encryptor The new ESAPI Encryptor.
-     *
-     * @return does not return a value.
+     * @return void
      */
-    public static function setEncryptor($encryptor)
+    public static function setEncryptor()
     {
-        throw new EnterpriseSecurityException(
+        throw new \EnterpriseSecurityException(
             'Method Not implemented',
             'Encryptor not implemented'
         );
@@ -202,7 +200,7 @@ class ESAPI
         if (is_null(self::$_executor)) {
             include_once __DIR__ .
               '/reference/DefaultExecutor.php';
-            self::$_executor = new DefaultExecutor();
+            self::$_executor = new \DefaultExecutor();
         }
 
         return self::$_executor;
@@ -214,7 +212,7 @@ class ESAPI
      *
      * @param Executor $executor The new ESAPI Executor.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setExecutor($executor)
     {
@@ -232,7 +230,7 @@ class ESAPI
         if (is_null(self::$_httpUtilities)) {
             include_once __DIR__ .
               '/reference/DefaultHTTPUtilities.php';
-            self::$_httpUtilities = new DefaultHTTPUtilities();
+            self::$_httpUtilities = new \DefaultHTTPUtilities();
         }
 
         return self::$_httpUtilities;
@@ -244,7 +242,7 @@ class ESAPI
      *
      * @param HttpUtilities $httpUtilities The new ESAPI HttpUtilities.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setHttpUtilities($httpUtilities)
     {
@@ -262,7 +260,7 @@ class ESAPI
         if (is_null(self::$_intrusionDetector)) {
             include_once __DIR__ .
               '/reference/DefaultIntrusionDetector.php';
-            self::$_intrusionDetector = new DefaultIntrusionDetector();
+            self::$_intrusionDetector = new \DefaultIntrusionDetector();
         }
 
         return self::$_intrusionDetector;
@@ -274,7 +272,7 @@ class ESAPI
      *
      * @param IntrusionDetector $intrusionDetector The new ESAPI IntrusionDetector.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setIntrusionDetector($intrusionDetector)
     {
@@ -294,7 +292,7 @@ class ESAPI
         if (self::$_auditorFactory == null) {
             include_once __DIR__ .
               '/reference/DefaultAuditorFactory.php';
-            self::setAuditorFactory(new DefaultAuditorFactory());
+            self::setAuditorFactory(new \DefaultAuditorFactory());
         }
 
         return self::$_auditorFactory->getLogger($logger);
@@ -321,7 +319,7 @@ class ESAPI
      *
      * @param string $factory The new ESAPI Logger factory.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setAuditorFactory($factory)
     {
@@ -332,14 +330,14 @@ class ESAPI
      * Get the current ESAPI Randomizer object being used to generate random numbers
      * for this application.
      *
-     * @return the current ESAPI Randomizer.
+     * @return \DefaultRandomizer
      */
     public static function getRandomizer()
     {
         if (is_null(self::$_randomizer)) {
             include_once __DIR__ .
               '/reference/DefaultRandomizer.php';
-            self::$_randomizer = new DefaultRandomizer();
+            self::$_randomizer = new \DefaultRandomizer();
         }
 
         return self::$_randomizer;
@@ -351,7 +349,7 @@ class ESAPI
      *
      * @param Randomizer $randomizer The new ESAPI Randomizer.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setRandomizer($randomizer)
     {
@@ -364,14 +362,14 @@ class ESAPI
      *
      * @param string $path The path of the ESAPI.xml configuration file.
      *
-     * @return the current ESAPI SecurityConfiguration.
+     * @return \DefaultSecurityConfiguration
      */
     public static function getSecurityConfiguration($path = '')
     {
         if (is_null(self::$_securityConfiguration)) {
             include_once __DIR__ .
               '/reference/DefaultSecurityConfiguration.php';
-            self::$_securityConfiguration = new DefaultSecurityConfiguration($path);
+            self::$_securityConfiguration = new \DefaultSecurityConfiguration($path);
         }
 
         return self::$_securityConfiguration;
@@ -384,7 +382,7 @@ class ESAPI
      * @param SecurityConfiguration $securityConfiguration The new ESAPI
      * SecurityConfiguration.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setSecurityConfiguration($securityConfiguration)
     {
@@ -402,7 +400,7 @@ class ESAPI
         if (is_null(self::$_validator)) {
             include_once __DIR__ .
               '/reference/DefaultValidator.php';
-            self::$_validator = new DefaultValidator();
+            self::$_validator = new \DefaultValidator();
         }
 
         return self::$_validator;
@@ -414,7 +412,7 @@ class ESAPI
      *
      * @param Validator $validator The new ESAPI Validator.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setValidator($validator)
     {
@@ -425,14 +423,14 @@ class ESAPI
      * Get the current ESAPI Sanitizer object being used to sanitize data for
      * this application.
      *
-     * @return the current ESAPI Sanitizer.
+     * @return \DefaultSanitizer
      */
     public static function getSanitizer()
     {
         if (is_null(self::$_sanitizer)) {
             include_once __DIR__ .
               '/reference/DefaultSanitizer.php';
-            self::$_sanitizer = new DefaultSanitizer();
+            self::$_sanitizer = new \DefaultSanitizer();
         }
 
         return self::$_sanitizer;
@@ -444,7 +442,7 @@ class ESAPI
      *
      * @param Sanitizer $sanitizer The new ESAPI Sanitizer.
      *
-     * @return does not return a value.
+     * @return void
      */
     public static function setSanitizer($sanitizer)
     {

@@ -46,7 +46,7 @@ interface User
     /**
      * @param locale the locale to set
      */
-    public function setLocale(Locale $locale);
+    public function setLocale($locale);
 
     /**
      * Adds a role to this user's account.
@@ -321,7 +321,7 @@ interface User
      *
      * @param DateTime $expirationTime the new expiration time
      */
-    public function setExpirationTime(DateTime $expirationTime);
+    public function setExpirationTime($expirationTime);
 
     /**
      * Sets the roles for this account.
@@ -362,7 +362,7 @@ interface User
      *
      * @param DateTime $lastFailedLoginTime The date and time when the user just failed to login correctly.
      */
-    public function setLastFailedLoginTime(DateTime $lastFailedLoginTime);
+    public function setLastFailedLoginTime($lastFailedLoginTime);
 
     /**
      * Set the last remote host address used by this user.
@@ -376,7 +376,7 @@ interface User
      *
      * @param DateTime $lastLoginTime the date and time when the user just successfully logged in.
      */
-    public function setLastLoginTime(DateTime $lastLoginTime);
+    public function setLastLoginTime($lastLoginTime);
 
     /**
      * Set the time of the last password change for this user.
@@ -384,7 +384,7 @@ interface User
      * @param DateTime $lastPasswordChangeTime The date and time when the user just successfully changed his/her
      *                                         password.
      */
-    public function setLastPasswordChangeTime(DateTime $lastPasswordChangeTime);
+    public function setLastPasswordChangeTime($lastPasswordChangeTime);
 
     /**
      * Returns the hashmap used to store security events for this user. Used by the IntrusionDetector.
