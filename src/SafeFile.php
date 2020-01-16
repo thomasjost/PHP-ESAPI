@@ -51,9 +51,11 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI;
+
 class SafeFile extends SplFileObject
 {
-
     private $_PERCENTS_PAT = "/(%)([0-9a-f])([0-9a-f])/i";
     private $_FILE_BLACKLIST_PAT = "/([\\/:*?<>|])/";
     private $_DIR_BLACKLIST_PAT = "/([*?<>|])/";
@@ -72,9 +74,9 @@ class SafeFile extends SplFileObject
             @parent::__construct($path);
         } catch (Exception $e) {
             throw new EnterpriseSecurityException(
-                    'Failed to open stream',
-                    'Failed to open stream ' . $e->getMessage()
-                );
+                'Failed to open stream',
+                'Failed to open stream ' . $e->getMessage()
+            );
         }
 
         $this->_doDirCheck($path);
@@ -93,7 +95,7 @@ class SafeFile extends SplFileObject
     private function _doDirCheck($path)
     {
         $dir = $this->getPath();
-        
+
         if (preg_match($this->_DIR_BLACKLIST_PAT, $dir)) {
             throw new ValidationException(
                 'Invalid directory',

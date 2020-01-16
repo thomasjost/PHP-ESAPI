@@ -14,6 +14,7 @@
  * @category  OWASP
  * @package   ESAPI
  * @author    jah <jah@jahboite.co.uk>
+ * @author    Thomas Jost <tjost@protonmail.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -25,7 +26,7 @@ if (php_sapi_name() === 'cli') {
     exit('ERROR: This script must be run from the browser.' . PHP_EOL);
 }
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 $ESAPI = new ESAPI(__DIR__ . "/testresources/ESAPI.xml");
 ob_start();
 session_start();
@@ -57,7 +58,7 @@ if ($req->getParameter('req') == 'test1') {
         $view .= '<p>Your Request did NOT contain the CSRF token we have in your session. Did you tamper??</p>';
     }
     $tests['token'] .= ' - DONE';
-    
+
     $oldSessID = session_id();
     $sr = $util->changeSessionIdentifier();
     if ($sr === true) {
@@ -70,7 +71,7 @@ if ($req->getParameter('req') == 'test1') {
         $view .= '<p>Your session was not regenerated. Is the session started?';
     }
     $tests['csi'] .= ' - DONE';
-    
+
     $util->killAllCookies($req);
     $view .= '<p>The response should have requested your User Agent to delete your cookies. Let us see if it will honour that request.';
     $view .= " <a href=\"{$uri}?req=test2\">click me!</a></p>";
@@ -86,7 +87,7 @@ if ($req->getParameter('req') == 'test1') {
     }
     $view .= '</p>';
     $tests['cookie'] .= ' - DONE';
-    
+
     $a = ESAPI::getAuditor('HTTPUtilsExtraTests');
     $log = $util->logHTTPRequest($req, $a);
     $logO = $util->logHTTPRequestObfuscate($req, $a, array('req'));
@@ -110,17 +111,23 @@ foreach ($tests as $test) {
 $view .= '</ul>';
 ?>
 <html>
+
 <head>
-	
+
 </head>
+
 <body>
-	<div><?php echo $view; ?></div>
-	<div id="js"></div>
-	<script type="text/javascript">
-	var js = document.getElementById('js');
-	var text = document.createTextNode('JavaScript says document.cookie is: ' + document.cookie);
-	js.appendChild(text);
-	</script>
-	<noscript><div>if you had javascript enabled, i could show you your cookies!</div></noscript>
+    <div><?php echo $view; ?>
+    </div>
+    <div id="js"></div>
+    <script type="text/javascript">
+        var js = document.getElementById('js');
+        var text = document.createTextNode('JavaScript says document.cookie is: ' + document.cookie);
+        js.appendChild(text);
+    </script>
+    <noscript>
+        <div>if you had javascript enabled, i could show you your cookies!</div>
+    </noscript>
 </body>
+
 </html>

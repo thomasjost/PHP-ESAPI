@@ -50,6 +50,9 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI;
+
 class Threshold
 {
 

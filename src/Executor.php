@@ -49,6 +49,9 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI;
+
 interface Executor
 {
 
@@ -63,27 +66,27 @@ interface Executor
      */
     public function executeSystemCommand($executable, $params);
 
-     /**
-      * Executes a system command after checking that the executable exists and
-      * escaping all the parameters to ensure that injection is impossible.
-      * Implementations must change to the specified working
-      * directory before invoking the command.
-      *
-      * note: this is PHP's equivalent to ESAPI4JAVA's overloaded
-      * executeSystemCommand($executable, $params, $workdir, $codec, $logParams)
-      * note: the codec argument has been eliminated from this implementation since
-      * PHP's escapeshellcmd function does enough to not require explicit OS codecs
-      *
-      * @param string $executable The command to execute
-      * @param array  $params     the parameters of the command being executed
-      * @param string $workdir    the working directory
-      * @param bool   $logParams  use FALSE if any parameters contains sensitive or
-      *                           confidential information. (this is an ESAPI 2.0
-      *                           feature)
-      *
-      * @throws ExecutorException the service exception
-      *
-      * @return string the output of the command being run
-      */
-     public function executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
+    /**
+     * Executes a system command after checking that the executable exists and
+     * escaping all the parameters to ensure that injection is impossible.
+     * Implementations must change to the specified working
+     * directory before invoking the command.
+     *
+     * note: this is PHP's equivalent to ESAPI4JAVA's overloaded
+     * executeSystemCommand($executable, $params, $workdir, $codec, $logParams)
+     * note: the codec argument has been eliminated from this implementation since
+     * PHP's escapeshellcmd function does enough to not require explicit OS codecs
+     *
+     * @param string $executable The command to execute
+     * @param array  $params     the parameters of the command being executed
+     * @param string $workdir    the working directory
+     * @param bool   $logParams  use FALSE if any parameters contains sensitive or
+     *                           confidential information. (this is an ESAPI 2.0
+     *                           feature)
+     *
+     * @throws ExecutorException the service exception
+     *
+     * @return string the output of the command being run
+     */
+    public function executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
 }

@@ -51,6 +51,9 @@
  *
  * @since June 1, 2007
  */
+
+namespace PHPESAPI\PHPESAPI;
+
 interface Authenticator
 {
 

@@ -50,6 +50,9 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI;
+
 interface Validator
 {
 
@@ -135,7 +138,7 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidCreditCard($context, $input, $allowNull);
-    
+
     /**
      * Returns TRUE if the canonicalized input is a valid directory path.
      *
@@ -152,7 +155,7 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidDirectoryPath($context, $input, $allowNull);
-    
+
     /**
      * Returns TRUE if the canonicalized input is a valid, real number within
      * the specified range minValue to maxValue.
@@ -212,7 +215,7 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidDouble($context, $input, $minValue, $maxValue, $allowNull);
- 
+
     /**
      * Returns TRUE if the canonicalized input exactly matches a list item.
      *
@@ -226,7 +229,7 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidListItem($context, $input, $list);
-    
+
     /**
      * Returns TRUE if the canonicalized input contains no more than the number
      * of valid printable ASCII characters specified.
@@ -246,7 +249,7 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidPrintable($context, $input, $maxLength, $allowNull);
-    
+
     /**
      * Returns TRUE if input is a valid redirect location.
      *

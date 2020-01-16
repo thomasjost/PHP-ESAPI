@@ -48,6 +48,8 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI;
 class ESAPI
 {
 
@@ -63,7 +65,7 @@ class ESAPI
     private static $_securityConfiguration = null;
     private static $_validator = null;
     private static $_sanitizer = null;
-        
+
     /**
      * This is the locator class' constructor, which prevents instantiation of this
      * class.
@@ -75,7 +77,7 @@ class ESAPI
         self::getSecurityConfiguration($path);
 
         self::getAuditor("ESAPI Startup");
-        
+
         self::getIntrusionDetector();
     }
 
