@@ -4,8 +4,8 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "require": {
-        "apache/log4php": "2.0.0",
-        "ezyang/htmlpurifier": "~4"
+        "apache/log4php": "^2.3.0",
+        "ezyang/htmlpurifier": "^4.12.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*"

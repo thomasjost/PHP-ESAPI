@@ -20,9 +20,6 @@
  * @author    Thomas Jost <tjost@protonmail.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
- *
- * @version   SVN: $Id$
- *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
@@ -39,6 +36,8 @@
  *
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Thomas Jost <tjost@protonmail.com>
+ *
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  *
