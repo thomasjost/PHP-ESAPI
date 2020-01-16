@@ -24,6 +24,8 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+namespace PHPESAPI\PHPESAPI\Codecs;
+
 /**
  * @var string Define the name of the Auditor instance for CodecDebug.
  */
@@ -53,16 +55,17 @@ define('CD_LOG', 'CodecDebug');
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+
 class CodecDebug
 {
-    
     private $_verb;
     private $_buf;
     private $_allowRecurse = true;
     private $_enabled = false;
 
     private static $_instance;
-    
+
     /**
      * Prevents public cloning of this singleton class.
      */
@@ -74,11 +77,13 @@ class CodecDebug
      * Private constructor ensures CodecDebug can only be instantiated privately.
      * Stores TRUE in $_enabled if SepcialDebugging is enabled.  This object
      * will only produce output if $_enabled is TRUE.
+     *
+     * @uses \PHPESAPI\PHPESAPI\ESAPI
      */
     private function __construct()
     {
         $this->_enabled
-            = ESAPI::getSecurityConfiguration()->getSpecialDebugging();
+            =  \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getSpecialDebugging();
     }
 
     /**
@@ -104,7 +109,7 @@ class CodecDebug
     public function addEncodedString($stringNormalizedEncoding)
     {
         if ($this->_enabled == false
-            || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
+            || ! \PHPESAPI\PHPESAPI\ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
             return;
@@ -122,7 +127,7 @@ class CodecDebug
     public function addUnencodedString($stringNormalizedEncoding)
     {
         if ($this->_enabled == false
-            || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
+            || ! \PHPESAPI\PHPESAPI\ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
             return;
@@ -142,7 +147,7 @@ class CodecDebug
     public function output($codecOutput)
     {
         if ($this->_enabled == false
-            || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
+            || ! \PHPESAPI\PHPESAPI\ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
             return;
@@ -151,16 +156,16 @@ class CodecDebug
             return; // the codec being tested has not added any normalised inputs.
         }
         $output = '';
-    
+
         $this->_allowRecurse = false;
-        $htmlCodecOutput = ESAPI::getEncoder()->encodeForHTML($codecOutput);
+        $htmlCodecOutput = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()->encodeForHTML($codecOutput);
         if ($htmlCodecOutput == '') {
             $output = $this->_buf . $this->_verb . 'ed string was an empty string.';
         } else {
             $output = $this->_buf . $this->_verb . 'ed: [' . $htmlCodecOutput . ']';
         }
 
-        ESAPI::getAuditor(CD_LOG)->debug(Auditor::SECURITY, true, $output);
+        \PHPESAPI\PHPESAPI\ESAPI::getAuditor(CD_LOG)->debug(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $output);
         $this->_allowRecurse = true;
 
         $this->_buf  = null;
@@ -177,7 +182,7 @@ class CodecDebug
     private function _addString($string)
     {
         if ($this->_enabled == false
-            || ! ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
+            || ! \PHPESAPI\PHPESAPI\ESAPI::getAuditor(CD_LOG)->isDebugEnabled()
             || ! $this->_allowRecurse
         ) {
             return;
@@ -187,7 +192,7 @@ class CodecDebug
             $caller = null;
             try {
                 $caller = $this->_shortTrace();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $caller = $this->_verb . 'ing';
             }
             $this->_buf = $caller . ":\n";
@@ -258,12 +263,12 @@ class CodecDebug
             }
         }
         if ($pos == 0) {
-            throw new Exception('backtrace is odd!'); // abort!
+            throw new \Exception('backtrace is odd!'); // abort!
         }
         $trace .= $dt[$pos]['class'] . '::' .  $dt[$pos--]['function'] . ', ';
         $trace .= $dt[$pos]['class'] . '::' .  $dt[$pos--]['function'] . ', ';
         $trace .= $dt[$pos]['class'] . '::' .  $dt[$pos]['function']   . $objName;
-    
+
         return $trace;
     }
 }

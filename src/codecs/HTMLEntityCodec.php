@@ -41,14 +41,18 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI\Codecs;
+
 class HTMLEntityCodec extends Codec
 {
-
     private static $_characterToEntityMap = array();
     private static $_entityToCharacterMap = array();
     private static $_longestEntity = 0;
     private static $_mapIsInitialized = false;
-    
+
+    private $utf32 = 'UTF-32';
+
     /**
      * Public Constructor.
      */
@@ -59,7 +63,7 @@ class HTMLEntityCodec extends Codec
             $this->_initializeMaps();
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -68,31 +72,31 @@ class HTMLEntityCodec extends Codec
         //detect encoding, special-handling for chr(172) and chr(128) to chr(159)
         //which fail to be detected by mb_detect_encoding()
         $initialEncoding = $this->detectEncoding($c);
-        
+
         // Normalize encoding to UTF-32
         $_4ByteUnencodedOutput = $this->normalizeEncoding($c);
-        
+
         // Start with nothing; format it to match the encoding of the string
         //passed as an argument.
         $encodedOutput = mb_convert_encoding("", $initialEncoding);
-        
+
         // Grab the 4 byte character.
         $_4ByteCharacter = $this->forceToSingleCharacter($_4ByteUnencodedOutput);
-        
+
         // Get the ordinal value of the character.
         list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
-        
+
         // Check for immune characters.
         if ($this->containsCharacter($_4ByteCharacter, $immune)) {
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         // Check for alphanumeric characters
         $hex = $this->getHexForNonAlphanumeric($_4ByteCharacter);
         if ($hex === null) {
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         // Check for illegal characters
         if (($ordinalValue <= 31
             && $ordinalValue != 9
@@ -102,7 +106,7 @@ class HTMLEntityCodec extends Codec
         ) {
             return $encodedOutput . " ";
         }
-        
+
         // Check if there's a defined entity
         if (array_key_exists($_4ByteCharacter, self::$_characterToEntityMap)) {
             $entityName = self::$_characterToEntityMap[$_4ByteCharacter];
@@ -110,60 +114,52 @@ class HTMLEntityCodec extends Codec
                 return $encodedOutput . '&' . $entityName . ';';
             }
         }
-        
+
         $encodedOutput .= "&#x" . $hex . ";";
-        
+
         // Encoded!
         return $encodedOutput;
     }
-    
-    
+
+
     /**
      * {@inheritdoc}
      */
     public function decodeCharacter($input)
     {
         //TODO: add comments
-        
+
         $decodeResult = null;
-        if (mb_substr($input, 0, 1, "UTF-32") == null) {
+        if (mb_substr($input, 0, 1, $this->utf32) == null) {
             // first character is null, so eat the 1st character off the string
             //and return null
-            
+
             //todo: this isn't necessary, can simply return null...no need to eat
             //1st character off input string
-            $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32");
-
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            $input = mb_substr($input, 1, mb_strlen($input, $this->utf32), $this->utf32);
+            return $this->respondWithDetails();
         }
-        
+
         // if this is not an encoded character, return null
-        if (mb_substr($input, 0, 1, "UTF-32") != $this->normalizeEncoding('&')) {
+        if (mb_substr($input, 0, 1, $this->utf32) != $this->normalizeEncoding('&')) {
             // 1st character is not part of encoding pattern, so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
         // 1st character is part of encoding pattern...
-        
+
         // test for numeric encodings
-        if (mb_substr($input, 1, 1, "UTF-32") == null) {
+        if (mb_substr($input, 1, 1, $this->utf32) == null) {
             // 2nd character is null, so return decodedCharacter=null and
             //encodedString=(1st character, malformed encoding)
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => mb_substr($input, 0, 1, "UTF-32")
-            ); //could potentially speed this up simply using
-               //'encodedString'=>$this->normalizeEncoding('&')
+            return $this->respondWithDetails(null, mb_substr($input, 0, 1, $this->utf32));
+
+            //could potentially speed this up simply using
+            //'encodedString'=>$this->normalizeEncoding('&')
         }
-        
-        if (mb_substr($input, 1, 1, "UTF-32") == $this->normalizeEncoding('#')) {
+
+        if (mb_substr($input, 1, 1, $this->utf32) == $this->normalizeEncoding('#')) {
             // 2nd character is hash, so handle numbers...
-            
+
             // handle numbers
             $decodeResult     = $this->_getNumericEntity($input);
             $decodedCharacter = $decodeResult['decodedCharacter'];
@@ -172,11 +168,11 @@ class HTMLEntityCodec extends Codec
             }
         } else {
             // Get the ordinal value of the 2nd character.
-            list(, $ordinalValue) = unpack("N", mb_substr($input, 1, 1, "UTF-32"));
-            
+            list(, $ordinalValue) = unpack("N", mb_substr($input, 1, 1, $this->utf32));
+
             if (preg_match("/^[a-zA-Z]/", chr($ordinalValue))) {
                 // 2nd character is an alphabetical char, so handle entities...
-                
+
                 // handle entities
                 $decodeResult     = $this->_getNamedEntity($input);
                 $decodedCharacter = $decodeResult['decodedCharacter'];
@@ -185,23 +181,20 @@ class HTMLEntityCodec extends Codec
                 }
             } else {
                 // 2nd character does not form a known entity, so re
-                return array(
-                    'decodedCharacter' => null,
-                    'encodedString' => null
-                );
+                return $this->respondWithDetails();
             }
         }
-        
+
         //perhaps, if decodedCharacter is not null then add it back to start of
         //input string and see if it is part of a greater encoding pattern (i.e.
         //double-encoding)
-        
+
         //at this stage: decodedCharacter could only be null, encodedString could
         //only be anything between 1st character (i.e. '&') and all remaining
         //characters
         return $decodeResult;
     }
-    
+
     /**
      * getNumericEntry checks input to see if it is a numeric entity.
      *
@@ -218,26 +211,23 @@ class HTMLEntityCodec extends Codec
         // decodeCharacter should've already established that the 1st 2 characters
         //are '&#', but check again incase this method is being called from
         //elsewhere
-        if (mb_substr($input, 0, 1, "UTF-32") != $this->normalizeEncoding('&')
-            || mb_substr($input, 1, 1, "UTF-32") != $this->normalizeEncoding('#')
+        if (mb_substr($input, 0, 1, $this->utf32) != $this->normalizeEncoding('&')
+            || mb_substr($input, 1, 1, $this->utf32) != $this->normalizeEncoding('#')
         ) {
             // input did not satisfy initial pattern requirements for
             //getNumericEntity, so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
-        if (mb_substr($input, 2, 1, "UTF-32") == $this->normalizeEncoding('x')
-            || mb_substr($input, 2, 1, "UTF-32") == $this->normalizeEncoding('X')
+
+        if (mb_substr($input, 2, 1, $this->utf32) == $this->normalizeEncoding('x')
+            || mb_substr($input, 2, 1, $this->utf32) == $this->normalizeEncoding('X')
         ) {
             return $this->_parseHex($input);
         }
 
         return $this->_parseNumber($input);
     }
-    
+
     /**
      * Parse a decimal number, such as those from JavaScript's
      * String.fromCharCode(value).
@@ -254,35 +244,32 @@ class HTMLEntityCodec extends Codec
         // decodeCharacter and getNumericEntity should've already established that
         // the 1st 2x characters are '&#', but check again incase this method is
         // being called from elsewhere
-        if (mb_substr($input, 0, 1, "UTF-32") != $this->normalizeEncoding('&')
-            || mb_substr($input, 1, 1, "UTF-32") != $this->normalizeEncoding('#')
+        if (mb_substr($input, 0, 1, $this->utf32) != $this->normalizeEncoding('&')
+            || mb_substr($input, 1, 1, $this->utf32) != $this->normalizeEncoding('#')
         ) {
             // input did not satisfy initial pattern requirements for parseNumber,
             // so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         //get numeric characters up until first occurance of ';', return null if
         //format doesn't conform
         //Note: mb_strstr requires PHP 5.2 or greater...therefore shouldnt use here
         $integerStringAscii = "";
-        $integerString      = mb_substr($input, 0, 2, "UTF-32");
-        $inputLength        = mb_strlen($input, "UTF-32");
+        $integerString      = mb_substr($input, 0, 2, $this->utf32);
+        $inputLength        = mb_strlen($input, $this->utf32);
         for ($i = 2; $i < $inputLength; $i++) {
             // Get the ordinal value of the character.
-            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, "UTF-32"));
-            
+            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, $this->utf32));
+
             // if character is a digit, add it and keep on going
             if (preg_match("/^[0-9]/", chr($ordinalValue))) {
-                $integerString .= mb_substr($input, $i, 1, "UTF-32");
+                $integerString .= mb_substr($input, $i, 1, $this->utf32);
                 $integerStringAscii .= chr($ordinalValue);
             } else {
-                if (mb_substr($input, $i, 1, "UTF-32") == $this->normalizeEncoding(';')) {
+                if (mb_substr($input, $i, 1, $this->utf32) == $this->normalizeEncoding(';')) {
                     // if character is a semicolon, then eat it and quit
-                    $integerString .= mb_substr($input, $i, 1, "UTF-32");
+                    $integerString .= mb_substr($input, $i, 1, $this->utf32);
                     break;
                 } else {
                     // otherwise just quit
@@ -294,19 +281,16 @@ class HTMLEntityCodec extends Codec
             $parsedInteger   = (int) $integerStringAscii;
             $parsedCharacter = $this->normalizeEncoding(chr($parsedInteger));
 
-            return array(
-                'decodedCharacter' => $parsedCharacter,
-                'encodedString' => $integerString
-            );
-        } catch (Exception $e) {
+            return $this->respondWithDetails($parsedCharacter, $integerString);
+        } catch (\Exception $e) {
             //TODO: throw an exception for malformed entity?
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => mb_substr($input, 0, $i + 1, "UTF-32")
+            return $this->respondWithDetails(
+                null,
+                mb_substr($input, 0, $i + 1, $this->utf32)
             );
         }
     }
-    
+
     /**
      * Parse a hex encoded entity.
      *
@@ -322,33 +306,30 @@ class HTMLEntityCodec extends Codec
         // decodeCharacter and getNumericEntity should've already established that
         //the 1st 3x characters are '&#x' or '&#X', but check again incase this
         //method is being called from elsewhere
-        if (mb_substr($input, 0, 1, "UTF-32") != $this->normalizeEncoding('&')
-            || mb_substr($input, 1, 1, "UTF-32") != $this->normalizeEncoding('#')
-            || (mb_substr($input, 2, 1, "UTF-32") != $this->normalizeEncoding('x')
-            && mb_substr($input, 2, 1, "UTF-32") != $this->normalizeEncoding('X'))
+        if (mb_substr($input, 0, 1, $this->utf32) != $this->normalizeEncoding('&')
+            || mb_substr($input, 1, 1, $this->utf32) != $this->normalizeEncoding('#')
+            || (mb_substr($input, 2, 1, $this->utf32) != $this->normalizeEncoding('x')
+            && mb_substr($input, 2, 1, $this->utf32) != $this->normalizeEncoding('X'))
         ) {
             // input did not satisfy initial pattern requirements for parseHex,
             //so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
         //todo: encoding should be UTF-32, so why detect it?
-        $hexString         = mb_convert_encoding("", mb_detect_encoding($input));
+        $hexString = mb_convert_encoding("", mb_detect_encoding($input));
         //todo: encoding should be UTF-32, so why detect it?;
         $trailingSemicolon = mb_convert_encoding("", mb_detect_encoding($input));
-        $inputLength       = mb_strlen($input, "UTF-32");
+        $inputLength = mb_strlen($input, $this->utf32);
         for ($i = 3; $i < $inputLength; $i++) {
             // Get the ordinal value of the character.
-            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, "UTF-32"));
-            
+            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, $this->utf32));
+
             // if character is a hex digit, add it and keep on going
             if (preg_match("/^[0-9a-fA-F]/", chr($ordinalValue))) {
                 // hex digit found, add it and continue...
-                $hexString .= mb_substr($input, $i, 1, "UTF-32");
+                $hexString .= mb_substr($input, $i, 1, $this->utf32);
             } else {
-                if (mb_substr($input, $i, 1, "UTF-32") == $this->normalizeEncoding(';')) {
+                if (mb_substr($input, $i, 1, $this->utf32) == $this->normalizeEncoding(';')) {
                     // if character is a semicolon, then eat it and quit
                     $trailingSemicolon = $this->normalizeEncoding(';');
                     break;
@@ -364,24 +345,21 @@ class HTMLEntityCodec extends Codec
             if ($parsedInteger <= 0xFF) {
                 $parsedCharacter = chr($parsedInteger);
             } else {
-                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', UTF8, 'HTML-ENTITIES');
             }
             $parsedCharacter = $this->normalizeEncoding($parsedCharacter);
 
-            return array(
-                'decodedCharacter' => $parsedCharacter,
-                'encodedString' => mb_substr($input, 0, 3, "UTF-32") .
+            return $this->respondWithDetails(
+                $parsedCharacter,
+                mb_substr($input, 0, 3, $this->utf32) .
                     $hexString . $trailingSemicolon
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //TODO: throw an exception for malformed entity?
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => mb_substr($input, 0, $i + 1, "UTF-32")
-            );
+            return $this->respondWithDetails(null, mb_substr($input, 0, $i + 1, $this->utf32));
         }
     }
-    
+
     /**
      * Returns the decoded version of the character starting at index, or
      * NULL if no decoding is possible.
@@ -412,54 +390,45 @@ class HTMLEntityCodec extends Codec
         // decodeCharacter should've already established that the 1st character
         // is '&', but check again in case this method is being called from
         //elsewhere
-        if (mb_substr($input, 0, 1, 'UTF-32') != $this->normalizeEncoding('&')) {
+        if (mb_substr($input, 0, 1, $this->utf32) != $this->normalizeEncoding('&')) {
             // input did not satisfy initial pattern requirements for
             //getNamedEntity, so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         // Get the first alpanum input character
-        $inputCaseUnchanged = mb_substr($input, 1, 1, 'UTF-32');
+        $inputCaseUnchanged = mb_substr($input, 1, 1, $this->utf32);
         if ($inputCaseUnchanged === '') {
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
         list(, $ordinalValue) = unpack('N', $inputCaseUnchanged);
         $asciiCaseUnchanged = chr($ordinalValue);
-        
+
         // Is it alphanumeric
-        $alphanums = str_split(Encoder::CHAR_ALPHANUMERICS, 1);
+        $alphanums = str_split(\PHPESAPI\PHPESAPI\Encoder::CHAR_ALPHANUMERICS, 1);
         if ($this->containsCharacter($inputCaseUnchanged, $alphanums) !== true) {
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         // Preserving the case of the first character
         $inputCaseLowerPreserveFirst = $inputCaseUnchanged;
         $asciiCaseLowerPreserveFirst = $asciiCaseUnchanged;
-        
+
         // The first character as lower case.
         $inputCaseLower = strtolower($inputCaseUnchanged);
         $ordinalValue   = null;
         list(, $ordinalValue) = unpack('N', $inputCaseLower);
         $asciiCaseLower = chr($ordinalValue);
-        
+
         $entityValue   = null; // the most recently found entity name
         $originalInput = null; // the corresponding original input
-        
+
         // If first char is lowercase CaseLowerPreserveFirst can be discarded.
         if ($asciiCaseUnchanged === $asciiCaseLower) {
             $inputCaseLowerPreserveFirst = null;
             $asciiCaseLowerPreserveFirst = null;
         }
-        
+
         // Test for a valid entity
         if ($asciiCaseLowerPreserveFirst !== null
             && array_key_exists($asciiCaseLower, self::$_entityToCharacterMap)
@@ -467,16 +436,16 @@ class HTMLEntityCodec extends Codec
             $entityValue   = self::$_entityToCharacterMap[$asciiCaseLower];
             $originalInput = $inputCaseLower;
         }
-        
+
         if (array_key_exists($asciiCaseUnchanged, self::$_entityToCharacterMap)) {
             $entityValue   = self::$_entityToCharacterMap[$asciiCaseUnchanged];
             $originalInput = $inputCaseUnchanged;
         }
-        
+
         // Loop through remaining characters.
-        $limit = min(mb_strlen($input, 'UTF-32'), self::$_longestEntity);
+        $limit = min(mb_strlen($input, $this->utf32), self::$_longestEntity);
         for ($i = 2; $i < $limit; $i++) {
-            $c = mb_substr($input, $i, 1, 'UTF-32');
+            $c = mb_substr($input, $i, 1, $this->utf32);
             if ($c === '') {
                 break;
             }
@@ -492,7 +461,7 @@ class HTMLEntityCodec extends Codec
             // we have an alphanum!
             $inputCaseUnchanged .= $c;
             $asciiCaseUnchanged .= $a;
-            
+
             $cLower = strtolower($c);
             if ($inputCaseLowerPreserveFirst !== null) {
                 $inputCaseLowerPreserveFirst .= $cLower;
@@ -503,7 +472,7 @@ class HTMLEntityCodec extends Codec
                 $asciiCaseLowerPreserveFirst .= chr($ordValL);
             }
             $asciiCaseLower .= chr($ordValL);
-            
+
             if ($asciiCaseLower !== $asciiCaseUnchanged
                 && array_key_exists($asciiCaseLower, self::$_entityToCharacterMap)
             ) {
@@ -525,13 +494,9 @@ class HTMLEntityCodec extends Codec
         if ($originalInput !== null) {
             $originalInput = $this->normalizeEncoding('&') . $originalInput;
         }
-        
-        return array(
-            'decodedCharacter' => $entityValue,
-            'encodedString' => $originalInput
-        );
+        return $this->respondWithDetails($entityValue, $originalInput);
     }
-    
+
     /**
      * Initialize the entityNames array with all possible named entities.
      *
@@ -1552,14 +1517,14 @@ class HTMLEntityCodec extends Codec
             /* &diams; : black diamond suit */
         );
         for ($i = 0; $i < count($entityNames); $i++) {
-            $character = html_entity_decode('&' . $entityNames[$i] . ';', ENT_QUOTES, 'UTF-8');
+            $character = html_entity_decode('&' . $entityNames[$i] . ';', ENT_QUOTES, UTF8);
             // Normalize encoding to UTF-32
-            $character = mb_convert_encoding($character, 'UTF-32', 'UTF-8');
+            $character = mb_convert_encoding($character, $this->utf32, UTF8);
             self::$_characterToEntityMap[$character]       = $entityNames[$i];
             self::$_entityToCharacterMap[$entityNames[$i]] = $character;
-            
+
             // get the length of the longest entity name
-            $len = mb_strlen($entityNames[$i], 'UTF-8');
+            $len = mb_strlen($entityNames[$i], UTF8);
             if ($len > self::$_longestEntity) {
                 self::$_longestEntity = $len;
             }

@@ -41,17 +41,11 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI\Codecs;
+
 class CSSCodec extends Codec
 {
-
-    /**
-     * Public Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-    
     /**
      * {@inheritdoc}
      *
@@ -62,44 +56,44 @@ class CSSCodec extends Codec
         //detect encoding, special-handling for chr(172) and chr(128) to chr(159)
         //which fail to be detected by mb_detect_encoding()
         $initialEncoding = $this->detectEncoding($c);
-        
+
         // Normalize encoding to UTF-32
         $_4ByteUnencodedOutput = $this->normalizeEncoding($c);
-        
+
         // Start with nothing; format it to match the encoding of the string passed
         //as an argument.
         $encodedOutput = mb_convert_encoding("", $initialEncoding);
-        
+
         // Grab the 4 byte character.
         $_4ByteCharacter = $this->forceToSingleCharacter($_4ByteUnencodedOutput);
-        
+
         // Get the ordinal value of the character.
         list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
-        
+
         // CSS 2.1 section 4.1.3: "It is undefined in CSS 2.1 what happens if a
         // style sheet does contain a character with Unicode codepoint zero."
         if ($ordinalValue === 0) {
-            throw new InvalidArgumentException(
-              "InvalidArgumentException - Chracter value zero is not valid in CSS"
+            throw new \InvalidArgumentException(
+                "InvalidArgumentException - Chracter value zero is not valid in CSS"
             );
         }
-        
+
         // check for immune characters
         if ($this->containsCharacter($_4ByteCharacter, $immune)) {
             // character is immune, therefore return character...
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         // check for alphanumeric characters
         $hex = $this->getHexForNonAlphanumeric($_4ByteCharacter);
         if ($hex === null) {
             //character is alphanumric, therefore return the character...
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         return "\\" . $hex . " ";
     }
-    
+
     /**
      * {@inheritdoc}
      *
@@ -109,36 +103,29 @@ class CSSCodec extends Codec
      */
     public function decodeCharacter($input)
     {
-        if (mb_substr($input, 0, 1, "UTF-32") === null) {
+        if (mb_substr($input, 0, 1, UTF32) === null) {
             // 1st character is null, so return null
             // eat the 1st character off the string and return null
             //todo: is this mb_substr neccessary
-            $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32");
+            $input = mb_substr($input, 1, mb_strlen($input, UTF32), UTF32);
+            return $this->respondWithDetails();
+        }
 
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
-        }
-        
         // if this is not an encoded character, return null
-        if (mb_substr($input, 0, 1, "UTF-32") != $this->normalizeEncoding("\\")) {
+        if (mb_substr($input, 0, 1, UTF32) != $this->normalizeEncoding("\\")) {
             // 1st character is not part of encoding pattern, so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         // 1st character is part of encoding pattern...
-        
+
         // look for \HHH format
         // Search for up to 6 hex digits following until a space
         $potentialHexString = $this->normalizeEncoding('');
         $hexDigitCount      = 0;
         $limit              = min(6, mb_strlen($input, 'UTF-32') - 1);
         for ($i = 0; $i < $limit; $i++) {
-            $_4ByteCharacter = mb_substr($input, 1 + $i, 1, "UTF-32");
+            $_4ByteCharacter = mb_substr($input, 1 + $i, 1, UTF32);
             if ($this->isHexDigit($_4ByteCharacter)) {
                 $potentialHexString .= $_4ByteCharacter;
                 $hexDigitCount++;
@@ -149,58 +136,48 @@ class CSSCodec extends Codec
         if ($hexDigitCount) {
             $candidateChar = $this->_parseHex($potentialHexString);
             if (is_string($candidateChar) != true) {
-                return array(
-                    'decodedCharacter' => null,
-                    'encodedString' => null
-                );
+                return $this->respondWithDetails();
             }
             if ($hexDigitCount < 6
-                && mb_substr($input, 1 + $hexDigitCount, 1, "UTF-32") != $this->normalizeEncoding(' ')
+                && mb_substr($input, 1 + $hexDigitCount, 1, UTF32) != $this->normalizeEncoding(' ')
             ) {
                 // no terminating space, yet less than 6 hex digits in
                 //encoding = malformed encoding
                 //TODO: throw an exception for malformed entity?
-                return array(
-                    'decodedCharacter' => $this->normalizeEncoding($candidateChar),
-                    'encodedString' => mb_substr($input, 0, 1 + $hexDigitCount, "UTF-32")
+                return $this->respondWithDetails(
+                    $this->normalizeEncoding($candidateChar),
+                    mb_substr($input, 0, 1 + $hexDigitCount, UTF32)
                 );
             } elseif ($hexDigitCount < 6) {
-                return array(
-                    'decodedCharacter' => $this->normalizeEncoding($candidateChar),
-                    'encodedString' => mb_substr($input, 0, 1 + $hexDigitCount + 1, "UTF-32")
-                );
-            } else {
-                return array(
-                    'decodedCharacter' => $this->normalizeEncoding($candidateChar),
-                    'encodedString' => mb_substr($input, 0, 1 + $hexDigitCount, "UTF-32")
+                return $this->respondWithDetails(
+                    $this->normalizeEncoding($candidateChar),
+                    mb_substr($input, 0, 1 + $hexDigitCount + 1, UTF32)
                 );
             }
-        } elseif (mb_substr($input, 1, 1, "UTF-32") == $this->normalizeEncoding("\n")
-        //FIXME: perhaps add the following logic to all ESAPI implementations so
-        //they handle escaped new lines correctly?
-            ) {
+        } elseif (mb_substr($input, 1, 1, UTF32) ==
+            $this->normalizeEncoding("\n")
+        ) {
+            // TODO: perhaps add the following logic to all ESAPI
+            // TODO: implementations so they handle escaped new lines
+            // correctly?
+
             // in the case of escape character followed by a newline, the encoding
             //should be ignored note: ESAPI4JAVA does not specifically handle this
             //situation (it would be handled but throw a malformed entity exception)
-            return array(
-                'decodedCharacter' => '',
-                'encodedString' => mb_substr($input, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                '',
+                mb_substr($input, 0, 2, UTF32)
             );
         } else {
             // zero hex digits after start of encoding pattern...
             //TODO: throw an exception for malformed entity?
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => mb_substr($input, 0, 1, "UTF-32")
+            return $this->respondWithDetails(
+                null,
+                mb_substr($input, 0, 1, UTF32)
             );
         }
-        
-        return array(
-            'decodedCharacter' => null,
-            'encodedString' => null
-        );
     }
-    
+
     /**
      * Parse a hex encoded entity (special purposes for CSSCodec).
      *
@@ -212,11 +189,11 @@ class CSSCodec extends Codec
     {
         //todo: encoding should be UTF-32, so why detect it?
         $hexString   = mb_convert_encoding("", mb_detect_encoding($input));
-        $inputLength = mb_strlen($input, "UTF-32");
+        $inputLength = mb_strlen($input, UTF32);
         for ($i = 0; $i < $inputLength; $i++) {
             // Get the ordinal value of the character.
-            $_4ByteCharacter = mb_substr($input, $i, 1, "UTF-32");
-            
+            $_4ByteCharacter = mb_substr($input, $i, 1, UTF32);
+
             // if character is a hex digit, add it and keep on going
             if ($this->isHexDigit($_4ByteCharacter)) {
                 // hex digit found, add it and continue...
@@ -227,7 +204,7 @@ class CSSCodec extends Codec
         }
         try {
             // trying to convert hexString to integer...
-            
+
             $parsedInteger = (int) hexdec($hexString);
             if ($parsedInteger == 0) {
                 // codepoint of zero not recognised in CSS, therefore return null
@@ -238,11 +215,11 @@ class CSSCodec extends Codec
             } elseif ($parsedInteger <= 0xFF) {
                 $parsedCharacter = chr($parsedInteger);
             } else {
-                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', UTF8, 'HTML-ENTITIES');
             }
 
             return $parsedCharacter;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //TODO: throw an exception for malformed entity?
             return null;
         }

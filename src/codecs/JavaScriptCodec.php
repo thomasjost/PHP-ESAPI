@@ -39,17 +39,11 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+namespace PHPESAPI\PHPESAPI\Codecs;
+
 class JavaScriptCodec extends Codec
 {
-
-    /**
-     * Public Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-    
     /**
      * Returns backslash encoded numeric format. Does not use backslash
      * character escapes such as, \" or \' as these may cause parsing problems.
@@ -64,31 +58,31 @@ class JavaScriptCodec extends Codec
         //detect encoding, special-handling for chr(172) and chr(128) to
         //chr(159) which fail to be detected by mb_detect_encoding()
         $initialEncoding = $this->detectEncoding($c);
-        
+
         // Normalize encoding to UTF-32
         $_4ByteUnencodedOutput = $this->normalizeEncoding($c);
-        
+
         // Start with nothing; format it to match the encoding of the string
         //passed as an argument.
         $encodedOutput = mb_convert_encoding("", $initialEncoding);
-        
+
         // Grab the 4 byte character.
         $_4ByteCharacter = $this->forceToSingleCharacter($_4ByteUnencodedOutput);
-        
+
         // Get the ordinal value of the character.
         list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
-        
+
         // check for immune characters
         if ($this->containsCharacter($_4ByteCharacter, $immune)) {
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         // Check for alphanumeric characters
         $hex = $this->getHexForNonAlphanumeric($_4ByteCharacter);
         if ($hex === null) {
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         // Do not use these shortcuts as they can be used to break out of a context
         // if (ch == 0x00) return "\\0";
         // if (ch == 0x08) return "\\b";
@@ -100,19 +94,19 @@ class JavaScriptCodec extends Codec
         // if (ch == 0x22) return "\\\"";
         // if (ch == 0x27) return "\\'";
         // if (ch == 0x5c) return "\\\\";
-        
+
         // encode up to 256 with \\xHH
         $pad = mb_substr("00", mb_strlen($hex));
         if ($ordinalValue < 256) {
             return "\\x" . $pad . strtoupper($hex);
         }
-        
+
         // otherwise encode with \\uHHHH
         $pad = mb_substr("0000", mb_strlen($hex));
 
         return "\\u" . $pad . strtoupper($hex);
     }
-    
+
     /**
      * Returns the decoded version of the character starting at index, or
      * NULL if no decoding is possible.
@@ -129,147 +123,134 @@ class JavaScriptCodec extends Codec
     {
         // Assumption/prerequisite: $c is a UTF-32 encoded string
         $_4ByteEncodedInput = $input;
-        
-        if (mb_substr($_4ByteEncodedInput, 0, 1, "UTF-32") === null) {
+
+        if (mb_substr($_4ByteEncodedInput, 0, 1, UTF32) === null) {
             // 1st character is null, so return null
             // eat the 1st character off the string and return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+
+            return $this->respondWithDetails();
         }
-        
+
         // if this is not an encoded character, return null
-        if (mb_substr($_4ByteEncodedInput, 0, 1, "UTF-32") != $this->normalizeEncoding('\\')) {
+        if (mb_substr($_4ByteEncodedInput, 0, 1, UTF32) != $this->normalizeEncoding('\\')) {
             // 1st character is not part of encoding pattern, so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+
+            return $this->respondWithDetails();
         }
-        
+
         // 1st character is part of encoding pattern...
-        $second = mb_substr($_4ByteEncodedInput, 1, 1, "UTF-32");
-        
+        $second = mb_substr($_4ByteEncodedInput, 1, 1, UTF32);
+
         // There is no second character, return null.
         if ($second == '') {
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         // \0 collides with the octal decoder and is non-standard
         // if (second.charValue() == '0') {
         //    return Character.valueOf((char)0x00);
         if ($second == $this->normalizeEncoding('b')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('8'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('8'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('t')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('9'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('9'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('n')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('a'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('a'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('v')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('b'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('b'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('f')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('c'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('c'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('r')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('d'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('d'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('\"')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('22'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('22'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('\'')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('27'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('27'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif ($second == $this->normalizeEncoding('\\')) {
-            return array(
-                'decodedCharacter' => $this->normalizeEncoding(chr(hexdec('5c'))),
-                'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(hexdec('5c'))),
+                mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
             );
         } elseif (strtolower($second) == $this->normalizeEncoding('x')) {
             // look for \\xXX format
             // check for exactly two hex digits following
             $potentialHexString = $this->normalizeEncoding('');
             for ($i = 0; $i < 2; $i++) {
-                $c = mb_substr($input, 2 + $i, 1, "UTF-32");
+                $c = mb_substr($input, 2 + $i, 1, UTF32);
                 if ($c != null) {
                     $potentialHexString .= $c;
                 }
             }
-            if (mb_strlen($potentialHexString, "UTF-32") == 2) {
+            if (mb_strlen($potentialHexString, UTF32) == 2) {
                 $charFromHex = $this->normalizeEncoding(
                     $this->_parseHex($potentialHexString)
                 );
-
-                return array(
-                    'decodedCharacter' => $charFromHex,
-                    'encodedString' => mb_substr($input, 0, 4, "UTF-32")
+                return $this->respondWithDetails(
+                    $charFromHex,
+                    mb_substr($input, 0, 4, UTF32)
                 );
             }
 
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+
+            return $this->respondWithDetails();
         } elseif (strtolower($second) == $this->normalizeEncoding('u')) {
             // look for \\uXXXX format
             // Search for exactly 4 hex digits following
             $potentialHexString = $this->normalizeEncoding('');
             for ($i = 0; $i < 4; $i++) {
-                $c = mb_substr($input, 2 + $i, 1, "UTF-32");
+                $c = mb_substr($input, 2 + $i, 1, UTF32);
                 if ($c != null) {
                     $potentialHexString .= $c;
                 }
             }
-            if (mb_strlen($potentialHexString, "UTF-32") == 4) {
+            if (mb_strlen($potentialHexString, UTF32) == 4) {
                 $charFromHex = $this->normalizeEncoding(
                     $this->_parseHex($potentialHexString)
                 );
-
-                return array(
-                    'decodedCharacter' => $charFromHex,
-                    'encodedString' => mb_substr($input, 0, 6, "UTF-32")
+                return $this->respondWithDetails(
+                    $charFromHex,
+                    mb_substr($input, 0, 6, UTF32)
                 );
             }
 
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+
+            return $this->respondWithDetails();
         } elseif (preg_match('/[0-7]+/', $second) > 0) {
             // look for one, two, or three octal digits
             // get digit 1
             $digit1 = $second;
             $digits = $digit1;
             // get digit 2 if present
-            $digit2 = mb_substr($_4ByteEncodedInput, 2, 1, "UTF-32");
+            $digit2 = mb_substr($_4ByteEncodedInput, 2, 1, UTF32);
             if (!preg_match('/[0-7]+/', $digit2)) {
                 $digit2 = "";
             } else {
                 $digits .= $digit2;
                 // get digit 3 if present
-                $digit3 = mb_substr($_4ByteEncodedInput, 3, 1, "UTF-32");
+                $digit3 = mb_substr($_4ByteEncodedInput, 3, 1, UTF32);
                 if (!preg_match('/[0-7]+/', $digit3)) {
                     $digit3 = "";
                 } else {
@@ -277,21 +258,18 @@ class JavaScriptCodec extends Codec
                 }
             }
 
-            return array(
-                'decodedCharacter' =>
-                    $this->normalizeEncoding(chr(octdec($digits))),
-                'encodedString'
-                    => mb_substr($_4ByteEncodedInput, 0, 1, "UTF-32") . $digits
+            return $this->respondWithDetails(
+                $this->normalizeEncoding(chr(octdec($digits))),
+                mb_substr($_4ByteEncodedInput, 0, 1, UTF32) . $digits
             );
         }
-        
-        // ignore the backslash and return the character
-        return array(
-            'decodedCharacter' => $second,
-            'encodedString' => mb_substr($_4ByteEncodedInput, 0, 2, "UTF-32")
+
+        return $this->respondWithDetails(
+            $second,
+            mb_substr($_4ByteEncodedInput, 0, 2, UTF32)
         );
     }
-    
+
     /**
      * Utility function.
      *
@@ -303,38 +281,35 @@ class JavaScriptCodec extends Codec
     {
         //todo: encoding should be UTF-32, so why detect it?
         $hexString   = mb_convert_encoding("", mb_detect_encoding($input));
-        $inputLength = mb_strlen($input, "UTF-32");
+        $inputLength = mb_strlen($input, UTF32);
         for ($i = 0; $i < $inputLength; $i++) {
             // Get the ordinal value of the character.
-            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, "UTF-32"));
-            
+            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, UTF32));
+
             // if character is a hex digit, add it and keep on going
             if (preg_match("/^[0-9a-fA-F]/", chr($ordinalValue))) {
                 // hex digit found, add it and continue...
-                $hexString .= mb_substr($input, $i, 1, "UTF-32");
-            } elseif (mb_substr($input, $i, 1, "UTF-32") == $this->normalizeEncoding(';')) {
-                // if character is a semicolon, then eat it and quit
-                //this parameter is not utilised by this method, consider removing
-                $trailingSemicolon = $this->normalizeEncoding(';');
+                $hexString .= mb_substr($input, $i, 1, UTF32);
+            } elseif (mb_substr($input, $i, 1, UTF32) == $this->normalizeEncoding(';')) {
                 break;
             } else {
                 // otherwise just quit
                 break;
             }
         }
-        
+
         try {
             // trying to convert hexString to integer...
-            
+
             $parsedInteger = (int) hexdec($hexString);
             if ($parsedInteger <= 0xFF) {
                 $parsedCharacter = chr($parsedInteger);
             } else {
-                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', UTF8, 'HTML-ENTITIES');
             }
 
             return $parsedCharacter;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //TODO: throw an exception for malformed entity?
             return null;
         }

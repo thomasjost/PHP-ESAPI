@@ -39,17 +39,11 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+
+ namespace PHPESAPI\PHPESAPI\Codecs;
+
 class PercentCodec extends Codec
 {
-
-    /**
-     * Public Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-    
     /**
      * {@inheritdoc}
      */
@@ -58,74 +52,68 @@ class PercentCodec extends Codec
         //detect encoding, special-handling for chr(172) and chr(128) to chr(159)
         //which fail to be detected by mb_detect_encoding()
         $initialEncoding = $this->detectEncoding($c);
-        
+
         // Normalize encoding to UTF-32
         $_4ByteUnencodedOutput = $this->normalizeEncoding($c);
-        
+
         // Start with nothing; format it to match the encoding of the string passed
         //as an argument.
         $encodedOutput = mb_convert_encoding("", $initialEncoding);
-        
+
         // Grab the 4 byte character.
         $_4ByteCharacter = $this->forceToSingleCharacter($_4ByteUnencodedOutput);
-        
+
         // Get the ordinal value of the character.
         list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
-        
+
         // check for immune characters
         if ($this->containsCharacter($_4ByteCharacter, $immune)) {
             // character is immune, therefore return character...
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         // check for alphanumeric characters
         $hex = $this->getHexForNonAlphanumeric($_4ByteCharacter);
         if ($hex === null) {
             //character is alphanumric, therefore return the character...
             return $encodedOutput . chr($ordinalValue);
         }
-        
+
         if ($ordinalValue < 16) {
             // ordinalValue is less than 16, therefore prepend hex with a 0...
             $hex = "0" . strtoupper($hex);
         }
-        
+
         return "%" . strtoupper($hex);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function decodeCharacter($input)
     {
-        if (mb_substr($input, 0, 1, "UTF-32") === null) {
+        if (mb_substr($input, 0, 1, UTF32) === null) {
             // 1st character is null, so return null
             // eat the 1st character off the string and return null
             //todo: this is not neccessary
-            $input = mb_substr($input, 1, mb_strlen($input, "UTF-32"), "UTF-32");
+            $input = mb_substr($input, 1, mb_strlen($input, UTF32), UTF32);
 
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         // if this is not an encoded character, return null
-        if (mb_substr($input, 0, 1, "UTF-32") != $this->normalizeEncoding('%')) {
+        if (mb_substr($input, 0, 1, UTF32) != $this->normalizeEncoding('%')) {
             // 1st character is not part of encoding pattern, so return null
-            return array(
-                'decodedCharacter' => null,
-                'encodedString' => null
-            );
+            return $this->respondWithDetails();
         }
-        
+
         // 1st character is part of encoding pattern...
-        
+
         // check for exactly two hex digits following
         $potentialHexString = $this->normalizeEncoding('');
-        $limit              = min(2, mb_strlen($input, "UTF-32") - 1);
+        $limit              = min(2, mb_strlen($input, UTF32) - 1);
         for ($i = 0; $i < $limit; $i++) {
-            $c = mb_substr($input, 1 + $i, 1, "UTF-32");
+            $c = mb_substr($input, 1 + $i, 1, UTF32);
             if ($c != '') {
                 $ph = $this->_parseHex($c);
                 if ($ph !== null) {
@@ -133,23 +121,19 @@ class PercentCodec extends Codec
                 }
             }
         }
-        if (mb_strlen($potentialHexString, "UTF-32") == 2) {
+        if (mb_strlen($potentialHexString, UTF32) == 2) {
             $charFromHex = $this->normalizeEncoding(
                 $this->_parseHex($potentialHexString)
             );
-
-            return array(
-                'decodedCharacter' => $charFromHex,
-                'encodedString' => mb_substr($input, 0, 3, "UTF-32")
+            return $this->respondWithDetails(
+                $charFromHex,
+                mb_substr($input, 0, 3, UTF32)
             );
         }
 
-        return array(
-            'decodedCharacter' => null,
-            'encodedString' => null
-        );
+        $this->respondWithDetails();
     }
-    
+
     /**
      * Parse a hex encoded entity.
      *
@@ -164,19 +148,16 @@ class PercentCodec extends Codec
     {
         //todo: encoding should be UTF-32, so why detect it?
         $hexString   = mb_convert_encoding("", mb_detect_encoding($input));
-        $inputLength = mb_strlen($input, "UTF-32");
+        $inputLength = mb_strlen($input, UTF32);
         for ($i = 0; $i < $inputLength; $i++) {
             // Get the ordinal value of the character.
-            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, "UTF-32"));
-            
+            list(, $ordinalValue) = unpack("N", mb_substr($input, $i, 1, UTF32));
+
             // if character is a hex digit, add it and keep on going
             if (preg_match("/^[0-9a-fA-F]/", chr($ordinalValue))) {
                 // hex digit found, add it and continue...
-                $hexString .= mb_substr($input, $i, 1, "UTF-32");
-            } elseif (mb_substr($input, $i, 1, "UTF-32") == $this->normalizeEncoding(';')) {
-                // if character is a semicolon, then eat it and quit
-                //todo: this parameter is not utilised by this method, consider removing
-                $trailingSemicolon = $this->normalizeEncoding(';');
+                $hexString .= mb_substr($input, $i, 1, UTF32);
+            } elseif (mb_substr($input, $i, 1, UTF32) == $this->normalizeEncoding(';')) {
                 break;
             } else {
                 // otherwise just quit
@@ -192,11 +173,11 @@ class PercentCodec extends Codec
             if ($parsedInteger <= 0xFF) {
                 $parsedCharacter = chr($parsedInteger);
             } else {
-                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+                $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', UTF8, 'HTML-ENTITIES');
             }
 
             return $parsedCharacter;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //TODO: throw an exception for malformed entity?
             return null;
         }
