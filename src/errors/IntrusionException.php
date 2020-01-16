@@ -49,9 +49,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class IntrusionException extends Exception
-{
+namespace PHPESAPI\PHPESAPI\Errors;
 
+class IntrusionException extends \Exception
+{
     protected $logger; // ESAPI Logger class
     protected $logMessage; // Message to be sent to the log
 
@@ -66,10 +67,10 @@ class IntrusionException extends Exception
     public function __construct($userMessage = '', $logMessage = '')
     {
         parent::__construct($userMessage);
-        
+
         $this->logMessage = $logMessage;
-        $logger = ESAPI::getAuditor("IntrusionException");
-        $logger->error(DefaultAuditor::SECURITY, false, "INTRUSION - " . $logMessage);
+        $logger = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("IntrusionException");
+        $logger->error(\DefaultAuditor::SECURITY, false, "INTRUSION - " . $logMessage);
     }
 
     /**

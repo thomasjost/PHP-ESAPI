@@ -24,16 +24,8 @@
  * resource is in jeopardy. For example, if a database connection pool runs out
  * of connections, an availability exception should be thrown.
  */
+namespace PHPESAPI\PHPESAPI\Errors;
+
 class IntegrityException extends EnterpriseSecurityException
 {
-    /**
-     * Create a new IntegrityException.
-     *
-     * @param string $userMessage The message to display to users
-     * @param string $logMessage The message logged
-     */
-    public function __construct($userMessage = '', $logMessage = '')
-    {
-        parent::__construct($userMessage, $logMessage);
-    }
 }

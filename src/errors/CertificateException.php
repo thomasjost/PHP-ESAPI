@@ -42,19 +42,8 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Errors;
+
 class CertificateException extends EnterpriseSecurityException
 {
-
-    /**
-     * Instantiates a new CertificateException.
-     *
-     * @param string $userMessage The message displayed to the user
-     * @param string $logMessage  the message logged
-     *
-     * @return does not return a value.
-     */
-    public function __construct($userMessage = '', $logMessage = '')
-    {
-        parent::__construct($userMessage, $logMessage);
-    }
 }

@@ -58,7 +58,9 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class EnterpriseSecurityException extends Exception
+namespace PHPESAPI\PHPESAPI\Errors;
+
+class EnterpriseSecurityException extends \Exception
 {
 
     /** The logger. */
@@ -74,18 +76,16 @@ class EnterpriseSecurityException extends Exception
      */
     public function __construct($userMessage = '', $logMessage = '')
     {
-        $cause = 0;
-        
         if (empty($userMessage)) {
             $userMessage = null;
         }
-                
+
         parent::__construct($userMessage);
-        
+
         $this->logMessage = $logMessage;
-        $this->logger = ESAPI::getAuditor("EnterpriseSecurityException");
-        if (! ESAPI::getSecurityConfiguration()->getDisableIntrusionDetection()) {
-            ESAPI::getIntrusionDetector()->addException($this);
+        $this->logger = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("EnterpriseSecurityException");
+        if (! \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getDisableIntrusionDetection()) {
+            \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addException($this);
         }
     }
 

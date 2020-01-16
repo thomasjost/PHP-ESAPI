@@ -43,6 +43,8 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Errors;
+
 class ValidationException extends EnterpriseSecurityException
 {
 
