@@ -39,7 +39,8 @@
  * @author    Thomas Jost <tjost@protonmail.com>
  *
  * @copyright 2009-2010 The OWASP Foundation
- * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD
+ *            license
  *
  * @version   Release: @package_version@
  *
