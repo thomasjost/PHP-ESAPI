@@ -39,11 +39,12 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class URLValidationRule extends StringValidationRule
 {
-
     private $_auditor;
- 
+
     /**
      * Constructor sets-up the validation rule with a descriptive name for this
      * validator, an optional Encoder instance (for canonicalization) and an
@@ -61,7 +62,7 @@ class URLValidationRule extends StringValidationRule
     {
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = ESAPI::getAuditor("URLValidationRule");
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("URLValidationRule");
     }
 
     /**
@@ -86,7 +87,7 @@ class URLValidationRule extends StringValidationRule
 
         $clean_url = filter_var($canonical, FILTER_SANITIZE_URL);
         if ($clean_url == false) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'URL Input is not valid.',
                 'Error attempting to sanitize URL: ' . $input,
                 $context
@@ -94,7 +95,7 @@ class URLValidationRule extends StringValidationRule
         }
 
         if (strcmp($canonical, $clean_url) !== 0) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'URL Input may not be valid.',
                 'Resorted to string comparsion of canonicalized and purified' .
                 ' URL input - result was Not Equal',

@@ -73,7 +73,7 @@ class StringValidationRule extends BaseValidationRule
         if (is_string($whiteListPattern)) {
             $this->addWhitelistPattern($whiteListPattern);
         } elseif ($whiteListPattern !== null) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Validation misconfiguration - constructor expected a string' .
                 ' $whiteListPattern'
             );
@@ -91,14 +91,14 @@ class StringValidationRule extends BaseValidationRule
     public function addWhitelistPattern($pattern)
     {
         if (! is_string($pattern)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Validation misconfiguration - addWhitelistPattern expected a ' .
                 'string $pattern'
             );
         }
         if ($pattern == '') {
-            ESAPI::getLogger()->warning(
-                ESAPILogger::SECURITY,
+            \PHPESAPI\PHPESAPI\ESAPI::getLogger()->warning(
+                \ESAPILogger::SECURITY,
                 false,
                 'addWhitelistPattern received $pattern as an empty string.'
             );
@@ -117,15 +117,15 @@ class StringValidationRule extends BaseValidationRule
     public function addBlacklistPattern($pattern)
     {
         if (! is_string($pattern)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Validation misconfiguration - addBlacklistPattern expected ' .
                 'string $pattern'
             );
         }
 
         if ($pattern == '') {
-            ESAPI::getLogger()->warning(
-                ESAPILogger::SECURITY,
+            \PHPESAPI\PHPESAPI\ESAPI::getLogger()->warning(
+                \ESAPILogger::SECURITY,
                 false,
                 'addBlacklistPattern received $pattern as an empty string.'
             );
@@ -146,7 +146,7 @@ class StringValidationRule extends BaseValidationRule
     public function setMinimumLength($length)
     {
         if (! is_numeric($length)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Validation misconfiguration - setMinimumLength expected ' .
                 'numeric $length'
             );
@@ -166,7 +166,7 @@ class StringValidationRule extends BaseValidationRule
     public function setMaximumLength($length)
     {
         if (! is_numeric($length)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Validation misconfiguration - setMaximumLength expected ' .
                 'numeric $length'
             );
@@ -196,14 +196,14 @@ class StringValidationRule extends BaseValidationRule
             $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
         }
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
             );
         }
         if ($this->minLength > $this->maxLength) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'Validation misconfiguration - $minLength should not be greater ' .
                 'than $maxLength!'
             );
@@ -213,7 +213,7 @@ class StringValidationRule extends BaseValidationRule
             if ($this->allowNull) {
                 return null;
             }
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input required: context={$context}",
                 $context
@@ -224,8 +224,8 @@ class StringValidationRule extends BaseValidationRule
         $canonical = null;
         try {
             $canonical = $this->encoder->canonicalize($input, true);
-        } catch (EncodingException $e) {
-            throw new ValidationException(
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncodingException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid input. Encoding problem detected.',
                 'An EncodingException was thrown during canonicalization ' .
                 'of the input.',
@@ -237,7 +237,7 @@ class StringValidationRule extends BaseValidationRule
         $charEnc = mb_detect_encoding($canonical);
         $length = mb_strlen($canonical, $charEnc);
         if ($length < $this->minLength) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid input. Input was shorter than the ' .
                 'Minimum length of ' . $this->minLength . ' characters.',
                 'Length of Input was less than the minimum length of ' .
@@ -246,7 +246,7 @@ class StringValidationRule extends BaseValidationRule
             );
         }
         if ($length > $this->maxLength) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid input. Input was longer than the ' .
                 'Maximum length of ' . $this->maxLength . ' characters.',
                 'Length of Input was more than the maximum length of ' .
@@ -258,7 +258,7 @@ class StringValidationRule extends BaseValidationRule
         // check whitelist
         foreach ($this->whitelistPatterns as $pattern) {
             if (! preg_match("/{$pattern}/", $canonical)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     $context . ': Invalid input. Please conform to the regex ' .
                     $pattern,
                     $context . ': Invalid input. Input does not conform to the' .
@@ -271,7 +271,7 @@ class StringValidationRule extends BaseValidationRule
         // check blacklist
         foreach ($this->blacklistPatterns as $pattern) {
             if (preg_match("/{$pattern}/", $canonical)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     $context . ': Invalid input. Dangerous input matching ' .
                     $pattern,
                     $context . ': Invalid input. Input matches the blacklist ' .
@@ -298,6 +298,6 @@ class StringValidationRule extends BaseValidationRule
      */
     public function sanitize($context, $input)
     {
-        return $this->whitelist($input, Encoder::CHAR_ALPHANUMERICS);
+        return $this->whitelist($input, \PHPESAPI\PHPESAPI\Encoder::CHAR_ALPHANUMERICS);
     }
 }

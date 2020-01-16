@@ -39,11 +39,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class EmailAddressValidationRule extends StringValidationRule
 {
-
-    private $_auditor;
- 
     /**
      * Constructor sets-up the validation rule with a descriptive name for this
      * validator, an optional Encoder instance (for canonicalization) and an
@@ -57,11 +56,11 @@ class EmailAddressValidationRule extends StringValidationRule
      *
      * @return does not return a value.
      */
-    public function __construct($typeName, $encoder = null, $whitelistPattern = null)
+    public function __construct($typeName, $encoder = null)
     {
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = ESAPI::getAuditor("EmailAddressValidationRule");
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("EmailAddressValidationRule");
     }
 
     /**
@@ -86,7 +85,7 @@ class EmailAddressValidationRule extends StringValidationRule
 
         $clean_email = filter_var($canonical, FILTER_SANITIZE_EMAIL);
         if ($clean_email == false) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'Email Address Input is not valid.',
                 'Error attempting to sanitize Email Address: ' . $input,
                 $context
@@ -94,7 +93,7 @@ class EmailAddressValidationRule extends StringValidationRule
         }
 
         if (strcmp($canonical, $clean_email) !== 0) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'Email Address Input may not be valid.',
                 'Resorted to string comparsion of canonicalized and purified ' .
                 'Email Address input - result was Not Equal',
@@ -120,10 +119,9 @@ class EmailAddressValidationRule extends StringValidationRule
     public function sanitize($context, $input)
     {
         $clean_email = filter_var($input, FILTER_SANITIZE_EMAIL);
-        if ($clean_email == false) {
-            return "";
-        } else {
+        if ($clean_email) {
             return $clean_email;
         }
+        return "";
     }
 }

@@ -57,7 +57,6 @@ class HTMLValidationRule extends StringValidationRule
     // $config->set('Core.CollectErrors' , true);
     //
     //
-    private $_auditor;
     private $_purifier;
 
     /**
@@ -77,11 +76,11 @@ class HTMLValidationRule extends StringValidationRule
     {
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = ESAPI::getAuditor('HTMLValidationRule');
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('HTMLValidationRule');
         try {
-            $this->_purifier = new HTMLPurifier($this->_basicConfig());
-        } catch (Exception $e) {
-            throw new ValidationException(
+            $this->_purifier = new \HTMLPurifier($this->_basicConfig());
+        } catch (\Exception $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'Could not initialize HTMLPurifier.',
                 'Caught ' . gettype($e) .
                 ' attempting to instantiate HTMLPurifier: ' .
@@ -133,8 +132,8 @@ class HTMLValidationRule extends StringValidationRule
         $clean_html = null;
         try {
             $clean_html = $this->_purifier->purify($canonical);
-        } catch (Exception $e) {
-            throw new ValidationException(
+        } catch (\Exception $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'HTML Input is not valid.',
                 'Caught ' . gettype($e) . ' attempting to purify HTML: ' .
                 $e->getMessage,
@@ -147,17 +146,17 @@ class HTMLValidationRule extends StringValidationRule
         // input and the output don't match then the input wasn't valid.
         $numErrors = 0;
         $errors = $this->_purifier->context->get('ErrorCollector');
-        if ($errors instanceof HTMLPurifier_ErrorCollector) {
+        if ($errors instanceof \HTMLPurifier_ErrorCollector) {
             $numErrors = sizeof($errors->getRaw(), false);
             if ($numErrors > 0) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'HTML Input is not valid.',
                     "{$numErrors} found in HTML - Input is not valid.",
                     $context
                 );
             }
         } elseif (strcmp($canonical, $clean_html) !== 0) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 'HTML Input may not be valid.',
                 'Resorted to string comparsion of canonicalized and purified ' .
                 'HTML input - result was Not Equal',
@@ -186,7 +185,7 @@ class HTMLValidationRule extends StringValidationRule
         $clean_html = null;
         try {
             $clean_html = $this->_purifier->purify($input);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // NoOp - return clean_html
         }
 

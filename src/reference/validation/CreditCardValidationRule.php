@@ -43,9 +43,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class CreditCardValidationRule extends BaseValidationRule
 {
-
     private $_ccrule = null;
     const CREDIT_CARD_VALIDATOR_KEY = 'CreditCard';
 
@@ -67,7 +68,7 @@ class CreditCardValidationRule extends BaseValidationRule
     {
         parent::__construct($typeName, $encoder);
 
-        if ($validationRule instanceof ValidationRule) {
+        if ($validationRule instanceof \PHPESAPI\PHPESAPI\ValidationRule) {
             $this->ccrule = $validationRule;
         } else {
             $this->ccrule = $this->_getCCRule();
@@ -83,7 +84,7 @@ class CreditCardValidationRule extends BaseValidationRule
      */
     private function _getCCRule()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $pattern = $config->getValidationPattern(self::CREDIT_CARD_VALIDATOR_KEY);
         $ccr = new StringValidationRule(
             'CreditCardValidator',
@@ -118,7 +119,7 @@ class CreditCardValidationRule extends BaseValidationRule
             $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
         }
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
@@ -128,7 +129,7 @@ class CreditCardValidationRule extends BaseValidationRule
             if ($this->allowNull) {
                 return null;
             }
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input Credit Card Number required",
                 "Input Credit Card Number required: context={$context}",
                 $context
@@ -155,7 +156,7 @@ class CreditCardValidationRule extends BaseValidationRule
             }
         }
         if (($sum % 10) != 0) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Invalid Credit Card Number",
                 "Input Credit Card Number contains errors - check digit failure:" .
                 " context={$context}",
@@ -180,6 +181,6 @@ class CreditCardValidationRule extends BaseValidationRule
      */
     public function sanitize($context, $input)
     {
-        return $this->whitelist($input, Encoder::CHAR_DIGITS);
+        return $this->whitelist($input, \PHPESAPI\PHPESAPI\Encoder::CHAR_DIGITS);
     }
 }

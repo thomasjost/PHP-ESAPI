@@ -43,16 +43,17 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class DateFormat
 {
+    private $_format = [];
 
-    private $_format = array();
-        
     const DATE_SMALL = 'SMALL';
     const DATE_MEDIUM = 'MEDIUM';
     const DATE_LONG = 'LONG';
     const DATE_FULL = 'FULL';
-    
+
     /**
      * Constructor.
      *
@@ -61,11 +62,11 @@ class DateFormat
      *
      * @return does not return a value.
      */
-    public function __construct($format = null, $type = 'MEDIUM')
+    public function __construct($format = null, $type = self::DATE_MEDIUM)
     {
         $this->setformat($format, $type);
     }
-    
+
     /**
      * Helper function.
      *
@@ -74,10 +75,10 @@ class DateFormat
      *
      * @return does not return a value.
      */
-    public function setformat($format, $type = 'MEDIUM')
+    public function setformat($format, $type = self::DATE_MEDIUM)
     {
         switch ($type) {
-            case 'SMALL':
+            case self::DATE_SMALL:
                 if (is_array($format) && key_exists(self::DATE_SMALL, $format)) {
                     $this->_format[self::DATE_SMALL] = $format[self::DATE_SMALL];
                 } else {
@@ -85,7 +86,7 @@ class DateFormat
                 }
                 break;
 
-            case 'LONG':
+            case self::DATE_LONG:
                 if (is_array($format) && key_exists(self::DATE_LONG, $format)) {
                     $this->_format[self::DATE_LONG] = $format[self::DATE_LONG];
                 } else {
@@ -93,7 +94,7 @@ class DateFormat
                 }
                 break;
 
-            case 'FULL':
+            case self::DATE_FULL:
                 if (is_array($format) && key_exists(self::DATE_FULL, $format)) {
                     $this->_format[self::DATE_FULL] = $format[self::DATE_FULL];
                 } else {
@@ -101,7 +102,7 @@ class DateFormat
                 }
                 break;
 
-            case 'MEDIUM':
+            case self::DATE_MEDIUM:
             default:
                 if (is_array($format) && key_exists(self::DATE_MEDIUM, $format)) {
                     $this->_format[self::DATE_MEDIUM] = $format[self::DATE_MEDIUM];

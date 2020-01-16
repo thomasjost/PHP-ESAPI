@@ -63,10 +63,10 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
      */
     protected function __construct($typeName, $encoder)
     {
-        if ($encoder instanceof Encoder) {
+        if ($encoder instanceof \PHPESAPI\PHPESAPI\Encoder) {
             $this->encoder = $encoder;
         } else {
-            $this->encoder = new DefaultEncoder();
+            $this->encoder = new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder();
         }
         $this->typeName = $typeName;
     }
@@ -143,7 +143,7 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
         if (! is_object($encoder)
             || ! method_exists($encoder, 'canonicalize')
         ) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'expected $encoder to be an object providing a canonicalize method'
             );
         }
@@ -187,7 +187,7 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
         $safe = null;
         try {
             $safe = $this->getValid($context, $input);
-        } catch (ValidationException$e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\ValidationException$e) {
             $safe = $this->sanitize($context, $input);
         }
 
@@ -211,7 +211,7 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
             $this->getValid($context, $input);
 
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -232,7 +232,7 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
             $input = '';
         }
         if (is_string($whitelist)) {
-            $charEnc = Codec::detectEncoding($whitelist);
+            $charEnc = \PHPESAPI\PHPESAPI\Codecs\Codec::detectEncoding($whitelist);
             $limit = mb_strlen($whitelist, $charEnc);
             $ary = array();
             for ($i = 0; $i < $limit; $i++) {
@@ -242,12 +242,12 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
         }
 
         $filtered = '';
-        $initialCharEnc = Codec::detectEncoding($input);
-        $_4ByteCharacterString = Codec::normalizeEncoding($input);
+        $initialCharEnc = \PHPESAPI\PHPESAPI\Codecs\Codec::detectEncoding($input);
+        $_4ByteCharacterString = \PHPESAPI\PHPESAPI\Codecs\Codec::normalizeEncoding($input);
         $limit = mb_strlen($_4ByteCharacterString, 'UTF-32');
         for ($i = 0; $i < $limit; $i++) {
             $c = mb_substr($_4ByteCharacterString, $i, 1, 'UTF-32');
-            if (Codec::containsCharacter($c, $whitelist)) {
+            if (\PHPESAPI\PHPESAPI\Codecs\Codec::containsCharacter($c, $whitelist)) {
                 $filtered .= $c;
             }
         }

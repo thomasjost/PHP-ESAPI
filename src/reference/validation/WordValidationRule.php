@@ -39,11 +39,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class WordValidationRule extends StringValidationRule
 {
-    
-    private $_auditor;
- 
     /**
      * Constructor sets-up the validation rule with a descriptive name for this
      * validator, an optional Encoder instance (for canonicalization) and an
@@ -57,11 +56,11 @@ class WordValidationRule extends StringValidationRule
      *
      * @return does not return a value.
      */
-    public function __construct($typeName, $encoder = null, $whitelistPattern = null)
+    public function __construct($typeName, $encoder = null)
     {
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = ESAPI::getAuditor("WordValidationRule");
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("WordValidationRule");
     }
 
     /**
@@ -81,12 +80,12 @@ class WordValidationRule extends StringValidationRule
      */
     public function getValid($context, $input)
     {
-        throw new ValidationException(
-                'Use the string validator to validate strings, this rule ' .
+        throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
+            'Use the string validator to validate strings, this rule ' .
                 'is for sanitizing only.',
-                'Error attempting to validate Word: ' . $input,
-                $context
-           );
+            'Error attempting to validate Word: ' . $input,
+            $context
+        );
     }
 
     /**
@@ -106,10 +105,10 @@ class WordValidationRule extends StringValidationRule
         if (count($input) != 2) {
             return "";
         }
-        
+
         $unsanitized = $input[0];
         $guess = $input[1];
-        
+
         if (strcmp(metaphone($unsanitized), metaphone($guess)) == 0) {
             return $guess;
         } else {

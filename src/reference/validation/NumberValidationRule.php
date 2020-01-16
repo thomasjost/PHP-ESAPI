@@ -43,9 +43,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class NumberValidationRule extends BaseValidationRule
 {
-
     private $_minValue;
     private $_maxValue;
 
@@ -64,20 +65,20 @@ class NumberValidationRule extends BaseValidationRule
     public function __construct($typeName, $encoder, $minValue = null, $maxValue = null)
     {
         parent::__construct($typeName, $encoder);
-        
+
         if ($minValue === null || ! is_numeric($minValue)) {
             $this->_minValue = null;
         } else {
             $this->_minValue = (double) $minValue;
         }
-        
+
         if ($maxValue === null || ! is_numeric($maxValue)) {
             $this->_maxValue = null;
         } else {
             $this->_maxValue = (double) $maxValue;
         }
     }
-    
+
     /**
      * Returns the canonicalized, valid input.
      * Throws ValidationException if the input is not valid or
@@ -99,31 +100,31 @@ class NumberValidationRule extends BaseValidationRule
         if (! is_string($context)) {
             $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
         }
-        
+
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
             );
         }
-        
+
         if ($this->_minValue !== null
             && $this->_maxValue !== null
             && $this->_minValue > $this->_maxValue
         ) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'Validation misconfiguration - $minValue should not be greater' .
                 ' than $maxValue!'
             );
         }
-        
+
         if ($input === null || $input == '') {
             if ($this->allowNull) {
                 return null;
             }
-            
-            throw new ValidationException(
+
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input required: context={$context}",
                 $context
@@ -134,8 +135,8 @@ class NumberValidationRule extends BaseValidationRule
         $canonical = null;
         try {
             $canonical = $this->encoder->canonicalize($input, true);
-        } catch (EncodingException $e) {
-            throw new ValidationException(
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncodingException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid input. Encoding problem detected.',
                 'An EncodingException was thrown during canonicalization of ' .
                 'the input.',
@@ -147,43 +148,43 @@ class NumberValidationRule extends BaseValidationRule
         try {
             $d = $canonical;
             if (! is_numeric($d)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid number input: context=' . $context,
                     'Invalid number input: Input is not numeric: ' . $input,
                     $context
                 );
             }
-            
+
             $d = (double) $d;
             if (is_infinite($d)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid number input: context=' . $context,
                     'Invalid double input is infinite: context=' . $context .
                     ', input=' . $input,
                     $context
                 );
             }
-            
+
             if (is_nan($d)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid number input: context=' . $context,
                     'Invalid double input is not a number: context=' . $context .
                     ', input=' . $input,
                     $context
                 );
             }
-            
+
             if ($this->_minValue !== null && $d < $this->_minValue) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid number input must not be less than ' . $this->_minValue,
                     'Invalid number input must not be less than ' .
                     $this->_minValue . ': context=' . $context . ', input=' . $input,
                     $context
                 );
             }
-            
+
             if ($this->_maxValue !== null && $d > $this->_maxValue) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid number input must not be greater than ' .
                     $this->_maxValue,
                     'Invalid number input must not be greater than ' .
@@ -191,10 +192,10 @@ class NumberValidationRule extends BaseValidationRule
                     $context
                 );
             }
-            
+
             return $d;
-        } catch (NumberFormatException $e) {
-            throw new ValidationException(
+        } catch (\NumberFormatException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid number input',
                 'Invalid number input format: Caught NumberFormatException: ' .
                 $e->getMessage() . 'context=' . $context . ', input=' . $input,

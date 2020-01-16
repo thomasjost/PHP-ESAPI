@@ -45,9 +45,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class DateValidationRule extends BaseValidationRule
 {
-
     private $_format;
 
     /**
@@ -79,7 +80,7 @@ class DateValidationRule extends BaseValidationRule
     public function setDateFormat($newFormat)
     {
         if (! is_string($newFormat) || $newFormat == '') {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'setDateFormat requires a non-empty string DateFormat as ' .
                 'accepted by date().'
             );
@@ -109,7 +110,7 @@ class DateValidationRule extends BaseValidationRule
             $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
         }
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
@@ -120,7 +121,7 @@ class DateValidationRule extends BaseValidationRule
             if ($this->allowNull) {
                 return null;
             }
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input required: context={$context}",
                 $context
@@ -131,8 +132,8 @@ class DateValidationRule extends BaseValidationRule
         $canonical = null;
         try {
             $canonical = $this->encoder->canonicalize($input, true);
-        } catch (EncodingException $e) {
-            throw new ValidationException(
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncodingException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context} -  Invalid input. Encoding problem detected.",
                 'An EncodingException was thrown during canonicalization of ' .
                 'the input.',
@@ -146,7 +147,7 @@ class DateValidationRule extends BaseValidationRule
             $date = date_create($canonical);
         }
         if ($date === false) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context} - Invalid date must follow the {$this->_format} format",
                 "Invalid date - format={$this->_format}, input={$input}",
                 $context
@@ -157,7 +158,7 @@ class DateValidationRule extends BaseValidationRule
         // input
         $formatted = $date->format($this->_format);
         if ($formatted !== $canonical) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context} - Invalid date must follow the {$this->_format} format",
                 "Invalid date - format={$this->_format}, input={$input}",
                 $context

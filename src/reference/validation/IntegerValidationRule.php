@@ -44,9 +44,10 @@
  *
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Reference\Validation;
+
 class IntegerValidationRule extends BaseValidationRule
 {
-
     private $_minValue;
     private $_maxValue;
 
@@ -71,7 +72,7 @@ class IntegerValidationRule extends BaseValidationRule
         } else {
             $this->_minValue = (int) $minValue;
         }
-        
+
         if ($maxValue === null || ! is_numeric($maxValue)) {
             $this->_maxValue = PHP_INT_MAX;
         } else {
@@ -101,14 +102,14 @@ class IntegerValidationRule extends BaseValidationRule
             $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
         }
         if (! is_string($input) && $input !== null) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input was not a string or NULL: context={$context}",
                 $context
             );
         }
         if ($this->_minValue > $this->_maxValue) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'Validation misconfiguration - $_minValue should not be ' .
                 'greater than $_maxValue!'
             );
@@ -117,7 +118,7 @@ class IntegerValidationRule extends BaseValidationRule
             if ($this->allowNull) {
                 return null;
             }
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Input required",
                 "Input required: context={$context}",
                 $context
@@ -128,8 +129,8 @@ class IntegerValidationRule extends BaseValidationRule
         $canonical = null;
         try {
             $canonical = $this->encoder->canonicalize($input, true);
-        } catch (EncodingException $e) {
-            throw new ValidationException(
+        } catch (\PHPESAPI\PHPESAPI\Errors\EncodingException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid input. Encoding problem detected.',
                 'An EncodingException was thrown during canonicalization of' .
                 ' the input.',
@@ -140,7 +141,7 @@ class IntegerValidationRule extends BaseValidationRule
         // validate min and max
         try {
             if (! preg_match('/^[-+0-9]+$/', $canonical)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid integer input: context=' . $context,
                     'Invalid integer input: Input is not a valid integer: ' . $input,
                     $context
@@ -148,7 +149,7 @@ class IntegerValidationRule extends BaseValidationRule
             }
             $i = $canonical;
             if ($i != intval($i)) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid integer input: context=' . $context,
                     'Invalid integer input: Input is not a valid integer: ' . $input,
                     $context
@@ -156,7 +157,7 @@ class IntegerValidationRule extends BaseValidationRule
             }
             $i = (int) $i;
             if ($i < $this->_minValue) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid integer input must not be less than ' . $this->_minValue,
                     'Invalid integer input must not be less than ' . $this->_minValue .
                     ': context=' . $context . ', input=' . $input,
@@ -164,7 +165,7 @@ class IntegerValidationRule extends BaseValidationRule
                 );
             }
             if ($i > $this->_maxValue) {
-                throw new ValidationException(
+                throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                     'Invalid integer input must not be greater than ' .
                     $this->_maxValue,
                     'Invalid integer input must not be greater than ' .
@@ -174,8 +175,8 @@ class IntegerValidationRule extends BaseValidationRule
             }
 
             return $i;
-        } catch (NumberFormatException $e) {
-            throw new ValidationException(
+        } catch (\NumberFormatException $e) {
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid integer input',
                 'Invalid integer input format: Caught NumberFormatException: ' .
                 $e->getMessage() . 'context=' . $context . ', input=' . $input,
