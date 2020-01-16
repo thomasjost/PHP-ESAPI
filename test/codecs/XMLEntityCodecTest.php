@@ -37,21 +37,23 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
+namespace PHPESAPI\PHPESAPI\Test\Codecs;
+
+class XMLEntityCodecTest extends \PHPUnit\Framework\TestCase
 {
     private $_xmlEntityCodec;
 
     // these immune characters are the ones defined in DefaultEncoder.
     private $_immune_xml     = array(',', '.', '-', '_', ' ');
     private $_immune_xmlattr = array(',', '.', '-', '_');
-    
-    
+
+
     /**
      * Use a new Codec for each test.
      */
     protected function setUp()
     {
-        $this->_xmlEntityCodec = new XMLEntityCodec();
+        $this->_xmlEntityCodec = new \PHPESAPI\PHPESAPI\Codecs\XMLEntityCodec();
     }
 
     /* ENCODING METHODS */
@@ -185,7 +187,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeCanonicalisedEncodedSpecials()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
         $this->assertEquals(
             '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
             $this->_xmlEntityCodec->encode(
@@ -331,7 +333,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
      */
     public function testDecodeDoesNotProduceMixedCharacterEncoding()
     {
-        $codec = new XMLEntityCodec();
+        $codec = new \PHPESAPI\PHPESAPI\Codecs\XMLEntityCodec();
         // expecting a UTF-8 encoded string
         $expected = mb_convert_encoding("a b c d e f\x09g h i j\xa0k\xa1l\xa2m", 'UTF-8', 'ISO-8859-1');
         // check that the encoding conversion went well and the expected string is correct
@@ -399,7 +401,7 @@ class XMLEntityCodecTest extends PHPUnit_Framework_TestCase
      */
     public function testDecodeSpecialsEqualsCanonicalisedEncodedSpecials()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
         $this->assertEquals(
             $instance->canonicalize(
                 '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;'

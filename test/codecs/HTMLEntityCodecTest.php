@@ -15,11 +15,12 @@
  * @since  2009
  * @since  1.6
  */
+namespace PHPESAPI\PHPESAPI\Test\Codecs;
 
 /**
  * Test case for HTMLEntityCodec.
  */
-class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
+class HTMLEntityCodecTest extends \PHPUnit\Framework\TestCase
 {
     private $htmlEntityCodec;
 
@@ -29,7 +30,8 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->htmlEntityCodec = new HTMLEntityCodec();
+        $this->htmlEntityCodec = new \PHPESAPI\PHPESAPI\Codecs\
+        HTMLEntityCodec();
     }
 
     /* ENCODING METHODS */
@@ -135,7 +137,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 
     public function testEncodeCanonicalisedEncodedSpecials()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
         $this->assertEquals(
             '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
             $this->htmlEntityCodec->encode(
@@ -253,7 +255,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
     // decoded string and should be presented as UTF-8
     public function testDecodeDoesNotProduceMixedCharacterEncoding()
     {
-        $codec = new HTMLEntityCodec();
+        $codec = new \PHPESAPI\PHPESAPI\Codecs\HTMLEntityCodec();
         // expecting a UTF-8 encoded string
         $expected = mb_convert_encoding("a b c d e f\x09g h i j\xa0k\xa1l\xa2m", 'UTF-8', 'ISO-8859-1');
         // check that the encoding conversion went well and the expected string is correct
@@ -309,7 +311,7 @@ class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 
     public function testDecodeSpecialsEqualsCanonicalisedEncodedSpecials()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
         $this->assertEquals(
             $instance->canonicalize(
                 '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;'

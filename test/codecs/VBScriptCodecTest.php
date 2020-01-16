@@ -14,35 +14,36 @@
  * @author Andrew van der Stock < van der aj ( at ) owasp. org >
  * @created 2009
  */
+namespace PHPESAPI\PHPESAPI\Test\Codecs;
 
-class VBScriptCodecTest extends PHPUnit_Framework_TestCase
+class VBScriptCodecTest extends \PHPUnit\Framework\TestCase
 {
     private $vbScriptCodec;
-    
+
     protected function setUp()
     {
-        $this->vbScriptCodec = new VBScriptCodec();
+        $this->vbScriptCodec = new \PHPESAPI\PHPESAPI\Codecs\VBScriptCodec();
     }
-        
+
     public function testEncode()
     {
         $immune = array(" ");
 
         $this->assertEquals(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>"));
     }
-    
+
     public function testEncodeCharacter()
     {
         $immune = array(" ");
-        
+
         $this->assertEquals("\"<", $this->vbScriptCodec->encode($immune, "<"));
     }
-    
+
     public function testDecode()
     {
         $this->assertEquals(" !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\""));
     }
-        
+
     public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->vbScriptCodec->decode("\"<"));

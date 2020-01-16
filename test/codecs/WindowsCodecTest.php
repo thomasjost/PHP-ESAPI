@@ -14,35 +14,36 @@
  * @author Andrew van der Stock < van der aj ( at ) owasp. org >
  * @created 2009
  */
+namespace PHPESAPI\PHPESAPI\Test\Codecs;
 
-class WindowsCodecTest extends PHPUnit_Framework_TestCase
+class WindowsCodecTest extends \PHPUnit\Framework\TestCase
 {
     private $windowsCodec;
-    
+
     protected function setUp()
     {
-        $this->windowsCodec = new WindowsCodec();
+        $this->windowsCodec = new \PHPESAPI\PHPESAPI\Codecs\WindowsCodec();
     }
 
     public function testEncode()
     {
         $immune = array();
-        
+
         $this->assertEquals('^"^ ^&^ dir^/s^ c^:', $this->windowsCodec->encode($immune, '" & dir/s c:'));
     }
-    
+
     public function testEncodeCharacter()
     {
         $immune = array();
-        
+
         $this->assertEquals("^<", $this->windowsCodec->encode($immune, "<"));
     }
-    
+
     public function testDecode()
     {
         $this->assertEquals('" & dir/s c:', $this->windowsCodec->decode('^"^ ^&^ dir^/s^ c^:'));
     }
-        
+
     public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->windowsCodec->decode("^<"));

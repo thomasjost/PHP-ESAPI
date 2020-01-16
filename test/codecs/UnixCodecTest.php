@@ -14,35 +14,36 @@
  * @author Andrew van der Stock < van der aj ( at ) owasp. org >
  * @created 2009
  */
+namespace PHPESAPI\PHPESAPI\Test\Codecs;
 
-class UnixCodecTest extends PHPUnit_Framework_TestCase
+class UnixCodecTest extends \PHPUnit\Framework\TestCase
 {
     private $unixCodec;
-    
+
     protected function setUp()
     {
-        $this->unixCodec = new UnixCodec();
+        $this->unixCodec = new \PHPESAPI\PHPESAPI\Codecs\UnixCodec();
     }
 
     public function testEncode()
     {
         $immune = array();
-        
+
         $this->assertEquals('\\"\\;\\ ls\\ \\/\\ \\>\\ \\/tmp\\/foo\\;\\ \\#\\ ', $this->unixCodec->encode($immune, '"; ls / > /tmp/foo; # '));
     }
-    
+
     public function testEncodeCharacter()
     {
         $immune = array();
-        
+
         $this->assertEquals("\\<", $this->unixCodec->encode($immune, "<"));
     }
-    
+
     public function testDecode()
     {
         $this->assertEquals('"; ls / > /tmp/foo; # ', $this->unixCodec->decode('\\"\\;\\ ls\\ \\/\\ \\>\\ \\/tmp\\/foo\\;\\ \\#\\ '));
     }
-        
+
     public function testDecodeCharacter()
     {
         $this->assertEquals("<", $this->unixCodec->decode("\\<"));

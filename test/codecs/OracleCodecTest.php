@@ -14,37 +14,38 @@
  * @author Andrew van der Stock < van der aj ( at ) owasp. org >
  * @created 2009
  */
+namespace PHPESAPI\PHPESAPI\Test\Codecs;
 
-class OracleCodecTest extends PHPUnit_Framework_TestCase
+class OracleCodecTest extends \PHPUnit\Framework\TestCase
 {
     private $oracleCodec;
-    
+
     protected function setUp()
     {
-        $this->oracleCodec = new OracleCodec();
+        $this->oracleCodec = new \PHPESAPI\PHPESAPI\Codecs\OracleCodec();
     }
-        
+
     public function testEncode()
     {
         $immune = array();
-        
+
         $this->assertEquals(' || \'\'x\'\' FROM DUAL;--', $this->oracleCodec->encode($immune, ' || \'x\' FROM DUAL;--'));
         $this->assertEquals('\'\'', $this->oracleCodec->encode($immune, '\''));
     }
-    
+
     public function testEncodeCharacter()
     {
         $immune = array();
-        
+
         $this->assertEquals("''", $this->oracleCodec->encode($immune, "'"));
     }
-    
+
     public function testDecode()
     {
         $this->assertEquals(' || \'x\' FROM DUAL;--', $this->oracleCodec->decode(' || \'\'x\'\' FROM DUAL;--'));
         $this->assertEquals('\'', $this->oracleCodec->decode('\'\''));
     }
-        
+
     public function testDecodeCharacter()
     {
         $this->assertEquals("'", $this->oracleCodec->decode("''"));
