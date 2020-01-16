@@ -40,7 +40,9 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class SafeRequestTest extends PHPUnit_Framework_TestCase
+namespace PHPESAPI\PHPESAPI\Test\Filters;
+
+class SafeRequestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test of SafeRequest::getAuthType() with null input.
@@ -49,7 +51,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAuthTypeInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -67,7 +69,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAuthTypeInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'AUTH_TYPE' => 'B-asic'
@@ -86,7 +88,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAuthTypeInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'AUTH_TYPE' => 'bAsic'
@@ -105,7 +107,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetContentLengthInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -123,7 +125,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetContentLengthInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'CONTENT_LENGTH' => '-1'
@@ -142,7 +144,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetContentLengthInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'CONTENT_LENGTH' => '1024'
@@ -161,7 +163,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetContentTypeInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -179,7 +181,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetContentTypeInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'CONTENT_TYPE' => 'application/ürl-form-encoded'
@@ -198,7 +200,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetContentTypeInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'CONTENT_TYPE' => 'application/url-form-encoded'
@@ -217,7 +219,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPathInfoInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -235,7 +237,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPathInfoInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'PATH_INFO' => '/foo%00'
@@ -254,7 +256,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPathInfoInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'PATH_INFO' => '/foo'
@@ -273,7 +275,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPathTranslatedInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -285,13 +287,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getPathTranslated() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getPathTranslated() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetPathTranslatedInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'PATH_TRANSLATED' => '/foo%00'
@@ -304,13 +306,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getPathTranslated() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getPathTranslated() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetPathTranslatedInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'PATH_TRANSLATED' => '/foo'
@@ -323,13 +325,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getQueryString() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getQueryString() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetQueryStringInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -341,13 +343,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getQueryString() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getQueryString() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetQueryStringInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'QUERY_STRING' => 'foo#bar'
@@ -360,13 +362,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getQueryString() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getQueryString() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetQueryStringInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'QUERY_STRING' => 'foo=bar'
@@ -379,13 +381,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteAddr() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteAddr() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteAddrInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -397,13 +399,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteAddr() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteAddr() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteAddrInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_ADDR' => '123.456.7.89'
@@ -416,13 +418,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteAddr() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteAddr() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteAddrInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_ADDR' => '123.45.67.89'
@@ -435,13 +437,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteHost() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteHost() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteHostInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -453,13 +455,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteHost() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteHost() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteHostInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_HOST' => 'example%com'
@@ -470,7 +472,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_HOST' => '123.45.67.89'
@@ -481,7 +483,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_HOST' => '-example.com'
@@ -494,13 +496,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteHost() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteHost() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteHostInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_HOST' => 'example.com'
@@ -511,7 +513,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('example.com', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_HOST' => '0example0.com'
@@ -522,7 +524,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('0example0.com', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_HOST' => 'foo-bar.0example0.com'
@@ -535,13 +537,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteHost() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteHost() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteUserInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -553,13 +555,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteUser() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteUser() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteUserInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_USER' => 'user:1'
@@ -572,13 +574,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRemoteUser() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRemoteUser() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRemoteUserInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REMOTE_USER' => 'user_1'
@@ -591,13 +593,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getMethod() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getMethod() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetMethodInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -609,13 +611,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getMethod() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getMethod() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetMethodInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REQUEST_METHOD' => 'GETS'
@@ -628,13 +630,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getMethod() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getMethod() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetMethodInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REQUEST_METHOD' => 'GET'
@@ -647,13 +649,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRequestURI() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRequestURI() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRequestURIInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -665,13 +667,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRequestURI() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRequestURI() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRequestURIInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SCRIPT_NAME' => '/foo/<script>.php'
@@ -684,13 +686,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getRequestURI() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getRequestURI() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetRequestURIInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SCRIPT_NAME' => '/foo/bar.php'
@@ -703,13 +705,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerName() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerName() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerNameInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -721,13 +723,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerName() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerName() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerNameInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_NAME' => '0123456789012345678901234567890123456789012345678901234567890123.com'
@@ -738,7 +740,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_NAME' => '123.456.7.89'
@@ -749,7 +751,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_NAME' => 'example%com'
@@ -762,13 +764,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerName() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerName() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerNameInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_NAME' => '123.45.67.89'
@@ -779,7 +781,7 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
         $this->assertEquals('123.45.67.89', $result);
 
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_NAME' => 'example.com'
@@ -792,13 +794,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerPort() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerPort() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerPortInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -810,13 +812,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerPort() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerPort() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerPortInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_PORT' => '65536'
@@ -829,13 +831,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerPort() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerPort() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerPortInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'SERVER_PORT' => '80'
@@ -848,13 +850,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getHeader() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getHeader() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetHeaderInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'headers' => array(
                 )
@@ -865,13 +867,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getHeader() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getHeader() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetHeaderInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'headers' => array(
                     'HTTP_ACCEPT' => '%00text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -883,13 +885,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getHeader() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getHeader() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetHeaderInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'headers' => array(
                     'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -905,13 +907,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getCookie() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getCookie() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetCookieInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'cookies' => array(
                 )
@@ -922,13 +924,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getCookie() with invalid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getCookie() with invalid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetCookieInputInvalid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'cookies' => array(
                     'foo' => '\r\n\r\nGET /foo HTTP/1.1\r\nHost:example.com\r\n\r\n<html><script>alert(1)</html></script>'
@@ -940,13 +942,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getCookie() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getCookie() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetCookieInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'cookies' => array(
                     'foo' => 'bar'
@@ -959,13 +961,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerGlobal() with null input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerGlobal() with null input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerGlobalInputNull()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                 )
@@ -976,13 +978,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerGlobal() with double encoding.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerGlobal() with double encoding.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerGlobalInputDoubleEncoded()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'PHP_SELF' => '/foo%252fbar'
@@ -994,13 +996,13 @@ class SafeRequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test of SafeRequest::getServerGlobal() with valid input.
+     * Test of \PHPESAPI\PHPESAPI\Filters\SafeRequest::getServerGlobal() with valid input.
      *
      * @return bool true True on Pass.
      */
     public function testGetServerGlobalInputValid()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'PHP_SELF' => '/foo%2fbar'

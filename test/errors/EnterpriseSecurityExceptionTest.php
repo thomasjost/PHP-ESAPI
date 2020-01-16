@@ -15,248 +15,250 @@
  * @created 2007
  */
 
+namespace PHPESAPI\PHPESAPI\Test\Errors;
+
 // TODO: Add in PHP Unit expected exception tests
 
-class EnterpriseSecurityExceptionTest extends PHPUnit_Framework_TestCase
+class EnterpriseSecurityExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testEnterpriseSecurityDefaultException()
     {
-        $e = new EnterpriseSecurityException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
 
     public function testEnterpriseSecurityException()
     {
-        $e = new EnterpriseSecurityException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testAccessControlDefaultException()
     {
-        $e = new AccessControlException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AccessControlException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAccessControlException()
     {
-        $e = new AccessControlException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AccessControlException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testAuthenticationDefaultException()
     {
-        $e = new AuthenticationException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAuthenticationException()
     {
-        $e = new AuthenticationException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testAvailabilityDefaultException()
     {
-        $e = new AvailabilityException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AvailabilityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAvailabilityException()
     {
-        $e = new AvailabilityException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AvailabilityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testCertificateDefaultException()
     {
-        $e = new CertificateException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\CertificateException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testCertificateException()
     {
-        $e = new CertificateException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\CertificateException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testEncodingDefaultException()
     {
-        $e = new EncodingException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\EncodingException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-        
+
     public function testEncodingException()
     {
-        $e = new EncodingException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\EncodingException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testEncryptionDefaultException()
     {
-        $e = new EncryptionException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\EncryptionException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testEncryptionException()
     {
-        $e = new EncryptionException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\EncryptionException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testExecutorDefaultException()
     {
-        $e = new ExecutorException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\ExecutorException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testExecutorException()
     {
-        $e = new ExecutorException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\ExecutorException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testValidationDefaultException()
     {
-        $e = new ValidationException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testValidationException()
     {
-        $e = new ValidationException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testValidationExceptionContext()
     {
-        $e = new ValidationException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationException();
         $e->setContext("test");
         $this->assertEquals("test", $e->getContext());
     }
-    
+
     public function testIntegrityDefaultException()
     {
-        $e = new IntegrityException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\IntegrityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testIntegrityException()
     {
-        $e = new IntegrityException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\IntegrityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testAuthenticationHostDefaultException()
     {
-        $e = new AuthenticationHostException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationHostException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAuthenticationHostException()
     {
-        $e = new AuthenticationHostException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationHostException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     public function testAuthenticationAccountsDefaultException()
     {
-        $e = new AuthenticationAccountsException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAuthenticationAccountsException()
     {
-        $e = new AuthenticationAccountsException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testAuthenticationCredentialsDefaultException()
     {
-        $e = new AuthenticationCredentialsException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAuthenticationCredentialsException()
     {
-        $e = new AuthenticationCredentialsException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
     public function testAuthenticationLoginDefaultException()
     {
-        $e = new AuthenticationLoginException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testAuthenticationLoginException()
     {
-        $e = new AuthenticationLoginException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
-    
+
     public function testValidationAvailabilityDefaultException()
     {
-        $e = new ValidationAvailabilityException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationAvailabilityException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testValidationAvailabilityException()
     {
-        $e = new ValidationAvailabilityException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationAvailabilityException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testValidationUploadDefaultException()
     {
-        $e = new ValidationUploadException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationUploadException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
     public function testValidationUploadException()
     {
-        $e = new ValidationUploadException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\ValidationUploadException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
 
     public function testIntrusionDefaultException()
     {
-        $e = new IntrusionException();
+        $e = new \PHPESAPI\PHPESAPI\Errors\IntrusionException();
         $this->assertEquals($e->getUserMessage(), null);
         $this->assertEquals($e->getLogMessage(), '');
     }
-    
+
     public function testIntrusionException()
     {
-        $e = new IntrusionException("This is a message for users.", "This is a message for the log.");
+        $e = new \PHPESAPI\PHPESAPI\Errors\IntrusionException("This is a message for users.", "This is a message for the log.");
         $this->assertEquals($e->getUserMessage(), "This is a message for users.");
         $this->assertEquals($e->getLogMessage(), "This is a message for the log.");
     }
