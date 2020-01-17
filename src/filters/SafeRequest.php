@@ -55,21 +55,21 @@ class SafeRequest
      * ' !"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'
      * tspecials: '()<>@,;:\"/[]?={}' +SP +HT
      */
-    const CHARS_HTTP_COOKIE_NAME  = '_';
+    const CHARS_HTTP_COOKIE_NAME = '_';
     const CHARS_HTTP_COOKIE_VALUE = '!"#$%&\'()*+-./:<=>?@[\]^_`{|}~';
     const CHARS_HTTP_HEADER_NAME  = '-_';
     const CHARS_HTTP_HEADER_VALUE = ' !"#$%&\'()*+,-./;:<=>?@[\]^_`{|}~';
     const CHARS_HTTP_QUERY_STRING = ' &()*+,-./;:=?_';
-    const CHARS_HTTP_HOSTNAME     = '-._';
-    const CHARS_HTTP_REMOTE_USER  = '!#$%&\'*+-.^_`|~';
-    const CHARS_HTTP_REQUEST_URI  = '!$%&\'()*+-,./:=@_~';
-    const CHARS_FILESYSTEM_PATH   = ' !#$%&\'()+,-./=@[\]^_`{}~';
-    const CHARS_NUMERIC           = '0123456789';
+    const CHARS_HTTP_HOSTNAME = '-._';
+    const CHARS_HTTP_REMOTE_USER = '!#$%&\'*+-.^_`|~';
+    const CHARS_HTTP_REQUEST_URI = '!$%&\'()*+-,./:=@_~';
+    const CHARS_FILESYSTEM_PATH = ' !#$%&\'()+,-./=@[\]^_`{}~';
+    const CHARS_NUMERIC = '0123456789';
     const CHARS_ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     const ORD_TAB = 0x09;
 
-    const PATTERN_REQUEST_METHOD   = '^(GET|HEAD|POST|TRACE|OPTIONS)$';
+    const PATTERN_REQUEST_METHOD = '^(GET|HEAD|POST|TRACE|OPTIONS)$';
     const PATTERN_REQUEST_AUTHTYPE
         = '^([dD][iI][gG][eE][sS][tT]|[bB][aA][sS][iI][cC])$';
     const PATTERN_HOST_NAME
@@ -109,7 +109,7 @@ class SafeRequest
      * array e.g. 'headers' => array('REQUEST_METHOD' => 'GET').
      * If any of the three options keys are not supplied then those elements will be
      * extracted from the actual request.
-     * TODO accept a string like: 'GET / HTTP/1.1\r\nHost:example.com\r\n\r\n'
+     * TODO accept a string like: 'GET / HTTP 1.1\r\nHost:example.com\r\n\r\n'
      * TODO accept GET and REQUEST parameters.
      *
      * @param NULL|array $options Array (optional) of HTTP Request elements.
@@ -120,7 +120,7 @@ class SafeRequest
             new \PHPESAPI\PHPESAPI\Codecs\HTMLEntityCodec,
             new \PHPESAPI\PHPESAPI\Codecs\PercentCodec
         ];
-        $this->_encoder    = new \DefaultEncoder($codecs);
+        $this->_encoder    = new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder($codecs);
         $this->_auditor    = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('SafeRequest');
         $this->_validator  = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
 
@@ -328,12 +328,12 @@ class SafeRequest
             $this->_pathTranslated = $defaultValue;
         }
 
-        $key      = 'PATH_TRANSLATED';
-        $c        = array(self::CHARS_FILESYSTEM_PATH);
-        $charset  = $this->_hexifyCharsForPattern($c);
-        $pattern  = "^[a-zA-Z0-9{$charset}]+$";
+        $key = 'PATH_TRANSLATED';
+        $c = array(self::CHARS_FILESYSTEM_PATH);
+        $charset = $this->_hexifyCharsForPattern($c);
+        $pattern = "^[a-zA-Z0-9{$charset}]+$";
 
-        $canon          = $this->getServerGlobal($key);
+        $canon = $this->getServerGlobal($key);
         $pathTranslated = null;
         try {
             $pathTranslated = $this->_getIfValid(
@@ -371,12 +371,12 @@ class SafeRequest
             $this->_queryString = $defaultValue;
         }
 
-        $key      = 'QUERY_STRING';
-        $c        = array(self::CHARS_HTTP_QUERY_STRING);
-        $charset  = $this->_hexifyCharsForPattern($c);
-        $pattern  = "^[a-zA-Z0-9{$charset}]+$";
+        $key = 'QUERY_STRING';
+        $c = array(self::CHARS_HTTP_QUERY_STRING);
+        $charset = $this->_hexifyCharsForPattern($c);
+        $pattern = "^[a-zA-Z0-9{$charset}]+$";
 
-        $canon       = $this->getServerGlobal($key);
+        $canon = $this->getServerGlobal($key);
         $queryString = null;
         try {
             $queryString = $this->_getIfValid(
@@ -414,10 +414,10 @@ class SafeRequest
             $this->_remoteAddr = $defaultValue;
         }
 
-        $key      = 'REMOTE_ADDR';
+        $key = 'REMOTE_ADDR';
         $pattern  = self::PATTERN_IPV4_ADDRESS;
 
-        $canon      = $this->getServerGlobal($key);
+        $canon = $this->getServerGlobal($key);
         $remoteAddr = null;
         try {
             $remoteAddr = $this->_getIfValid(
@@ -455,10 +455,10 @@ class SafeRequest
             $this->_remoteHost = $defaultValue;
         }
 
-        $key      = 'REMOTE_HOST';
+        $key = 'REMOTE_HOST';
         $pattern  = self::PATTERN_HOST_NAME;
 
-        $canon      = $this->getServerGlobal($key);
+        $canon = $this->getServerGlobal($key);
         $remoteHost = null;
         try {
             $remoteHost = $this->_getIfValid(
@@ -496,8 +496,8 @@ class SafeRequest
             $this->_remoteUser = $defaultValue;
         }
 
-        $key      = 'REMOTE_USER';
-        $c        = array(self::CHARS_HTTP_REMOTE_USER);
+        $key = 'REMOTE_USER';
+        $c = array(self::CHARS_HTTP_REMOTE_USER);
         $charset  = $this->_hexifyCharsForPattern($c);
         $pattern  = "^[a-zA-Z0-9{$charset}]+$";
 
@@ -1088,7 +1088,10 @@ class SafeRequest
      */
     private function _getIfValid($context, $input, $pattern, $type, $maxLength, $allowNull)
     {
-        $validationRule = new \StringValidationRule($type, $this->_encoder);
+        $validationRule = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule(
+            $type,
+            $this->_encoder
+        );
 
         if ($pattern != null) {
             $validationRule->addWhitelistPattern($pattern);
