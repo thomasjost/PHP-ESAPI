@@ -14,21 +14,22 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
+ namespace PHPESAPI\PHPESAPI\Test\Reference;
 
 require_once __DIR__ . '/../testresources/TestHelpers.php';
 
-class ValidatorTest extends PHPUnit_Framework_TestCase
+class ValidatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test of Validator::isValidInput with an email.
      */
     public function testIsValidInput_Email()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $this->assertTrue($instance->isValidInput('test', 'jeff.williams@aspectsecurity.com', 'Email', 100, false));
         $this->assertTrue($instance->isValidInput('test', null, 'Email', 100, true));
-        
+
         $this->assertFalse($instance->isValidInput('test', 'jeff.williams@@aspectsecurity.com', 'Email', 100, false));
         $this->assertFalse($instance->isValidInput('test', 'jeff.williams@aspectsecurity', 'Email', 100, false));
         $this->assertFalse($instance->isValidInput('test', null, 'Email', 100, false));
@@ -39,11 +40,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidInput_IPv4Address()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $this->assertTrue($instance->isValidInput('test', '123.168.100.234', 'IPAddress', 100, false));
         $this->assertTrue($instance->isValidInput('test', '192.168.1.234', 'IPAddress', 100, false));
-        
+
         $this->assertFalse($instance->isValidInput('test', '..168.1.234', 'IPAddress', 100, false));
         $this->assertFalse($instance->isValidInput('test', '10.x.1.234', 'IPAddress', 100, false));
     }
@@ -53,10 +54,10 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidInput_URL()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $this->assertTrue($instance->isValidInput('test', 'http://www.aspectsecurity.com', 'URL', 100, false));
-        
+
         $this->assertFalse($instance->isValidInput('test', 'http:///www.aspectsecurity.com', 'URL', 100, false));
         $this->assertFalse($instance->isValidInput('test', 'http://www.aspect security.com', 'URL', 100, false));
     }
@@ -66,12 +67,12 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidInput_SSN()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $this->assertTrue($instance->isValidInput('test', '078-05-1120', 'SSN', 100, false));
         $this->assertTrue($instance->isValidInput('test', '078 05 1120', 'SSN', 100, false));
         $this->assertTrue($instance->isValidInput('test', '078051120', 'SSN', 100, false));
-        
+
         $this->assertFalse($instance->isValidInput('test', '987-65-4320', 'SSN', 100, false));
         $this->assertFalse($instance->isValidInput('test', '000-00-0000', 'SSN', 100, false));
         $this->assertFalse($instance->isValidInput('test', '(555) 555-5555', 'SSN', 100, false));
@@ -83,8 +84,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidDate()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $this->assertTrue($instance->isValidDate('test', 'June 23, 1967', 'F j, Y', false));
         $this->assertFalse($instance->isValidDate('test', 'freakshow', 'F j, Y', false));
     }
@@ -95,8 +96,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     public function testIsValidSafeHTML()
     {
         $this->markTestIncomplete();
-        
-        $instance = ESAPI::getValidator();
+
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
 
         $this->assertTrue($instance->isValidSafeHTML('test', '<b>Jeff</b>', 100, false));
         $this->assertTrue($instance->isValidSafeHTML('test', "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
@@ -112,14 +113,14 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidCreditCard_valid()
     {
-        $instance = ESAPI::getValidator();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
 
         $this->assertTrue($instance->isValidCreditCard('test', '1234 9876 0000 0008', false));
         $this->assertTrue($instance->isValidCreditCard('test', '1234987600000008', false));
         $this->assertTrue($instance->isValidCreditCard('test', '1234-9876-0000-0008', false));
         $this->assertTrue($instance->isValidCreditCard('test', '', true));
         $this->assertTrue($instance->isValidCreditCard('test', null, true));
-        
+
         $this->assertFalse($instance->isValidCreditCard('test', '12349876000000081', false));
         $this->assertFalse($instance->isValidCreditCard('test', '4417 1234 5678 9112', false));
         $this->assertFalse($instance->isValidCreditCard('test', 0, true));
@@ -131,8 +132,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidListItem()
     {
-        $val = ESAPI::getValidator();
-        
+        $val = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $list = array('one','two');
 
         $this->assertTrue($val->isValidListItem('test', 'one', $list));
@@ -144,8 +145,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidNumber()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         // testing negative range
         $this->assertFalse($instance->isValidNumber('test', '-4', 1, 10, false));
         $this->assertTrue($instance->isValidNumber('test', '-4', -10, 10, false));
@@ -182,8 +183,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidInteger()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         // testing negative range
         $this->assertFalse($instance->isValidInteger('test', '-4', 1, 10, false));
         $this->assertTrue($instance->isValidInteger('test', '-4', -10, 10, false));
@@ -220,20 +221,20 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidPrintable()
     {
-        $instance = ESAPI::getValidator();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
+
         $this->assertTrue($instance->isValidPrintable('test', 'abcDEF', 100, false));
-        
+
         $input = '';
         for ($i = 32; $i <= 126; $i++) {
             $input .= chr($i);
         }
         $this->assertTrue($instance->isValidPrintable('test', $input, 100, false));
         $this->assertTrue($instance->isValidPrintable('test', '!@#R()*$;><()', 100, false));
-        
+
         $bytes = chr(0x60) . chr(0xFF) . chr(0x10) . chr(0x25);
         $this->assertFalse($instance->isValidPrintable('test', $bytes, 100, false));
-        
+
         $this->assertFalse($instance->isValidPrintable('test', '%08', 100, false));
     }
 
@@ -242,7 +243,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testIsValidDirectoryPath()
     {
-        $instance = ESAPI::getValidator();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
 
         if (substr(PHP_OS, 0, 3) == 'WIN') {
             // Windows paths that should pass
@@ -277,7 +278,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
             // Unix specific path that exists but is not canonical
             $this->assertFalse($instance->isValidDirectoryPath('test', '/bin/../', false));
-            
+
             // Unix specific paths that should not exist or work
             $this->assertFalse($instance->isValidDirectoryPath('test', '/etc/ridiculous', false));
             $this->assertFalse($instance->isValidDirectoryPath('test', '/tmp/../etc', false));

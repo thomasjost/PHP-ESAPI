@@ -30,23 +30,23 @@
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class ValidationRulesTest extends PHPUnit_Framework_TestCase
+ namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+class ValidationRulesTest extends \PHPUnit\Framework\TestCase
 {
-    /**************************************************************************
+    /**
+     * BaseValidationRule tests
      *
-     *                       BaseValidationRule tests
-     *
-     * These tests use StringValidationRule (BaseVR is abstract) which should be
-     * sufficient...
-     *
-     **************************************************************************/
+     * These tests use StringValidationRule (BaseVR is abstract) which
+     * should be sufficient...
+     */
 
     /**
      * test allowNull getter and setter
      */
     public function testStringVR_allowNull()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertFalse($svr->getAllowNull());
 
@@ -62,7 +62,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_typeName()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertEquals('A_String', $svr->getTypeName());
 
@@ -79,12 +79,12 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_Encoder()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->assertNull($svr->setEncoder(new DefaultEncoder()));
+        $this->assertNull($svr->setEncoder(new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder()));
 
         $this->setExpectedException('InvalidArgumentException');
-        $svr->setEncoder(new Base64Codec);
+        $svr->setEncoder(new \PHPESAPI\PHPESAPI\Codecs\Base64Codec);
     }
 
     /**
@@ -92,7 +92,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_assertValid_valid()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertNull($svr->assertValid('testStringVR_assertValid_valid', 'aabbcc'));
     }
@@ -102,7 +102,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_assertValid_invalid()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->setExpectedException('ValidationException');
         $svr->assertValid('testStringVR_assertValid_invalid', 'dddddd');
@@ -113,7 +113,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_assertValid_attack()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->setExpectedException('IntrusionException');
         $svr->assertValid('testStringVR_assertValid_attack', 'dddddd%2500');
@@ -124,7 +124,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_getSafe_valid()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertEquals('aabbcc', $svr->getSafe('testStringVR_getSafe_valid', 'aabbcc'));
 
@@ -136,7 +136,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_getSafe_invalid()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertEquals('aabbcc00', $svr->getSafe('testStringVR_getSafe_invalid', 'aabbcc%00'));
     }
@@ -146,7 +146,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_getSafe_attack()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->setExpectedException('IntrusionException');
         $svr->getSafe('testStringVR_getSafe_valid', 'aabbcc%2500');
@@ -157,7 +157,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_isValid()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertTrue($svr->isValid('testStringVR_isValid', 'aabbcc'));
 
@@ -172,17 +172,14 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_whitelist()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertEquals('aabbcc', $svr->whitelist('aabbcc%00', 'abc'));
     }
 
-    /**************************************************************************
-     *
-     *                  CreditCardValidationRule tests
-     *
-     *
-     **************************************************************************/
+    /**
+     * CreditCardValidationRule tests
+     */
 
     /**
      * Test supplying constructor with an instance of a validator
@@ -191,10 +188,10 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
     {
         $config = ESAPI::getSecurityConfiguration();
         $pattern = $config->getValidationPattern('CreditCard');
-        $ccr = new StringValidationRule('CreditCardValidator', null, $pattern);
+        $ccr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('CreditCardValidator', null, $pattern);
         $ccr->setMaximumLength(16); // 19 in the default validator
 
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn', null, $ccr);
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn', null, $ccr);
         $this->assertTrue($ccvr->isValid('testCCVR_constructValidator', '0000000000000000'));
         $this->assertFalse($ccvr->isValid('testCCVR_constructValidator', '0000-0000-0000-0000'));
     }
@@ -204,7 +201,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testCCVR_getValid_valid()
     {
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn');
 
         $this->assertEquals('0000-0000-0000-0000', $ccvr->getValid('testCCVR_getValid_valid', '0000-0000-0000-0000'));
 
@@ -216,7 +213,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testCCVR_getValid_nbsp()
     {
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn');
 
         $this->setExpectedException('ValidationException');
         $ccvr->assertValid('testCCVR_getValid_nbsp', '0000&nbsp;0000&nbsp;0000&nbsp;0018');
@@ -227,7 +224,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testCCVR_getValid_invalid()
     {
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn');
 
         $this->setExpectedException('ValidationException');
         $ccvr->getValid('testCCVR_getValid_invalid', '0000 0000 0000%000018');
@@ -238,7 +235,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testCCVR_getValid_attack()
     {
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn');
 
         $this->setExpectedException('IntrusionException');
         $ccvr->getValid('testCCVR_getValid_attack', '0000%200000%25200000%200018');
@@ -250,10 +247,10 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testCCVR_getValid_Empty()
     {
-        $ccr = new StringValidationRule('CreditCardValidator', null, '^[0-9]*$');
+        $ccr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('CreditCardValidator', null, '^[0-9]*$');
         $ccr->setMaximumLength(1);
 
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn', null, $ccr);
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn', null, $ccr);
 
         $this->assertTrue($ccvr->isValid('testCCVR_getValid_Empty', '0'));
 
@@ -273,7 +270,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testCCVR_isValid()
     {
-        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
+        $ccvr = new \PHPESAPI\PHPESAPI\Reference\Validation\CreditCardValidationRule('CreditCardValidatorLuhn');
 
         $this->assertTrue($ccvr->isValid('testCCVR_isValid', '0000000000000026'));
 
@@ -298,7 +295,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testDateVR_construct_format()
     {
-        $dvr = new DateValidationRule('DateValidator');
+        $dvr = new \PHPESAPI\PHPESAPI\Reference\Validation\DateValidationRule('DateValidator');
 
         $this->assertTrue($dvr->getValid('testDateVR_construct_format', '1970-01-31')->format('Y-m-d') == '1970-01-31');
     }
@@ -315,26 +312,23 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testHTMLVR_construct_purifier()
     {
-        $hvr = new HTMLValidationRule('HTMLValidator');
+        $hvr = new \PHPESAPI\PHPESAPI\Reference\Validation\HTMLValidationRule('HTMLValidator');
 
         $this->setExpectedException('ValidationException');
         $a = '<body><body><div>Hi!</div></body>';
         $hvr->getValid('testHTMLVR_construct_purifier', $a); // error=Unrecognized <body> tag removed
     }
 
-    /**************************************************************************
-     *
-     *                      IntegerValidationRule tests
-     *
-     *
-     **************************************************************************/
+    /**
+     * IntegerValidationRuletests
+     */
 
     /**
      * getValid returns canonicalised input for valid input
      */
     public function testIntegerVR_getValid_valid()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null);
 
         $this->assertTrue((int) 187 === $ivr->getValid('testIntegerVR_getValid_valid', '187'));
 
@@ -349,7 +343,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_getValid_Empty()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null);
 
         $this->assertTrue($ivr->isValid('testIntegerVR_getValid_Empty', '0'));
 
@@ -369,7 +363,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_getSafe_valid()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, 1-PHP_INT_MAX, PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, 1-PHP_INT_MAX, PHP_INT_MAX);
 
         $this->assertTrue((int) -1 === $ivr->getSafe('testIntegerVR_getSafe_valid', '-1'));
 
@@ -381,7 +375,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_getSafe_invalid()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((int) 0 === $ivr->getSafe('testIntegerVR_getSafe_invalid', '00%00'));
     }
@@ -391,7 +385,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_getSafe_attack()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
 
         $this->setExpectedException('IntrusionException');
         $ivr->getSafe('testIntegerVR_getSafe_valid', '00%2500');
@@ -402,7 +396,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_isValid()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, 1-PHP_INT_MAX, PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, 1-PHP_INT_MAX, PHP_INT_MAX);
 
         $this->assertTrue($ivr->isValid('testIntegerVR_isValid', '12345678'));
 
@@ -423,7 +417,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_MinMax()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, PHP_INT_MAX, 1-PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, PHP_INT_MAX, 1-PHP_INT_MAX);
 
         $this->setExpectedException('RuntimeException');
         $ivr->getValid('testIntegerVR_MinMax', '0');
@@ -434,7 +428,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_sanitize()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((int) 0 === $ivr->sanitize('testIntegerVR_sanitize', 'abc%00'));
     }
@@ -444,26 +438,23 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testIntegerVR_sanitize_empty()
     {
-        $ivr = new IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
+        $ivr = new \PHPESAPI\PHPESAPI\Reference\Validation\IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((int) 0 === $ivr->sanitize('testIntegerVR_sanitize_empty', null));
 
         $this->assertTrue((int) 0 === $ivr->sanitize('testIntegerVR_sanitize_empty', ''));
     }
 
-    /**************************************************************************
-     *
-     *                       NumberValidationRule tests
-     *
-     *
-     **************************************************************************/
+    /**
+     * NumberValidationRule tests
+     */
 
     /**
      * getValid returns canonicalised input for valid input
      */
     public function testNumberVR_getValid_valid()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((double) 187 === $nvr->getValid('testNumberVR_getValid_valid', '187'));
 
@@ -478,7 +469,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_getValid_Empty()
     {
-        $nvr = new NumberValidationRule('A_Number', null);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null);
 
         $this->assertTrue($nvr->isValid('testNumberVR_getValid_Empty', '0'));
 
@@ -498,7 +489,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_getSafe_valid()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 1-PHP_INT_MAX, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 1-PHP_INT_MAX, PHP_INT_MAX);
 
         $this->assertTrue((double) -1 === $nvr->getSafe('testNumberVR_getSafe_valid', '-1'));
 
@@ -510,7 +501,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_getSafe_invalid()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((double) 0 === $nvr->getSafe('testNumberVR_getSafe_invalid', '00%00'));
     }
@@ -520,7 +511,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_getSafe_attack()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
         $this->setExpectedException('IntrusionException');
         $nvr->getSafe('testNumberVR_getSafe_valid', '00%2500');
@@ -531,7 +522,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_isValid()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 1-PHP_INT_MAX, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 1-PHP_INT_MAX, PHP_INT_MAX);
 
         $this->assertTrue($nvr->isValid('testNumberVR_isValid', '0.00'));
 
@@ -552,7 +543,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_isValid_INF()
     {
-        $nvr = new NumberValidationRule('A_Number', null);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null);
 
         $this->assertTrue($nvr->isValid('testNumberVR_isValid_INF', '0.00'));
 
@@ -566,7 +557,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_MinMax()
     {
-        $nvr = new NumberValidationRule('A_Number', null, INF, 0);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, INF, 0);
 
         $this->setExpectedException('RuntimeException');
         $nvr->getValid('testNumberVR_MinMax', '0');
@@ -577,7 +568,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_sanitize()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((double) 0 === $nvr->sanitize('testNumberVR_sanitize', 'abc%00'));
     }
@@ -587,26 +578,23 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testNumberVR_sanitize_empty()
     {
-        $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
+        $nvr = new \PHPESAPI\PHPESAPI\Reference\Validation\NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
         $this->assertTrue((double) 0 === $nvr->sanitize('testNumberVR_sanitize_empty', null));
 
         $this->assertTrue((double) 0 === $nvr->sanitize('testNumberVR_sanitize_empty', ''));
     }
 
-    /**************************************************************************
-     *
-     *                       StringValidationRule tests
-     *
-     *
-     **************************************************************************/
+    /**
+     * StringValidationRule tests
+     */
 
     /**
      * test addWhitelistPattern
      */
     public function testStringVR_addWhitelistPattern()
     {
-        $svr = new StringValidationRule('A_String', null, null);
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, null);
 
         $svr->addWhitelistPattern('^[abc]+$');
         $this->assertTrue($svr->isValid('testStringVR_addWhitelistPattern', 'aabbcc'));
@@ -622,7 +610,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_addBlacklistPattern()
     {
-        $svr = new StringValidationRule('A_String', null, null);
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, null);
 
         $svr->addBlacklistPattern('^[abc]+$');
         $this->assertTrue($svr->isValid('testStringVR_addBlacklistPattern', 'dddddd'));
@@ -638,7 +626,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_setMinimumLength()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $svr->setMinimumLength(6);
 
@@ -652,7 +640,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_setMaximumLength()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $svr->setMaximumLength('6');
 
@@ -666,7 +654,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_getValid_valid()
     {
-        $svr = new StringValidationRule('A_String', null, '^[abc]+$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^[abc]+$');
 
         $this->assertEquals('aabbcc', $svr->getValid('testStringVR_getValid_valid', 'aabbcc'));
 
@@ -679,7 +667,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_getValid_Empty()
     {
-        $svr = new StringValidationRule('A_String', null, '^.*$');
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, '^.*$');
 
         $this->assertTrue($svr->isValid('testStringVR_getValid_Empty', '0'));
 
@@ -699,7 +687,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_sanitize()
     {
-        $svr = new StringValidationRule('A_String', null, null);
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, null);
 
         $this->assertEquals('abc00', $svr->sanitize('testStringVR_sanitize', 'abc%00'));
     }
@@ -709,7 +697,7 @@ class ValidationRulesTest extends PHPUnit_Framework_TestCase
      */
     public function testStringVR_sanitize_empty()
     {
-        $svr = new StringValidationRule('A_String', null, null);
+        $svr = new \PHPESAPI\PHPESAPI\Reference\Validation\StringValidationRule('A_String', null, null);
 
         $this->assertEquals('', $svr->sanitize('testStringVR_sanitize_empty', null));
 

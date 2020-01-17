@@ -15,9 +15,9 @@
  * @created 2009
  * @since 1.6
  */
- 
- 
-class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
+namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+class IntegerReferenceMapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test of iterator method, of class org.owasp.esapi.AccessReferenceMap.
@@ -25,10 +25,10 @@ class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
     public function testIterator()
     {
         $users = array("andrew", "bipin", "laura", "jah", "linden", "mike", "arnaud");
-        
-        $arm = new IntegerAccessReferenceMap();
+
+        $arm = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap();
         $arm->update($users);
-        
+
         $i = $arm->iterator();
         $j = 0;
         while ($i->valid()) {
@@ -39,22 +39,22 @@ class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
             $j++;
         }
     }
-    
+
     /**
      *
-     * @throws org.owasp.esapi.errors.AccessControlException
+     * @throws \PHPESAPI\PHPESAPI\Errors\AccessControlException
      */
     public function testRemoveDirectReference()
     {
         $directReference = "234";
-        
+
         $directArray = array();
         $directArray[] = "123";
         $directArray[] = $directReference;
         $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap($directArray);
-        
+
+        $instance = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap($directArray);
+
         $indirect = $instance->getIndirectReference($directReference);
         $this->assertNotNull($indirect);
         $deleted = $instance->removeDirectReference($directReference);
@@ -62,7 +62,7 @@ class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
         $deleted = $instance->removeDirectReference("ridiculous");
         $this->assertNull($deleted);
     }
-    
+
     /**
      * Test of getIndirectReference method, of class
      * org.owasp.esapi.AccessReferenceMap.
@@ -70,14 +70,14 @@ class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
     public function testGetIndirectReference()
     {
         $directReference = "234";
-        
+
         $directArray = array();
         $directArray[] = "123";
         $directArray[] = $directReference;
         $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap($directArray);
-        
+
+        $instance = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap($directArray);
+
         $expResult = $directReference;
         $result = $instance->getIndirectReference($directReference);
         $this->assertNotSame($expResult, $result);
@@ -88,48 +88,47 @@ class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
      * org.owasp.esapi.AccessReferenceMap.
      *
      * @throws AccessControlException
-     *             the access control exception
      */
     public function testGetDirectReference()
     {
         $directReference = "234";
-        
+
         $directArray = array();
         $directArray[] = "123";
         $directArray[] = $directReference;
         $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap($directArray);
-        
+
+        $instance = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap($directArray);
+
         $ind = $instance->getIndirectReference($directReference);
         $dir = $instance->getDirectReference($ind);
-        
+
         // echo "<p>ind = [$ind], dir = [$dir], directreference = [$directReference]";
-        
+
         $this->assertEquals($directReference, $dir);
         try {
             $instance->getDirectReference("invalid");
             $this->fail();
-        } catch (AccessControlException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\AccessControlException $e) {
             // success
         }
     }
-    
+
     /**
      *
-     * @throws org.owasp.esapi.errors.AccessControlException
+     * @throws \PHPESAPI\PHPESAPI\Errors\AccessControlException
      */
     public function testAddDirectReference()
     {
         $directReference = "234";
-        
+
         $directArray = array();
         $directArray[] = "123";
         $directArray[] = $directReference;
         $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap($directArray);
-        
+
+        $instance = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap($directArray);
+
         $newDirect = $instance->addDirectReference("newDirect");
         $this->assertNotNull($newDirect);
         $ind = $instance->addDirectReference($directReference);
@@ -138,55 +137,55 @@ class IntegerReferenceMapTest extends PHPUnit_Framework_TestCase
         $newInd = $instance->addDirectReference($directReference);
         $this->assertEquals($ind, $newInd);
     }
-    
+
     public function testUpdatePass()
     {
         $users = array('alpha', 'juliet', 'victor');
-        
-        $arm = new IntegerAccessReferenceMap();
+
+        $arm = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap();
         $arm->update($users);
 
         $indirect = $arm->getIndirectReference('victor');
         $this->assertNotNull($indirect);
     }
-    
+
     public function testUpdateFail()
     {
         $users = array('alpha', 'juliet', 'victor');
-        
-        $arm = new IntegerAccessReferenceMap();
+
+        $arm = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap();
         $arm->update($users);
 
         $indirect = $arm->getIndirectReference('ridiculous');
         $this->assertNull($indirect);
     }
-    
+
     public function testUpdateRemoveItem()
     {
         $users = array('alpha', 'juliet', 'victor');
-        
-        $arm = new IntegerAccessReferenceMap();
+
+        $arm = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap();
         $arm->update($users);
 
         unset($users[1]);
         $arm->update($users);
-        
+
         $indirect = $arm->getIndirectReference('juliet');
         $this->assertNull($indirect);
     }
-    
+
     public function testUpdateStableReference()
     {
         $users = array('alpha', 'juliet', 'victor');
-        
-        $arm = new IntegerAccessReferenceMap();
+
+        $arm = new \PHPESAPI\PHPESAPI\Reference\IntegerAccessReferenceMap();
         $arm->update($users);
         $indirect = $arm->getIndirectReference('juliet');
 
         $users[] = 'omega';
-        
+
         $arm->update($users);
-        
+
         $indirect2 = $arm->getIndirectReference('juliet');
         $this->assertEquals($indirect, $indirect2);
     }

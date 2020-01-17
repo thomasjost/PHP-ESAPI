@@ -37,7 +37,9 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class SafeFileTest extends PHPUnit_Framework_TestCase
+ namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+class SafeFileTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -47,19 +49,19 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFile()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml';
 
         $sf = null;
         try {
-            $sf = new SafeFile($file);
-        } catch (Exception $e) {
+            $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
+        } catch (\Exception $e) {
             $this->fail('SafeFile threw an exception during construction');
         }
         if ($sf && !$sf->isReadable()) {
             $this->fail("{$file} is not readable");
         }
-        
+
         $this->assertTrue($sf && $sf->isReadable());
     }
 
@@ -70,11 +72,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithNullByteInFileName()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml' . chr(0);
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -91,12 +93,12 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
             $file = '/dev/null';
         }
 
-        $sf = new SafeFile($file);
-        
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
+
         if (!$sf->isReadable()) {
             $this->fail("{$file} is not readable - %s");
         }
-        
+
         $this->assertTrue($sf->isReadable());
     }
 
@@ -120,7 +122,7 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
             $this->setExpectedException('EnterpriseSecurityException');
         }
 
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -130,11 +132,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithNullByteInDirName()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . chr(0) . '/ESAPI.xml';
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -144,11 +146,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithPercentEncodingInFileName01()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%00';
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -158,11 +160,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithPercentEncodingInFileName02()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%3C';
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -172,11 +174,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithPercentEncodingInFileName03()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%3c';
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -186,11 +188,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithPercentEncodingInFileName04()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%Ac';
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -200,11 +202,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileWithPercentEncodingInFile()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . "%00/ESAPI.xml";
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -217,15 +219,15 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
         $fileIllegals = array('/', ':', '*', '?', '<', '>', '|', '\\');
         $dirIllegals = array('*', '?', '<', '>', '|');
 
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
 
         foreach ($fileIllegals as $char) {
             $file = $config->getResourceDirectory() . "/ESAPI$char.xml";
 
             try {
-                $sf = new SafeFile($file);
+                $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
                 $this->fail();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 //Expected
             }
         }
@@ -234,13 +236,13 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
             $file = $config->getResourceDirectory() . "$char/ESAPI.xml";
 
             try {
-                $sf = new SafeFile($file);
+                $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
                 $this->fail();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 //Expected
             }
         }
-        
+
         $this->assertTrue(true);
     }
 
@@ -251,11 +253,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileHighByteInFileName()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . "/ESAPI" . chr(200) . ".xml";
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -265,11 +267,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileHighByteInDirName()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . chr(200) . "/ESAPI.xml";
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -279,11 +281,11 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileLowByteInDirName()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . chr(8) . "/ESAPI.xml";
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /**
@@ -293,14 +295,14 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
      */
     public function testSafeFileLowByteInFileName()
     {
-        $config = ESAPI::getSecurityConfiguration();
+        $config = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . "/ESAPI" . chr(8) . ".xml";
 
         $this->setExpectedException('EnterpriseSecurityException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
-      /**
+    /**
      * Test null byte injection.
      *
      * @return bool True on Pass.
@@ -315,8 +317,8 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
         }
 
         try {
-            $sf = new SafeFile($file);
-        } catch (Exception $e) {
+            $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
+        } catch (\Exception $e) {
             $this->fail(
                 'This test could not run so did not really fail. Please choose a suitable test input.'
             );
@@ -328,7 +330,7 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
         $sf = new SafeFile($file);
     }
 
-      /**
+    /**
      * Test null byte injection.
      *
      * @return bool True on Pass.
@@ -338,8 +340,8 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
         $file = 'http://www.google.com/index.html';
 
         try {
-            $sf = new SafeFile($file);
-        } catch (Exception $e) {
+            $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
+        } catch (\Exception $e) {
             $this->fail(
                 'This test could not run so did not really fail. Please choose a suitable test input.'
             );
@@ -348,7 +350,7 @@ class SafeFileTest extends PHPUnit_Framework_TestCase
         $file .= chr(0);
 
         $this->setExpectedException('ValidationException');
-        $sf = new SafeFile($file);
+        $sf = new \PHPESAPI\PHPESAPI\SafeFile($file);
     }
 
     /*

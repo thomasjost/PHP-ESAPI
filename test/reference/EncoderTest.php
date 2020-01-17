@@ -3,7 +3,7 @@
  * OWASP Enterprise Security API (ESAPI)
  *
  * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
+ * Enterprise Security API (SAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
  * Copyright (c) 2007 - 2009 The OWASP Foundation
@@ -21,7 +21,9 @@
  * @author jah (at jaboite.co.uk)
  * @since  1.6
  */
-class EncoderTest extends PHPUnit_Framework_TestCase
+namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+class EncoderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test for exception thrown when DefaultEncoder is constructed with an array
@@ -30,12 +32,12 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     public function testDefaultEncoderException()
     {
         $codecList = array(
-            new HTMLEntityCodec(),
-            new Exception() // any class except a codec will suffice.
+            new \PHPESAPI\PHPESAPI\Codecs\HTMLEntityCodec(),
+            new \Exception() // any class except a codec will suffice.
         );
 
         $this->setExpectedException('InvalidArgumentException');
-        $instance = new DefaultEncoder($codecList);
+        $instance = new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder($codecList);
     }
 
     /**
@@ -46,9 +48,9 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     public function testCanonicalize()
     {
         // This block sets-up the encoder for subsequent canonicalize tests
-        $instance = new DefaultEncoder(array(
-            new HTMLEntityCodec(),
-            new PercentCodec()
+        $instance = new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder(array(
+            new \PHPESAPI\PHPESAPI\Codecs\HTMLEntityCodec(),
+            new \PHPESAPI\PHPESAPI\Codecs\PercentCodec()
         ));
 
         // Test null paths
@@ -59,34 +61,34 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         // Test exception paths
         $this->assertEquals("%", $instance->canonicalize("%25", true));
         $this->assertEquals("%", $instance->canonicalize("%25", false));
-        
+
         $this->assertEquals("%", $instance->canonicalize("%25"));
         $this->assertEquals("%F", $instance->canonicalize("%25F"));
         $this->assertEquals("<", $instance->canonicalize("%3c"));
         $this->assertEquals("<", $instance->canonicalize("%3C"));
         $this->assertEquals("%X1", $instance->canonicalize("%X1"));
-        
+
         $this->assertEquals("<", $instance->canonicalize("&lt"));
         $this->assertEquals("<", $instance->canonicalize("&LT"));
         $this->assertEquals("<", $instance->canonicalize("&lt;"));
         $this->assertEquals("<", $instance->canonicalize("&LT;"));
-        
+
         $this->assertEquals("%", $instance->canonicalize("&#37;"));
         $this->assertEquals("%", $instance->canonicalize("&#37"));
         $this->assertEquals("%b", $instance->canonicalize("&#37b"));
         $this->assertEquals("%b", $instance->canonicalize("&#37;b"));
-        
+
         $this->assertEquals("<", $instance->canonicalize("&#x3c"));
         $this->assertEquals("<", $instance->canonicalize("&#x3c;"));
         $this->assertEquals("<", $instance->canonicalize("&#x3C"));
         $this->assertEquals("<", $instance->canonicalize("&#X3c"));
         $this->assertEquals("<", $instance->canonicalize("&#X3C"));
         $this->assertEquals("<", $instance->canonicalize("&#X3C;"));
-        
+
         // percent encoding
         $this->assertEquals("<", $instance->canonicalize("%3c"));
         $this->assertEquals("<", $instance->canonicalize("%3C"));
-        
+
         // html entity encoding
         $this->assertEquals("<", $instance->canonicalize("&#60"));
         $this->assertEquals("<", $instance->canonicalize("&#060"));
@@ -156,15 +158,19 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("<", $instance->canonicalize("&lT;"));
         $this->assertEquals("<", $instance->canonicalize("&Lt;"));
         $this->assertEquals("<", $instance->canonicalize("&LT;"));
-        
-        $this->assertEquals("<script>alert(\"hello\");</script>",
-            $instance->canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E"));
-        $this->assertEquals("<script>alert(\"hello\");</script>",
-            $instance->canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E", false));
+
+        $this->assertEquals(
+            "<script>alert(\"hello\");</script>",
+            $instance->canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E")
+        );
+        $this->assertEquals(
+            "<script>alert(\"hello\");</script>",
+            $instance->canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E", false)
+        );
 
         // javascript escape syntax
-        $instance = new DefaultEncoder(array(new JavaScriptCodec()));
-    
+        $instance = new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder(array(new \PHPESAPI\PHPESAPI\Codecs\JavaScriptCodec()));
+
         $this->assertEquals("<", $instance->canonicalize("\\<"));
         $this->assertEquals("<", $instance->canonicalize("\\u003c"));
         $this->assertEquals("<", $instance->canonicalize("\\U003c"));
@@ -174,9 +180,9 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("<", $instance->canonicalize("\\X3c"));
         $this->assertEquals("<", $instance->canonicalize("\\x3C"));
         $this->assertEquals("<", $instance->canonicalize("\\X3C"));
-        
+
         // css escape syntax
-        $instance = new DefaultEncoder(array(new CSSCodec()));
+        $instance = new \PHPESAPI\PHPESAPI\Reference\DefaultEncoder(array(new \PHPESAPI\PHPESAPI\Codecs\CSSCodec()));
 
         $this->assertEquals("<", $instance->canonicalize("\\3c"));
         $this->assertEquals("<", $instance->canonicalize("\\03c"));
@@ -197,17 +203,17 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testDoubleEncodingCanonicalization()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         // note these examples use the strict=false flag on canonicalize to allow
         // full decoding without throwing an IntrusionException. Generally, you
         // should use strict mode as allowing double-encoding is an abomination.
-        
+
         // double encoding examples
         $this->assertEquals("<", $instance->canonicalize("&#x26;lt&#59", false)); //double entity
         $this->assertEquals("\\", $instance->canonicalize("%255c", false)); //double percent
         $this->assertEquals("%", $instance->canonicalize("%2525", false)); //double percent
-        
+
         // double encoding with multiple schemes example
         $this->assertEquals("<", $instance->canonicalize("%26lt%3b", false)); //first entity, then percent
         $this->assertEquals("&", $instance->canonicalize("&#x25;26", false)); //first percent, then entity
@@ -244,13 +250,13 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForHTML()
     {
-        $instance = ESAPI::getEncoder();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
+
         $this->assertEquals(null, $instance->encodeForHTML(null));
         // test invalid characters are replaced with spaces
         $this->assertEquals("a b c d e f&#x9;g", $instance->encodeForHTML("a" . chr(0) . "b" . chr(4) . "c" . chr(128) . "d" . chr(150) . "e" . chr(159) . "f" . chr(9) . "g"));
         $this->assertEquals("a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m", $instance->encodeForHTML("a" . chr(0) . "b" . chr(4) . "c" . chr(128) . "d" . chr(150) . "e" . chr(159) . "f" . chr(9) . "g" . chr(127) . "h" . chr(129) . "i" . chr(159) . "j" . chr(160) . "k" . chr(161) . "l" . chr(162) . "m"));
-        
+
         $this->assertEquals("&lt;script&gt;", $instance->encodeForHTML("<script>"));
         $this->assertEquals("&amp;lt&#x3b;script&amp;gt&#x3b;", $instance->encodeForHTML("&lt;script&gt;"));
         $this->assertEquals("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML("!@$%()=+{}[]"));
@@ -266,8 +272,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForHTMLAttribute()
     {
-        $instance = ESAPI::getEncoder();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
+
         $this->assertEquals(null, $instance->encodeForHTMLAttribute(null));
         $this->assertEquals("&lt;script&gt;", $instance->encodeForHTMLAttribute("<script>"));
         $this->assertEquals(",.-_", $instance->encodeForHTMLAttribute(",.-_"));
@@ -279,8 +285,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForCSS()
     {
-        $instance = ESAPI::getEncoder();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
+
         $this->assertEquals(null, $instance->encodeForCSS(null));
         $this->assertEquals("\\3c script\\3e ", $instance->encodeForCSS("<script>"));
         $this->assertEquals("\\21 \\40 \\24 \\25 \\28 \\29 \\3d \\2b \\7b \\7d \\5b \\5d ", $instance->encodeForCSS("!@$%()=+{}[]"));
@@ -293,8 +299,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForJavascript()
     {
-        $instance = ESAPI::getEncoder();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
+
         $this->assertEquals(null, $instance->encodeForJavaScript(null));
         $this->assertEquals("\\x3Cscript\\x3E", $instance->encodeForJavaScript("<script>"));
         $this->assertEquals(",.\\x2D_\\x20", $instance->encodeForJavaScript(",.-_ "));
@@ -308,8 +314,8 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForVBScript()
     {
-        $instance = ESAPI::getEncoder();
-        
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
+
         $this->assertEquals(null, $instance->encodeForVBScript(null));
         $this->assertEquals('""', $instance->encodeForVBScript('"'));
         $this->assertEquals('"<script">', $instance->encodeForVBScript('<script>'));
@@ -321,7 +327,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForXPath()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $this->assertEquals(null, $instance->encodeForXPath(null));
         $this->assertEquals("&#x27;or 1&#x3d;1", $instance->encodeForXPath("'or 1=1"));
@@ -332,18 +338,18 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForSQL()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
-        $mysqlAnsiCodec = new MySQLCodec(MySQLCodec::MYSQL_ANSI);
+        $mysqlAnsiCodec = new \PHPESAPI\PHPESAPI\Codecs\MySQLCodec(\PHPESAPI\PHPESAPI\Codecs\MySQLCodec::MYSQL_ANSI);
         $this->assertEquals(null, $instance->encodeForSQL($mysqlAnsiCodec, null));
         $this->assertEquals("Jeff'' or ''1''=''1", $instance->encodeForSQL($mysqlAnsiCodec, "Jeff' or '1'='1"));
-        
-        $mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
+
+        $mysqlStdCodec = new \PHPESAPI\PHPESAPI\Codecs\MySQLCodec(\PHPESAPI\PHPESAPI\Codecs\MySQLCodec::MYSQL_STD);
         $this->assertEquals(null, $instance->encodeForSQL($mysqlStdCodec, null));
         $this->assertEquals("Jeff\\' or \\'1\\'\\=\\'1", $instance->encodeForSQL($mysqlStdCodec, "Jeff' or '1'='1"));
         $this->assertEquals("\\b \\n \\r \\t \\Z \\_ \\\" \\' \\\\ \\0 \\%", $instance->encodeForSQL($mysqlStdCodec, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25"));
 
-        $oracleCodec = new OracleCodec();
+        $oracleCodec = new \PHPESAPI\PHPESAPI\Codecs\OracleCodec();
         $this->assertEquals(null, $instance->encodeForSQL($oracleCodec, null));
         $this->assertEquals("Jeff'' or ''1''=''1", $instance->encodeForSQL($oracleCodec, "Jeff' or '1'='1"));
     }
@@ -391,7 +397,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForXML()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $this->assertEquals(null, $instance->encodeForXML(null));
         $this->assertEquals(' ', $instance->encodeForXML(' '));
@@ -406,7 +412,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForXMLAttribute_null()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $this->assertEquals(null, $instance->encodeForXMLAttribute(null));
         $this->assertEquals("&#x20;", $instance->encodeForXMLAttribute(" "));
@@ -421,7 +427,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForURL()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $this->assertEquals(null, $instance->encodeForURL(null));
         $this->assertEquals("%3Cscript%3E", $instance->encodeForURL("<script>"));
@@ -433,7 +439,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testDecodeFromURL()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $this->assertEquals(null, $instance->decodeFromURL(null));
         $this->assertEquals("<script>", $instance->decodeFromURL("%3Cscript%3E"));
@@ -445,22 +451,22 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeForBase64()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $this->assertEquals(null, $instance->encodeForBase64(null, false));
         $this->assertEquals(null, $instance->encodeForBase64(null, true));
         $this->assertEquals(null, $instance->decodeFromBase64(null));
 
         // Test wrapping at 76 chars
-        $unencoded = ESAPI::getRandomizer()->getRandomString(76, Encoder::CHAR_SPECIALS);
+        $unencoded = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(76, Encoder::CHAR_SPECIALS);
         $encoded = $instance->encodeForBase64($unencoded, false);
         $encodedWrapped = $instance->encodeForBase64($unencoded, true);
         $expected = mb_substr($encoded, 0, 76, 'ASCII') . "\r\n" . mb_substr($encoded, 76, mb_strlen($encoded, 'ASCII')-76, 'ASCII');
         $this->assertEquals($expected, $encodedWrapped);
         try {
             for ($i = 0; $i < 100; $i++) {
-                $unencoded = ESAPI::getRandomizer()->getRandomString(20, Encoder::CHAR_SPECIALS);
-                $encoded = $instance->encodeForBase64($unencoded, ESAPI::getRandomizer()->getRandomBoolean());
+                $unencoded = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(20, Encoder::CHAR_SPECIALS);
+                $encoded = $instance->encodeForBase64($unencoded, \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomBoolean());
                 $decoded = $instance->decodeFromBase64($encoded);
                 $this->assertEquals($unencoded, $decoded);
             }
@@ -474,11 +480,11 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testDecodeFromBase64()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
         for ($i = 0; $i < 100; $i++) {
             try {
-                $unencoded = ESAPI::getRandomizer()->getRandomString(20, Encoder::CHAR_SPECIALS);
-                $encoded = $instance->encodeForBase64($unencoded, ESAPI::getRandomizer()->getRandomBoolean());
+                $unencoded = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(20, Encoder::CHAR_SPECIALS);
+                $encoded = $instance->encodeForBase64($unencoded, \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomBoolean());
                 $decoded = $instance->decodeFromBase64($encoded);
                 $this->assertEquals($unencoded, $decoded);
             } catch (Exception $unexpected) {
@@ -488,9 +494,9 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         for ($i = 0; $i < 100; $i++) {
             try {
                 // get a string of 20 char_specials.
-                $unencoded = ESAPI::getRandomizer()->getRandomString(20, Encoder::CHAR_SPECIALS);
+                $unencoded = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(20, Encoder::CHAR_SPECIALS);
                 // encode the string of char_specials and then prepend an alplanum
-                $encoded = ESAPI::getRandomizer()->getRandomString(1, Encoder::CHAR_ALPHANUMERICS) . $instance->encodeForBase64($unencoded, ESAPI::getRandomizer()->getRandomBoolean());
+                $encoded = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(1, Encoder::CHAR_ALPHANUMERICS) . $instance->encodeForBase64($unencoded, \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomBoolean());
                 // decoding the encoded (and prepended to) string
                 $decoded = $instance->decodeFromBase64($encoded);
                 // the decoded result should not equal the original string of 20 char_specials.
@@ -499,7 +505,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
                 $this->fail();  // Note: java expects an IO exception, but base64_decode() doesn't throw one
             }
         }
-        
+
         // Test decode single character
         $this->assertEquals('', $instance->decodeFromBase64('0'));
         $this->assertEquals('', $instance->decodeFromBase64('1'));
@@ -516,7 +522,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testWindowsCodec()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $codec_win = new WindowsCodec();
         $this->assertEquals(null, $instance->encodeForOS($codec_win, null));
@@ -548,7 +554,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
      */
     public function testUnixCodec()
     {
-        $instance = ESAPI::getEncoder();
+        $instance = \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
         $codec_unix = new UnixCodec();
         $this->assertEquals(null, $instance->encodeForOS($codec_unix, null));
@@ -583,7 +589,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
         // these tests check that mixed character encoding is handled properly when encoding.
         $expected = '/^[a-zA-Z0-9\/+]*={0,2}$/';
-        
+
         for ($i = 0; $i<256; $i++) {
             $input = chr($i);
             $output = $instance->encodeForBase64($input);
@@ -625,7 +631,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
             } else {
                 $expected = mb_convert_encoding(chr($i), 'UTF-8', 'ISO-8859-1');
             }
-            
+
             $this->assertEquals($expected, $instance->decode($input));
         }
     }

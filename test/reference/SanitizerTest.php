@@ -1,6 +1,6 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * OWASP Enterprise Security API (\PHPESAPI\PHPESAPI\ESAPI)
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
@@ -16,16 +16,17 @@
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+ namespace PHPESAPI\PHPESAPI\Test\Reference;
 
-class SanitizerTest extends PHPUnit_Framework_TestCase
+class SanitizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test of getSanitizedHTML method of class Sanitizer.
      */
     public function testGetSanitizedHTML_01()
     {
-        $san = ESAPI::getSanitizer();
-        
+        $san = \PHPESAPI\PHPESAPI\ESAPI::getSanitizer();
+
         $test1 = '<b>Jeff</b>';
         $result1 = $san->getSanitizedHTML('test', $test1, 100, false);
         $this->assertEquals($test1, $result1);
@@ -36,8 +37,8 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSanitizedHTML_02()
     {
-        $san = ESAPI::getSanitizer();
-        
+        $san = \PHPESAPI\PHPESAPI\ESAPI::getSanitizer();
+
         $test2 = "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>";
         $result2 = $san->getSanitizedHTML('test', $test2, 100, false);
         $this->assertEquals($test2, $result2);
@@ -48,8 +49,8 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSanitizedHTML_03()
     {
-        $san = ESAPI::getSanitizer();
-        
+        $san = \PHPESAPI\PHPESAPI\ESAPI::getSanitizer();
+
         $test3 = 'Test.<script>alert(document.cookie)</script>';
         $result3 = $san->getSanitizedHTML('test', $test3, 100, false);
         $this->assertEquals('Test.', $result3);

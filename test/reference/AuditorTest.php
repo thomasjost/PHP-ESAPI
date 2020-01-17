@@ -16,7 +16,9 @@
  * @since  1.6
  */
 
-require_once __DIR__ . '/../testresources/TestHelpers.php';
+namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+require_once dirname(__DIR__) . '/testresources/TestHelpers.php';
 
 /**
  * This test case covers logging functioanlity.
@@ -28,10 +30,10 @@ require_once __DIR__ . '/../testresources/TestHelpers.php';
  * @author jah (at jahboite.co.uk)
  * @since 1.6
  */
-class AuditorTest extends PHPUnit_Framework_TestCase
+class AuditorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Auditor
+     * @var \PHPESAPI\PHPESAPI\Auditor
      */
     private $testLogger;
     private $alphanum;
@@ -45,272 +47,272 @@ class AuditorTest extends PHPUnit_Framework_TestCase
      * @var boolean
      */
     private $logfileIsReadable = false;
-    
+
     protected function setUp()
     {
         $this->logFileLoc = getLogFileLoc();
-        $this->testLogger = ESAPI::getAuditor(__CLASS__);
-        $this->testLogger->setLevel(Auditor::ALL);
+        $this->testLogger = \PHPESAPI\PHPESAPI\ESAPI::getAuditor(__CLASS__);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ALL);
     }
 
     public function testSetLevelOffCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::OFF);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
         $this->assertFalse($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelOffCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::OFF);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
         $this->assertFalse($this->testLogger->isDebugEnabled());
     }
 
     public function testSetLevelOffCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::OFF);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
         $this->assertFalse($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelOffCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::OFF);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
         $this->assertFalse($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelOffCheckError()
     {
-        $this->testLogger->setLevel(Auditor::OFF);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
         $this->assertFalse($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelOffCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::OFF);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
         $this->assertFalse($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelTraceCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::TRACE);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::TRACE);
         $this->assertTrue($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelTraceCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::TRACE);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::TRACE);
         $this->assertTrue($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelTraceCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::TRACE);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::TRACE);
         $this->assertTrue($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelTraceCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::TRACE);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::TRACE);
         $this->assertTrue($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelTraceCheckError()
     {
-        $this->testLogger->setLevel(Auditor::TRACE);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::TRACE);
         $this->assertTrue($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelTraceCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::TRACE);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::TRACE);
         $this->assertTrue($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelDebugCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::DEBUG);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::DEBUG);
         $this->assertFalse($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelDebugCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::DEBUG);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::DEBUG);
         $this->assertTrue($this->testLogger->isDebugEnabled());
     }
 
     public function testSetLevelDebugCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::DEBUG);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::DEBUG);
         $this->assertTrue($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelDebugCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::DEBUG);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::DEBUG);
         $this->assertTrue($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelDebugCheckError()
     {
-        $this->testLogger->setLevel(Auditor::DEBUG);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::DEBUG);
         $this->assertTrue($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelDebugCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::DEBUG);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::DEBUG);
         $this->assertTrue($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelInfoCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::INFO);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $this->assertFalse($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelInfoCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::INFO);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $this->assertFalse($this->testLogger->isDebugEnabled());
     }
 
     public function testSetLevelInfoCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::INFO);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $this->assertTrue($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelInfoCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::INFO);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $this->assertTrue($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelInfoCheckError()
     {
-        $this->testLogger->setLevel(Auditor::INFO);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $this->assertTrue($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelInfoCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::INFO);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $this->assertTrue($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelWarningCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::WARNING);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::WARNING);
         $this->assertFalse($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelWarningCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::WARNING);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::WARNING);
         $this->assertFalse($this->testLogger->isDebugEnabled());
     }
 
     public function testSetLevelWarningCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::WARNING);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::WARNING);
         $this->assertFalse($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelWarningCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::WARNING);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::WARNING);
         $this->assertTrue($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelWarningCheckError()
     {
-        $this->testLogger->setLevel(Auditor::WARNING);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::WARNING);
         $this->assertTrue($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelWarningCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::WARNING);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::WARNING);
         $this->assertTrue($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelErrorCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::ERROR);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ERROR);
         $this->assertFalse($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelErrorCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::ERROR);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ERROR);
         $this->assertFalse($this->testLogger->isDebugEnabled());
     }
 
     public function testSetLevelErrorCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::ERROR);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ERROR);
         $this->assertFalse($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelErrorCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::ERROR);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ERROR);
         $this->assertFalse($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelErrorCheckError()
     {
-        $this->testLogger->setLevel(Auditor::ERROR);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ERROR);
         $this->assertTrue($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelErrorCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::ERROR);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::ERROR);
         $this->assertTrue($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelFatalCheckTrace()
     {
-        $this->testLogger->setLevel(Auditor::FATAL);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::FATAL);
         $this->assertFalse($this->testLogger->isTraceEnabled());
     }
 
     public function testSetLevelFatalCheckDebug()
     {
-        $this->testLogger->setLevel(Auditor::FATAL);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::FATAL);
         $this->assertFalse($this->testLogger->isDebugEnabled());
     }
 
     public function testSetLevelFatalCheckInfo()
     {
-        $this->testLogger->setLevel(Auditor::FATAL);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::FATAL);
         $this->assertFalse($this->testLogger->isInfoEnabled());
     }
 
     public function testSetLevelFatalCheckWarning()
     {
-        $this->testLogger->setLevel(Auditor::FATAL);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::FATAL);
         $this->assertFalse($this->testLogger->isWarningEnabled());
     }
 
     public function testSetLevelFatalCheckError()
     {
-        $this->testLogger->setLevel(Auditor::FATAL);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::FATAL);
         $this->assertFalse($this->testLogger->isErrorEnabled());
     }
 
     public function testSetLevelFatalCheckFatal()
     {
-        $this->testLogger->setLevel(Auditor::FATAL);
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::FATAL);
         $this->assertTrue($this->testLogger->isFatalEnabled());
     }
 
     public function testSetLevelMultipleLogsExpectedTrue()
     {
         //Now test to see if a change to the logging level in one log affects other logs
-        $newLogger = ESAPI::getAuditor('test_num2');
-        $this->testLogger->setLevel(Auditor::OFF);
-        $newLogger->setLevel(Auditor::INFO);
+        $newLogger = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('test_num2');
+        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
+        $newLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
         $log_1_result = $this->testLogger->isInfoEnabled();
         $log_2_result = $newLogger->isInfoEnabled();
 
@@ -323,9 +325,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
      */
 #    function testSetLevelMultipleLogsExpectedFalse() {
 #        //Now test to see if a change to the logging level in one log affects other logs
-#        $newLogger = ESAPI::getAuditor('test_num2');
-#        $this->testLogger->setLevel(Auditor::OFF);
-#        $newLogger->setLevel(Auditor::INFO);
+#        $newLogger = ESAPI::get\PHPESAPI\PHPESAPI\Auditor('test_num2');
+#        $this->testLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::OFF);
+#        $newLogger->setLevel(\PHPESAPI\PHPESAPI\Auditor::INFO);
 #        $log_1_result = $this->testLogger->isInfoEnabled();
 #        $log_2_result = $newLogger->isInfoEnabled();
 
@@ -337,7 +339,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Test message. {$r}";
-        $this->testLogger->fatal(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $logFileIsReadable = $this->verifyLogEntry("{$logMsg}", $testMsg);
         $this->assertTrue($logFileIsReadable, $testMsg);
 
@@ -350,7 +352,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'SECURITY', true, $logMsg);
-        $this->testLogger->fatal(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -360,7 +362,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'SECURITY', false, $logMsg);
-        $this->testLogger->fatal(Auditor::SECURITY, false, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -370,7 +372,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'SECURITY', true, $logMsg);
-        $this->testLogger->fatal(Auditor::SECURITY, true, $logMsg, null);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg, null);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -379,9 +381,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
-        $throwable = new Exception('This is a message from a generic exception.');
+        $throwable = new \Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('FATAL', 'SECURITY', false, $logMsg, get_class($throwable));
-        $this->testLogger->fatal(Auditor::SECURITY, false, $logMsg, $throwable);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg, $throwable);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -391,7 +393,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'SECURITY', true, $logMsg);
-        $this->testLogger->warning(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -401,7 +403,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'SECURITY', false, $logMsg);
-        $this->testLogger->warning(Auditor::SECURITY, false, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -411,7 +413,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'SECURITY', true, $logMsg);
-        $this->testLogger->warning(Auditor::SECURITY, true, $logMsg, null);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg, null);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -420,12 +422,12 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
-        $throwable = new ValidationException(
+        $throwable = new \PHPESAPI\PHPESAPI\Errors\ValidationException(
             'This is a user message from a ValidationException.',
             'This is a log message from a ValidationException.'
         );
         $expected = $this->getExpected('WARNING', 'SECURITY', false, $logMsg, get_class($throwable));
-        $this->testLogger->warning(Auditor::SECURITY, false, $logMsg, $throwable);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg, $throwable);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -435,7 +437,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'SECURITY', true, $logMsg);
-        $this->testLogger->error(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -445,7 +447,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'SECURITY', false, $logMsg);
-        $this->testLogger->error(Auditor::SECURITY, false, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -455,7 +457,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'SECURITY', true, $logMsg);
-        $this->testLogger->error(Auditor::SECURITY, true, $logMsg, null);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg, null);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -464,9 +466,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
-        $throwable = new Exception('This is a message from a generic exception.');
+        $throwable = new \Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('ERROR', 'SECURITY', false, $logMsg, get_class($throwable));
-        $this->testLogger->error(Auditor::SECURITY, false, $logMsg, $throwable);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg, $throwable);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -476,7 +478,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'SECURITY', true, $logMsg);
-        $this->testLogger->info(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -486,7 +488,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'SECURITY', false, $logMsg);
-        $this->testLogger->info(Auditor::SECURITY, false, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -496,7 +498,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'SECURITY', true, $logMsg);
-        $this->testLogger->info(Auditor::SECURITY, true, $logMsg, null);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg, null);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -505,9 +507,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
-        $throwable = new Exception('This is a message from a generic exception.');
+        $throwable = new \Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('INFO', 'SECURITY', false, $logMsg, get_class($throwable));
-        $this->testLogger->info(Auditor::SECURITY, false, $logMsg, $throwable);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg, $throwable);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -517,7 +519,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'SECURITY', true, $logMsg);
-        $this->testLogger->debug(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -527,7 +529,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'SECURITY', false, $logMsg);
-        $this->testLogger->debug(Auditor::SECURITY, false, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -537,7 +539,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'SECURITY', true, $logMsg);
-        $this->testLogger->debug(Auditor::SECURITY, true, $logMsg, null);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg, null);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -546,9 +548,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
-        $throwable = new Exception('This is a message from a generic exception.');
+        $throwable = new \Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('DEBUG', 'SECURITY', false, $logMsg, get_class($throwable));
-        $this->testLogger->debug(Auditor::SECURITY, false, $logMsg, $throwable);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg, $throwable);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -558,7 +560,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'SECURITY', true, $logMsg);
-        $this->testLogger->trace(Auditor::SECURITY, true, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -568,7 +570,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'SECURITY', false, $logMsg);
-        $this->testLogger->trace(Auditor::SECURITY, false, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -578,7 +580,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'SECURITY', true, $logMsg);
-        $this->testLogger->trace(Auditor::SECURITY, true, $logMsg, null);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $logMsg, null);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -587,9 +589,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
-        $throwable = new Exception('This is a message from a generic exception.');
+        $throwable = new \Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('TRACE', 'SECURITY', false, $logMsg, get_class($throwable));
-        $this->testLogger->trace(Auditor::SECURITY, false, $logMsg, $throwable);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $logMsg, $throwable);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -599,7 +601,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'USABILITY', true, $logMsg);
-        $this->testLogger->fatal(Auditor::USABILITY, true, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::USABILITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -609,7 +611,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'USABILITY', false, $logMsg);
-        $this->testLogger->fatal(Auditor::USABILITY, false, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::USABILITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -619,7 +621,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'USABILITY', true, $logMsg);
-        $this->testLogger->warning(Auditor::USABILITY, true, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::USABILITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -629,7 +631,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'USABILITY', false, $logMsg);
-        $this->testLogger->warning(Auditor::USABILITY, false, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::USABILITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -639,7 +641,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'USABILITY', true, $logMsg);
-        $this->testLogger->error(Auditor::USABILITY, true, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::USABILITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -649,7 +651,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'USABILITY', false, $logMsg);
-        $this->testLogger->error(Auditor::USABILITY, false, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::USABILITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -659,7 +661,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'USABILITY', true, $logMsg);
-        $this->testLogger->info(Auditor::USABILITY, true, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::USABILITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -669,7 +671,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'USABILITY', false, $logMsg);
-        $this->testLogger->info(Auditor::USABILITY, false, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::USABILITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -679,7 +681,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'USABILITY', true, $logMsg);
-        $this->testLogger->debug(Auditor::USABILITY, true, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::USABILITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -689,7 +691,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'USABILITY', false, $logMsg);
-        $this->testLogger->debug(Auditor::USABILITY, false, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::USABILITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -699,7 +701,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'USABILITY', true, $logMsg);
-        $this->testLogger->trace(Auditor::USABILITY, true, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::USABILITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -709,7 +711,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'USABILITY', false, $logMsg);
-        $this->testLogger->trace(Auditor::USABILITY, false, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::USABILITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -719,7 +721,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'PERFORMANCE', true, $logMsg);
-        $this->testLogger->fatal(Auditor::PERFORMANCE, true, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -729,7 +731,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'PERFORMANCE', false, $logMsg);
-        $this->testLogger->fatal(Auditor::PERFORMANCE, false, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -739,7 +741,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'PERFORMANCE', true, $logMsg);
-        $this->testLogger->warning(Auditor::PERFORMANCE, true, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -749,7 +751,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'PERFORMANCE', false, $logMsg);
-        $this->testLogger->warning(Auditor::PERFORMANCE, false, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -759,7 +761,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'PERFORMANCE', true, $logMsg);
-        $this->testLogger->error(Auditor::PERFORMANCE, true, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -769,7 +771,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'PERFORMANCE', false, $logMsg);
-        $this->testLogger->error(Auditor::PERFORMANCE, false, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -779,7 +781,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'PERFORMANCE', true, $logMsg);
-        $this->testLogger->info(Auditor::PERFORMANCE, true, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -789,7 +791,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'PERFORMANCE', false, $logMsg);
-        $this->testLogger->info(Auditor::PERFORMANCE, false, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -799,7 +801,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'PERFORMANCE', true, $logMsg);
-        $this->testLogger->debug(Auditor::PERFORMANCE, true, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -809,7 +811,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'PERFORMANCE', false, $logMsg);
-        $this->testLogger->debug(Auditor::PERFORMANCE, false, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -819,7 +821,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'PERFORMANCE', true, $logMsg);
-        $this->testLogger->trace(Auditor::PERFORMANCE, true, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -829,7 +831,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'PERFORMANCE', false, $logMsg);
-        $this->testLogger->trace(Auditor::PERFORMANCE, false, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::PERFORMANCE, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -839,7 +841,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'FUNCTIONALITY', true, $logMsg);
-        $this->testLogger->fatal(Auditor::FUNCTIONALITY, true, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -849,7 +851,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'FUNCTIONALITY', false, $logMsg);
-        $this->testLogger->fatal(Auditor::FUNCTIONALITY, false, $logMsg);
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -859,7 +861,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'FUNCTIONALITY', true, $logMsg);
-        $this->testLogger->warning(Auditor::FUNCTIONALITY, true, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -869,7 +871,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'FUNCTIONALITY', false, $logMsg);
-        $this->testLogger->warning(Auditor::FUNCTIONALITY, false, $logMsg);
+        $this->testLogger->warning(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -879,7 +881,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'FUNCTIONALITY', true, $logMsg);
-        $this->testLogger->error(Auditor::FUNCTIONALITY, true, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -889,7 +891,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'FUNCTIONALITY', false, $logMsg);
-        $this->testLogger->error(Auditor::FUNCTIONALITY, false, $logMsg);
+        $this->testLogger->error(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -899,7 +901,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'FUNCTIONALITY', true, $logMsg);
-        $this->testLogger->info(Auditor::FUNCTIONALITY, true, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -909,7 +911,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'FUNCTIONALITY', false, $logMsg);
-        $this->testLogger->info(Auditor::FUNCTIONALITY, false, $logMsg);
+        $this->testLogger->info(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -919,7 +921,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'FUNCTIONALITY', true, $logMsg);
-        $this->testLogger->debug(Auditor::FUNCTIONALITY, true, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -929,7 +931,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'FUNCTIONALITY', false, $logMsg);
-        $this->testLogger->debug(Auditor::FUNCTIONALITY, false, $logMsg);
+        $this->testLogger->debug(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -939,7 +941,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'FUNCTIONALITY', true, $logMsg);
-        $this->testLogger->trace(Auditor::FUNCTIONALITY, true, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, true, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -949,7 +951,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'FUNCTIONALITY', false, $logMsg);
-        $this->testLogger->trace(Auditor::FUNCTIONALITY, false, $logMsg);
+        $this->testLogger->trace(\PHPESAPI\PHPESAPI\Auditor::FUNCTIONALITY, false, $logMsg);
         $this->assertTrue($this->verifyLogEntry($expected, $testMsg), $testMsg);
     }
 
@@ -966,9 +968,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(16);
         $expected = $this->getExpected('FATAL', 'SECURITY', true, "{$r}_{$r}");
-        $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}\n{$r}");
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, "{$r}\n{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
-        
+
         $this->assertTrue($result, $failMessage);
     }
 
@@ -978,7 +980,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase
     public function testHTMLEncoding($logFileIsReadable)
     {
         $failMessage = null;
-        if (ESAPI::getSecurityConfiguration()->getLogEncodingRequired() ===
+        if (\PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getLogEncodingRequired() ===
             false
         ) {
             $failMessage =
@@ -991,9 +993,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase
         $testMsg = null;
         $r = getRandomAlphaNumString(16);
         $expected = $this->getExpected('FATAL', 'SECURITY', true, "{$r}&amp;{$r}");
-        $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}&{$r}");
+        $this->testLogger->fatal(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, "{$r}&{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
-        
+
         $this->assertTrue($result, $failMessage);
     }
 
@@ -1059,9 +1061,8 @@ class AuditorTest extends PHPUnit_Framework_TestCase
     {
         $date = '[0-9-]{10,10} [0-9:]{8,8} [+-][0-9:]{5,5}';
         $success = $success ? '-SUCCESS' : '-FAILURE';
-        $appName
-            = ESAPI::getSecurityConfiguration()->getLogApplicationName() === true
-            ? ' ' . ESAPI::getSecurityConfiguration()->getApplicationName()
+        $appName = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getLogApplicationName() === true
+            ? ' ' . \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getApplicationName()
             : '';
         $name = __CLASS__;
         $serverName

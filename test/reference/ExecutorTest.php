@@ -15,15 +15,16 @@
  * @author  Linden Darling <linden.darling@jds.net.au>
  * @created 2009
  */
+namespace PHPESAPI\PHPESAPI\Test\Reference;
 
-class ExecutorTest extends PHPUnit_Framework_TestCase
+class ExecutorTest extends \PHPUnit\Framework\TestCase
 {
     private $_instance;
-    
+
     private $_executable;
     private $_params;
     private $_workdir;
-    
+
     protected function setUp()
     {
         if (substr(PHP_OS, 0, 3) === 'WIN') {
@@ -35,10 +36,10 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
             $this->_params = array("-c", "'ls /'");
             $this->_workdir = '/tmp';
         }
-        
-        $this->_instance = new DefaultExecutor();
+
+        $this->_instance = new \PHPESAPI\PHPESAPI\Reference\DefaultExecutor();
     }
-        
+
     /**
      * Test of executeSystemCommand method, of Executor
      */
@@ -47,7 +48,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         try {
             $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
             $this->assertNotNull($result);
-        } catch (ExecutorException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\ExecutorException $e) {
             $this->fail($e->getMessage());
         }
     }
@@ -62,13 +63,13 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         } else {
             $this->_executable .= ';./inject';
         }
-        
+
         $this->setExpectedException('ExecutorException');
-        
+
         $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
         $this->fail('Should not execute injected command');
     }
-    
+
     /**
      * Test of file system canonicalization
      */
@@ -79,13 +80,13 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         } else {
             $this->_executable = '/bin/sh/../bin/sh';
         }
-        
+
         $this->setExpectedException('ExecutorException');
-        
+
         $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
         $this->fail('Should not execute uncanonicalized command');
     }
-    
+
     /**
      * Test to see if a good work directory is properly handled.
      */
@@ -94,11 +95,11 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         try {
             $result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
             $this->assertNotNull($result);
-        } catch (ExecutorException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\ExecutorException $e) {
             $this->fail($e->getMessage());
         }
     }
-    
+
     /**
      * Test to see if a non-existent work directory is properly handled.
      */
@@ -109,13 +110,13 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         } else {
             $this->_workdir = '/ridiculous/';
         }
-        
+
         $this->setExpectedException('ExecutorException');
-        
+
         $result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
         $this->fail('Should not execute with a bad working directory');
     }
-    
+
     /**
      * Test to prevent chained command execution
      */
@@ -126,13 +127,13 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         } else {
             $this->_executable .= " ; ls / ; # ";
         }
-        
+
         $this->setExpectedException('ExecutorException');
-        
+
         $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
         $this->fail("Executed chained command, output: " . $result);
     }
-    
+
     /**
      * Test to prevent chained command execution
      */
@@ -143,15 +144,15 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         } else {
             $this->_params[] = ";ls";
         }
-        
+
         try {
             $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
             $this->assertNotNull($result);
-        } catch (ExecutorException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\ExecutorException $e) {
             $this->fail($e->getMessage());
         }
     }
-    
+
     /**
      * Test to see if the escaping mechanism renders supplemental results safely
      */
@@ -160,12 +161,12 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
         if (substr(PHP_OS, 0, 3) !== 'WIN') {
             $this->markTestSkipped('Not Windows.');
         }
-                
+
         try {
             $this->_params[] = "%SYSTEMROOT%\\explorer.exe %SYSTEMROOT%\\notepad.exe";
             $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
             $this->assertNotNull($result);
-        } catch (ExecutorException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\ExecutorException $e) {
             $this->fail($e->getMessage());
         }
     }

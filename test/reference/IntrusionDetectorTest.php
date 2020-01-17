@@ -19,11 +19,12 @@
  * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
+namespace PHPESAPI\PHPESAPI\Test\Reference;
 
 /**
  * Require Test Helpers and SecurityConfiguration
  */
-require_once __DIR__ . '/../testresources/TestHelpers.php';
+require_once dirname(__DIR__) . '/testresources/TestHelpers.php';
 
 /**
  * Test for the DefaultIntrusionDetector implementation of the IntrusionDetector
@@ -38,9 +39,8 @@ require_once __DIR__ . '/../testresources/TestHelpers.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
+class IntrusionDetectorTest extends \PHPUnit\Framework\TestCase
 {
-
     private $_logFileLoc;
     private $_logDateFormat;
     private $_restoreSecCon;
@@ -51,10 +51,10 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->_restoreSecCon = ESAPI::getSecurityConfiguration();
-        ESAPI::setSecurityConfiguration(null);
+        $this->_restoreSecCon = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration();
+        \PHPESAPI\PHPESAPI\ESAPI::setSecurityConfiguration(null);
         // Use a custom properties file.
-        $sc = ESAPI::getSecurityConfiguration(
+        $sc = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration(
             __DIR__ . '/../testresources/ESAPI_IDS_Tests.xml'
         );
 
@@ -67,7 +67,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
      */
     public function __destruct()
     {
-        ESAPI::setSecurityConfiguration($this->_restoreSecCon);
+        \PHPESAPI\PHPESAPI\ESAPI::setSecurityConfiguration($this->_restoreSecCon);
     }
 
     /**
@@ -87,7 +87,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
 
         $logMsg = 'testExceptionAutoAdd_';
         $logMsg .= getRandomAlphaNumString(32);
-        new EnterpriseSecurityException('user message - testExceptionAutoAdd', $logMsg);
+        new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException('user message - testExceptionAutoAdd', $logMsg);
 
         $m = 'Test attempts to detect exception log message in logfile - %s';
         $this->assertTrue(
@@ -111,7 +111,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
 
         $logMsg = 'testAddException_';
         $logMsg .= getRandomAlphaNumString(32);
-        ESAPI::getIntrusionDetector()->addException(new Exception($logMsg));
+        \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addException(new \Exception($logMsg));
 
         $m = 'Test attempts to detect exception log message in logfile - %s';
         $this->assertTrue(
@@ -137,11 +137,11 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         }
 
         $eventName = 'AddEventTest';
-        $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-        $date = new DateTime;
+        $threshold = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        $date = new \DateTime;
 
         // add event
-        ESAPI::getIntrusionDetector()->addEvent(
+        \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addEvent(
             $eventName,
             'This is a Test Event for IntrusionDetectorTest.'
         );
@@ -177,11 +177,11 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         }
 
         $eventName = 'IntrusionException';
-        $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-        $date = new DateTime;
+        $threshold = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        $date = new \DateTime;
 
-        ESAPI::getIntrusionDetector()->addException(
-            new IntrusionException(
+        \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addException(
+            new \PHPESAPI\PHPESAPI\Errors\IntrusionException(
                 'Naughty User.',
                 'testAddIntrusionExceptionIsTracked'
             )
@@ -217,11 +217,11 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         }
 
         $eventName = 'RapidEventTest';
-        $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-        $date = new DateTime;
+        $threshold = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        $date = new \DateTime;
 
         // Generate Exceptions
-        $ids = ESAPI::getIntrusionDetector();
+        $ids = \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector();
         for ($i = 1; $i <= $threshold->count; $i++) {
             $ids->addEvent(
                 $eventName,
@@ -260,12 +260,12 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         }
 
         $eventName = 'RapidEventTest';
-        $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-        $date = new DateTime;
+        $threshold = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        $date = new \DateTime;
 
         // Note that the previous test testRapidValidationErrors has triggered
         // IDS for this event so we only need one more event to trigger again.
-        ESAPI::getIntrusionDetector()->addEvent(
+        \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addEvent(
             $eventName,
             'This is a Test Event for IntrusionDetectorTest.'
         );
@@ -311,8 +311,8 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         }
 
         $eventName = 'SlidingIntervalTestEvent';
-        $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-        $date = new DateTime;
+        $threshold = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
+        $date = new \DateTime;
 
         $find = "User exceeded quota of {$threshold->count} " .
             "per {$threshold->interval} seconds for event {$eventName}." .
@@ -327,7 +327,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
 
         // Generate 4 events at 1 sec intervals
         for ($i = 0; $i < 4; $i++) {
-            ESAPI::getIntrusionDetector()->addEvent(
+            \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addEvent(
                 $eventName,
                 'This is a Test Event for IntrusionDetectorTest.'
             );
@@ -346,7 +346,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
             fileContainsExpected($this->_logFileLoc, $find, $date, 10, $this->_logDateFormat),
             $m
         );
-        ESAPI::getIntrusionDetector()->addEvent(
+        \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addEvent(
             $eventName,
             'This is a Test Event for IntrusionDetectorTest.'
         );
@@ -356,7 +356,7 @@ class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
         );
 
         // OK this event SHOULD trigger!
-        ESAPI::getIntrusionDetector()->addEvent(
+        \PHPESAPI\PHPESAPI\ESAPI::getIntrusionDetector()->addEvent(
             $eventName,
             'This is a Test Event for IntrusionDetectorTest.'
         );

@@ -19,7 +19,9 @@
  * @since 1.6
  */
 
-class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
+ namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+class SecurityConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     public function testConfigExists()
     {

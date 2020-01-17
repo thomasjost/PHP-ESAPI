@@ -18,97 +18,96 @@
  * @created 2009
  * @since 1.6
  */
+ namespace PHPESAPI\PHPESAPI\Test\Reference;
 
- 
-class StringUtilitiesTest extends PHPUnit_Framework_TestCase
+class StringUtilitiesTest extends \PHPUnit\Framework\TestCase
 {
-    
     public function testStripControlsEmpty()
     {
-        $this->assertEquals('', StringUtilities::stripControls(false));
-        $this->assertEquals('', StringUtilities::stripControls(null));
-        $this->assertEquals('', StringUtilities::stripControls(''));
+        $this->assertEquals('', \PHPESAPI\PHPESAPI\StringUtilities::stripControls(false));
+        $this->assertEquals('', \PHPESAPI\PHPESAPI\StringUtilities::stripControls(null));
+        $this->assertEquals('', \PHPESAPI\PHPESAPI\StringUtilities::stripControls(''));
     }
-    
+
     public function testStripControlsPass()
     {
-        $this->assertEquals('esapi', StringUtilities::stripControls('esapi'));
+        $this->assertEquals('esapi', \PHPESAPI\PHPESAPI\StringUtilities::stripControls('esapi'));
     }
-    
+
     public function testStripControlsLowChars()
     {
-        $this->assertEquals('esapi rocks', StringUtilities::stripControls("esapi" . chr(10) . "rocks"));
+        $this->assertEquals('esapi rocks', \PHPESAPI\PHPESAPI\StringUtilities::stripControls("esapi" . chr(10) . "rocks"));
     }
-    
+
     public function testStripControlsHighChars()
     {
-        $this->assertEquals('  ', StringUtilities::stripControls(chr(0xFE) . chr(0xED)));
+        $this->assertEquals('  ', \PHPESAPI\PHPESAPI\StringUtilities::stripControls(chr(0xFE) . chr(0xED)));
     }
-    
+
     public function testStripControlsBorderCases()
     {
-        $this->assertEquals('  ', StringUtilities::stripControls(chr(0x20) . chr(0x7f)));
+        $this->assertEquals('  ', \PHPESAPI\PHPESAPI\StringUtilities::stripControls(chr(0x20) . chr(0x7f)));
     }
-    
+
     public function testContainsPass()
     {
-        $this->assertTrue(StringUtilities::contains('esapi rocks', 'e'));
+        $this->assertTrue(\PHPESAPI\PHPESAPI\StringUtilities::contains('esapi rocks', 'e'));
     }
-    
+
     public function testContainsPassString()
     {
-        $this->assertTrue(StringUtilities::contains('esapi rocks', 'pi ro'));
+        $this->assertTrue(\PHPESAPI\PHPESAPI\StringUtilities::contains('esapi rocks', 'pi ro'));
     }
-    
+
     public function testContainsFail()
     {
-        $this->assertFalse(StringUtilities::contains('esapi rocks', 'z'));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains('esapi rocks', 'z'));
     }
-    
+
     public function testContainsFailString()
     {
-        $this->assertFalse(StringUtilities::contains('esapi rocks', 'invalid'));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains('esapi rocks', 'invalid'));
     }
-    
+
     public function testContainsNull()
     {
-        $this->assertFalse(StringUtilities::contains(null, 'z'));
-        $this->assertFalse(StringUtilities::contains('foo', null));
-        $this->assertFalse(StringUtilities::contains(null, null));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains(null, 'z'));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains('foo', null));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains(null, null));
     }
-    
+
     public function testContainsEmpty()
     {
-        $this->assertFalse(StringUtilities::contains('', 'z'));
-        $this->assertFalse(StringUtilities::contains('z', ''));
-        $this->assertFalse(StringUtilities::contains('', ''));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains('', 'z'));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains('z', ''));
+        $this->assertFalse(\PHPESAPI\PHPESAPI\StringUtilities::contains('', ''));
     }
-    
+
     public function testUnionPass()
     {
         $arr1 = array('e', 's' , 'a', 'p', 'i');
         $arr2 = array('r', 'o' , 'c', 'k', 's');
-        
+
         $expected = array('a','c','e','i','k','o','p','r','s');
-        
-        $this->assertEquals($expected, StringUtilities::union($arr1, $arr2));
+
+        $this->assertEquals($expected, \PHPESAPI\PHPESAPI\StringUtilities::union($arr1, $arr2));
     }
-    
+
     public function testUnionUnique()
     {
         $arr1 = array("esapi", "rocks");
         $arr2 = array("esapi");
-        
+
         $expected = array("esapi", "rocks");
-        
-        $this->assertEquals($expected, StringUtilities::union($arr1, $arr2));
+
+        $this->assertEquals($expected, \PHPESAPI\PHPESAPI\StringUtilities::union($arr1, $arr2));
     }
-    
+
     public function testUnionEmpty()
     {
         $arr1 = array();
         $arr2 = array();
-        
-        $this->assertEquals(null, StringUtilities::union($arr1, $arr2));
+
+        $this->assertEquals(null, \PHPESAPI\PHPESAPI\StringUtilities::union($arr1, $arr2));
     }
 }

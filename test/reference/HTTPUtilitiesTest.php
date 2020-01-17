@@ -47,7 +47,9 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
+namespace PHPESAPI\PHPESAPI\Test\Reference;
+
+class HTTPUtilitiesTest extends \PHPUnit\Framework\TestCase
 {
     private $_httpUtils;
 
@@ -57,7 +59,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->_httpUtils = ESAPI::getHTTPUtilities();
+        $this->_httpUtils = \PHPESAPI\PHPESAPI\ESAPI::getHTTPUtilities();
     }
 
     /**
@@ -91,7 +93,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     public function testGetCookie()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'cookies' => array(
                     'foo' => 'bar'
@@ -109,7 +111,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     public function testAssertSecureRequestInputSecure()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'HTTPS' => '1',
@@ -128,7 +130,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     public function testAssertSecureRequestInputInsecureNoTLS()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'HTTPS' => 'off',
@@ -148,7 +150,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     public function testAssertSecureRequestInputInsecureNoTLSAlt()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'HTTPS' => '0',
@@ -168,7 +170,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     public function testAssertSecureRequestInputInsecureNotPOST()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'HTTPS' => '1',
@@ -188,7 +190,7 @@ class HTTPUtilitiesTest extends PHPUnit_Framework_TestCase
      */
     public function testAssertSecureRequestInputCannotCheck()
     {
-        $req = new SafeRequest(
+        $req = new \PHPESAPI\PHPESAPI\Filters\SafeRequest(
             array(
                 'env' => array(
                     'REQUEST_METHOD' => 'POST'
