@@ -110,7 +110,7 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
      */
     public function setTypeName($typeName)
     {
-        if (! is_string($typeName) || $typeName == '') {
+        if (!is_string($typeName) || $typeName == '') {
             $typeName = 'GenericValidator';
         }
         $this->typeName = $typeName;
@@ -242,17 +242,26 @@ abstract class BaseValidationRule implements \PHPESAPI\PHPESAPI\ValidationRule
         }
 
         $filtered = '';
-        $initialCharEnc = \PHPESAPI\PHPESAPI\Codecs\Codec::detectEncoding($input);
+        $initialCharEnc = \PHPESAPI\PHPESAPI\Codecs\Codec::detectEncoding(
+            $input
+        );
         $_4ByteCharacterString = \PHPESAPI\PHPESAPI\Codecs\Codec::normalizeEncoding($input);
         $limit = mb_strlen($_4ByteCharacterString, 'UTF-32');
         for ($i = 0; $i < $limit; $i++) {
             $c = mb_substr($_4ByteCharacterString, $i, 1, 'UTF-32');
-            if (\PHPESAPI\PHPESAPI\Codecs\Codec::containsCharacter($c, $whitelist)) {
+            if (\PHPESAPI\PHPESAPI\Codecs\Codec::containsCharacter(
+                $c,
+                $whitelist
+            )) {
                 $filtered .= $c;
             }
         }
         if ($filtered != '') {
-            $filtered = mb_convert_encoding($filtered, $initialCharEnc, 'UTF-32');
+            $filtered = mb_convert_encoding(
+                $filtered,
+                $initialCharEnc,
+                'UTF-32'
+            );
         }
         if (! is_string($filtered)) {
             $filtered = '';

@@ -298,6 +298,9 @@ class StringValidationRule extends BaseValidationRule
      */
     public function sanitize($context, $input)
     {
-        return $this->whitelist($input, \PHPESAPI\PHPESAPI\Encoder::CHAR_ALPHANUMERICS);
+        return $this->whitelist(
+            $input,
+            \PHPESAPI\PHPESAPI\Encoder::CHAR_ALPHANUMERICS
+        );
     }
 }

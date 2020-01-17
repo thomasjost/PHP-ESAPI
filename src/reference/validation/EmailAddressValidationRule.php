@@ -60,7 +60,9 @@ class EmailAddressValidationRule extends StringValidationRule
     {
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("EmailAddressValidationRule");
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor(
+            "EmailAddressValidationRule"
+        );
     }
 
     /**
@@ -119,9 +121,6 @@ class EmailAddressValidationRule extends StringValidationRule
     public function sanitize($context, $input)
     {
         $clean_email = filter_var($input, FILTER_SANITIZE_EMAIL);
-        if ($clean_email) {
-            return $clean_email;
-        }
-        return "";
+        return $clean_email ? $clean_email : '';
     }
 }

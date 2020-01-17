@@ -43,7 +43,7 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     private $userDB;
 
     /** How frequently to check the user db for external modifications */
-    private $checkInterval = 60000;//60 * 1000;
+    private $checkInterval = 60000; //60 * 1000;
 
     /** The last modified time we saw on the user db. */
     private $lastModified = 0;
@@ -60,7 +60,9 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     public function __construct()
     {
         $this->users = array();
-        $this->logger = \PHPESAPI\PHPESAPI\ESAPI::getLogger("Authenticator");
+        $this->logger = \PHPESAPI\PHPESAPI\ESAPI::getLogger(
+            "Authenticator"
+        );
     }
 
     /**
@@ -114,33 +116,55 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     {
         $this->loadUsersIfNecessary();
         if (!$this->isValidString($accountName)) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException("Account creation failed", "Attempt to create user with null accountName");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException(
+                "Account creation failed",
+                "Attempt to create user with null accountName"
+            );
         }
         if ($this->getUserByName($accountName) != null) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for " . $accountName);
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationAccountsException(
+                "Account creation failed",
+                "Duplicate user creation denied for " . $accountName
+            );
         }
 
         $this->verifyAccountNameStrength($accountName);
 
         if ($password1 == null) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid account name", "Attempt to create account " . $accountName . " with a null password");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                "Invalid account name",
+                "Attempt to create account " . $accountName . " with a null password"
+            );
         }
         $this->verifyPasswordStrength(null, $password1);
 
         if ($password1 != $password2) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Passwords do not match", "Passwords for " . $accountName . " do not match");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                "Passwords do not match",
+                "Passwords for " . $accountName . " do not match"
+            );
         }
 
         $user = new DefaultUser($accountName);
         try {
-            $this->setHashedPassword($user, $this->hashPassword($password1, $accountName));
+            $this->setHashedPassword(
+                $user,
+                $this->hashPassword($password1, $accountName)
+            );
         } catch (\PHPESAPI\PHPESAPI\Errors\EncryptionException $ee) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationException("Internal error", "Error hashing password for " . $accountName);
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationException(
+                "Internal error",
+                "Error hashing password for " . $accountName
+            );
         }
 
         $this->userMap[$user->getAccountId()] = $user;
 
-        $this->logger->info(\ESAPILogger::SECURITY, true, "New user created: " . $accountName);
+        $this->logger->info(
+            \ESAPILogger::SECURITY,
+            true,
+            "New user created: " . $accountName
+        );
         $this->saveUsers();
 
         return $user;
@@ -165,15 +189,18 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
 
         $fileData = fstat($this->userDB);
         if ($this->lastModified == $fileData['mtime']) {
-            return;
+            // do nothing
         }
-        //Note: Removing call for now to avoid red exception and spread greenery in tests :)
+        //Note: Removing call for now to avoid red exception and spread
+        // greenery in tests :)
         //        $this->loadUsersImmediately();
     }
 
     protected function loadUsersImmediately()
     {
-        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException("Method Not Implemented");
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
+            "Method Not Implemented"
+        );
     }
 
     /**
@@ -184,7 +211,9 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
      */
     public function saveUsers()
     {
-        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException("Method Not Implemented");
+        throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
+            "Method Not Implemented"
+        );
     }
 
     /**
@@ -201,7 +230,11 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
         $newPassword = $passLetters . $passSpecial . $passDigits;
 
         if ($this->isValidString($newPassword) && $this->isValidString($user)) {
-            $this->logger->info(\ESAPILogger::SECURITY, true, "Generated strong password for " . $user->getAccountName());
+            $this->logger->info(
+                \ESAPILogger::SECURITY,
+                true,
+                "Generated strong password for " . $user->getAccountName()
+            );
         }
 
         return $newPassword;
@@ -222,8 +255,14 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
                 throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Password change failed", "Authentication failed for password change on user: " . $accountName);
             }
 
-            if (!$this->isValidString($newPassword) || !$this->isValidString($newPassword2) || $newPassword != $newPassword2) {
-                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Password change failed", "Passwords do not match for password change on user: " . $accountName);
+            if (!$this->isValidString($newPassword) || !$this->isValidString(
+                $newPassword2
+            ) || $newPassword != $newPassword2
+                ) {
+                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                    "Password change failed",
+                    "Passwords do not match for password change on user: " . $accountName
+                );
             }
 
             $this->verifyPasswordStrength($currentPassword, $newPassword);
@@ -231,13 +270,20 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
             $user->setLastPasswordChangeTime(time());
             $newHash = $this->hashPassword($newPassword, $accountName);
             if (in_array($newHash, $this->getOldPasswordHashes($user))) {
-                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Password change failed", "Password change matches a recent password for user: " . $accountName);
+                throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                    "Password change failed",
+                    "Password change matches a recent password for user: " .
+                    $accountName
+                );
             }
 
             $this->setHashedPassword($user, $newHash);
             $this->logger->info(\ESAPILogger::SECURITY, true, "Password changed for user: " . $accountName);
         } catch (\PHPESAPI\PHPESAPI\Errors\EncryptionException $e) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationException("Password change failed", "Encryption exception changing password for " . $accountName);
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationException(
+                "Password change failed",
+                "Encryption exception changing password for " . $accountName
+            );
         }
     }
 
@@ -255,7 +301,7 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
      */
     public function getAllHashedPasswords($user, $create)
     {
-        //        TODO: Reverify with tests. Something doesn't seem right here
+        // TODO: Reverify with tests. Something doesn't seem right here
         $hashes = $this->passwordMap[$user];
         if ($this->isValidString($hashes)) {
             return $hashes;
@@ -266,7 +312,10 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
 
             return $hashes;
         }
-        throw new \RuntimeException("No hashes found for " . $user->getAccountName() . ". Is User.hashcode() and equals() implemented correctly?");
+        throw new \RuntimeException(
+            "No hashes found for " . $user->getAccountName() .
+            ". Is User.hashcode() and equals() implemented correctly?"
+        );
     }
 
     /**
@@ -295,7 +344,12 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     {
         $hashes = $this->getAllHashedPasswords($user, false);
         if (count($hashes) > 1) {
-            return array_slice($hashes, 1, (count($hashes) - 1), true);
+            return array_slice(
+                $hashes,
+                1,
+                (count($hashes) - 1),
+                true
+            );
         }
 
         return array();
@@ -307,7 +361,7 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     public function getUserById($accountId)
     {
         if ($accountId == 0) {
-            //FIXME: ANONYMOUS User to be returned
+            // FIXME: ANONYMOUS User to be returned
             return null;
         }
 
@@ -330,7 +384,7 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
         }
 
         if (in_array($accountName, $this->users)) {
-            return new DefaultUser($accountName, '123', '123');    // TODO: Milestone 3 - fix with real code
+            return new DefaultUser($accountName, '123', '123');
         }
 
         return null;
@@ -341,14 +395,16 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
      */
     public function getUserNames()
     {
-        // TODO: Re-work in Milestone 3
-
         if (!empty($this->users)) {
             return $this->users;
         }
 
-        $usersFile = __DIR__ . '/../../test/testresources/users.txt';
-        $rawusers = file($usersFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $usersFile = dirname(dirname(__DIR__)) .
+            '/test/testresources/users.txt';
+        $rawusers = file(
+            $usersFile,
+            FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES
+        );
 
         $users = array();
 
@@ -412,7 +468,10 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     {
         $salt = strtolower($accountName);
 
-        return ESAPI::getEncryptor()->hash($password, $salt);
+        return \PHPESAPI\PHPESAPI\ESAPI::getEncryptor()->hash(
+            $password,
+            $salt
+        );
     }
 
     /**
@@ -420,8 +479,6 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
      */
     public function removeUser($accountName)
     {
-        // TODO: Change in Milestone 3. In milestone 1, this is used to clean up a test
-
         $idx = array_search($accountName, $this->users);
         if (!empty($this->users) && $idx !== false) {
             unset($this->users[$idx]);
@@ -438,7 +495,10 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     public function verifyAccountNameStrength($accountName)
     {
         if (!$this->isValidString($accountName)) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                "Invalid account name",
+                "Attempt to create account with a null/empty account name"
+            );
         }
         /*
         if (!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false)) {
@@ -462,7 +522,10 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
     public function verifyPasswordStrength($oldPassword, $newPassword)
     {
         if (!$this->isValidString($newPassword)) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid password", "New password cannot be null");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                "Invalid password",
+                "New password cannot be null"
+            );
         }
 
         // can't change to a password that contains any 3 character substring of old password
@@ -471,8 +534,12 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
             for ($counter = 0; $counter < $passwordLength - 2; $counter++) {
                 $sub = substr($oldPassword, $counter, 3);
                 if (strlen(strstr($newPassword, $sub)) > 0) {
-                    //                if (strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
-                    throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password");
+                    // if (strlen(strstr($newPassword, $sub)) > -1) {
+                    //TODO: Even this works. Revisit for a more elegant solution
+                    throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                        "Invalid password",
+                        "New password cannot contain pieces of old password"
+                    );
                 }
             }
         }
@@ -508,7 +575,10 @@ class FileBasedAuthenticator implements \PHPESAPI\PHPESAPI\Authenticator
         // calculate and verify password strength
         $passwordStrength = $passwordLength * $charsets;
         if ($passwordStrength < 16) {
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException("Invalid password", "New password is not long and complex enough");
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationCredentialsException(
+                "Invalid password",
+                "New password is not long and complex enough"
+            );
         }
     }
 

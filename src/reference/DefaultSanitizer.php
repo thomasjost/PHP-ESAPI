@@ -64,7 +64,10 @@ class DefaultSanitizer implements \PHPESAPI\PHPESAPI\Sanitizer
      */
     public function getSanitizedHTML($context, $input)
     {
-        $hvr = new Validation\HTMLValidationRule('HTML_Validator', $this->encoder);
+        $hvr = new Validation\HTMLValidationRule(
+            'HTML_Validator',
+            $this->encoder
+        );
 
         return $hvr->sanitize($context, $input);
     }
@@ -84,7 +87,10 @@ class DefaultSanitizer implements \PHPESAPI\PHPESAPI\Sanitizer
      */
     public function getSanitizedEmailAddress($context, $input)
     {
-        $evr = new Validation\EmailAddressValidationRule('EmailAddress_Validator', $this->encoder);
+        $evr = new Validation\EmailAddressValidationRule(
+            'EmailAddress_Validator',
+            $this->encoder
+        );
 
         return $evr->sanitize($context, $input);
     }
@@ -104,7 +110,10 @@ class DefaultSanitizer implements \PHPESAPI\PHPESAPI\Sanitizer
      */
     public function getSanitizedURL($context, $input)
     {
-        $uvr = new Validation\URLValidationRule('URL_Validator', $this->encoder);
+        $uvr = new Validation\URLValidationRule(
+            'URL_Validator',
+            $this->encoder
+        );
 
         return $uvr->sanitize($context, $input);
     }
@@ -122,7 +131,10 @@ class DefaultSanitizer implements \PHPESAPI\PHPESAPI\Sanitizer
      */
     public function getSanitizedWord($context, $input)
     {
-        $wvr = new Validation\WordValidationRule('Word_Validator', $this->encoder);
+        $wvr = new Validation\WordValidationRule(
+            'Word_Validator',
+            $this->encoder
+        );
 
         return $wvr->sanitize($context, $input);
     }

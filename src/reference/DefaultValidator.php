@@ -81,7 +81,7 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     {
         try {
             $this->_assertValidInput($context, $input, $type, $maxLength, $allowNull);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -151,7 +151,11 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     private function _assertValidDate($context, $input, $format, $allowNull)
     {
-        $dvr = new Validation\DateValidationRule('DateValidator', $this->_encoder, $format);
+        $dvr = new Validation\DateValidationRule(
+            'DateValidator',
+            $this->_encoder,
+            $format
+        );
         $dvr->setAllowNull($allowNull);
 
         $dvr->assertValid($context, $input);
@@ -165,7 +169,12 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     public function isValidHTML($context, $input, $maxLength, $allowNull)
     {
         try {
-            $this->_assertValidHTML($context, $input, $maxLength, $allowNull);
+            $this->_assertValidHTML(
+                $context,
+                $input,
+                $maxLength,
+                $allowNull
+            );
         } catch (\Exception $e) {
             return false;
         }
@@ -188,7 +197,10 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     private function _assertValidHTML($context, $input, $maxLength, $allowNull)
     {
-        $hvr = new Validation\HTMLValidationRule('HTML_Validator', $this->_encoder);
+        $hvr = new Validation\HTMLValidationRule(
+            'HTML_Validator',
+            $this->_encoder
+        );
         $hvr->setMaximumLength($maxLength);
         $hvr->setAllowNull($allowNull);
 
@@ -225,7 +237,10 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     private function _assertValidCreditCard($context, $input, $allowNull)
     {
-        $ccvr = new Validation\CreditCardValidationRule('CreditCard', $this->_encoder);
+        $ccvr = new Validation\CreditCardValidationRule(
+            'CreditCard',
+            $this->_encoder
+        );
         $ccvr->setAllowNull($allowNull);
 
         $ccvr->assertValid($context, $input);
@@ -283,7 +298,7 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
         }
 
         if (!$dir->isDir()) {
-            throw new ValidationException(
+            throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 "{$context}: Invalid directory name",
                 "Invalid directory, not a directory: context={$context}, input={$input}"
             );
@@ -307,7 +322,13 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     public function isValidNumber($context, $input, $minValue, $maxValue, $allowNull)
     {
         try {
-            $this->_assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
+            $this->_assertValidNumber(
+                $context,
+                $input,
+                $minValue,
+                $maxValue,
+                $allowNull
+            );
         } catch (\Exception $e) {
             return false;
         }
@@ -331,7 +352,12 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     private function _assertValidNumber($context, $input, $minValue, $maxValue, $allowNull)
     {
-        $nvr = new Validation\NumberValidationRule('NumberValidator', $this->_encoder, $minValue, $maxValue);
+        $nvr = new Validation\NumberValidationRule(
+            'NumberValidator',
+            $this->_encoder,
+            $minValue,
+            $maxValue
+        );
         $nvr->setAllowNull($allowNull);
 
         $nvr->assertValid($context, $input);
@@ -345,7 +371,13 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     public function isValidInteger($context, $input, $minValue, $maxValue, $allowNull)
     {
         try {
-            $this->_assertValidInteger($context, $input, $minValue, $maxValue, $allowNull);
+            $this->_assertValidInteger(
+                $context,
+                $input,
+                $minValue,
+                $maxValue,
+                $allowNull
+            );
         } catch (\Exception $e) {
             return false;
         }
@@ -369,7 +401,12 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     private function _assertValidInteger($context, $input, $minValue, $maxValue, $allowNull)
     {
-        $nvr = new Validation\IntegerValidationRule('IntegerValidator', $this->_encoder, $minValue, $maxValue);
+        $nvr = new Validation\IntegerValidationRule(
+            'IntegerValidator',
+            $this->_encoder,
+            $minValue,
+            $maxValue
+        );
         $nvr->setAllowNull($allowNull);
 
         $nvr->assertValid($context, $input);
@@ -383,7 +420,13 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     public function isValidDouble($context, $input, $minValue, $maxValue, $allowNull)
     {
         try {
-            $this->_assertValidDouble($context, $input, $minValue, $maxValue, $allowNull);
+            $this->_assertValidDouble(
+                $context,
+                $input,
+                $minValue,
+                $maxValue,
+                $allowNull
+            );
         } catch (\Exception $e) {
             return false;
         }
@@ -407,7 +450,13 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     private function _assertValidDouble($context, $input, $minValue, $maxValue, $allowNull)
     {
-        $this->_assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
+        $this->_assertValidNumber(
+            $context,
+            $input,
+            $minValue,
+            $maxValue,
+            $allowNull
+        );
 
         return null;
     }
@@ -415,10 +464,19 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     /**
      * @inheritdoc
      */
-    public function isValidFileContent($context, $input, $maxBytes, $allowNull)
-    {
+    public function isValidFileContent(
+        $context,
+        $input,
+        $maxBytes,
+        $allowNull
+    ) {
         try {
-            $this->_assertValidFileContent($context, $input, $maxBytes, $allowNull);
+            $this->_assertValidFileContent(
+                $context,
+                $input,
+                $maxBytes,
+                $allowNull
+            );
         } catch (\Exception $e) {
             return false;
         }
@@ -439,8 +497,12 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      *
      * @return does not return a value.
      */
-    private function _assertValidFileContent($context, $input, $maxBytes, $allowNull)
-    {
+    private function _assertValidFileContent(
+        $context,
+        $input,
+        $maxBytes,
+        $allowNull
+    ) {
         if (! is_string($context)) {
             $context = 'Validate File Content';
         }
@@ -454,7 +516,7 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
 
         if (! is_numeric($maxBytes) || $maxBytes < 0) {
             $this->_auditor->warning(
-                ESAPILogger::SECURITY,
+                \ESAPILogger::SECURITY,
                 false,
                 'assertValidFileContent expected $maxBytes as positive integer.' .
                 ' Falling back to AllowedFileUploadSize.'
@@ -579,7 +641,12 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
     public function isValidPrintable($context, $input, $maxLength, $allowNull)
     {
         try {
-            $this->_assertValidPrintable($context, $input, $maxLength, $allowNull);
+            $this->_assertValidPrintable(
+                $context,
+                $input,
+                $maxLength,
+                $allowNull
+            );
         } catch (\Exception $e) {
             return false;
         }
@@ -600,9 +667,19 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      *
      * @return does not return a value.
      */
-    private function _assertValidPrintable($context, $input, $maxLength, $allowNull)
-    {
-        $this->_assertValidInput($context, $input, 'PrintableASCII', $maxLength, $allowNull);
+    private function _assertValidPrintable(
+        $context,
+        $input,
+        $maxLength,
+        $allowNull
+    ) {
+        $this->_assertValidInput(
+            $context,
+            $input,
+            'PrintableASCII',
+            $maxLength,
+            $allowNull
+        );
 
         return null;
     }
@@ -612,6 +689,12 @@ class DefaultValidator implements \PHPESAPI\PHPESAPI\Validator
      */
     public function isValidRedirectLocation($context, $input, $allowNull)
     {
-        return $this->isValidInput($context, $input, "Redirect", 512, $allowNull);
+        return $this->isValidInput(
+            $context,
+            $input,
+            "Redirect",
+            512,
+            $allowNull
+        );
     }
 }

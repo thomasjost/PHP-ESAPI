@@ -67,7 +67,9 @@ class DefaultIntrusionDetector implements \PHPESAPI\PHPESAPI\IntrusionDetector
      */
     public function __construct()
     {
-        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('IntrusionDetector');
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor(
+            'IntrusionDetector'
+        );
         $this->_userEvents = array();
     }
 
@@ -91,9 +93,19 @@ class DefaultIntrusionDetector implements \PHPESAPI\PHPESAPI\IntrusionDetector
         }
 
         if ($exception instanceof \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException) {
-            $this->_auditor->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $exception->getLogMessage(), $exception);
+            $this->_auditor->warning(
+                \PHPESAPI\PHPESAPI\Auditor::SECURITY,
+                false,
+                $exception->getLogMessage(),
+                $exception
+            );
         } else {
-            $this->_auditor->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, false, $exception->getMessage(), $exception);
+            $this->_auditor->warning(
+                \PHPESAPI\PHPESAPI\Auditor::SECURITY,
+                false,
+                $exception->getMessage(),
+                $exception
+            );
         }
 
         // add the exception, which may trigger a detector
@@ -101,7 +113,8 @@ class DefaultIntrusionDetector implements \PHPESAPI\PHPESAPI\IntrusionDetector
         try {
             $this->_addSecurityEvent($eventName);
         } catch (\PHPESAPI\PHPESAPI\Errors\IntrusionException $intrusionException) {
-            $quota = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getQuota($eventName);
+            $quota = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()
+                ->getQuota($eventName);
             $message = 'User exceeded quota of ' . $quota->count . ' per ' .
                 $quota->interval . ' seconds for event ' . $eventName .
                 sprintf(
@@ -206,10 +219,16 @@ class DefaultIntrusionDetector implements \PHPESAPI\PHPESAPI\IntrusionDetector
             if (! array_key_exists('ESAPI', $_SESSION)) {
                 $_SESSION['ESAPI'] = array();
             }
-            if (! array_key_exists('IntrusionDetector', $_SESSION['ESAPI'])) {
+            if (! array_key_exists(
+                'IntrusionDetector',
+                $_SESSION['ESAPI']
+            )) {
                 $_SESSION['ESAPI']['IntrusionDetector'] = array();
             }
-            if (! array_key_exists('UserEvents', $_SESSION['ESAPI']['IntrusionDetector'])) {
+            if (! array_key_exists(
+                'UserEvents',
+                $_SESSION['ESAPI']['IntrusionDetector']
+            )) {
                 $_SESSION['ESAPI']['IntrusionDetector']['UserEvents'] = array();
             }
             // If a session was started after events existed then ensure those
@@ -232,7 +251,7 @@ class DefaultIntrusionDetector implements \PHPESAPI\PHPESAPI\IntrusionDetector
             $event = $this->_userEvents[$eventName];
         }
         if ($event == null) {
-            $this->_userEvents[$eventName] = new \Event($eventName);
+            $this->_userEvents[$eventName] = new Event($eventName);
             $event = $this->_userEvents[$eventName];
         }
         if ($threshold->count > 0) {

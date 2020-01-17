@@ -175,7 +175,7 @@ class IntegerValidationRule extends BaseValidationRule
             }
 
             return $i;
-        } catch (\NumberFormatException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\NumberFormatException $e) {
             throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid integer input',
                 'Invalid integer input format: Caught NumberFormatException: ' .

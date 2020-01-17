@@ -98,7 +98,8 @@ class NumberValidationRule extends BaseValidationRule
     {
         // Some sanity checks first
         if (! is_string($context)) {
-            $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
+            $context = 'NoContextSupplied';
+            // TODO Invalid Arg Exception?
         }
 
         if (! is_string($input) && $input !== null) {
@@ -194,7 +195,7 @@ class NumberValidationRule extends BaseValidationRule
             }
 
             return $d;
-        } catch (\NumberFormatException $e) {
+        } catch (\PHPESAPI\PHPESAPI\Errors\NumberFormatException $e) {
             throw new \PHPESAPI\PHPESAPI\Errors\ValidationException(
                 $context . ': Invalid number input',
                 'Invalid number input format: Caught NumberFormatException: ' .

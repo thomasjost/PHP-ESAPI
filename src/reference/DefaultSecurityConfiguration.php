@@ -143,10 +143,14 @@ class DefaultSecurityConfiguration implements \PHPESAPI\PHPESAPI\SecurityConfigu
             $this->_xml = simplexml_load_file($path);
 
             if ($this->_xml === false) {
-                throw new \Exception("Failed to load security configuration.");
+                throw new \Exception(
+                    "Failed to load security configuration."
+                );
             }
         } else {
-            throw new \Exception("Security configuration file does not exist.");
+            throw new \Exception(
+                "Security configuration file does not exist."
+            );
         }
     }
 
@@ -157,7 +161,9 @@ class DefaultSecurityConfiguration implements \PHPESAPI\PHPESAPI\SecurityConfigu
      */
     private function _loadEvents()
     {
-        $_events = $this->_xml->xpath('/esapi-properties/IntrusionDetector/event');
+        $_events = $this->_xml->xpath(
+            '/esapi-properties/IntrusionDetector/event'
+        );
 
         if ($_events === false) {
             $this->_events = null;

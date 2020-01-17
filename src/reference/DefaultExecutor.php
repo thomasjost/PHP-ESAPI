@@ -70,23 +70,36 @@ class DefaultExecutor implements \PHPESAPI\PHPESAPI\Executor
         $workdir = $this->_config->getWorkingDirectory();
         $logParams = false;
 
-        return $this->executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
+        return $this->executeSystemCommandLonghand(
+            $executable,
+            $params,
+            $workdir,
+            $logParams
+        );
     }
 
     /**
      * @inheritdoc
      */
-    public function executeSystemCommandLonghand($executable, $params, $workdir, $logParams)
-    {
+    public function executeSystemCommandLonghand(
+        $executable,
+        $params,
+        $workdir,
+        $logParams
+    ) {
         try {
             // executable must exist
             $resolved = $executable;
 
             // resolve environment variables on Windows
             if (substr(PHP_OS, 0, 3) == 'WIN') {
-                $resolved = preg_replace_callback('/%(\w+)%/', function ($matches) {
-                    return getenv($matches[1]);
-                }, $executable);
+                $resolved = preg_replace_callback(
+                    '/%(\w+)%/',
+                    function ($matches) {
+                        return getenv($matches[1]);
+                    },
+                    $executable
+                );
             }
 
             if (!file_exists($resolved)) {
@@ -165,8 +178,14 @@ class DefaultExecutor implements \PHPESAPI\PHPESAPI\Executor
 
             return $output;
         } catch (\PHPESAPI\PHPESAPI\Errors\ExecutorException $e) {
-            $this->_auditor->warning(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $e->getMessage());
-            throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException($e->getMessage());
+            $this->_auditor->warning(
+                \PHPESAPI\PHPESAPI\Auditor::SECURITY,
+                true,
+                $e->getMessage()
+            );
+            throw new \PHPESAPI\PHPESAPI\Errors\ExecutorException(
+                $e->getMessage()
+            );
         }
     }
 }

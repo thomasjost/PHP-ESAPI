@@ -123,7 +123,13 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
      */
     public function error($type, $success, $message, $throwable = null)
     {
-        $this->_log(\PHPESAPI\PHPESAPI\Auditor::ERROR, $type, $success, $message, $throwable);
+        $this->_log(
+            \PHPESAPI\PHPESAPI\Auditor::ERROR,
+            $type,
+            $success,
+            $message,
+            $throwable
+        );
     }
 
     /**
@@ -139,7 +145,13 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
      */
     public function warning($type, $success, $message, $throwable = null)
     {
-        $this->_log(\PHPESAPI\PHPESAPI\Auditor::WARNING, $type, $success, $message, $throwable);
+        $this->_log(
+            \PHPESAPI\PHPESAPI\Auditor::WARNING,
+            $type,
+            $success,
+            $message,
+            $throwable
+        );
     }
 
     /**
@@ -155,7 +167,13 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
      */
     public function info($type, $success, $message, $throwable = null)
     {
-        $this->_log(\PHPESAPI\PHPESAPI\Auditor::INFO, $type, $success, $message, $throwable);
+        $this->_log(
+            \PHPESAPI\PHPESAPI\Auditor::INFO,
+            $type,
+            $success,
+            $message,
+            $throwable
+        );
     }
 
     /**
@@ -171,7 +189,13 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
      */
     public function debug($type, $success, $message, $throwable = null)
     {
-        $this->_log(\PHPESAPI\PHPESAPI\Auditor::DEBUG, $type, $success, $message, $throwable);
+        $this->_log(
+            \PHPESAPI\PHPESAPI\Auditor::DEBUG,
+            $type,
+            $success,
+            $message,
+            $throwable
+        );
     }
 
     /**
@@ -187,7 +211,13 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
      */
     public function trace($type, $success, $message, $throwable = null)
     {
-        $this->_log(\PHPESAPI\PHPESAPI\Auditor::TRACE, $type, $success, $message, $throwable);
+        $this->_log(
+            \PHPESAPI\PHPESAPI\Auditor::TRACE,
+            $type,
+            $success,
+            $message,
+            $throwable
+        );
     }
 
     /**
@@ -275,7 +305,8 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
         $request = \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()->getCurrentRequest();
         if ($request === null) {
             $request = new \PHPESAPI\PHPESAPI\Filters\SafeRequest;
-            \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()->setCurrentHTTP($request);
+            \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()
+                ->setCurrentHTTP($request);
         }
 
         $laddr = $request->getServerName();
@@ -306,7 +337,8 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
                 = $_SESSION['DefaultAuditor']['SessionIDForLogging'];
             } else {
                 try {
-                    $userSessionIDforLogging = (string) \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomInteger(0, 1000000);
+                    $userSessionIDforLogging = (string) \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()
+                        ->getRandomInteger(0, 1000000);
                     $_SESSION['DefaultAuditor']['SessionIDForLogging'] = $userSessionIDforLogging;
                 } catch (\Exception $e) {
                     // continue
@@ -348,7 +380,8 @@ class DefaultAuditor implements \PHPESAPI\PHPESAPI\Auditor
         // Now handle the exception
         $dumpedException = '';
         if ($throwable !== null && $throwable instanceof \Exception) {
-            $dumpedException = ' ' . $this->_replaceCRLF($throwable, ' | ');
+            $dumpedException = ' ' .
+                $this->_replaceCRLF($throwable, ' | ');
         }
 
         $messageForLog = $context . ' ' . $encodedMessage . $dumpedException;

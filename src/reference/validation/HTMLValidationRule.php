@@ -182,13 +182,10 @@ class HTMLValidationRule extends StringValidationRule
      */
     public function sanitize($context, $input)
     {
-        $clean_html = null;
         try {
-            $clean_html = $this->_purifier->purify($input);
+            return $this->_purifier->purify($input);
         } catch (\Exception $e) {
             // NoOp - return clean_html
         }
-
-        return $clean_html;
     }
 }

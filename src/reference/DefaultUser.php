@@ -121,12 +121,16 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
         $this->setAccountName($accountName);
 
         //TODO: Not the best way IMHO. I'd rather call the method via factory object each time. Needs discussion..
-        $this->IDLE_TIMEOUT_LENGTH = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getSessionIdleTimeoutLength();
-        $this->ABSOLUTE_TIMEOUT_LENGTH = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getSessionAbsoluteTimeoutLength();
+        $this->IDLE_TIMEOUT_LENGTH = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()
+            ->getSessionIdleTimeoutLength();
+        $this->ABSOLUTE_TIMEOUT_LENGTH = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()
+            ->getSessionAbsoluteTimeoutLength();
 
         do {
-            $id = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomLong();
-            if (\PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()->getUserById($id) == null && $id != 0) {
+            $id = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()
+                ->getRandomLong();
+            if (\PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()
+                ->getUserById($id) == null && $id != 0) {
                 $this->setAccountID($id);
             }
         } while ($this->getAccountID() == 0);
@@ -155,7 +159,21 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
      *
      * @var array
      */
-    private $UserInfoFields = array("accountName" , "hashedPassword" , "roles" , "locked" , "enabled" , "rememberToken" , "csrfToken" , "oldPasswordHashes" , "lastPasswordChangeTime" , "lastLoginTime" , "lastFailedLoginTime" , "expirationTime" , "failedLoginCount");
+    private $_userInfoFields = [
+        "accountName",
+        "hashedPassword",
+        "roles",
+        "locked",
+        "enabled",
+        "rememberToken",
+        "csrfToken",
+        "oldPasswordHashes",
+        "lastPasswordChangeTime",
+        "lastLoginTime",
+        "lastFailedLoginTime",
+        "expirationTime",
+        "failedLoginCount"
+    ];
 
     private function setUserInfo($field, $value)
     {
@@ -181,6 +199,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
         }
     }
 
+    /**
+     * @deprecated
+     *
+     * @return void
+     */
     private function readUserInfo()
     {
         $Compare = $this->_username;
@@ -246,7 +269,7 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     /**
      * {@inheritDoc}
      */
-    public function setLocale(Locale $locale)
+    public function setLocale($locale)
     {
         throw new \PHPESAPI\PHPESAPI\Errors\EnterpriseSecurityException(
             'Method not implemented',
@@ -292,7 +315,12 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
      */
     public function changePassword($oldPassword, $newPassword1, $newPassword2)
     {
-        ESAPI::getAuthenticator()->changePassword($this, $oldPassword, $newPassword1, $newPassword2);
+        \PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()->changePassword(
+            $this,
+            $oldPassword,
+            $newPassword1,
+            $newPassword2
+        );
     }
 
     /**
@@ -301,7 +329,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     public function disable()
     {
         $this->_enabled = false;
-        \ESAPI::getLogger("DefaultUser")->info(\ESAPILogger::SECURITY, true, "Account disabled: " . $this->getAccountName());
+        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(
+            \ESAPILogger::SECURITY,
+            true,
+            "Account disabled: " . $this->getAccountName()
+        );
     }
 
     /**
@@ -310,7 +342,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     public function enable()
     {
         $this->enable = true;
-        \ESAPI::getLogger("DefaultUser")->info(\ESAPILogger::SECURITY, true, "Account enabled: " . $this->getAccountName());
+        \ESAPI::getLogger("DefaultUser")->info(
+            \ESAPILogger::SECURITY,
+            true,
+            "Account enabled: " . $this->getAccountName()
+        );
     }
 
     /**
@@ -417,7 +453,10 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
             $HttpSession = session_id();
         }
 
-        $_SESSION[$this->getAccountId()][$HttpSession] = array("start" => time() , "lastUpdate" => time());
+        $_SESSION[$this->getAccountId()][$HttpSession] = [
+            "start" => time() ,
+            "lastUpdate" => time()
+        ];
     }
 
     /**
@@ -466,13 +505,7 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
      */
     public function isAnonymous()
     {
-        //TODO: Redo
-        //Need to discuss the concept of anonymous in context with PHP
-        if ($this->_uid === null) {
-            return true;
-        } else {
-            return false;
-        }
+        return is_null($this->_uid);
     }
 
     /**
@@ -488,13 +521,7 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
      */
     public function isExpired()
     {
-        //TODO: Redo
-        $ExpTime = $this->getUserInfo("expirationTime");
-        if ($ExpTime < time()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->getUserInfo("expirationTime") < time();
     }
 
     /**
@@ -533,7 +560,9 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
             $session = session_id();
         }
         if (isset($_SESSION[$this->getAccountId()][$session]['start'])) {
-            return (time() - $_SESSION[$this->getAccountId()][$session]['start']) > $this->sessionAbsoluteTimeout;
+            return (
+                time() - $_SESSION[$this->getAccountId()][$session]['start']
+            ) > $this->sessionAbsoluteTimeout;
         }
 
         return true;
@@ -552,7 +581,9 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
         }
         #XXX: You should add some logic to update session time somewhere!
         if (isset($_SESSION[$this->getAccountId()][$session]['lastUpdate'])) {
-            return (time() - $_SESSION[$this->getAccountId()][$session]['lastUpdate']) > $this->sessionTimeout;
+            return (
+                time() - $_SESSION[$this->getAccountId()][$session]['lastUpdate']
+            ) > $this->sessionTimeout;
         }
 
         return true;
@@ -564,7 +595,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     public function lock()
     {
         $this->_locked = true;
-        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(\ESAPILogger::SECURITY, true, "Account locked: " . $this->getAccountName());
+        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(
+            \ESAPILogger::SECURITY,
+            true,
+            "Account locked: " . $this->getAccountName()
+        );
     }
 
     /**
@@ -576,44 +611,70 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
         if (is_null($password) || $password == "") {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException("Login failed", "Missing password: " . $this->getAccountName());
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException(
+                "Login failed",
+                "Missing password: " . $this->getAccountName()
+            );
         }
 
         // don't let disabled users log in
         if (! $this->isEnabled()) {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException("Login failed", "Disabled user attempt to login: " . $this->getAccountName());
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException(
+                "Login failed",
+                "Disabled user attempt to login: " . $this->getAccountName()
+            );
         }
 
         // don't let locked users log in
         if ($this->isLocked()) {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException("Login failed", "Locked user attempt to login: " . $this->getAccountName());
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException(
+                "Login failed",
+                "Locked user attempt to login: " . $this->getAccountName()
+            );
         }
 
         // don't let expired users log in
         if ($this->isExpired()) {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException("Login failed", "Expired user attempt to login: " . $this->getAccountName());
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException(
+                "Login failed",
+                "Expired user attempt to login: " . $this->getAccountName()
+            );
         }
 
         $this->logout();
 
         if ($this->verifyPassword($password)) {
             $this->_loggedIn = true;
-            \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()->changeSessionIdentifier(\PHPESAPI\PHPESAPI\ESAPI::currentRequest());
-            \PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()->setCurrentUser($this);
+            \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()
+                ->changeSessionIdentifier(
+                    \PHPESAPI\PHPESAPI\ESAPI::currentRequest()
+                );
+            \PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()
+                ->setCurrentUser($this);
             $this->setLastLoginTime(time());
-            $this->setLastHostAddress(\PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()->getCurrentRequest()->getRemoteHost());
-            \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->trace(\ESAPILogger::SECURITY, "User logged in: " . $this->_accountName);
+            $this->setLastHostAddress(
+                \PHPESAPI\PHPESAPI\ESAPI::getHttpUtilities()
+                    ->getCurrentRequest()
+                    ->getRemoteHost()
+            );
+            \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->trace(
+                \ESAPILogger::SECURITY,
+                "User logged in: " . $this->_accountName
+            );
         } else {
             $this->_loggedIn = false;
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
-            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException("Login failed", "Incorrect password provided for " . $this->getAccountName());
+            throw new \PHPESAPI\PHPESAPI\Errors\AuthenticationLoginException(
+                "Login failed",
+                "Incorrect password provided for " . $this->getAccountName()
+            );
         }
     }
 
@@ -641,17 +702,24 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     {
         $role = strtolower($role);
         unset($this->_roles[$role]);
-        ESAPI::getLogger("DefaultLogger")->trace(ESAPILogger::SECURITY, true, "Role " . $role . " removed from " . $this->getAccountName());
+        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultLogger")->trace(
+            \ESAPILogger::SECURITY,
+            true,
+            "Role " . $role . " removed from " . $this->getAccountName()
+        );
     }
 
     /**
      * {@inheritDoc}
+     * @throws \PHPESAPI\PHPESAPI\Errors\AuthenticationException
      */
-    public function resetCSRFToken() //throws AuthenticationException;
+    public function resetCSRFToken()
     {
-        //TODO: Uncomment when Encoder's implemented
-        //        $this->_csrfToken = ESAPI::getRandomizer()->getRandomString(8, DefaultEncoder::CHAR_ALPHANUMERICS);
-        return $csrfToken;
+        $this->_csrfToken = \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()
+            ->getRandomString(
+                8,
+                DefaultEncoder::CHAR_ALPHANUMERICS
+            );
     }
 
     /**
@@ -662,7 +730,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
         $oldAccountName = $this->getAccountName();
         $this->_accountName = strtolower($accountName);
         if (!is_null($oldAccountName)) {
-            \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(\ESAPILogger::SECURITY, true, "Account name changed from " . $oldAccountName . " to " . $this->getAccountName());
+            \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(
+                \ESAPILogger::SECURITY,
+                true,
+                "Account name changed from " . $oldAccountName . " to " . $this->getAccountName()
+            );
         }
     }
 
@@ -700,7 +772,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     public function setScreenName($screenName)
     {
         $this->_screenName = $screenName;
-        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(\ESAPILogger::SECURITY, true, "ScreenName changed to " . $screenName . " for " . $this->getAccountName());
+        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(
+            \ESAPILogger::SECURITY,
+            true,
+            "ScreenName changed to " . $screenName . " for " . $this->getAccountName()
+        );
     }
 
     /**
@@ -710,7 +786,11 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
     {
         $this->_locked = false;
         $this->_failedLoginCount = 0;
-        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(\ESAPILogger::SECURITY, true, "Account unlocked: " . $this->getAccountName());
+        \PHPESAPI\PHPESAPI\ESAPI::getLogger("DefaultUser")->info(
+            \ESAPILogger::SECURITY,
+            true,
+            "Account unlocked: " . $this->getAccountName()
+        );
     }
 
     /**
@@ -718,7 +798,10 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
      */
     public function verifyPassword($password)
     {
-        return \PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()->verifyPassword($this, $password);
+        return \PHPESAPI\PHPESAPI\ESAPI::getAuthenticator()->verifyPassword(
+            $this,
+            $password
+        );
     }
 
     /**
@@ -735,7 +818,10 @@ class DefaultUser implements \PHPESAPI\PHPESAPI\User
         //TODO: Redo
         if ($this->_lastHostAddress != null && $this->_lastHostAddress != $remoteHost) {
             // returning remote address not remote hostname to prevent DNS lookup
-            new \PHPESAPI\PHPESAPI\Errors\AuthenticationHostException("Host change", "User session just jumped from " . $this->_lastHostAddress . " to " . $remoteHost);
+            new \PHPESAPI\PHPESAPI\Errors\AuthenticationHostException(
+                "Host change",
+                "User session just jumped from " . $this->_lastHostAddress . " to " . $remoteHost
+            );
         }
         $this->_lastHostAddress = $remoteHost;
     }

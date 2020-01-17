@@ -60,7 +60,9 @@ class WordValidationRule extends StringValidationRule
     {
         parent::__construct($typeName, $encoder);
 
-        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor("WordValidationRule");
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor(
+            "WordValidationRule"
+        );
     }
 
     /**

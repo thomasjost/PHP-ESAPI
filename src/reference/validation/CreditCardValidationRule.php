@@ -47,7 +47,6 @@ namespace PHPESAPI\PHPESAPI\Reference\Validation;
 
 class CreditCardValidationRule extends BaseValidationRule
 {
-    private $_ccrule = null;
     const CREDIT_CARD_VALIDATOR_KEY = 'CreditCard';
 
     /**
@@ -181,6 +180,9 @@ class CreditCardValidationRule extends BaseValidationRule
      */
     public function sanitize($context, $input)
     {
-        return $this->whitelist($input, \PHPESAPI\PHPESAPI\Encoder::CHAR_DIGITS);
+        return $this->whitelist(
+            $input,
+            \PHPESAPI\PHPESAPI\Encoder::CHAR_DIGITS
+        );
     }
 }

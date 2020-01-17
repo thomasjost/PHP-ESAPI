@@ -121,10 +121,6 @@ class URLValidationRule extends StringValidationRule
     public function sanitize($context, $input)
     {
         $clean_url = filter_var($input, FILTER_SANITIZE_URL);
-        if ($clean_url == false) {
-            return "";
-        } else {
-            return $clean_url;
-        }
+        return $clean_url ? $clean_url : '';
     }
 }

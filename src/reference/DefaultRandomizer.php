@@ -77,9 +77,13 @@ class DefaultRandomizer implements \PHPESAPI\PHPESAPI\Randomizer
      */
     public function getRandomFilename($extension = '')
     {
-        // Because PHP runs on case insensitive OS as well as case sensitive OS, only use lowercase
+        // Because PHP runs on case insensitive OS as well as case
+        // sensitive OS, only use lowercase
 
-        $rs = $this->getRandomString(16, 'abcdefghijklmnopqrstuvxyz0123456789');
+        $rs = $this->getRandomString(
+            16,
+            'abcdefghijklmnopqrstuvxyz0123456789'
+        );
         $rs .= $extension;
 
         return  $rs;
@@ -90,7 +94,7 @@ class DefaultRandomizer implements \PHPESAPI\PHPESAPI\Randomizer
      */
     public function getRandomReal($min, $max)
     {
-        $rf = (float) (mt_rand() / $this->maxRand);        // Maximizes the random bit counts from the PHP PRNG
+        $rf = (float) (mt_rand() / $this->maxRand); // Maximizes the random bit counts from the PHP PRNG
 
         $factor = $max - $min;
 

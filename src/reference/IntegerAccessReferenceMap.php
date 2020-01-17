@@ -86,7 +86,10 @@ class IntegerAccessReferenceMap implements \PHPESAPI\PHPESAPI\AccessReferenceMap
             return $this->itod->offsetGet($indirectReference);
         }
 
-        throw new \PHPESAPI\PHPESAPI\Errors\AccessControlException("Access denied", "Request for invalid indirect reference: " + $indirectReference);
+        throw new \PHPESAPI\PHPESAPI\Errors\AccessControlException(
+            "Access denied",
+            "Request for invalid indirect reference: " + $indirectReference
+        );
     }
 
     /**

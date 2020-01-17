@@ -54,7 +54,9 @@ class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
      */
     public function __construct()
     {
-        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor('DefaultHTTPUtilities');
+        $this->_auditor = \PHPESAPI\PHPESAPI\ESAPI::getAuditor(
+            'DefaultHTTPUtilities'
+        );
         $this->_validator = \PHPESAPI\PHPESAPI\ESAPI::getValidator();
     }
 
@@ -234,9 +236,7 @@ class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
      */
     public function changeSessionIdentifier()
     {
-        $result = session_regenerate_id(true);
-
-        return $result;
+        return session_regenerate_id(true);
     }
 
     /**
@@ -272,11 +272,7 @@ class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
             );
         }
 
-        if (empty($isSecure) || $isSecure === 'off') {
-            return false;
-        }
-
-        return true;
+        return (empty($isSecure) || $isSecure === 'off') ? false : true;
     }
 
     /**
@@ -285,7 +281,13 @@ class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
     public function getParameter($request, $name, $default = null)
     {
         $value = $request->getParameter($name);
-        if ($this->_validator->isValidInput("HTTP parameter value: " . $value, $value, "HTTPParameterValue", 2000, true)) {
+        if ($this->_validator->isValidInput(
+            "HTTP parameter value: " . $value,
+            $value,
+            "HTTPParameterValue",
+            2000,
+            true
+        )) {
             return $value;
         } else {
             return $default;
@@ -352,8 +354,10 @@ class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
         foreach ($parts as $part) {
             try {
                 $nvpair = explode('=', $part);
-                $name = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()->decodeFromURL($nvpair[0]);
-                $value = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()->decodeFromURL($nvpair[1]);
+                $name = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()
+                    ->decodeFromURL($nvpair[0]);
+                $value = \PHPESAPI\PHPESAPI\ESAPI::getEncoder()
+                    ->decodeFromURL($nvpair[1]);
                 if (! array_key_exists($name, $map)) {
                     $map[$name] = $value;
                 }
@@ -482,7 +486,7 @@ class DefaultHTTPUtilities implements \PHPESAPI\PHPESAPI\HTTPUtilities
             }
         }
 
-        $auditor->info(Auditor::SECURITY, true, $msg);
+        $auditor->info(\PHPESAPI\PHPESAPI\Auditor::SECURITY, true, $msg);
     }
 
     /*
