@@ -40,8 +40,13 @@
  *
  * @return bool|null True if the a line contains the expected parameters.
  */
+
 function fileContainsExpected(
-    $filename, $expected, $date = null, $period = 0, $format = 'Y-m-d H:i:s P'
+    $filename,
+    $expected,
+    $date = null,
+    $period = 0,
+    $format = 'Y-m-d H:i:s P'
 ) {
     if (empty($filename) || ! is_string($filename)) {
         return null;
@@ -97,7 +102,7 @@ function fileContainsExpected(
  */
 function getLogFileLoc()
 {
-    $filename = ESAPI::getSecurityConfiguration()->getLogFileName();
+    $filename = \PHPESAPI\PHPESAPI\ESAPI::getSecurityConfiguration()->getLogFileName();
 
     return realpath($filename);
 }
@@ -115,10 +120,10 @@ function getRandomAlphaNumString($len)
     if (empty($len)) {
         return null;
     }
-    ESAPI::getEncoder();
+    \PHPESAPI\PHPESAPI\ESAPI::getEncoder();
 
-    return ESAPI::getRandomizer()->getRandomString(
+    return \PHPESAPI\PHPESAPI\ESAPI::getRandomizer()->getRandomString(
         $len,
-        Encoder::CHAR_ALPHANUMERICS
+        \PHPESAPI\PHPESAPI\Encoder::CHAR_ALPHANUMERICS
     );
 }
